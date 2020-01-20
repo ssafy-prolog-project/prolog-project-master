@@ -21,7 +21,6 @@ const NavBarLayout = styled.div`
     background-color : gray;
     color: white;
     /* will be layout css code  */
-    
 `;
 
 const NavLogo = styled.div`
