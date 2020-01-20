@@ -11,9 +11,7 @@ const NavBar = () => {
 
 const NavBarLayout = styled.div`
     background-color : lightgreen;
-    
     /* will be layout css code  */
-    
 `;
 
 
