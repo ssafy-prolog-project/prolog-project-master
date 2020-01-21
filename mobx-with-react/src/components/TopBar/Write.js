@@ -7,10 +7,10 @@ export const PlusIcon = styled(Plus)`
   cursor: pointer;
   padding-top: 0.1rem;
   margin-right: 0.5rem;
+  color: black;
   :hover{
     opacity: 0.5;
   }
-  
 `;
 
 const Write = () => {
