@@ -31,12 +31,13 @@ const NavItemsLayout = styled.ul`
     list-style: none;
     padding-left: 0;
     border-top-style: solid;
+    border-color: white;
     border-width: 1px;
     /* will be layout css code  */
 `;
 
 const NavItem = styled.li`
-    
+    color: white;
     cursor: pointer;
     font-size: 20px;
     border-width: 1px;

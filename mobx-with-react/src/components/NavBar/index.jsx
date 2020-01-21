@@ -20,8 +20,7 @@ const NavBar = () => {
 };
 
 const NavBarLayout = styled.div`
-    background-color : gray;
-    color: white;
+    background-color : gray
     /* will be layout css code  */
 `;
 
