@@ -17,7 +17,8 @@ const MainPage = () => (
 const MainPageLayout = styled.div`
     height: 100vh;
     display: grid;
-    grid-template-columns: 20% 80%;
+    overflow-y: hidden;
+    grid-template-columns: 290px 81vw;
     grid-template-areas:
         "nav content"
         
@@ -27,9 +28,8 @@ const Div = styled.div`
     padding-bottom: 5%;
     display: grid;
     grid-template-rows: 7% 93%;
-    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
 `
 
-
-export
- default MainPage;
+export default MainPage;

@@ -69,6 +69,16 @@ const Divs = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 25%);
   grid-template-rows: repeat(auto-fit, 1fr);
+
+  @media (max-width: 1020px) { /*태블릿?*/ 
+    grid-template-columns: repeat(3, auto-fit);
+    grid-template-rows: repeat(auto-fit, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(auto-fit, 1fr);
+  }
 `
 
 export default PostList;

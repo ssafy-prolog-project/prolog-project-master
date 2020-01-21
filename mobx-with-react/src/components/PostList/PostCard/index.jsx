@@ -32,7 +32,7 @@ const CardMainLayOut = styled.div`
   background-color: #f0f0f0;
   margin: 10px;
   padding: 15px;
-  max-width: 460px;
+  max-width: auto;
   border-style: groove;
   border-width: 3px;
   border-color: black;
