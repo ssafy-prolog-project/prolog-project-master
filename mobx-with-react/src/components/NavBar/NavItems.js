@@ -45,12 +45,13 @@ const NavItem = styled.li`
     padding-top: 12px;
     padding-bottom: 12px;
     border-bottom-style: solid;
+    :hover {
+        background-color: #00aec9;
+    }
 `;
 
 const ItemContent = styled.a`
-:hover {
-        opacity: 0.5;
-    }
+
     padding-top: .75rem;
     padding-bottom: .75rem;
     font-size: 1.125rem;

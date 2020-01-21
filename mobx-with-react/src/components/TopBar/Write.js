@@ -2,6 +2,7 @@ import React from 'react';
 import {Plus} from 'styled-icons/boxicons-regular/Plus';
 import styled from 'styled-components';
 
+
 export const PlusIcon = styled(Plus)`
   width: 60px;
   height: 90%;
@@ -9,7 +10,7 @@ export const PlusIcon = styled(Plus)`
   float: right;
 `;
 
-const Right = () => {
+const Write = () => {
     const PlusClick = () => {
         alert("아이콘을 눌렀어요!");
     }
@@ -20,13 +21,5 @@ const Right = () => {
 }
 
 
-const PostRight = styled.div`
-    
-    /* will be layout css code  */
-`;
-const PortfolioRight = styled.div`
-    
-    /* will be layout css code  */
-`;
 
-export default Right;
+export default Write;

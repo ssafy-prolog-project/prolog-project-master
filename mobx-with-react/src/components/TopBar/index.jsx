@@ -1,13 +1,13 @@
 import React from 'react';
-import Profile from './Profile';
-import Right from './Right';
+import ProfileBtn from './ProfileBtn';
+import Write from './Write';
 import styled from 'styled-components';
 
 const TopBar = () => {
     return (
         <TopBarLayout>
-            <Profile></Profile>
-            <Right></Right>
+            <ProfileBtn></ProfileBtn>
+            <Write></Write>
         </TopBarLayout>
     );
 };
