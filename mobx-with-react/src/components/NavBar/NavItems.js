@@ -28,7 +28,6 @@ const NavItems = () => {
 };
 
 const NavItemsLayout = styled.ul`
-
     list-style: none;
     padding-left: 0;
     border-top-style: solid;
@@ -37,6 +36,7 @@ const NavItemsLayout = styled.ul`
 `;
 
 const NavItem = styled.li`
+    
     cursor: pointer;
     font-size: 20px;
     border-width: 1px;
@@ -47,6 +47,9 @@ const NavItem = styled.li`
 `;
 
 const ItemContent = styled.a`
+:hover {
+        opacity: 0.5;
+    }
     padding-top: .75rem;
     padding-bottom: .75rem;
     font-size: 1.125rem;

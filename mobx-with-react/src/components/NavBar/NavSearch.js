@@ -14,24 +14,12 @@ const NavSearch = () => {
         </NavSearchInput>
     </NavSearchLayout>
   );
-  // return (
-  //   <NavSearchLayout>
-  //     <form style={{display:""}}>
-  //       <NavSearchInput>
-  //         <InputBox></InputBox>
-  //         <NavSearchBtn onClick={searchBtn}></NavSearchBtn>
-  //       </NavSearchInput>
-  //     </form>
-  //   </NavSearchLayout>
-  // );
+
 };
 
 const NavSearchLayout = styled.div`
 padding-left: 1.75rem;
     padding-right: 1.75rem;
-  /* margin-bottom: .5rem; */
-  /* will be layout css cod
-  e  */
 `;
 const NavSearchInput = styled.div`
     -webkit-transition: all .125s ease-in;
@@ -49,9 +37,7 @@ const NavSearchInput = styled.div`
 `;
 const InputBox = styled.input`
     font-family: inherit;
-  /* margin-left: 20px;
-  height: 30px;
-  width: 70%; */
+    width: 80%;
 `;
 const NavSearchBtn = styled.input.attrs({
   type: "submit",
@@ -66,6 +52,7 @@ const NavSearchBtn = styled.input.attrs({
   border-color: transparent;
   box-shadow: 0px;
   text-align: center;
+  font-size: 100%;
 `;
 
 export default NavSearch;
