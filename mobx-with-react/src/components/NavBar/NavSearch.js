@@ -1,5 +1,5 @@
 import React from "react";
-import  {SearchAlt2} from 'styled-icons/boxicons-regular/SearchAlt2';
+import { SearchAlt2 } from "styled-icons/boxicons-regular/SearchAlt2";
 import styled from "styled-components";
 
 export const SearchIcon = styled(SearchAlt2)`
@@ -15,42 +15,42 @@ const NavSearch = () => {
 
   return (
     <NavSearchLayout>
-        <NavSearchInput>
-          <InputBox></InputBox>
-          <SearchIcon onClick={searchBtn} />
-          {/* <NavSearchBtn ></NavSearchBtn> */}
-        </NavSearchInput>
+      <NavSearchInput>
+        <InputBox></InputBox>
+        <SearchIcon onClick={searchBtn} />
+        {/* <NavSearchBtn ></NavSearchBtn> */}
+      </NavSearchInput>
     </NavSearchLayout>
   );
-
 };
 
 const NavSearchLayout = styled.div`
-padding-left: 1.75rem;
-    padding-right: 1.75rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 2rem;
 `;
 const NavSearchInput = styled.div`
-    -webkit-transition: all .125s ease-in;
-    -o-transition: .125s all ease-in;
-    transition: all .125s ease-in;
-    border-radius: 4px;
-    display: -ms-flexbox;
-    display: flex;
-    padding-left: .5rem;
-    background: #f1f3f5;
-    border: 1px solid #dee2e6;
-    -ms-flex-align: center;
-    align-items: center;
-    color: #343a40;
+  -webkit-transition: all 0.125s ease-in;
+  -o-transition: 0.125s all ease-in;
+  transition: all 0.125s ease-in;
+  border-radius: 4px;
+  display: -ms-flexbox;
+  display: flex;
+  padding-left: 0.5rem;
+  background: #f1f3f5;
+  border: 1px solid #dee2e6;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #343a40;
 `;
 const InputBox = styled.input`
-    font-family: inherit;
-    width: 80%;
+  font-family: inherit;
+  width: 80%;
 `;
 
-
 // const NavSearchBtn = styled.input.attrs({
-  
+
 //   value: "검색" /*search.png 넣고싶음...*/
 // })`
 //   background: #00aec9;

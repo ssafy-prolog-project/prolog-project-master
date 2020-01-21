@@ -42,7 +42,7 @@ const NavItem = styled.li`
     font-size: 20px;
     border-width: 1px;
     border-color: white;
-    padding-top: 12px;
+    padding-top: 5px;
     padding-bottom: 12px;
     border-bottom-style: solid;
     :hover {

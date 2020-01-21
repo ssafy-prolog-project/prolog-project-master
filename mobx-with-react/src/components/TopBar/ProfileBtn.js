@@ -6,8 +6,11 @@ export const ProfileIcon = styled(Profile)`
     width: 40px;
     float: right;
     cursor: pointer;
-    padding-top: 10px;
-    padding-right: 5px;
+    padding-top: .7rem;
+    padding-right: 1rem;
+    :hover{
+    opacity: 0.5;
+  }
 `;
 
 const ProfileBtn = () => {
