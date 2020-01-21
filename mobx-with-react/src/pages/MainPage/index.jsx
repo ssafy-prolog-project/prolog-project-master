@@ -6,18 +6,19 @@ import styled from 'styled-components';
 const MainPage = () => (
     <MainPageLayout>
         <NavBar></NavBar>
+        <TopBar></TopBar>
         <PostList></PostList>
     </MainPageLayout>
 );
 
 
 const MainPageLayout = styled.div`
+    height: 100vh;
     display: grid;
-    grid-template-rows: repeat(auto-fit, 1fr);
-    grid-template-columns: repeat(5, 1fr);
-    column-gap: 20px;
+    grid-template-columns: 1fr 4fr;
+    column-gap: 5%;
     grid-template-areas:
-        "nav main main main main"
+        "nav main"
 
 `
 const nav = styled.nav`
