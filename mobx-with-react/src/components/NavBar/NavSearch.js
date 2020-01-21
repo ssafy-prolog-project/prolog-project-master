@@ -8,22 +8,50 @@ const NavSearch = () => {
 
   return (
     <NavSearchLayout>
-      <form style={{display:""}}>
         <NavSearchInput>
-            <input id="searchText"/>
+          <InputBox></InputBox>
+          <NavSearchBtn onClick={searchBtn}></NavSearchBtn>
         </NavSearchInput>
-        <NavSearchBtn onClick={searchBtn}></NavSearchBtn>
-      </form>
     </NavSearchLayout>
   );
+  // return (
+  //   <NavSearchLayout>
+  //     <form style={{display:""}}>
+  //       <NavSearchInput>
+  //         <InputBox></InputBox>
+  //         <NavSearchBtn onClick={searchBtn}></NavSearchBtn>
+  //       </NavSearchInput>
+  //     </form>
+  //   </NavSearchLayout>
+  // );
 };
 
 const NavSearchLayout = styled.div`
-  /* will be layout css code  */
+padding-left: 1.75rem;
+    padding-right: 1.75rem;
+  /* margin-bottom: .5rem; */
+  /* will be layout css cod
+  e  */
 `;
 const NavSearchInput = styled.div`
-  width: 80%;
-  height: 35px;
+    -webkit-transition: all .125s ease-in;
+    -o-transition: .125s all ease-in;
+    transition: all .125s ease-in;
+    border-radius: 4px;
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: .5rem;
+    background: #f1f3f5;
+    border: 1px solid #dee2e6;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #343a40;
+`;
+const InputBox = styled.input`
+    font-family: inherit;
+  /* margin-left: 20px;
+  height: 30px;
+  width: 70%; */
 `;
 const NavSearchBtn = styled.input.attrs({
   type: "submit",
