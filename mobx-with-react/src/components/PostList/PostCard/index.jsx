@@ -47,17 +47,20 @@ const CardMainLayOut = styled.div`
 const CardImage = styled.img`
   border: 1px solid #ddd;
   border-radius: 10px;
-  padding: 5px;
+  box-sizing: border-box;
+  padding: 0.1rem;
   width: 100%;
-  height: 150px;
+  height: 70%;
+  position: relative;
 `;
 
 const DefaultImage = styled.img`
   border: 1px solid #ddd;
   border-radius: 10px;
-  padding: 5px;
+  padding: 0.1rem;
   width: 100%;
-  height: 150px;
+  height: 100%;
+  position: relative;
   background-color: black;
 `;
 
