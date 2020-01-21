@@ -37,7 +37,8 @@ const CardMainLayOut = styled.div`
   background-color: #f0f0f0;
   margin: 10px;
   padding: 15px;
-  max-width: 460px;
+  width: auto;
+  max-width: 100%;
   border-style: groove;
   border-width: 3px;
   border-color: black;
@@ -47,14 +48,15 @@ const CardImage = styled.img`
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 5px;
-  width: 150px;
+  width: 100%;
+  height: 150px;
 `;
 
 const DefaultImage = styled.img`
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 5px;
-  width: 150px;
+  width: 100%;
   height: 150px;
   background-color: black;
 `;

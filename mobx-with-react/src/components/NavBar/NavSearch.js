@@ -1,5 +1,12 @@
 import React from "react";
+import  {SearchAlt2} from 'styled-icons/boxicons-regular/SearchAlt2';
 import styled from "styled-components";
+
+export const SearchIcon = styled(SearchAlt2)`
+  width: 20%;
+  height: 35px;
+  cursor: pointer;
+`;
 
 const NavSearch = () => {
   const searchBtn = () => {
@@ -10,7 +17,8 @@ const NavSearch = () => {
     <NavSearchLayout>
         <NavSearchInput>
           <InputBox></InputBox>
-          <NavSearchBtn onClick={searchBtn}></NavSearchBtn>
+          <SearchIcon onClick={searchBtn} />
+          {/* <NavSearchBtn ></NavSearchBtn> */}
         </NavSearchInput>
     </NavSearchLayout>
   );
@@ -39,20 +47,22 @@ const InputBox = styled.input`
     font-family: inherit;
     width: 80%;
 `;
-const NavSearchBtn = styled.input.attrs({
-  type: "submit",
-  value: "검색"
-})`
-  background: #00aec9;
-  color: white;
-  cursor: pointer;
-  margin-bottom: 0;
-  width: 20%;
-  height: 35px;
-  border-color: transparent;
-  box-shadow: 0px;
-  text-align: center;
-  font-size: 100%;
-`;
+
+
+// const NavSearchBtn = styled.input.attrs({
+  
+//   value: "검색" /*search.png 넣고싶음...*/
+// })`
+//   background: #00aec9;
+//   color: white;
+//   cursor: pointer;
+//   margin-bottom: 0;
+//   width: 20%;
+//   height: 35px;
+//   border-color: transparent;
+//   box-shadow: 0px;
+//   text-align: center;
+//   font-size: 100%;
+// `;
 
 export default NavSearch;
