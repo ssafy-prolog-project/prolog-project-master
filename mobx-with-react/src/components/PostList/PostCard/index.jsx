@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 // data를 나중에 store로 옮기자. 어떤 자료를 가지고 있어야하지?
 // imageUrl, Title, category, text, likes, comments, created_at, updated_at , author
@@ -7,18 +8,22 @@ import styled from "styled-components";
 // 일단 내부적으로 정의된 Post가 있고 이 Post의 DB 형태는 글을 작성하는 쪽에서 결정해야한다.
 // 여기에서는 요청 결과로 들어온 Post 결과물만을 보여주면 충분하다.
 const PostCard = ({ post }) => {
-  const { imgUrl, title, text, author, date } = post;
+  const { id, imgUrl, title, text, author, date } = post;
   const onClick = () => {
     alert(title + "클릭했음 나중에 페이지 옮기는 코드 넣자.");
   };
 
+  const postid = id-1
+  
   return (
     <CardMainLayOut>
+      <Link to={"/post/"+postid}>
       {imgUrl ? (
         <CardImage onClick={onClick} src={imgUrl}></CardImage>
       ) : (
         <DefaultImage onClick={onClick}></DefaultImage>
       )}
+      </Link>
       <CardTitle>{title}</CardTitle>
       {/* <Date>{date}</Date>
       <CardDescription>{text}</CardDescription> */}
@@ -32,7 +37,7 @@ const CardMainLayOut = styled.div`
   background-color: #f0f0f0;
   margin: 10px;
   padding: 15px;
-  max-width: 460px;
+  max-width: auto;
   border-style: groove;
   border-width: 3px;
   border-color: black;

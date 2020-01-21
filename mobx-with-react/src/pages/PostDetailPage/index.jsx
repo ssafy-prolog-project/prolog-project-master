@@ -1,12 +1,9 @@
-import React, { useState } from "react";
-import PostCard from "./PostCard";
-import styled from "styled-components";
+import React from 'react';
+import NavBar from '../../components/NavBar';
+import styled from 'styled-components';
+import TopBar from '../../components/TopBar';
 
-const PostList = () => {
-  // posts 는 그냥 api 호출을 통해서가져오는 것 뿐이다. 그럼 그냥 Posts를 axios로 호출하는 코드와
-  // 그것을 보여주는 코드면 충분하다.
-  // imgUrl, title, category, text, author
-  const posts = [
+const posts = [
     {
       id: 1,
       imgUrl: "http://image.itdonga.com/files/2015/09/04/001.jpg",
@@ -75,25 +72,45 @@ const PostList = () => {
       date: "3/2/2019"
     }
   ]; // axios로 호출해서 받아오면 된다.
-  const postCards = posts.map(post => <PostCard post={post} />);
-  return <Divs>{postCards}</Divs>;
-};
 
-const Divs = styled.div`
-  padding: 2%;
-  display: grid;
-  grid-template-columns: repeat(4, 25%);
-  grid-template-rows: repeat(auto-fit, 1fr);
 
-  @media (max-width: 1020px) { /*태블릿?*/ 
-    grid-template-columns: repeat(3, auto-fit);
-    grid-template-rows: repeat(auto-fit, 1fr);
-  }
+const PostDetailPage = ({match}) => {
+    const {id} = match.params;
+    const post = posts[id]
+    const { imgUrl, title, category, text, author, date} = post;
+    return (
+    <PostDetailPageLayout>
+        <NavBar></NavBar>
+        <div>
+            <TopBar></TopBar>
+            <h1>Post Detail Page {id}</h1>
+            <h2>{title}</h2>
+            <h3>{category}</h3>
+            <p>{text}</p>
+            <h2>{author}</h2>
+            <h3>{date}</h3>
+            <img src={imgUrl} alt={title}></img>
+        </div>
+    </PostDetailPageLayout>
+);
+}
 
-  @media (max-width: 768px) {
-    grid-template-columns: 100%;
-    grid-template-rows: repeat(auto-fit, 1fr);
-  }
+const PostDetailPageLayout = styled.div`
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-template-areas:
+        "nav content"
+        
+`;
+
+const Div = styled.div`
+    padding-bottom: 5%;
+    display: grid;
+    grid-template-rows: 7% 93%;
+    overflow: scroll;
 `
 
-export default PostList;
+
+export
+ default PostDetailPage;
