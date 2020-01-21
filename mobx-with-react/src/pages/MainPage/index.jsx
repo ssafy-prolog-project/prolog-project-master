@@ -24,9 +24,12 @@ const MainPageLayout = styled.div`
 `;
 
 const Div = styled.div`
+    padding-bottom: 5%;
     display: grid;
     grid-template-rows: 7% 93%;
+    overflow: scroll;
 `
+
 
 export
  default MainPage;

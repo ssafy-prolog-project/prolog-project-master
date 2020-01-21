@@ -32,12 +32,12 @@ const PostCard = ({ post }) => {
 
 const CardMainLayOut = styled.div`
   color: #fff;
-  background-color: #ffc396;
+  background-color: #f0f0f0;
   margin: 10px;
   padding: 15px;
   max-width: 460px;
-  border-style: solid;
-  border-width: 10px;
+  border-style: groove;
+  border-width: 3px;
   border-color: black;
 `;
 
@@ -58,8 +58,8 @@ const DefaultImage = styled.img`
 `;
 
 const CardTitle = styled.h2`
-  color: #fff;
-  font-weight: 300;
+  font-weight: bold;
+  color: black;
 `;
 
 const Date = styled.div`
@@ -69,7 +69,7 @@ const Date = styled.div`
 `;
 
 const CardDescription = styled.p`
-  color: #fff;
+  color: black;
   font-weight: 300;
 `;
 
