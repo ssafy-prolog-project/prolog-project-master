@@ -11,7 +11,6 @@ const MainPage = () => (
     </MainPageLayout>
 );
 
-
 const MainPageLayout = styled.div`
     height: 100vh;
     display: grid;
