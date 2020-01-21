@@ -18,7 +18,7 @@ const MainPageLayout = styled.div`
     height: 100vh;
     display: grid;
     overflow-y: hidden;
-    grid-template-columns: 290px 81vw;
+    grid-template-columns: 290px;
     grid-template-areas:
         "nav content"
         
@@ -28,7 +28,6 @@ const Div = styled.div`
     padding-bottom: 5%;
     display: grid;
     grid-template-rows: 7% 93%;
-    overflow-x: hidden;
     overflow-y: scroll;
 `
 
