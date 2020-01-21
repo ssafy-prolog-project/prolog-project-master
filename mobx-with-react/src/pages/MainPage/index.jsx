@@ -7,27 +7,26 @@ import TopBar from '../../components/TopBar';
 const MainPage = () => (
     <MainPageLayout>
         <NavBar></NavBar>
-        <div>
+        <Div>
             <TopBar></TopBar>
             <PostList></PostList>
-        </div>
+        </Div>
     </MainPageLayout>
 );
 
 const MainPageLayout = styled.div`
     height: 100vh;
     display: grid;
-    grid-template-columns: 1fr 4fr;
-    column-gap: 5%;
+    grid-template-columns: 20% 80%;
     grid-template-areas:
-        "nav main"
+        "nav content"
+        
+`;
 
-`
-const nav = styled.nav`
-    grid-area: nav;
-`
-const main = styled.main`
-    grid-area: main;
+const Div = styled.div`
+    display: grid;
+    grid-template-rows: 7% 93%;
 `
 
-export default MainPage;
+export
+ default MainPage;
