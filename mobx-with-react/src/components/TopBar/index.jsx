@@ -1,11 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
 
 const TopBar = () => {
     return (
-        <div>
+        <TopBarLayout>
             Here!!!
-        </div>
+        </TopBarLayout>
     );
 };
+
+const TopBarLayout = styled.div`
+    background-color : gray;
+    color: white;
+    /* will be layout css code  */
+`;
 
 export default TopBar;
