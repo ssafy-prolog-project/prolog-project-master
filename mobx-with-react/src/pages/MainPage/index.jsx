@@ -7,8 +7,10 @@ import TopBar from '../../components/TopBar';
 const MainPage = () => (
     <MainPageLayout>
         <NavBar></NavBar>
-        <TopBar></TopBar>
-        <PostList></PostList>
+        <div>
+            <TopBar></TopBar>
+            <PostList></PostList>
+        </div>
     </MainPageLayout>
 );
 
