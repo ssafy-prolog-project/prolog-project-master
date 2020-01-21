@@ -7,7 +7,7 @@ import styled from "styled-components";
 // 일단 내부적으로 정의된 Post가 있고 이 Post의 DB 형태는 글을 작성하는 쪽에서 결정해야한다.
 // 여기에서는 요청 결과로 들어온 Post 결과물만을 보여주면 충분하다.
 const PostCard = ({ post }) => {
-  const { imgUrl, title, category, text, author, date } = post;
+  const { imgUrl, title, text, author, date } = post;
   const onClick = () => {
     alert(title + "클릭했음 나중에 페이지 옮기는 코드 넣자.");
   };
@@ -20,11 +20,8 @@ const PostCard = ({ post }) => {
         <DefaultImage onClick={onClick}></DefaultImage>
       )}
       <CardTitle>{title}</CardTitle>
-      <Date>{date}</Date>
-      <CardDescription>{text}</CardDescription>
-      <CardActionButton>0 Comments</CardActionButton>
-      <CardActionButton>0 Likes</CardActionButton>
-      <CardActionButton>0 Views</CardActionButton>
+      {/* <Date>{date}</Date>
+      <CardDescription>{text}</CardDescription> */}
       <p style={{ color: "black" }}>작성자 : {author}</p>
     </CardMainLayOut>
   );
@@ -71,20 +68,6 @@ const Date = styled.div`
 const CardDescription = styled.p`
   color: black;
   font-weight: 300;
-`;
-
-const CardActionButton = styled.button`
-  margin: 0 5px;
-  padding: 8px 14px;
-  background: rgba(155, 155, 155, 0.2);
-  color: #fff;
-  cursor: pointer;
-  border: 1px solid #fff;
-  outline: 0;
-  font-weight: 300;
-  :hover {
-    opacity: 0.8;
-  }
 `;
 
 export default PostCard;
