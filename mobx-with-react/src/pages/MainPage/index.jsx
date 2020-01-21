@@ -2,12 +2,15 @@ import React from 'react';
 import PostList from '../../components/PostList';
 import NavBar from '../../components/NavBar';
 import styled from 'styled-components';
+import TopBar from '../../components/TopBar';
 
 const MainPage = () => (
     <MainPageLayout>
         <NavBar></NavBar>
-        <TopBar></TopBar>
-        <PostList></PostList>
+        <div>
+            <TopBar></TopBar>
+            <PostList></PostList>
+        </div>
     </MainPageLayout>
 );
 
