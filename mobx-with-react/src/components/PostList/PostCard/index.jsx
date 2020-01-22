@@ -10,29 +10,15 @@ import { Link } from "react-router-dom";
 const PostCard = ({ post }) => {
   const { id, imgUrl, title, text, author, date } = post;
 
-<<<<<<< HEAD
-  const postid = id-1
-
-
   return (
     <CardMainLayOut>
     <OutL>
-      <Link to={"/post/"+postid}>
+      <Link to={"/post/"+id}>
       {imgUrl ? (
-        <CardImage onClick={onClick} src={imgUrl}></CardImage>
+        <CardImage src={imgUrl}></CardImage>
       ) : (
-        <DefaultImage onClick={onClick}></DefaultImage>
+        <DefaultImage></DefaultImage>
       )}
-=======
-  return (
-    <CardMainLayOut>
-      <Link to={"/post/" + id}>
-        {imgUrl ? (
-          <CardImage src={imgUrl}></CardImage>
-        ) : (
-          <DefaultImage></DefaultImage>
-        )}
->>>>>>> 1bfca0027ce5e667327dd4603bc4ecf8f83355f3
       </Link>
       </OutL>
       <CardTitle>{title}</CardTitle>
