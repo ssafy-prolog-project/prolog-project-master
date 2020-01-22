@@ -14,9 +14,11 @@ const PostCard = ({ post }) => {
   };
 
   const postid = id-1
-  
+
+
   return (
     <CardMainLayOut>
+    <OutL>
       <Link to={"/post/"+postid}>
       {imgUrl ? (
         <CardImage onClick={onClick} src={imgUrl}></CardImage>
@@ -24,6 +26,7 @@ const PostCard = ({ post }) => {
         <DefaultImage onClick={onClick}></DefaultImage>
       )}
       </Link>
+      </OutL>
       <CardTitle>{title}</CardTitle>
       {/* <Date>{date}</Date>
       <CardDescription>{text}</CardDescription> */}
@@ -31,6 +34,9 @@ const PostCard = ({ post }) => {
     </CardMainLayOut>
   );
 };
+
+const divAspect = 90/120;
+
 
 const CardMainLayOut = styled.div`
   color: #fff;
@@ -44,23 +50,35 @@ const CardMainLayOut = styled.div`
   border-color: black;
 `;
 
-const CardImage = styled.img`
+const OutL = styled.div`
   border: 1px solid #ddd;
   border-radius: 10px;
-  box-sizing: border-box;
   padding: 0.1rem;
-  width: 100%;
-  height: 70%;
   position: relative;
+	width: 100%;
+	height: 0;
+	overflow: hidden;
+	padding-bottom: 56.26%;
+`
+
+const CardImage = styled.img`
+  position: absolute;
+  object-fit: cover;
+	top: 0;
+	left: 0;
+	width: 100%;
+  height: 100%;
 `;
 
 const DefaultImage = styled.img`
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 0.1rem;
-  width: 100%;
-  height: 100%;
-  position: relative;
+  position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
   background-color: black;
 `;
 
