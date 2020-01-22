@@ -19,7 +19,11 @@ const NavBar = () => {
 };
 
 const NavBarLayout = styled.div`
-    background-color : gray
+    background-color : gray;
+
+    @media (max-width: 768px) {
+        display: none;
+  }
 `;
 
 const NavLogo = styled.div`
