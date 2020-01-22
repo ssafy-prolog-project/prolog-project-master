@@ -20,7 +20,9 @@ const ProfileBtn = () => {
         alert("프로필을 눌렀어요!");
     };
     return (
-        <ProfileIcon onClick={ProfileClick}></ProfileIcon>
+        <Link to={"/mypage"} style={{ textDecoration: "none" }}>
+            <ProfileIcon onClick={ProfileClick}></ProfileIcon>
+        </Link>
     );
 };
 

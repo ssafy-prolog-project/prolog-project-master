@@ -14,10 +14,7 @@ export const PlusIcon = styled(Plus)`
 `;
 
 const Write = () => {
-  const PlusClick = () => {
-    alert("아이콘을 눌렀어요!");
-  };
-
+ 
   const PostClick = () => {
     alert("Post를 눌렀어요!");
   };
@@ -27,7 +24,7 @@ const Write = () => {
 
   return (
     <WriteLayout>
-      <PlusIcon onClick={PlusClick}></PlusIcon>
+      <PlusIcon></PlusIcon>
       <SelectMenus className="a">
         <SelectMenu onClick={PostClick}>Post</SelectMenu>
         <SelectMenu onClick={PortfolioClick}>Portfolio</SelectMenu>

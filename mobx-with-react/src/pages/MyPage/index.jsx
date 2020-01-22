@@ -1,6 +1,7 @@
 import React from 'react';
+import styled from "styled-components";
 
-const MainPage = () => (
+const MyPage = () => (
     <MyPageLayout>
         <h1>MyPage</h1>
     </MyPageLayout>

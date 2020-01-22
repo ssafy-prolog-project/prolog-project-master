@@ -5,6 +5,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
 import PostDetailPage from './pages/PostDetailPage';
+import MyPage from './pages/MyPage';
 
 class App extends Component {
   render(){
@@ -23,6 +24,7 @@ class App extends Component {
             <Route path="/login" component={LoginPage} />
             <Route path="/post/:id" component={PostDetailPage} />
             <Route path="/" component={MainPage} />
+            <Route path="/mypage" component={MyPage} />
           </Switch>
       </div>
     );
