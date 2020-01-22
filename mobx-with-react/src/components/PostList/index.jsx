@@ -11,8 +11,11 @@ const PostList = ({ posts, onAdd, onDelete }) => {
   const postCards = posts.map(item => <PostCard key={item.id} post={item} />);
   return (
     <Divs>
-      <button onClick={onAdd}>추가추가</button>
-      {/* <button onClick={onDelete}>삭제삭제</button> */}
+      <div>
+        <button onClick={onAdd}>추가추가</button>
+        <button onClick={onDelete}>삭제삭제</button>
+      </div>
+
       {postCards}
     </Divs>
   );
@@ -21,11 +24,12 @@ const PostList = ({ posts, onAdd, onDelete }) => {
 const Divs = styled.div`
   padding: 2%;
   display: grid;
-  grid-template-columns: repeat(auto-fit,25%);
+  grid-template-columns: repeat(auto-fit, 25%);
   grid-template-rows: repeat(auto-fit, 1fr);
 
-  @media (max-width: 1024px) { /*태블릿?*/ 
-    grid-template-columns: repeat(auto-fit,33%);
+  @media (max-width: 1024px) {
+    /*태블릿?*/
+    grid-template-columns: repeat(auto-fit, 33%);
     grid-template-rows: repeat(auto-fit, 1fr);
   }
 
@@ -33,11 +37,11 @@ const Divs = styled.div`
     grid-template-columns: 100%;
     grid-template-rows: repeat(auto-fit, 1fr);
   }
-`
+`;
 
 export default inject(({ post }) => ({
   posts: post.postItems,
   onAdd: post.add,
-  onDelete: post.delete, 
+  onDelete: post.delete,
   nextId: post.nextId
 }))(observer(PostList));

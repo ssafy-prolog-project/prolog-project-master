@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 // data를 나중에 store로 옮기자. 어떤 자료를 가지고 있어야하지?
 // imageUrl, Title, category, text, likes, comments, created_at, updated_at , author
@@ -9,10 +9,8 @@ import { Link } from 'react-router-dom';
 // 여기에서는 요청 결과로 들어온 Post 결과물만을 보여주면 충분하다.
 const PostCard = ({ post }) => {
   const { id, imgUrl, title, text, author, date } = post;
-  const onClick = () => {
-    alert(title + "클릭했음 나중에 페이지 옮기는 코드 넣자.");
-  };
 
+<<<<<<< HEAD
   const postid = id-1
 
 
@@ -25,6 +23,16 @@ const PostCard = ({ post }) => {
       ) : (
         <DefaultImage onClick={onClick}></DefaultImage>
       )}
+=======
+  return (
+    <CardMainLayOut>
+      <Link to={"/post/" + id}>
+        {imgUrl ? (
+          <CardImage src={imgUrl}></CardImage>
+        ) : (
+          <DefaultImage></DefaultImage>
+        )}
+>>>>>>> 1bfca0027ce5e667327dd4603bc4ecf8f83355f3
       </Link>
       </OutL>
       <CardTitle>{title}</CardTitle>

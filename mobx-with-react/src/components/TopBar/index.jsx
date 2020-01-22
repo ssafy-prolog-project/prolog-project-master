@@ -13,7 +13,7 @@ const TopBar = () => {
 };
 
 const TopBarLayout = styled.div`
-    background-color : black;
+    background-color : white;
     color: white;
     align-items: flex-end;
     /* will be layout css code  */

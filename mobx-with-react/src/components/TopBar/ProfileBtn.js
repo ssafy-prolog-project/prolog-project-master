@@ -8,6 +8,7 @@ export const ProfileIcon = styled(Profile)`
     cursor: pointer;
     padding-top: .7rem;
     padding-right: 1rem;
+    color: black;
     :hover{
     opacity: 0.5;
   }
