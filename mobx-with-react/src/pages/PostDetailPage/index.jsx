@@ -23,8 +23,9 @@ const PostDetailPage = ({ match }) => {
 const PostDetailPageLayout = styled.div`
   height: 100vh;
   display: grid;
-  grid-template-columns: 20% 80%;
-  grid-template-areas: "nav content";
+  grid-template-columns: 290px;
+  grid-template-areas:
+      "nav content"
 `;
 
 const Div = styled.div`
