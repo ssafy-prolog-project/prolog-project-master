@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Profile} from 'styled-icons/icomoon/Profile';
+import { Link } from 'react-router-dom';
 
 export const ProfileIcon = styled(Profile)`
     width: 40px;

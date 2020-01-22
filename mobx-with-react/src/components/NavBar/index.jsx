@@ -2,17 +2,16 @@ import React from 'react';
 import NavSearch from './NavSearch';
 import NavItems from './NavItems';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
-    const BannerClick = () => {
-        alert("배너를 눌렀어요!");
-    };
-    
     return (
-        <NavBarLayout>
-            <NavLogo onClick={BannerClick}>
-                Prolog;
-            </NavLogo> {/* 로고 들어갈 자리 */}
+        <NavBarLayout >
+            <Link to={"/"} style={{textDecoration:"none"}}>
+                <NavLogo>
+                    Prolog;
+                </NavLogo> {/* 로고 들어갈 자리 */}
+            </Link>
             <NavSearch></NavSearch>
             <NavItems></NavItems>
         </NavBarLayout>
@@ -21,7 +20,6 @@ const NavBar = () => {
 
 const NavBarLayout = styled.div`
     background-color : gray
-    /* will be layout css code  */
 `;
 
 const NavLogo = styled.div`
@@ -35,13 +33,7 @@ const NavLogo = styled.div`
     display: block;
     position: relative;
     cursor: pointer;
-    /* margin-left: .5rem;
-    margin-bottom: 50px;
-    margin-top: 10px;
-    font-size: 50px;
-    padding-top: .5rem;
-    padding-bottom: .5rem; */
-    /* font-family: ;  */
+ 
 `;
 
 export default NavBar;
