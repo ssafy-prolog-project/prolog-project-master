@@ -8,29 +8,30 @@ import { Link } from "react-router-dom";
 // 일단 내부적으로 정의된 Post가 있고 이 Post의 DB 형태는 글을 작성하는 쪽에서 결정해야한다.
 // 여기에서는 요청 결과로 들어온 Post 결과물만을 보여주면 충분하다.
 const PostCard = ({ post }) => {
-  const { id, imgUrl, title, text, author, date } = post;
+  const { id, imgUrl, title, text, author, date, views } = post;
 
   return (
     <CardMainLayOut>
-    <OutL>
-      <Link to={"/post/"+id}>
-      {imgUrl ? (
-        <CardImage src={imgUrl}></CardImage>
-      ) : (
-        <DefaultImage></DefaultImage>
-      )}
-      </Link>
+      <OutL>
+        <Link to={"/post/" + id}>
+          {imgUrl ? (
+            <CardImage src={imgUrl}></CardImage>
+          ) : (
+            <DefaultImage></DefaultImage>
+          )}
+        </Link>
       </OutL>
       <CardTitle>{title}</CardTitle>
       {/* <Date>{date}</Date>
       <CardDescription>{text}</CardDescription> */}
       <p style={{ color: "black" }}>작성자 : {author}</p>
+      <p style={{ color: "black" }}>조회수 : {views}</p>
+      <p style={{ color: "black" }}>아이디 : {id}</p>
     </CardMainLayOut>
   );
 };
 
-const divAspect = 90/120;
-
+const divAspect = 90 / 120;
 
 const CardMainLayOut = styled.div`
   color: #fff;
@@ -49,18 +50,18 @@ const OutL = styled.div`
   border-radius: 10px;
   padding: 0.1rem;
   position: relative;
-	width: 100%;
-	height: 0;
-	overflow: hidden;
-	padding-bottom: 56.26%;
-`
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.26%;
+`;
 
 const CardImage = styled.img`
   position: absolute;
   object-fit: cover;
-	top: 0;
-	left: 0;
-	width: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
 `;
 
@@ -69,10 +70,10 @@ const DefaultImage = styled.img`
   border-radius: 10px;
   padding: 0.1rem;
   position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-color: black;
 `;
 
