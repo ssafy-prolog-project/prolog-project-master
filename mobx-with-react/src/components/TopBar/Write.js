@@ -52,6 +52,7 @@ const SelectMenu = styled.a`
   color: black;
   padding: 12px 16px;
   display: block;
+  text-align: left;
   cursor: pointer;
   :hover {
     background-color: #f1f1f1

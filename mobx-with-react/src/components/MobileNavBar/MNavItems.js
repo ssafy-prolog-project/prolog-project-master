@@ -35,7 +35,8 @@ const NavItem = styled.div`
   padding-top: 2rem;
   padding-bottom: 1.64rem;
   :hover {
-    background-color: #00aec9;
+    background-color: white;
+    color: black;
   }
 `;
 

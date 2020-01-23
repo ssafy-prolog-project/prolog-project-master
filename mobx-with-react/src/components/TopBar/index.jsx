@@ -4,6 +4,7 @@ import Write from "./Write";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { SearchAlt2 } from "styled-icons/boxicons-regular/SearchAlt2";
+import LoginBtn from './LoginBtn';
 
 export const MSearchIcon = styled(SearchAlt2)`
   width: 20%;
@@ -29,6 +30,7 @@ const TopBar = () => {
       <Link to={"/"} style={{ textDecoration: "none" }}>
         <MLogo>Prolog;</MLogo>
       </Link>
+      {/* <LoginBtn></LoginBtn> */}
       <ProfileBtn></ProfileBtn>
       <Write></Write>
     </TopBarLayout>

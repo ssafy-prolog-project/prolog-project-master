@@ -19,7 +19,7 @@ const NavBar = () => {
 };
 
 const NavBarLayout = styled.div`
-    background-color : gray;
+    background-color : #1a3365;
 
     @media (max-width: 768px) {
         display: none;

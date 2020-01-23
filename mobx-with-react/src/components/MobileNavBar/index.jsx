@@ -12,7 +12,7 @@ const MobileNavBar = () => {
 }
 
 const MNavBarLayout = styled.div`
-    background-color : gray;
+    background-color : #1a3365;
     display: none;
     
     @media (max-width: 768px) {

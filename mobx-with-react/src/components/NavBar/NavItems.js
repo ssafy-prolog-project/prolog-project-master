@@ -24,9 +24,9 @@ const NavItems = ({ posts, onAdd, onDelete, onSortByIds, onSortByViews, onSortBy
 const NavItemsLayout = styled.ul`
   list-style: none;
   padding-left: 0;
-  border-top-style: solid;
+  /* border-top-style: solid;
   border-color: white;
-  border-width: 1px;
+  border-width: 1px; */
   /* will be layout css code  */
 `;
 
@@ -34,13 +34,14 @@ const NavItem = styled.li`
   color: white;
   cursor: pointer;
   font-size: 20px;
-  border-width: 1px;
-  border-color: white;
+  /* border-width: 1px; */
+  /* border-color: white; */
   padding-top: 5px;
   padding-bottom: 12px;
-  border-bottom-style: solid;
+  /* border-bottom-style: solid; */
   :hover {
-    background-color: #00aec9;
+    background-color: white;
+    color: black;
   }
 `;
 
