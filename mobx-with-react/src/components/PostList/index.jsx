@@ -10,16 +10,8 @@ const PostList = ({ posts, onAdd, onDelete, onSortByIds, onSortByViews, onSortBy
 
   const postCards = posts.map(item => <PostCard key={item.id} post={item} />);
   return (
-    <Divs>
-      <div>
-        <button onClick={onAdd}>추가추가</button>
-        <button onClick={onDelete}>삭제삭제</button>
-        <button onClick={onSortByAuthors}>이름순 정렬</button>
-        <button onClick={onSortByViews}>뷰순 정렬</button>
-        <button onClick={onSortByIds}>아이디순 정렬</button>
-        <button onClick={onSortByDates}>날짜별 정렬</button>
-      </div>
 
+    <Divs>
       {postCards}
     </Divs>
   );
@@ -39,6 +31,7 @@ const Divs = styled.div`
 
   @media (max-width: 768px) {
     grid-template-columns: 100%;
+
     grid-template-rows: repeat(auto-fit, 1fr);
   }
 `;

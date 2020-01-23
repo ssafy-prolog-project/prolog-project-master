@@ -197,7 +197,7 @@ export default class PostStore {
 
   @action
   sortByDates = () => {
-    const itemsSortByDates = this.postItems.slice().sort((a,b) => a.date > b.date ? 1 : -1 );
+    const itemsSortByDates = this.postItems.slice().sort((a,b) => a.date > b.date ? -1 : 1 );
     this.postItems = itemsSortByDates
   };
 
