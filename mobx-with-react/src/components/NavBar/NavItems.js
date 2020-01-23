@@ -1,35 +1,22 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { inject, observer } from "mobx-react";
+import PostCard from "../PostList/PostCard";
 
-const NavItems = () => {
-  const Latest = () => {
-    alert("최신순으로 정렬!");
-  };
-  const Count = () => {
-    alert("조회수순으로 정렬!");
-  };
-  const MyPosts = () => {
-    alert("내가쓴글보여줘!");
-  };
+const NavItems = ({ posts, onAdd, onDelete, onSortByIds, onSortByViews, onSortByAuthors, onSortByDates }) => {
+  const postCards = posts.map(item => <PostCard key={item.id} post={item} />);
 
   return (
     <NavItemsLayout>
-      <Link to={"/"} style={{ textDecoration: "none" }}>
-        <NavItem onClick={Latest}>
+        <NavItem  onClick={onSortByDates}>
           <ItemContent>최신순</ItemContent>
         </NavItem>
-      </Link>
-      <Link to={"/"} style={{ textDecoration: "none" }}>
-        <NavItem onClick={Count}>
+        <NavItem onClick={onSortByViews}>
           <ItemContent>조회수순</ItemContent>
         </NavItem>
-      </Link>
-      <Link to={"/"} style={{ textDecoration: "none" }}>
-        <NavItem onClick={MyPosts}>
+        <NavItem onClick={onSortByAuthors}>
           <ItemContent>내가 쓴 글</ItemContent>
         </NavItem>
-      </Link>
     </NavItemsLayout>
   );
 };
@@ -68,4 +55,15 @@ const ItemContent = styled.a`
   align-items: center;
 `;
 
-export default NavItems;
+
+export default inject(({ post }) => ({
+  posts: post.postItems,
+  onAdd: post.add,
+  onDelete: post.delete,
+  nextId: post.nextId,
+  onSortByIds : post.sortByIds,
+  onSortByViews : post.sortByViews,
+  onSortByAuthors : post.sortByAuthors,
+  onSortByDates : post.sortByDates,
+}))(observer(NavItems));
+

@@ -14,7 +14,7 @@ const MobileNavBar = () => {
 const MNavBarLayout = styled.div`
     background-color : gray;
     display: none;
-
+    
     @media (max-width: 768px) {
         display: block;
     }

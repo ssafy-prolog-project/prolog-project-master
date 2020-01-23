@@ -1,5 +1,8 @@
 import { observable, action, computed } from "mobx";
 
+import { getUnixTime } from 'date-fns'
+
+
 // imageUrl, Title, category, text, likes, comments, created_at, updated_at , author
 export default class PostStore {
   @observable nextId = 7;
@@ -12,7 +15,7 @@ export default class PostStore {
       category: "post",
       text: "test 중..",
       author: "JEJ",
-      date: "3/2/2019",
+      date: getUnixTime(new Date(2019, 2, 2)),
       views: 5555
     },
     {
@@ -22,7 +25,7 @@ export default class PostStore {
       category: "post",
       text: "test 중입니다.",
       author: "CKY",
-      date: "3/2/2018",
+      date: getUnixTime(new Date(2018, 2, 2)),
       views: 305
     },
     {
@@ -32,7 +35,7 @@ export default class PostStore {
       category: "post",
       text: "test 중입니다.",
       author: "RRRY",
-      date: "5/2/2018",
+      date: getUnixTime(new Date(2018, 4, 2)),
       views: 999
     },
     {
@@ -43,7 +46,7 @@ export default class PostStore {
       category: "post",
       text: "test 중입니다.",
       author: "한글",
-      date: "3/2/2020",
+      date: getUnixTime(new Date(2020, 2, 5)),
       views: 10
     },
     {
@@ -54,7 +57,7 @@ export default class PostStore {
       category: "post",
       text: "test 중입니다.",
       author: "마바사",
-      date: "10/12/2020",
+      date: getUnixTime(new Date(2020, 9, 12)),
       views: 2305
     },
     {
@@ -65,7 +68,7 @@ export default class PostStore {
       category: "post",
       text: "test 중입니다.",
       author: "영어",
-      date: "3/2/2016",
+      date: getUnixTime(new Date(2016, 2, 5)),
       views: 999999
     },
     {
@@ -135,7 +138,7 @@ export default class PostStore {
       
       이 예제에서 children은 문자열입니다. 하지만 일반적으로 더 많은 엘리먼트의 배열의 형태입니다. 이것이 엘리먼트들이 트리 형태인 이유입니다.`,
       author: "BTS",
-      date: "1/3/2019",
+      date: getUnixTime(new Date(2019, 0, 3)),
       views: 5000
     },
     {
@@ -294,17 +297,12 @@ export default class PostStore {
         category: "text",
         text: "Hey. This is a test file.",
         author: "TESTER",
-        date: "9/9/9999",
+        date: getUnixTime(new Date(9999, 8, 20)),
         views: 7777
       });
       this.nextId += 1;
       return;
     }
-  };
-
-  @action
-  get = id => {
-    const itemToTake = this.postItems.find(item => item.id === id);
   };
 
   @action
@@ -333,8 +331,7 @@ export default class PostStore {
 
   @action
   sortByDates = () => {
-      // 아직 date는 제대로 처리안되었음
-    const itemsSortByDates = this.postItems.slice().sort((a,b) => a.date > b.date ? 1 : -1 );
+    const itemsSortByDates = this.postItems.slice().sort((a,b) => a.date > b.date ? -1 : 1 );
     this.postItems = itemsSortByDates
   };
 

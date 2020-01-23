@@ -1,42 +1,27 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { inject, observer } from "mobx-react";
+import PostCard from "../PostList/PostCard";
 
-const MNavItems = () => {
-  const Latest = () => {
-    alert("최신순으로 정렬!");
-  };
-  const Count = () => {
-    alert("조회수순으로 정렬!");
-  };
-  const MyPosts = () => {
-    alert("내가쓴글보여줘!");
-  };
+const MNavItems = ({ posts, onAdd, onDelete, onSortByIds, onSortByViews, onSortByAuthors, onSortByDates }) => {
+  const postCards = posts.map(item => <PostCard key={item.id} post={item} />);
 
   return (
     <NavItemsLayout>
-      <Link to={"/"} style={{ textDecoration: "none" }}>
-        <NavItem onClick={Latest}>
+        <NavItem  onClick={onSortByDates}>
           <ItemContent>최신순</ItemContent>
         </NavItem>
-      </Link>
-      <Link to={"/"} style={{ textDecoration: "none" }}>
-        <NavItem onClick={Count}>
+        <NavItem onClick={onSortByViews}>
           <ItemContent>조회수순</ItemContent>
         </NavItem>
-      </Link>
-      <Link to={"/"} style={{ textDecoration: "none" }}>
-        <NavItem onClick={MyPosts}>
+        <NavItem onClick={onSortByAuthors}>
           <ItemContent>내가 쓴 글</ItemContent>
         </NavItem>
-      </Link>
     </NavItemsLayout>
   );
 };
 
 const NavItemsLayout = styled.div`
-  list-style: none;
-  padding-left: 0;
   /* will be layout css code  */
 `;
 
@@ -44,22 +29,32 @@ const NavItem = styled.div`
   color: white;
   cursor: pointer;
   font-size: 20px;
-  padding-top: 5px;
-  padding-bottom: 12px;
+  width: 33.3333%;
+  height: 100%;
+  float: left;
+  padding-top: 2rem;
+  padding-bottom: 1.64rem;
   :hover {
     background-color: #00aec9;
   }
 `;
 
-const ItemContent = styled.a`
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
+const ItemContent = styled.div`
+  /* padding-top: 0.75rem;
+  padding-bottom: 0.75rem; */
   font-size: 1.125rem;
-  padding-left: 1.75rem;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
+  text-align: center;
+  /* -ms-flex-align: center; */
+  /* align-items: center; */
 `;
 
-export default MNavItems;
+export default inject(({ post }) => ({
+  posts: post.postItems,
+  onAdd: post.add,
+  onDelete: post.delete,
+  nextId: post.nextId,
+  onSortByIds : post.sortByIds,
+  onSortByViews : post.sortByViews,
+  onSortByAuthors : post.sortByAuthors,
+  onSortByDates : post.sortByDates,
+}))(observer(MNavItems));
