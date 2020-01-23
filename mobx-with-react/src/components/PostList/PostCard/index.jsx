@@ -2,6 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import { formatDistanceToNow, fromUnixTime } from 'date-fns'
+import { ko } from 'date-fns/locale'
+
 // data를 나중에 store로 옮기자. 어떤 자료를 가지고 있어야하지?
 // imageUrl, Title, category, text, likes, comments, created_at, updated_at , author
 // imageUrl이 none이면 그냥 타이틀을 키울까?
@@ -9,6 +12,8 @@ import { Link } from "react-router-dom";
 // 여기에서는 요청 결과로 들어온 Post 결과물만을 보여주면 충분하다.
 const PostCard = ({ post }) => {
   const { id, imgUrl, title, text, author, date, views } = post;
+  const dateFormat = fromUnixTime(date)
+  const dateInfo = formatDistanceToNow(dateFormat, {addSuffix:true, locale:ko})
 
   return (
     <CardMainLayOut>
@@ -22,8 +27,8 @@ const PostCard = ({ post }) => {
         </Link>
       </OutL>
       <CardTitle>{title}</CardTitle>
-      {/* <Date>{date}</Date>
-      <CardDescription>{text}</CardDescription> */}
+      <Date>{dateInfo}</Date>
+      {/* <CardDescription>{text}</CardDescription> */}
       <p style={{ color: "black" }}>작성자 : {author}</p>
       <p style={{ color: "black" }}>조회수 : {views}</p>
       <p style={{ color: "black" }}>아이디 : {id}</p>

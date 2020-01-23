@@ -2,9 +2,13 @@ import React from "react";
 import { inject, observer } from "mobx-react";
 import styled from "styled-components";
 
+import { format, fromUnixTime } from 'date-fns'
+
 const PostDetail = ({ postid, posts }) => {
   const post = posts.get(postid);
   const { id, title, category, text, author, date, imgUrl } = post;
+  const dateFormat = fromUnixTime(date)
+  const dateInfo = format(dateFormat, 'yyyy년 MM월 dd일')
 
   return (
     <PostDetailLayout>
@@ -12,7 +16,7 @@ const PostDetail = ({ postid, posts }) => {
       <hr />
       <PostUserProfile>프로필 정보는 컴포넌트로 빼야할듯?</PostUserProfile>
       <PostUserProfile>
-        작성일 : {date} 작성자 : {author}
+        작성일 : {dateInfo} 작성자 : {author}
       </PostUserProfile>
       <hr />
       <PostContent>
