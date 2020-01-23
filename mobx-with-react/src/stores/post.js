@@ -5,7 +5,7 @@ import { getUnixTime } from 'date-fns'
 
 // imageUrl, Title, category, text, likes, comments, created_at, updated_at , author
 export default class PostStore {
-  @observable nextId = 7;
+  @observable nextId = 14;
   @observable postItems = [
     {
       id: 0,
@@ -42,7 +42,7 @@ export default class PostStore {
       id: 3,
       imgUrl:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpw1rVXmdKGZf0_yS-e5PwKbYRLo8f1MZUiO-acYrpvoLW958LKA&s",
-      title: "test4",
+      title: "미래의 글",
       category: "post",
       text: "test 중입니다.",
       author: "한글",
@@ -142,71 +142,71 @@ export default class PostStore {
       views: 5000
     },
     {
-      id: 0,
+      id: 7,
       imgUrl:
         "http://file2.instiz.net/data/file/20141221/2/0/2/2027c83dca8a9b5658498d9e641153b1.jpg",
       title: "test1",
       category: "post",
       text: "test 중..",
       author: "JEJ",
-      date: "3/2/2019",
+      date: getUnixTime(new Date(2019, 2, 5)),
       views: 5555
     },
     {
-      id: 1,
+      id: 8,
       imgUrl: "",
-      title: "test2",
+      title: "2020년 1월 16일 9시",
       category: "post",
       text: "test 중입니다.",
       author: "CKY",
-      date: "3/2/2018",
+      date: getUnixTime(new Date(2020, 0, 16, 9)),
       views: 305
     },
     {
-      id: 2,
+      id: 9,
       imgUrl: "",
-      title: "test3",
+      title: "2020년 1월 16일 12시",
       category: "post",
       text: "test 중입니다.",
       author: "RRRY",
-      date: "5/2/2018",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
       views: 999
     },
     {
-      id: 3,
+      id: 10,
       imgUrl:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpw1rVXmdKGZf0_yS-e5PwKbYRLo8f1MZUiO-acYrpvoLW958LKA&s",
-      title: "test4",
+      title: "좀전에 씀",
       category: "post",
       text: "test 중입니다.",
       author: "한글",
-      date: "3/2/2020",
+      date: getUnixTime(new Date(2020, 0, 23, 13, 35)),
       views: 10
     },
     {
-      id: 4,
+      id: 11,
       imgUrl:
         "https://i.pinimg.com/originals/72/75/38/727538673ef8a884113e5c134e9bf228.jpg",
       title: "test5",
       category: "post",
       text: "test 중입니다.",
       author: "마바사",
-      date: "10/12/2020",
+      date: getUnixTime(new Date(2019, 11, 30, 9)),
       views: 2305
     },
     {
-      id: 5,
+      id: 12,
       imgUrl:
         "http://img1.photons.co.kr/site12/201904/l/5cb678acc2e7820190417095156798307.jpg",
       title: "test6",
       category: "post",
       text: "test 중입니다.",
       author: "영어",
-      date: "3/2/2016",
+      date: getUnixTime(new Date(2019, 0, 16)),
       views: 999999
     },
     {
-      id: 6,
+      id: 13,
       imgUrl:
         "https://mb.ntdtv.kr/assets/uploads/2018/07/51186da4320abb1602e1b89ee881abd3-795x436.jpg",
       title: "test7",
@@ -272,7 +272,7 @@ export default class PostStore {
       
       이 예제에서 children은 문자열입니다. 하지만 일반적으로 더 많은 엘리먼트의 배열의 형태입니다. 이것이 엘리먼트들이 트리 형태인 이유입니다.`,
       author: "BTS",
-      date: "1/3/2019",
+      date: getUnixTime(new Date(2020, 0, 23,12)),
       views: 5000
     }
   ]; // axios로 호출해서 받아오면 된다.
