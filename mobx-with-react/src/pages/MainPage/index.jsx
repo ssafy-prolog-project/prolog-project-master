@@ -3,13 +3,15 @@ import PostList from '../../components/PostList';
 import NavBar from '../../components/NavBar';
 import styled from 'styled-components';
 import TopBar from '../../components/TopBar';
+import MobileNavBar from '../../components/MobileNavBar';
+
 
 const MainPage = () => (
     <MainPageLayout>
         <NavBar></NavBar>
         <Div>
             <TopBar></TopBar>
-            <MobileNavBar><h1>test</h1></MobileNavBar>
+            <MobileNavBar></MobileNavBar>
             <PostList></PostList>
         </Div>
     </MainPageLayout>
@@ -34,12 +36,5 @@ const Div = styled.div`
     overflow-y: scroll;
 `
 
-const MobileNavBar = styled.div`
-    display: none;
-
-    @media (max-width: 768px) {
-        display: block;
-  }
-`
 
 export default MainPage;
