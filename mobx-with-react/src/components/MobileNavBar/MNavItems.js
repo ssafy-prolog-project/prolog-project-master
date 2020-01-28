@@ -30,10 +30,10 @@ const NavItem = styled.div`
   cursor: pointer;
   font-size: 20px;
   width: 33.3333%;
-  height: 100%;
+  height: 3rem;
   float: left;
-  padding-top: 4%;
-  padding-bottom: 100%;
+  padding-top: 1.3rem;
+  padding-bottom: auto;
   :hover {
     background-color: white;
     color: black;
