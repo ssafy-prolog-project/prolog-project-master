@@ -16,12 +16,12 @@ export const ProfileIcon = styled(Profile)`
 `;
 
 const ProfileBtn = () => {
-    const ProfileClick = () => {
-        alert("프로필을 눌렀어요!");
-    };
+    // const ProfileClick = () => {
+    //     alert("프로필을 눌렀어요!");
+    // };
     return (
         <Link to={"/mypage"} style={{ textDecoration: "none" }}>
-            <ProfileIcon onClick={ProfileClick}></ProfileIcon>
+            <ProfileIcon></ProfileIcon>
         </Link>
     );
 };

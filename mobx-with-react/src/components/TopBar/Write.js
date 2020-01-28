@@ -1,6 +1,7 @@
 import React from "react";
 import { Plus } from "styled-icons/boxicons-regular/Plus";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const PlusIcon = styled(Plus)`
   width: 60px;
@@ -15,9 +16,9 @@ export const PlusIcon = styled(Plus)`
 
 const Write = () => {
  
-  const PostClick = () => {
-    alert("Post를 눌렀어요!");
-  };
+  // const PostClick = () => {
+  //   alert("Post를 눌렀어요!");
+  // };
   const PortfolioClick = () => {
     alert("Portfolio를 눌렀어요!");
   };
@@ -26,7 +27,9 @@ const Write = () => {
     <WriteLayout>
       <PlusIcon></PlusIcon>
       <SelectMenus className="a">
-        <SelectMenu onClick={PostClick}>Post</SelectMenu>
+        <Link to={"/postwritepage"} style={{ textDecoration: "none" }}>
+          <SelectMenu>Post</SelectMenu>
+        </Link>
         <SelectMenu onClick={PortfolioClick}>Portfolio</SelectMenu>
       </SelectMenus>
     </WriteLayout>

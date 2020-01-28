@@ -6,6 +6,8 @@ import MainPage from './pages/MainPage';
 import LoginPage from './pages/LoginPage';
 import PostDetailPage from './pages/PostDetailPage';
 import MyPage from './pages/MyPage';
+import PostWritePage from './pages/PostWritePage';
+import SearchPage from './pages/SearchPage';
 
 class App extends Component {
   render(){
@@ -23,8 +25,10 @@ class App extends Component {
             {/* <Route path="/post/:id" component={Post} */}
             <Route path="/login" component={LoginPage} />
             <Route path="/post/:id" component={PostDetailPage} />
-            <Route path="/" component={MainPage} />
             <Route path="/mypage" component={MyPage} />
+            <Route path="/postwritepage" component={PostWritePage} />
+            <Route path="/searchpage" component={SearchPage} />
+            <Route path="/" component={MainPage} />
           </Switch>
       </div>
     );

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const LogInPage = () => {
   return (
@@ -19,7 +20,9 @@ const LogInPage = () => {
           <GoogleLoginForm>Google 로그인</GoogleLoginForm>
           <FacebookLoginForm>Facebook 로그인</FacebookLoginForm>
           <hr />
-          <Guest>로그인 하지 않고 둘러보기</Guest>
+          <Link to={"/"} style={{ textDecoration: "none" }}>
+            <Guest>로그인 하지 않고 둘러보기</Guest>
+          </Link>
         </LineBox>
       </RightDiv>
     </LoginLayout>
@@ -73,7 +76,7 @@ const LineBox = styled.div`
 `;
 
 const GithubLoginForm = styled.div`
-    
+  line-height: 4rem;
   width: 30rem;
   height: 4rem;
   background-color: #e6e6e6;
@@ -83,6 +86,7 @@ const GithubLoginForm = styled.div`
 `;
 
 const GoogleLoginForm = styled.div`
+  line-height: 4rem;
   width: 30rem;
   height: 4rem;
   background-color: #b32d00;
@@ -93,6 +97,7 @@ const GoogleLoginForm = styled.div`
 `;
 
 const FacebookLoginForm = styled.div`
+  line-height: 4rem;
   width: 30rem;
   height: 4rem;
   background-color: #0066cc;

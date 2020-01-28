@@ -4,6 +4,7 @@ import Write from "./Write";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { SearchAlt2 } from "styled-icons/boxicons-regular/SearchAlt2";
+
 import LoginBtn from './LoginBtn';
 
 export const MSearchIcon = styled(SearchAlt2)`
@@ -20,17 +21,18 @@ export const MSearchIcon = styled(SearchAlt2)`
   }
 `;
 
+
 const TopBar = () => {
-  const searchBtn = () => {
-    alert("검색 버튼 눌렀어!");
-  };
+  
   return (
     <TopBarLayout>
-      <MSearchIcon onClick={searchBtn}></MSearchIcon>
+      <Link to={"/searchpage"} style={{ textDecoration: "none" }}>
+        <MSearchIcon ></MSearchIcon>
+      </Link>
       <Link to={"/"} style={{ textDecoration: "none" }}>
         <MLogo>Prolog;</MLogo>
       </Link>
-      {/* <LoginBtn></LoginBtn> */}
+      <LoginBtn></LoginBtn>
       <ProfileBtn></ProfileBtn>
       <Write></Write>
     </TopBarLayout>
@@ -59,5 +61,7 @@ const MLogo = styled.div`
     display: inline-block;
   }
 `;
+
+
 
 export default TopBar;
