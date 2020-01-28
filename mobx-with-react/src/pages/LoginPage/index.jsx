@@ -40,6 +40,9 @@ const LeftDiv = styled.div`
   height: 100vh;
   background-color: #1a3365;
   float: left;
+  @media (max-width: 768px) {
+        display: none;
+  }
 `;
 
 const Logo = styled.div`
@@ -68,6 +71,9 @@ const RightDiv = styled.div`
   background-color: #ebf0fa;
   float: left;
   text-align: center;
+  @media (max-width: 768px) {
+       width: 100%;
+  }
 `;
 
 const LineBox = styled.div`
@@ -77,6 +83,7 @@ const LineBox = styled.div`
   display: inline-block;
   background-color: white;
   text-align: center;
+  
 `;
 
 const GithubLoginForm = styled.div`

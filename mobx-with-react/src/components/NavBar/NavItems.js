@@ -3,8 +3,8 @@ import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 import PostCard from "../PostList/PostCard";
-import { signIn } from './auth';
-import AuthRoute from './AuthRoute';
+import { signIn } from '../Auth/auth';
+import AuthRoute from '../Auth/AuthRoute';
 import LogoutButton from './LogoutButton';
 
 const NavItems = ({ posts, onAdd, onDelete, onSortByIds, onSortByViews, onSortByAuthors, onSortByDates }) => {
@@ -29,20 +29,19 @@ const NavItems = ({ posts, onAdd, onDelete, onSortByIds, onSortByViews, onSortBy
           <ItemContent>조회수순</ItemContent>
         </NavItem>
         </Link>
+        {/* <Link to={"/"} style={{textDecoration:"none"}}>
+        <NavItem onClick={onSortByIds}>
+          <ItemContent>내가 쓴 글</ItemContent>
+        </NavItem>
+        </Link> */}
         {authenticated ? (
-         
           <NavItem onClick={onSortByAuthors}>
           <ItemContent>내가 쓴 글</ItemContent>
           </NavItem>
         
         ) : (
-          <Link to="/login" style={{textDecoration:"none"}}>
-          <NavItem onClick={LoginAlert}>
-          <ItemContent>내가 쓴 글</ItemContent>
-          </NavItem>
-          </Link>
+          <></>
         )} 
-        
     </NavItemsLayout>
   );
 };
