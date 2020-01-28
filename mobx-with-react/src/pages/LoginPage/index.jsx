@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const LogInPage = () => {
+ 
+
   return (
+    
     <LoginLayout>
       <LeftDiv>
         <Logo>Prolog;</Logo>

@@ -14,7 +14,9 @@ const NavItems = ({ posts, onAdd, onDelete, onSortByIds, onSortByViews, onSortBy
 
   const login = ({ email, password }) => setUser(signIn({ email, password }));
   const logout = () => setUser(null);
-  
+  const LoginAlert = () => {
+    alert("로그인해주세요!");
+  }
   return (
     <NavItemsLayout>
       <Link to={"/"} style={{textDecoration:"none"}}>
@@ -27,19 +29,19 @@ const NavItems = ({ posts, onAdd, onDelete, onSortByIds, onSortByViews, onSortBy
           <ItemContent>조회수순</ItemContent>
         </NavItem>
         </Link>
-        {/* {authenticated ? (
-          <Link to="/login" style={{textDecoration:"none"}}>
+        {authenticated ? (
+         
           <NavItem onClick={onSortByAuthors}>
           <ItemContent>내가 쓴 글</ItemContent>
           </NavItem>
-        </Link>
-          
+        
         ) : (
-          
+          <Link to="/login" style={{textDecoration:"none"}}>
           <NavItem onClick={LoginAlert}>
           <ItemContent>내가 쓴 글</ItemContent>
           </NavItem>
-        )} */}
+          </Link>
+        )} 
         
     </NavItemsLayout>
   );

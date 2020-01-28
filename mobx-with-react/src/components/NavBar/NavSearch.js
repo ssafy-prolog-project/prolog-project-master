@@ -42,7 +42,7 @@ const NavSearchInput = styled.div`
     -ms-flex-align: center;
     align-items: center;
     color: #343a40;
-    margin: 0 auto;;
+    margin: 0 auto;
     width: 80%;
 `;
 const InputBox = styled.input`
