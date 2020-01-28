@@ -12,13 +12,14 @@ const PostDetail = ({ postid, posts }) => {
 
   return (
     <PostDetailLayout>
-      <PostTitle>Post Detail Page {id}</PostTitle>
-      <hr />
-      <PostUserProfile>프로필 정보는 컴포넌트로 빼야할듯?</PostUserProfile>
-      <PostUserProfile>
-        작성일 : {dateInfo} 작성자 : {author}
-      </PostUserProfile>
-      <hr />
+      <Div>
+        <PostTitle>Post Detail Page {id}</PostTitle>
+        <PostUserProfile>프로필 정보? 작성자와 차이는?</PostUserProfile>
+        <PostUserProfile>
+          작성일 : {dateInfo} <br/> 작성자 : {author}
+        </PostUserProfile>
+      </Div>
+      <div><hr /></div>
 
       <ImageContent>
         <PostContentImageWrapper>
@@ -26,6 +27,7 @@ const PostDetail = ({ postid, posts }) => {
         </PostContentImageWrapper>
       </ImageContent>
 
+      <Div>
       <PostContent>
         <p>컨텐트이것도 컴포넌트로 넘기는게 좋을 듯</p>
         
@@ -34,12 +36,25 @@ const PostDetail = ({ postid, posts }) => {
         <h3>{category}</h3>
         <p>{text}</p>
       </PostContent>
+      </Div>
     </PostDetailLayout>
   );
 };
 
+const Div = styled.div`
+  @media (max-width: 768px) {
+    margin-top: 10vh;
+    margin-bottom: 5vh;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+`
+
 const PostDetailLayout = styled.div`
-  margin: 5vh 5vw;
+  margin-top: 3vh;
+  margin-bottom: 5vh;
+  margin-left: 15%;
+  margin-right: 15%;
   /* border-style: solid; */
   background-color: white;
   /* color: white;
@@ -47,20 +62,21 @@ const PostDetailLayout = styled.div`
   display: grid;
   @media (max-width: 768px) {
       grid-template-columns: 100%;
+      margin: 0;
   }
 `;
 
 const PostTitle = styled.div`
   /* 구분을 위한 스타일임 수정필요 */
   background-color: white;
-  font-size: 5rem;
+  font-size: 4rem;
   font-family: fantasy;
 `;
 
 const PostUserProfile = styled.div`
   /* 구분을 위한 스타일임 수정필요 */
   background-color: white;
-  font-size: 2rem;
+  font-size: 1rem;
   font-family: fantasy;
 `;
 
@@ -74,6 +90,7 @@ const PostContent = styled.div`
 const ImageContent = styled.div`
   /* 구분을 위한 스타일임 수정필요 */
   background-color: white;
+  padding-top: 5%;
   `;
 
 const PostContentImageWrapper = styled.div`
