@@ -62,7 +62,7 @@ const MainPageLayout = styled.div`
         "nav content";
     @media (max-width: 768px) {
         grid-template-columns: 100vw;
-  }
+    }
 `;
 
 const Div = styled.div`

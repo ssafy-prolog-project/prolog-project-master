@@ -34,11 +34,15 @@ const PostDetail = ({ postid, posts }) => {
 };
 
 const PostDetailLayout = styled.div`
-  margin: 10vh 20vw;
+  margin: 5vh 10vw;
   /* border-style: solid; */
   background-color: white;
   /* color: white;
     align-items: flex-end; */
+  display: grid;
+  @media (max-width: 768px) {
+      grid-template-columns: 100%;
+  }
 `;
 
 const PostTitle = styled.div`
@@ -64,21 +68,19 @@ const PostContent = styled.div`
 
 const PostContentImageWrapper = styled.div`
   /* 구분을 위한 스타일임 수정필요 */
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-  width: 100%;
+  padding: 1%;
+  max-width: 60%;
   overflow :hidden;
-  max-height: 300px;
+  height: auto;
 `;
 
 const PostContentImage = styled.img`
   /* 구분을 위한 스타일임 수정필요 */
   border: 1px solid #ddd;
   border-radius: 4px;
-  padding: 5px;
-  width: 100%;
-  margin-top: -30%;
+  padding: 1%;
+  width: 90%;
+  max-height: 90%;
   
   :hover{
     opacity: 0.5;
