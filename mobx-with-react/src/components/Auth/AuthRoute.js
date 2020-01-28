@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
 
 function AuthRoute({ authenticated, component: Component, render, ...rest }) {
   return (
@@ -7,10 +7,14 @@ function AuthRoute({ authenticated, component: Component, render, ...rest }) {
       {...rest}
       render={props =>
         authenticated ? (
-          render ? render(props) : <Component {...props} />
+          render ? (
+            render(props)
+          ) : (
+            <Component {...props} />
+          )
         ) : (
           <Redirect
-            to={{ pathname: '/login', state: { from: props.location } }}
+            to={{ pathname: "/login", state: { from: props.location } }}
           />
         )
       }

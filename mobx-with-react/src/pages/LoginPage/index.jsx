@@ -5,9 +5,7 @@ import { Link } from "react-router-dom";
 
 const LogInPage = () => {
  
-
   return (
-    
     <LoginLayout>
       <LeftDiv>
         <Logo>Prolog;</Logo>
