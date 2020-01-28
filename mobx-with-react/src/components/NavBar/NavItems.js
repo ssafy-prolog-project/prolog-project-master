@@ -17,10 +17,11 @@ const NavItems = ({
   onSortByDates
 }) => {
   const postCards = posts.map(item => <PostCard key={item.id} post={item} />);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState('10');
   const authenticated = user != null;
 
-  const login = ({ email, password }) => setUser(signIn({ email, password }));
+  const login = ({ email, password }) => setUser({ email: 'kim@test.com', password: '123', name: 'Kim' });
+  // signIn({ email, password })
   const logout = () => setUser(null);
   const LoginAlert = () => {
     alert("로그인해주세요!");
