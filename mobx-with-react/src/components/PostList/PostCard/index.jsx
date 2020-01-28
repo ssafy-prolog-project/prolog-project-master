@@ -26,39 +26,37 @@ const PostCard = ({ post }) => {
           )}
         </Link>
       </OutL>
-      <CardTitle>{title}</CardTitle>
-      <Date>{dateInfo}</Date>
-      {/* <CardDescription>{text}</CardDescription> */}
-      <p style={{ color: "black" }}>작성자 : {author}</p>
-      <p style={{ color: "black" }}>조회수 : {views}</p>
-      <p style={{ color: "black" }}>아이디 : {id}</p>
+      <OutT>
+        <CardTitle>{title}</CardTitle>
+        <Date>{dateInfo}</Date>
+        {/* <CardDescription>{text}</CardDescription> */}
+        <p style={{ color: "black" }}>작성자 : {author}</p>
+        <p style={{ color: "black" }}>조회수 : {views}</p>
+        <p style={{ color: "black" }}>아이디 : {id}</p>
+      </OutT>
     </CardMainLayOut>
   );
 };
-
-const divAspect = 90 / 120;
 
 const CardMainLayOut = styled.div`
   color: #fff;
   background-color: #f0f0f0;
   margin: 10px;
-  padding: 15px;
   width: auto;
   max-width: 100%;
-  border-style: groove;
-  border-width: 3px;
-  border-color: black;
 `;
 
 const OutL = styled.div`
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 0.1rem;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  /* padding: 0.1rem; */
   position: relative;
   width: 100%;
   height: 0;
   overflow: hidden;
   padding-bottom: 56.26%;
+  top: 0;
+  left: 0;
 `;
 
 const CardImage = styled.img`
@@ -71,9 +69,8 @@ const CardImage = styled.img`
 `;
 
 const DefaultImage = styled.img`
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 0.1rem;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   position: absolute;
   top: 0;
   left: 0;
@@ -85,6 +82,13 @@ const DefaultImage = styled.img`
 const CardTitle = styled.h2`
   font-weight: bold;
   color: black;
+`;
+
+const OutT = styled.div`
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 3%;
+  padding-bottom: 3%;
 `;
 
 const Date = styled.div`
