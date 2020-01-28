@@ -16,7 +16,7 @@ export const MSearchIcon = styled(SearchAlt2)`
   display: none;
   color: black;
   padding-top: 1.2rem;
-  @media (max-width: 375px) {
+  @media (max-width: 768px) {
     display: block;
   }
 `;
