@@ -32,8 +32,8 @@ const NavItem = styled.div`
   width: 33.3333%;
   height: 100%;
   float: left;
-  padding-top: 2rem;
-  padding-bottom: 1.64rem;
+  padding-top: 4%;
+  padding-bottom: 100%;
   :hover {
     background-color: white;
     color: black;
