@@ -1,22 +1,46 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 import PostCard from "../PostList/PostCard";
+import { signIn } from './auth';
+import AuthRoute from './AuthRoute';
+import LogoutButton from './LogoutButton';
 
 const NavItems = ({ posts, onAdd, onDelete, onSortByIds, onSortByViews, onSortByAuthors, onSortByDates }) => {
   const postCards = posts.map(item => <PostCard key={item.id} post={item} />);
+  const [user, setUser] = useState(null);
+  const authenticated = user != null;
 
+  const login = ({ email, password }) => setUser(signIn({ email, password }));
+  const logout = () => setUser(null);
+  
   return (
     <NavItemsLayout>
-        <NavItem  onClick={onSortByDates}>
+      <Link to={"/"} style={{textDecoration:"none"}}>
+        <NavItem onClick={onSortByDates}>
           <ItemContent>최신순</ItemContent>
         </NavItem>
+        </Link>
+        <Link to={"/"} style={{textDecoration:"none"}}>
         <NavItem onClick={onSortByViews}>
           <ItemContent>조회수순</ItemContent>
         </NavItem>
-        <NavItem onClick={onSortByAuthors}>
+        </Link>
+        {/* {authenticated ? (
+          <Link to="/login" style={{textDecoration:"none"}}>
+          <NavItem onClick={onSortByAuthors}>
           <ItemContent>내가 쓴 글</ItemContent>
-        </NavItem>
+          </NavItem>
+        </Link>
+          
+        ) : (
+          
+          <NavItem onClick={LoginAlert}>
+          <ItemContent>내가 쓴 글</ItemContent>
+          </NavItem>
+        )} */}
+        
     </NavItemsLayout>
   );
 };

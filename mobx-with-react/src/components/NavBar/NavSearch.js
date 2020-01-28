@@ -1,10 +1,10 @@
 import React from "react";
-import { SearchAlt2 } from "styled-icons/boxicons-regular/SearchAlt2";
 import styled from "styled-components";
+import {Search} from "styled-icons/evil/Search";
 
-export const SearchIcon = styled(SearchAlt2)`
-  width: 20%;
-  height: 35px;
+export const SearchIcon = styled(Search)`
+  width: 1em;
+  height: 1em;
   cursor: pointer;
 `;
 
@@ -16,9 +16,8 @@ const NavSearch = () => {
   return (
     <NavSearchLayout>
       <NavSearchInput>
+        <SearchIcon onClick={searchBtn}></SearchIcon>
         <InputBox></InputBox>
-        <SearchIcon onClick={searchBtn} />
-        {/* <NavSearchBtn ></NavSearchBtn> */}
       </NavSearchInput>
     </NavSearchLayout>
   );
@@ -28,25 +27,36 @@ const NavSearchLayout = styled.div`
   padding-left: 1rem;
   padding-right: 1rem;
   padding-bottom: 1rem;
-  padding-top: 2rem;
+  padding-top: 1rem;
 `;
 const NavSearchInput = styled.div`
-  -webkit-transition: all 0.125s ease-in;
-  -o-transition: 0.125s all ease-in;
-  transition: all 0.125s ease-in;
-  border-radius: 4px;
-  display: -ms-flexbox;
-  display: flex;
-  padding-left: 0.5rem;
-  background: #f1f3f5;
-  border: 1px solid #dee2e6;
-  -ms-flex-align: center;
-  align-items: center;
-  color: #343a40;
+  -webkit-transition: all .125s ease-in;
+    -o-transition: .125s all ease-in;
+    transition: all .125s ease-in;
+    border-radius: 4px;
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: .5rem;
+    background: white;
+    border: 1px solid white;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #343a40;
+    margin: 0 auto;;
+    width: 80%;
 `;
 const InputBox = styled.input`
-  font-family: inherit;
-  width: 80%;
+    background: none;
+    border: none;
+    outline: none;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    font-size: .875rem;
+    -ms-flex: 1 1;
+    flex: 1 1;
+    margin-left: .5rem;
+    color: inherit;
+   
 `;
 
 // const NavSearchBtn = styled.input.attrs({

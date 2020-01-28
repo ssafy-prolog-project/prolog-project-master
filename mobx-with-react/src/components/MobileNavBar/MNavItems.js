@@ -2,21 +2,28 @@ import React from "react";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 import PostCard from "../PostList/PostCard";
+import { Link } from 'react-router-dom';
 
 const MNavItems = ({ posts, onAdd, onDelete, onSortByIds, onSortByViews, onSortByAuthors, onSortByDates }) => {
   const postCards = posts.map(item => <PostCard key={item.id} post={item} />);
 
   return (
     <NavItemsLayout>
-        <NavItem  onClick={onSortByDates}>
+      <Link to={"/"} style={{textDecoration:"none"}}>
+        <NavItem onClick={onSortByDates}>
           <ItemContent>최신순</ItemContent>
         </NavItem>
+        </Link>
+        <Link to={"/"} style={{textDecoration:"none"}}>
         <NavItem onClick={onSortByViews}>
           <ItemContent>조회수순</ItemContent>
         </NavItem>
+        </Link>
+        <Link to={"/"} style={{textDecoration:"none"}}>
         <NavItem onClick={onSortByAuthors}>
           <ItemContent>내가 쓴 글</ItemContent>
         </NavItem>
+        </Link>
     </NavItemsLayout>
   );
 };

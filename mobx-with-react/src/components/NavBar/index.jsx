@@ -5,6 +5,7 @@ import Logo from './Logo';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+
 const NavBar = () => {
     return (
         <NavBarLayout >
