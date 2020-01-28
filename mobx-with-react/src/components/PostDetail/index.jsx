@@ -70,21 +70,21 @@ const PostTitle = styled.div`
   /* 구분을 위한 스타일임 수정필요 */
   background-color: white;
   font-size: 4rem;
-  font-family: fantasy;
+  font-family: Inconsolata;
 `;
 
 const PostUserProfile = styled.div`
   /* 구분을 위한 스타일임 수정필요 */
   background-color: white;
   font-size: 1rem;
-  font-family: fantasy;
+  font-family: Inconsolata;
 `;
 
 const PostContent = styled.div`
   /* 구분을 위한 스타일임 수정필요 */
   background-color: white;
   font-size: 1.5rem;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: Inconsolata;
 `;
 
 const ImageContent = styled.div`

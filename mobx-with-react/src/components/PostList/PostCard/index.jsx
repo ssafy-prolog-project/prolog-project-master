@@ -89,6 +89,7 @@ const OutT = styled.div`
   padding-right: 5%;
   padding-top: 3%;
   padding-bottom: 3%;
+  font-family: Inconsolata;
 `;
 
 const Date = styled.div`
