@@ -20,40 +20,40 @@ class PostList extends Component {
     });
   }
 
+  fetchMoreData = () => {
+    if (this.state.items.length >= this.props.post.postItems.length) {
+      this.setState({ hasMoreItems: false });
+      return;
+    }
+    
+    setTimeout(() => {
+      this.props.post.getItems(this.state.items.length, 6);
+      this.setState({ items: this.state.items.concat(this.props.post.returnItems) });
+    }, 500);
+  };
+
   render() {
     const { items, hasMoreItems } = this.state;
-    const { post } = this.props;
-    console.log(items.length);
-    console.log(hasMoreItems);
-    const fetchMoreData = () => {
-      console.log("next");
-      if (this.state.items.length >= post.postItems.length) {
-        this.setState({ hasMoreItems: false });
-        return;
-      }
-      console.log("call fetchmoredata");
-      setTimeout(() => {
-        post.getItems(items.length, 6);
-        this.setState({ items: this.state.items.concat(post.returnItems) });
-      }, 500);
-    };
-
+    
     return (
+<<<<<<< HEAD
 
         <InfiniteScroll
           height = "800px"
+=======
+      <InfiniteScroll 
+>>>>>>> 42b6f3782584b8a679a5fb5e9dc7ed9693600cd5
           dataLength={items.length}
-          next={fetchMoreData}
+          next={this.fetchMoreData}
           hasMore={hasMoreItems}
           loader={<h4>Loading...</h4>}
-          //scrollableTarget="scrollableDiv"
           endMessage={<h4>End</h4>}
         >
-          <Divs id="scrollableDiv">
+          <GridDiv >
           {items.map((item, index) => (
             <PostCard key={index} post={item} />
           ))}
-          </Divs>
+          </GridDiv>
         </InfiniteScroll>
 
     );
@@ -63,7 +63,7 @@ class PostList extends Component {
 
 export default PostList;
 
-const Divs = styled.div`
+const GridDiv = styled.div`
   padding: 2%;
   display: grid;
   grid-template-columns: repeat(auto-fit, 33%);
