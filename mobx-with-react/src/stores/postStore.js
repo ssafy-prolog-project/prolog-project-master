@@ -353,11 +353,8 @@ export default class PostStore {
     }
   };
 
-  //   @computed
-  //   get total() {
-  //     console.log("총합 계산...");
-  //     return this.selectedItems.reduce((previous, current) => {
-  //       return previous + current.price * current.count;
-  //     }, 0);
-  //   }
+    @computed
+    get length() {
+      return this.postItems.length;
+    }
 }

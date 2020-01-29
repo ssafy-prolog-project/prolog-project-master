@@ -14,46 +14,57 @@ class PostList extends Component {
 
   componentDidMount() {
     const { postStore } = this.props;
-    postStore.getItems(0,6);
+    postStore.getItems(0, 6);
     this.setState({
       items: postStore.returnItems
     });
   }
 
+  // //젤 처음에 보여줄 곳을 axios로 우리 back에서 호출하자.
+  // fetch("https://jsonplaceholder.typicode.com/photos/100")
+  //   .then(response => response.json())
+  //   .then(json => {
+  //     console.log(json.id)
+  //     console.log(json.title)
+  //   }
+  //   )
+  // }
+
+  //추가로 데이터를 호출한다. axios로. 이걸 여기서 할지 store에서 할 지는 고민을 좀 해보자.
   fetchMoreData = () => {
-    if (this.state.items.length >= this.props.postStore.postItems.length) {
+    if (this.state.items.length >= this.props.postStore.length) {
       this.setState({ hasMoreItems: false });
       return;
     }
-    
+
     setTimeout(() => {
       this.props.postStore.getItems(this.state.items.length, 6);
-      this.setState({ items: this.state.items.concat(this.props.postStore.returnItems) });
+      this.setState({
+        items: this.state.items.concat(this.props.postStore.returnItems)
+      });
     }, 500);
   };
 
   render() {
     const { items, hasMoreItems } = this.state;
-    
+
     return (
-      <InfiniteScroll 
-          dataLength={items.length}
-          next={this.fetchMoreData}
-          hasMore={hasMoreItems}
-          loader={<h4>Loading...</h4>}
-          endMessage={<h4>End</h4>}
-        >
-          <GridDiv >
+      <InfiniteScroll
+        dataLength={items.length}
+        next={this.fetchMoreData}
+        hasMore={hasMoreItems}
+        loader={<h4>Loading...</h4>}
+        endMessage={<h4>End</h4>}
+      >
+        <GridDiv>
           {items.map((item, index) => (
             <PostCard key={index} post={item} />
           ))}
-          </GridDiv>
-        </InfiniteScroll>
-
+        </GridDiv>
+      </InfiniteScroll>
     );
   }
 }
-
 
 export default PostList;
 
