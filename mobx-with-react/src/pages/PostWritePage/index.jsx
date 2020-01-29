@@ -7,8 +7,7 @@ import styled from "styled-components";
 
 export const RQuill = styled(ReactQuill)`
   width: 80%;
-  height: 100                                                                                                                                                                                                                                                                                                                                                                         %;
-
+  height: 100% !important;
   cursor: pointer;
 `;
 
