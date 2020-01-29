@@ -6,9 +6,7 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import RootStore from "./stores";
-import dotenv from 'dotenv';
 
-require('dotenv').config()
 const root = new RootStore();
 
 ReactDOM.render(
