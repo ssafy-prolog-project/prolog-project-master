@@ -3,11 +3,11 @@ import { Redirect } from 'react-router-dom';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import GLogin from './GLogin';
+
 const LogInPage = () => {
  
-
   return (
-    
     <LoginLayout>
       <LeftDiv>
         <Logo>Prolog;</Logo>
@@ -21,7 +21,7 @@ const LogInPage = () => {
       <RightDiv>
         <LineBox>
           <GithubLoginForm>Github 로그인</GithubLoginForm>
-          <GoogleLoginForm>Google 로그인</GoogleLoginForm>
+          <GLogin></GLogin>
           <FacebookLoginForm>Facebook 로그인</FacebookLoginForm>
           <hr />
           <Link to={"/"} style={{ textDecoration: "none" }}>
@@ -40,6 +40,9 @@ const LeftDiv = styled.div`
   height: 100vh;
   background-color: #1a3365;
   float: left;
+  @media (max-width: 768px) {
+        display: none;
+  }
 `;
 
 const Logo = styled.div`
@@ -68,6 +71,9 @@ const RightDiv = styled.div`
   background-color: #ebf0fa;
   float: left;
   text-align: center;
+  @media (max-width: 768px) {
+       width: 100%;
+  }
 `;
 
 const LineBox = styled.div`
@@ -77,6 +83,7 @@ const LineBox = styled.div`
   display: inline-block;
   background-color: white;
   text-align: center;
+  
 `;
 
 const GithubLoginForm = styled.div`
@@ -89,16 +96,16 @@ const GithubLoginForm = styled.div`
   cursor: pointer;
 `;
 
-const GoogleLoginForm = styled.div`
-  line-height: 4rem;
-  width: 30rem;
-  height: 4rem;
-  background-color: #b32d00;
-  display: inline-block;
-  margin-top: 3rem;
-  color: white;
-  cursor: pointer;
-`;
+// const GoogleLoginForm = styled.div`
+//   line-height: 4rem;
+//   width: 30rem;
+//   height: 4rem;
+//   background-color: #b32d00;
+//   display: inline-block;
+//   margin-top: 3rem;
+//   color: white;
+//   cursor: pointer;
+// `;
 
 const FacebookLoginForm = styled.div`
   line-height: 4rem;
