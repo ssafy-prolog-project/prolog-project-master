@@ -4,7 +4,7 @@ import PostCard from "./PostCard";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 
-@inject("post")
+@inject("postStore")
 @observer
 class PostList extends Component {
   state = {
@@ -13,22 +13,22 @@ class PostList extends Component {
   };
 
   componentDidMount() {
-    const { post } = this.props;
-    post.getItems(0,6);
+    const { postStore } = this.props;
+    postStore.getItems(0,6);
     this.setState({
-      items: post.returnItems
+      items: postStore.returnItems
     });
   }
 
   fetchMoreData = () => {
-    if (this.state.items.length >= this.props.post.postItems.length) {
+    if (this.state.items.length >= this.props.postStore.postItems.length) {
       this.setState({ hasMoreItems: false });
       return;
     }
     
     setTimeout(() => {
-      this.props.post.getItems(this.state.items.length, 6);
-      this.setState({ items: this.state.items.concat(this.props.post.returnItems) });
+      this.props.postStore.getItems(this.state.items.length, 6);
+      this.setState({ items: this.state.items.concat(this.props.postStore.returnItems) });
     }, 500);
   };
 
