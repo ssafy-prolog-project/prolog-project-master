@@ -1,21 +1,66 @@
-import React, { useState } from "react";
+import React, { Component } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import PostCard from "./PostCard";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 
-const PostList = ({ posts, onAdd, onDelete, onSortByIds, onSortByViews, onSortByAuthors, onSortByDates }) => {
-  // posts 는 그냥 api 호출을 통해서가져오는 것 뿐이다. 그럼 그냥 Posts를 axios로 호출하는 코드와
-  // 그것을 보여주는 코드면 충분하다.
-  // imgUrl, title, category, text, author
+@inject("post")
+@observer
+class PostList extends Component {
+  state = {
+    items: [],
+    hasMoreItems: true
+  };
 
-  const postCards = posts.map(item => <PostCard key={item.id} post={item} />);
-  return (
+  componentDidMount() {
+    const { post } = this.props;
+    post.getItems(0,6);
+    this.setState({
+      items: post.returnItems
+    });
+  }
 
-    <Divs>
-      {postCards}
-    </Divs>
-  );
-};
+  render() {
+    const { items, hasMoreItems } = this.state;
+    const { post } = this.props;
+    console.log(items.length);
+    console.log(hasMoreItems);
+    const fetchMoreData = () => {
+      console.log("next");
+      if (this.state.items.length >= post.postItems.length) {
+        this.setState({ hasMoreItems: false });
+        return;
+      }
+      console.log("call fetchmoredata");
+      setTimeout(() => {
+        post.getItems(items.length, 6);
+        this.setState({ items: this.state.items.concat(post.returnItems) });
+      }, 500);
+    };
+
+    return (
+      
+        <InfiniteScroll
+          height = "800px"
+          dataLength={items.length}
+          next={fetchMoreData}
+          hasMore={hasMoreItems}
+          loader={<h4>Loading...</h4>}
+          //scrollableTarget="scrollableDiv"
+          endMessage={<h4>End</h4>}
+        >
+          <Divs id="scrollableDiv">
+          {items.map((item, index) => (
+            <PostCard key={index} post={item} />
+          ))}
+          </Divs>
+        </InfiniteScroll>
+      
+    );
+  }
+}
+
+export default PostList;
 
 const Divs = styled.div`
   padding: 2%;
@@ -35,14 +80,3 @@ const Divs = styled.div`
     grid-template-rows: repeat(auto-fit, 1fr);
   }
 `;
-
-export default inject(({ post }) => ({
-  posts: post.postItems,
-  onAdd: post.add,
-  onDelete: post.delete,
-  nextId: post.nextId,
-  onSortByIds : post.sortByIds,
-  onSortByViews : post.sortByViews,
-  onSortByAuthors : post.sortByAuthors,
-  onSortByDates : post.sortByDates,
-}))(observer(PostList));

@@ -1,11 +1,11 @@
 import { observable, action, computed } from "mobx";
 
-import { getUnixTime } from 'date-fns'
-
+import { getUnixTime } from "date-fns";
 
 // imageUrl, Title, category, text, likes, comments, created_at, updated_at , author
 export default class PostStore {
   @observable nextId = 14;
+  @observable returnItems = [];
   @observable postItems = [
     {
       id: 0,
@@ -272,7 +272,7 @@ export default class PostStore {
       
       이 예제에서 children은 문자열입니다. 하지만 일반적으로 더 많은 엘리먼트의 배열의 형태입니다. 이것이 엘리먼트들이 트리 형태인 이유입니다.`,
       author: "BTS",
-      date: getUnixTime(new Date(2020, 0, 23,12)),
+      date: getUnixTime(new Date(2020, 0, 23, 12)),
       views: 5000
     }
   ]; // axios로 호출해서 받아오면 된다.
@@ -313,26 +313,44 @@ export default class PostStore {
 
   @action
   sortByViews = () => {
-    const itemsSortByViews = this.postItems.slice().sort((a,b) => b.views - a.views );
-    this.postItems = itemsSortByViews
+    const itemsSortByViews = this.postItems
+      .slice()
+      .sort((a, b) => b.views - a.views);
+    this.postItems = itemsSortByViews;
   };
 
   @action
   sortByIds = () => {
-    const itemsSortByIds = this.postItems.slice().sort((a,b) => a.id - b.id );
-    this.postItems = itemsSortByIds
+    const itemsSortByIds = this.postItems.slice().sort((a, b) => a.id - b.id);
+    this.postItems = itemsSortByIds;
   };
 
   @action
   sortByAuthors = () => {
-    const itemsSortByAuthors = this.postItems.slice().sort((a,b) => a.author > b.author ? 1 : -1);
-    this.postItems = itemsSortByAuthors
+    const itemsSortByAuthors = this.postItems
+      .slice()
+      .sort((a, b) => (a.author > b.author ? 1 : -1));
+    this.postItems = itemsSortByAuthors;
   };
 
   @action
   sortByDates = () => {
-    const itemsSortByDates = this.postItems.slice().sort((a,b) => a.date > b.date ? -1 : 1 );
-    this.postItems = itemsSortByDates
+    const itemsSortByDates = this.postItems
+      .slice()
+      .sort((a, b) => (a.date > b.date ? -1 : 1));
+    this.postItems = itemsSortByDates;
+  };
+
+  @action
+  getItems = (startIndex, count) => {
+    this.returnItems = this.postItems.slice(startIndex, startIndex + count);
+  };
+
+  @action
+  add10 = () => {
+    for (const i = 0; i < 10; i++) {
+      this.add();
+    }
   };
 
   //   @computed
