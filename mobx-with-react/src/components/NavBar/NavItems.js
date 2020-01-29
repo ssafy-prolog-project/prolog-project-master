@@ -1,48 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link, Route, Switch, BrowserRouter as Router } from "react-router-dom";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 import PostCard from "../PostList/PostCard";
-import { signIn } from './auth';
-import AuthRoute from './AuthRoute';
-import LogoutButton from './LogoutButton';
+import { signIn } from "../Auth/auth";
+import AuthRoute from "../Auth/AuthRoute";
+import LogoutButton from "./LogoutButton";
 
-const NavItems = ({ posts, onAdd, onDelete, onSortByIds, onSortByViews, onSortByAuthors, onSortByDates }) => {
+const NavItems = ({
+  posts,
+  onAdd,
+  onDelete,
+  onSortByIds,
+  onSortByViews,
+  onSortByAuthors,
+  onSortByDates
+}) => {
   const postCards = posts.map(item => <PostCard key={item.id} post={item} />);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState('10');
   const authenticated = user != null;
 
-  const login = ({ email, password }) => setUser(signIn({ email, password }));
+  const login = ({ email, password }) => setUser({ email: 'kim@test.com', password: '123', name: 'Kim' });
+  // signIn({ email, password })
   const logout = () => setUser(null);
   const LoginAlert = () => {
     alert("로그인해주세요!");
-  }
+  };
   return (
     <NavItemsLayout>
-      <Link to={"/"} style={{textDecoration:"none"}}>
+      <Link to={"/"} style={{ textDecoration: "none" }}>
         <NavItem onClick={onSortByDates}>
           <ItemContent>최신순</ItemContent>
         </NavItem>
-        </Link>
-        <Link to={"/"} style={{textDecoration:"none"}}>
+      </Link>
+      <Link to={"/"} style={{ textDecoration: "none" }}>
         <NavItem onClick={onSortByViews}>
           <ItemContent>조회수순</ItemContent>
         </NavItem>
-        </Link>
-        {authenticated ? (
-         
-          <NavItem onClick={onSortByAuthors}>
+      </Link>
+      {/* <Link to={"/"} style={{textDecoration:"none"}}>
+        <NavItem onClick={onSortByIds}>
           <ItemContent>내가 쓴 글</ItemContent>
-          </NavItem>
-        
-        ) : (
-          <Link to="/login" style={{textDecoration:"none"}}>
-          <NavItem onClick={LoginAlert}>
+        </NavItem>
+        </Link> */}
+      {authenticated ? (
+        <NavItem onClick={onSortByAuthors}>
           <ItemContent>내가 쓴 글</ItemContent>
-          </NavItem>
-          </Link>
-        )} 
-        
+        </NavItem>
+      ) : (
+        <></>
+      )}
     </NavItemsLayout>
   );
 };
@@ -82,15 +89,13 @@ const ItemContent = styled.a`
   align-items: center;
 `;
 
-
 export default inject(({ post }) => ({
   posts: post.postItems,
   onAdd: post.add,
   onDelete: post.delete,
   nextId: post.nextId,
-  onSortByIds : post.sortByIds,
-  onSortByViews : post.sortByViews,
-  onSortByAuthors : post.sortByAuthors,
-  onSortByDates : post.sortByDates,
+  onSortByIds: post.sortByIds,
+  onSortByViews: post.sortByViews,
+  onSortByAuthors: post.sortByAuthors,
+  onSortByDates: post.sortByDates
 }))(observer(NavItems));
-
