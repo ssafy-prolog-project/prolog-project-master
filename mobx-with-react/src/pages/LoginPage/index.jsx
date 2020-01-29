@@ -3,6 +3,8 @@ import { Redirect } from 'react-router-dom';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import GLogin from './GLogin';
+
 const LogInPage = () => {
  
   return (
@@ -19,7 +21,7 @@ const LogInPage = () => {
       <RightDiv>
         <LineBox>
           <GithubLoginForm>Github 로그인</GithubLoginForm>
-          <GoogleLoginForm>Google 로그인</GoogleLoginForm>
+          <GLogin></GLogin>
           <FacebookLoginForm>Facebook 로그인</FacebookLoginForm>
           <hr />
           <Link to={"/"} style={{ textDecoration: "none" }}>
@@ -94,16 +96,16 @@ const GithubLoginForm = styled.div`
   cursor: pointer;
 `;
 
-const GoogleLoginForm = styled.div`
-  line-height: 4rem;
-  width: 30rem;
-  height: 4rem;
-  background-color: #b32d00;
-  display: inline-block;
-  margin-top: 3rem;
-  color: white;
-  cursor: pointer;
-`;
+// const GoogleLoginForm = styled.div`
+//   line-height: 4rem;
+//   width: 30rem;
+//   height: 4rem;
+//   background-color: #b32d00;
+//   display: inline-block;
+//   margin-top: 3rem;
+//   color: white;
+//   cursor: pointer;
+// `;
 
 const FacebookLoginForm = styled.div`
   line-height: 4rem;
