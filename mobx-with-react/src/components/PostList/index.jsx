@@ -36,13 +36,7 @@ class PostList extends Component {
     const { items, hasMoreItems } = this.state;
     
     return (
-<<<<<<< HEAD
-
-        <InfiniteScroll
-          height = "800px"
-=======
       <InfiniteScroll 
->>>>>>> 42b6f3782584b8a679a5fb5e9dc7ed9693600cd5
           dataLength={items.length}
           next={this.fetchMoreData}
           hasMore={hasMoreItems}
