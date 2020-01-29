@@ -19,7 +19,6 @@ const MainPage = () => (
 const MainPageLayout = styled.div`
   height: 100vh;
   display: grid;
-  overflow-y: hidden;
   grid-template-columns: 290px;
   grid-template-areas: "nav content";
   @media (max-width: 768px) {
@@ -30,8 +29,7 @@ const MainPageLayout = styled.div`
 const Div = styled.div`
   padding-bottom: 5%;
   display: grid;
-  grid-template-rows: 9% 9% 82%;
-  overflow-y: scroll;
+  grid-template-rows: fit-content(9%) fit-content(9%) 82%;
 `;
 
 export default MainPage;
