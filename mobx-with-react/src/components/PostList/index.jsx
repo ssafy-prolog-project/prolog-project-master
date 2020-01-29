@@ -39,7 +39,7 @@ class PostList extends Component {
     };
 
     return (
-      
+
         <InfiniteScroll
           height = "800px"
           dataLength={items.length}
@@ -55,10 +55,11 @@ class PostList extends Component {
           ))}
           </Divs>
         </InfiniteScroll>
-      
+
     );
   }
 }
+
 
 export default PostList;
 
