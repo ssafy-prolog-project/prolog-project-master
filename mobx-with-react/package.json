@@ -24,6 +24,8 @@
     "date-fns": "^2.9.0",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
+    "draft-js": "^0.11.4",
+    "draft-js-plugins-editor": "^3.0.0",
     "eslint": "^6.6.0",
     "eslint-config-react-app": "^5.1.0",
     "eslint-loader": "3.0.2",
