@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import GitHubLogin from 'react-github-login';
 
+require('dotenv').config();
+
 const onSuccess = response => console.log(response);
 const onFailure = response => console.error(response);
 
@@ -13,7 +15,7 @@ class GHLogin extends Component{
         return(
             <Container>
                 <Github
-                    clientId="84894e1e60368c53a385"
+                    clientId={process.env.REACT_APP_GITHUB}
                     buttonText="Github 로그인"
                     onSuccess={onSuccess}
                     onFailure={onFailure}

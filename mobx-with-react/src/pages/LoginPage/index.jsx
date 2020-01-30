@@ -62,9 +62,11 @@ const LeftDiv = styled.div`
   height: 100%;
   background-color: #1a3365;
   float: left;
+
   @media (max-width: 768px) {
-      display: none;
+    display: none;
   }
+  
   @media (max-width: 1024px){
     /* display: none; */
     height: 100%;
@@ -95,8 +97,6 @@ const TextBox = styled.div`
   margin-right: 15%;
   margin-left: 13%;
   font-size: 1.3rem;
-
-  
   
 `;
 
@@ -107,13 +107,13 @@ const RightDiv = styled.div`
   text-align: center;
 
   @media (max-width: 768px) {
-       width: 100vw;
-       height: 100%;
+    width: 100vw;
+    height: 100%;
   }
 
   @media (max-width: 1024px){
-       width: 100vw;
-       height: 100%;
+    width: 100vw;
+    height: 100%;
   }
 `;
 
@@ -135,32 +135,11 @@ const LineBox = styled.div`
   }
 `;
 
-const GithubLoginForm = styled.div`
-  line-height: 4rem;
-  width: 100%;
-  height: 4rem;
-  background-color: #e6e6e6;
-  display: inline-block;
-  margin-top: 3rem;
-  cursor: pointer;
-`;
-
-const FacebookLoginForm = styled.div`
-  line-height: 4rem;
-  width: 100%;
-  height: 4rem;
-  background-color: #0066cc;
-  display: inline-block;
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-  color: white;
-  cursor: pointer;
-`;
-
 const Guest = styled.div`
   float: right;
   margin-top: 3%;
   margin-right: 1rem;
   cursor: pointer;
 `;
+
 export default LogInPage;
