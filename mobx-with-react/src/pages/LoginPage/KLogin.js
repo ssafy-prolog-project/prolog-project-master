@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { GoogleLogin } from 'react-google-login';
+import KakaoLogin from 'react-kakao-login';
 import styled from 'styled-components';
 
-
-class GLogin extends Component {
+class KLogin extends Component {
 
     constructor(props) {
         super(props);
@@ -13,14 +12,16 @@ class GLogin extends Component {
             provider: '',
         }
     }
-    // Google Login
-    responseGoogle = (res) => {
+
+    // Kakao Login
+    responseKakao = (res) => {
         this.setState({
-            id: res.googleId,
-            name: res.profileObj.name,
-            provider: 'google'
-        });
-        console.log(this.state.name);
+            id: res.profile.id,
+            name: res.profile.properties.nickname,
+            provider: 'kakao'
+        })
+        console.log(res)
+        console.log(res.response.access_token)
     }
 
     // Login Fail
@@ -31,22 +32,24 @@ class GLogin extends Component {
     render() {
         return (
             <Container>
-                <Google
-                    clientId={'461168484696-ap6sdbsb27olm34jf5s36706gqsl9gqu.apps.googleusercontent.com'}
-                    buttonText="Google 로그인"
-                    onSuccess={this.responseGoogle}
+                <Kakao
+                    jsKey={'aed658bdb88315a85c58003bb47eb8e0'}
+                    buttonText="Kakao 로그인"
+                    onSuccess={this.responseKakao}
                     onFailure={this.responseFail}
-                    icon={false}
+                    getProfile="true"
                 />
             </Container>
         );
     }
 }
 
-export const Google = styled(GoogleLogin)`
+export const Kakao = styled(KakaoLogin)`
     height: 100% !important;
+    border: 0 !important;
+    outline: 0 !important;
     box-shadow: none !important;
-    color: white !important;
+    color: black !important;
     background-color: #00ff0000 !important;
 `
 
@@ -54,12 +57,11 @@ const Container = styled.div`
     line-height: 4rem;
     width: 100%;
     height: 4rem;
-    background-color: #b32d00;
+    background-color: #ffff00;
     display: inline-block;
     margin-top: 3rem;
     color: white;
     cursor: pointer;
 `
 
-
-export default GLogin;
+export default KLogin;
