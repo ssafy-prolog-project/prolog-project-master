@@ -47,16 +47,16 @@ class PostList extends Component {
 
   render() {
     const { items, hasMoreItems } = this.state;
-
+    
     return (
-      <InfiniteScroll
-        dataLength={items.length}
-        next={this.fetchMoreData}
-        hasMore={hasMoreItems}
-        loader={<h4>Loading...</h4>}
-        endMessage={<h4>End</h4>}
-      >
-        <GridDiv>
+      <InfiniteScroll 
+          dataLength={items.length}
+          next={this.fetchMoreData}
+          hasMore={hasMoreItems}
+          loader={<h4>Loading...</h4>}
+          endMessage={<h4>End</h4>}
+        >
+          <GridDiv >
           {items.map((item, index) => (
             <PostCard key={index} post={item} />
           ))}
