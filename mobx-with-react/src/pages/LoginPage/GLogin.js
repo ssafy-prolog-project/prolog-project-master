@@ -22,7 +22,7 @@ class GLogin extends Component {
             name: res.profileObj.name,
             provider: 'google',
         });
-
+        console.log('login success')
         // console.log(res.accessToken)
         axios.post('http://localhost:3000/login',{
             test: 1111
@@ -39,6 +39,7 @@ class GLogin extends Component {
     // Login Fail
     responseFail = (err) => {
         console.error(err);
+        console.log('FAILED')
     }
 
     render() {
@@ -70,7 +71,6 @@ const Container = styled.div`
     background-color: #b32d00;
     display: inline-block;
     margin-top: 3rem;
-    color: white;
     cursor: pointer;
 `
 
