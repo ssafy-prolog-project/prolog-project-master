@@ -37,8 +37,8 @@ const TopBar = () => {
       <Link to={"/"} style={{ textDecoration: "none" }}>
         <MLogo>Prolog;</MLogo>
       </Link>
-      <button onClick={login}> login</button>
-      <button onClick={logout}> logout</button>
+      {/* <button onClick={login}> login</button>
+      <button onClick={logout}> logout</button> */}
       {authenticated ? (
         <>
           <ProfileBtn></ProfileBtn>

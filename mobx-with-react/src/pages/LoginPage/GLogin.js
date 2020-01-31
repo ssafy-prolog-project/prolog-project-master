@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import styled from 'styled-components';
+import axios from 'axios';
+
+require('dotenv').config();
 
 class GLogin extends Component {
 
@@ -17,21 +20,33 @@ class GLogin extends Component {
         this.setState({
             id: res.googleId,
             name: res.profileObj.name,
-            provider: 'google'
+            provider: 'google',
         });
-        console.log(this.state.name);
+        console.log('login success')
+        // console.log(res.accessToken)
+        axios.post('http://localhost:3000/login',{
+            test: 1111
+        }, { headers: {"Authorization" : `Bearer ${res.accessToken}`,
+          "Content-Type":"application/json"}})
+        .then(function (response){
+            console.log(response);
+        })
+        .catch(function (error){
+            console.log(error);
+        });
     }
 
     // Login Fail
     responseFail = (err) => {
         console.error(err);
+        console.log('FAILED')
     }
 
     render() {
         return (
             <Container>
                 <Google
-                    clientId={"461168484696-ap6sdbsb27olm34jf5s36706gqsl9gqu.apps.googleusercontent.com"}
+                    clientId={process.env.REACT_APP_Google}
                     buttonText="Google 로그인"
                     onSuccess={this.responseGoogle}
                     onFailure={this.responseFail}
@@ -56,7 +71,6 @@ const Container = styled.div`
     background-color: #b32d00;
     display: inline-block;
     margin-top: 3rem;
-    color: white;
     cursor: pointer;
 `
 

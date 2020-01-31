@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import KakaoLogin from 'react-kakao-login';
 import styled from 'styled-components';
 
+require('dotenv').config();
+
 class KLogin extends Component {
 
     constructor(props) {
@@ -12,16 +14,15 @@ class KLogin extends Component {
             provider: '',
         }
     }
-
     // Kakao Login
     responseKakao = (res) => {
         this.setState({
             id: res.profile.id,
             name: res.profile.properties.nickname,
-            provider: 'kakao'
+            provider: 'kakao',
         })
-        console.log(res)
-        console.log(res.response.access_token)
+        console.log('succeess');
+        // console.log(res.response.access_token)
     }
 
     // Login Fail
@@ -33,7 +34,7 @@ class KLogin extends Component {
         return (
             <Container>
                 <Kakao
-                    jsKey={'aed658bdb88315a85c58003bb47eb8e0'}
+                    jsKey={process.env.REACT_APP_KAKAO}
                     buttonText="Kakao 로그인"
                     onSuccess={this.responseKakao}
                     onFailure={this.responseFail}
@@ -51,6 +52,7 @@ export const Kakao = styled(KakaoLogin)`
     box-shadow: none !important;
     color: black !important;
     background-color: #00ff0000 !important;
+    cursor: pointer;
 `
 
 const Container = styled.div`
@@ -60,7 +62,6 @@ const Container = styled.div`
     background-color: #ffff00;
     display: inline-block;
     margin-top: 3rem;
-    color: white;
     cursor: pointer;
 `
 
