@@ -4,7 +4,7 @@ import { getUnixTime } from "date-fns";
 
 // imageUrl, Title, category, text, likes, comments, created_at, updated_at , author
 export default class PostStore {
-  @observable nextId = 14;
+  @observable nextId = 31;
   @observable returnItems = [];
   @observable postItems = [
     {
@@ -274,7 +274,177 @@ export default class PostStore {
       author: "BTS",
       date: getUnixTime(new Date(2020, 0, 23, 12)),
       views: 5000
-    }
+    },
+    {
+      id: 14,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 15,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 16,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 17,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 18,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 19,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 20,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 21,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 22,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 23,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 24,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 25,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 26,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 27,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 28,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 29,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
+    {
+      id: 30,
+      imgUrl: "",
+      title: "2020년 1월 16일 12시",
+      category: "post",
+      text: "test 중입니다.",
+      author: "RRRY",
+      date: getUnixTime(new Date(2020, 0, 16, 12)),
+      views: 999
+    },
   ]; // axios로 호출해서 받아오면 된다.
 
   constructor(root) {
