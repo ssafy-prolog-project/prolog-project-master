@@ -53,7 +53,7 @@ class PostWrite extends Component {
                   editorState={this.state.editorState}
                   handleKeyCommand={this.handleKeyCommand}
                   onChange={this.onChange}
-                  placeholder="여기에 글을 쓰면 되는데..."
+                  placeholder="내용을 입력해주세요..."
                 />
                 <PluginSpace>
                     <Icons>

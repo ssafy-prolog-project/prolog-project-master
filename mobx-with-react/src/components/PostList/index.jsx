@@ -3,6 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import PostCard from "./PostCard";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
+import Loader from "react-loader-spinner";
 
 @inject("postStore")
 @observer
@@ -49,6 +50,7 @@ class PostList extends Component {
     const { items, hasMoreItems } = this.state;
     
     return (
+<<<<<<< HEAD
       <InfiniteScroll 
           dataLength={items.length}
           next={this.fetchMoreData}
@@ -57,6 +59,26 @@ class PostList extends Component {
           endMessage={<h4>End</h4>}
         >
           <GridDiv >
+=======
+      <InfiniteScroll
+        dataLength={items.length}
+        next={this.fetchMoreData}
+        hasMore={hasMoreItems}
+        loader={
+          <div style={{ textAlign: "center"}}>
+            <Loader
+              type="ThreeDots"
+              color="#1A3365"
+              height={100}
+              width={100}
+              timeout={1500} //3 secs
+            />
+          </div>
+        }
+        endMessage={<h4>End</h4>}
+      >
+        <GridDiv>
+>>>>>>> 52bada27648f367da429cebca877d894b6cf1a9c
           {items.map((item, index) => (
             <PostCard key={index} post={item} />
           ))}
