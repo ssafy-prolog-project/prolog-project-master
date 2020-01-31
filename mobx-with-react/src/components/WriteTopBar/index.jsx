@@ -23,7 +23,7 @@ const WriteTopBar = () => {
             <ArrowBackIcon></ArrowBackIcon>
             </Link>
             <Link to={"/"} style={{textDecoration:"none"}}>
-                <SaveBtn onClick={SaveonClick}></SaveBtn>
+                <SaveBtn onClick={SaveonClick}>저장</SaveBtn>
             </Link>
         </WriteTopBarLayout>
     )
@@ -35,6 +35,18 @@ background-color: #1a3365;
 `;
 
 const SaveBtn = styled.div`
-    
+    border-radius: 5px;
+    border-color: white;
+    border: 1px solid white;
+    color: white;
+    cursor: pointer;
+    height: 30px;
+    width: 60px;
+    background-color: #1a3365;
+    float: right;
+    margin-top: 1%;
+    margin-right: 1%;
+    text-align: center;
+    padding-top: 3px;
 `;
 export default WriteTopBar;
