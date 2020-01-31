@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import styled from 'styled-components';
 
-
 class GLogin extends Component {
 
     constructor(props) {
@@ -32,7 +31,7 @@ class GLogin extends Component {
         return (
             <Container>
                 <Google
-                    clientId={'461168484696-ap6sdbsb27olm34jf5s36706gqsl9gqu.apps.googleusercontent.com'}
+                    clientId={"461168484696-ap6sdbsb27olm34jf5s36706gqsl9gqu.apps.googleusercontent.com"}
                     buttonText="Google 로그인"
                     onSuccess={this.responseGoogle}
                     onFailure={this.responseFail}

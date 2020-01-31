@@ -113,6 +113,6 @@ const PostContentImage = styled.img`
 `;
 
 
-export default inject(({ post }) => ({
-  posts: post.postItems
+export default inject(({ postStore }) => ({
+  posts: postStore.postItems
 }))(observer(PostDetail));

@@ -89,13 +89,13 @@ const ItemContent = styled.a`
   align-items: center;
 `;
 
-export default inject(({ post }) => ({
-  posts: post.postItems,
-  onAdd: post.add,
-  onDelete: post.delete,
-  nextId: post.nextId,
-  onSortByIds: post.sortByIds,
-  onSortByViews: post.sortByViews,
-  onSortByAuthors: post.sortByAuthors,
-  onSortByDates: post.sortByDates
+export default inject(({ postStore }) => ({
+  posts: postStore.postItems,
+  onAdd: postStore.add,
+  onDelete: postStore.delete,
+  nextId: postStore.nextId,
+  onSortByIds: postStore.sortByIds,
+  onSortByViews: postStore.sortByViews,
+  onSortByAuthors: postStore.sortByAuthors,
+  onSortByDates: postStore.sortByDates
 }))(observer(NavItems));
