@@ -48,24 +48,14 @@ class PostList extends Component {
 
   render() {
     const { items, hasMoreItems } = this.state;
-    
+
     return (
-<<<<<<< HEAD
-      <InfiniteScroll 
-          dataLength={items.length}
-          next={this.fetchMoreData}
-          hasMore={hasMoreItems}
-          loader={<h4>Loading...</h4>}
-          endMessage={<h4>End</h4>}
-        >
-          <GridDiv >
-=======
       <InfiniteScroll
         dataLength={items.length}
         next={this.fetchMoreData}
         hasMore={hasMoreItems}
         loader={
-          <div style={{ textAlign: "center"}}>
+          <div style={{ textAlign: "center" }}>
             <Loader
               type="ThreeDots"
               color="#1A3365"
@@ -78,7 +68,6 @@ class PostList extends Component {
         endMessage={<h4>End</h4>}
       >
         <GridDiv>
->>>>>>> 52bada27648f367da429cebca877d894b6cf1a9c
           {items.map((item, index) => (
             <PostCard key={index} post={item} />
           ))}
