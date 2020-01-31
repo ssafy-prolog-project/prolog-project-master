@@ -3,6 +3,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import PostCard from "./PostCard";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
+import Loader from "react-loader-spinner";
 
 @inject("postStore")
 @observer
@@ -53,7 +54,17 @@ class PostList extends Component {
         dataLength={items.length}
         next={this.fetchMoreData}
         hasMore={hasMoreItems}
-        loader={<h4>Loading...</h4>}
+        loader={
+          <div style={{ textAlign: "center"}}>
+            <Loader
+              type="ThreeDots"
+              color="#1A3365"
+              height={100}
+              width={100}
+              timeout={1500} //3 secs
+            />
+          </div>
+        }
         endMessage={<h4>End</h4>}
       >
         <GridDiv>
