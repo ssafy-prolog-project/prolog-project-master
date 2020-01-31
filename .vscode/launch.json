@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-PrologApplication<prolog>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.ssafy.api.PrologApplication",
+            "projectName": "prolog",
+            "args": ""
+        }
+    ]
+}
