@@ -13,10 +13,17 @@ height: 50px;
 `;
 
 const WriteTopBar = () => {
+    const SaveonClick = () => {
+        alert("저장되었습니다.");
+    }
+
     return(
         <WriteTopBarLayout>
              <Link to={"/"} style={{textDecoration:"none"}}>
             <ArrowBackIcon></ArrowBackIcon>
+            </Link>
+            <Link to={"/"} style={{textDecoration:"none"}}>
+                <SaveBtn onClick={SaveonClick}></SaveBtn>
             </Link>
         </WriteTopBarLayout>
     )
@@ -27,4 +34,7 @@ height: 28rem;
 background-color: #1a3365;
 `;
 
+const SaveBtn = styled.div`
+    
+`;
 export default WriteTopBar;
