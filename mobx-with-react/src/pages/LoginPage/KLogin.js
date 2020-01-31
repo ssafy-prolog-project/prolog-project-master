@@ -52,6 +52,7 @@ export const Kakao = styled(KakaoLogin)`
     box-shadow: none !important;
     color: black !important;
     background-color: #00ff0000 !important;
+    cursor: pointer;
 `
 
 const Container = styled.div`
@@ -61,7 +62,6 @@ const Container = styled.div`
     background-color: #ffff00;
     display: inline-block;
     margin-top: 3rem;
-    color: white;
     cursor: pointer;
 `
 
