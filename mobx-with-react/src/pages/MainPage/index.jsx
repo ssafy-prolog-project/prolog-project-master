@@ -5,8 +5,29 @@ import styled from "styled-components";
 import TopBar from "../../components/TopBar";
 import MobileNavBar from "../../components/MobileNavBar";
 
-const MainPage = () => (
-  <MainPageLayout>
+
+class MainPage extends React.Component{
+  authenticate(){
+    return new Promise(resolve => setTimeout(resolve, 10)) // 2 seconds
+  }
+
+  componentDidMount(){
+    this.authenticate().then(() => {
+      const ele = document.getElementById('ipl-progress-indicator')
+      if(ele){
+        // fade out
+        ele.classList.add('available')
+        setTimeout(() => {
+          // remove from DOM
+          ele.outerHTML = ''
+        }, 2000)
+      }
+    })
+  }
+
+  render(){
+    return(
+      <MainPageLayout>
     <NavBar></NavBar>
     <Div>
       <TopBar></TopBar>
@@ -14,7 +35,10 @@ const MainPage = () => (
       <PostList></PostList>
     </Div>
   </MainPageLayout>
-);
+    )
+  }
+}
+
 
 const MainPageLayout = styled.div`
   height: 100vh;

@@ -11,6 +11,8 @@ import SearchPage from "./pages/SearchPage";
 import {signIn}  from "./components/Auth/auth"
 
 const App = () => {
+  
+
   const [user, setUser] = useState(null);
   const authenticated = user != null;
 
