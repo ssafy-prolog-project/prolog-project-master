@@ -1,10 +1,9 @@
 import React from "react";
 import WriteTopBar from "../../components/WriteTopBar";
-import PostWrite from "../../components/PostWrite"
+import PostWrite from "../../components/PostWrite";
 import styled from "styled-components";
 
 const PostWritePage = () => {
-
   return (
     <PostWritePageLayout>
       <WriteTopBar></WriteTopBar>
@@ -14,8 +13,7 @@ const PostWritePage = () => {
 };
 
 const PostWritePageLayout = styled.div`
-height: 100%;
-`; 
-
+  height: 100%;
+`;
 
 export default PostWritePage;

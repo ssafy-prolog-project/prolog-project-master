@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { Switch, Route, withRouter } from "react-router-dom";
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 // Pages
 import MainPage from "./pages/MainPage";
@@ -9,7 +9,7 @@ import PostDetailPage from "./pages/PostDetailPage";
 import MyPage from "./pages/MyPage";
 import PostWritePage from "./pages/PostWritePage";
 import SearchPage from "./pages/SearchPage";
-import {signIn}  from "./components/Auth/auth"
+import { signIn } from "./components/Auth/auth";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -37,7 +37,6 @@ const App = () => {
         <Route path="/searchpage" component={SearchPage} />
         <Route path="/" component={MainPage} />
       </Switch>
-      
     </div>
   );
 };
@@ -46,8 +45,6 @@ const GlobalStyle = createGlobalStyle`
   body{
     width: 100%;
     height: 100%;
-    /* 헤헤이렇게하면되는구낭 */
   }
 `;
 export default App;
-

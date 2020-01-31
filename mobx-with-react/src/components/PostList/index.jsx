@@ -55,7 +55,7 @@ class PostList extends Component {
         next={this.fetchMoreData}
         hasMore={hasMoreItems}
         loader={
-          <div style={{ textAlign: "center"}}>
+          <div style={{ textAlign: "center" }}>
             <Loader
               type="ThreeDots"
               color="#1A3365"
