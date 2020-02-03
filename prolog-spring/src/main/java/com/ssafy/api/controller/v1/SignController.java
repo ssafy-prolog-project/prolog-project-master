@@ -7,7 +7,7 @@ import com.ssafy.api.advice.exception.CUserExistException;
 import com.ssafy.api.advice.exception.CUserNotFoundException;
 import com.ssafy.api.config.JwtTokenProvider;
 import com.ssafy.api.model.social.KakaoProfile;
-import com.ssafy.api.model.User;
+import com.ssafy.api.entity.User;
 import com.ssafy.api.model.response.CommonResult;
 import com.ssafy.api.repository.UserJpaRepo;
 import com.ssafy.api.service.user.KakaoService;
