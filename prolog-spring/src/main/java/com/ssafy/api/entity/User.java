@@ -1,4 +1,4 @@
-package com.ssafy.api.model;
+package com.ssafy.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

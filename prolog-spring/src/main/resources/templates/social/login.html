@@ -1,7 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+<h1>Hello World</h1>
+
+<!-- OGNL -->
+<p th:text="${new java.util.Date().toString()}"></p>
+
+<!-- utility object -->
+<p th:text="${#dates.format(new java.util.Date(), 'yyyy-MM-dd HH:mm')}"></p>
+
 <button onclick="popupKakaoLogin()">KakaoLogin</button>
+
+</body>
 <script>
     function popupKakaoLogin() {
         var url = "https://kauth.kakao.com/oauth/authorize?client_id=edfa847bb67e1635672562f39e9b0366&redirect_uri=http://localhost:8080/social/login/kakao&response_type=code";
         window.open(url, 'popupKakaoLogin', 'width=700,height=500,scrollbars=0,toolbar=0,menubar=no');
     }
 </script>
+</html>
