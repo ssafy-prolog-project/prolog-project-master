@@ -7,8 +7,9 @@ import agent from "../agent";
 export default class CommonStore {
   @observable appName = "Prolog";
   @observable token = window.localStorage.getItem("jwt");
-  
-  constructor() {
+
+  constructor(root) {
+    this.root = root;
     reaction(
       () => this.token,
       token => {

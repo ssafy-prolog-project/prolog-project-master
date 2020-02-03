@@ -6,16 +6,24 @@ import agent from "../agent";
 import CommonStore from "./commonStore";
 
 export default class AuthStore {
+  constructor(root) {
+    this.root = root;
+  }
   @observable inProgress = false;
   @observable errors = undefined;
 
   //sns accessToken 타입들이 어떻게 들어올까?
   @observable values = {
-    accessToken: undefined
+    accessToken: undefined,
+    provider : undefined
   };
 
   @action setAccessToken(token) {
     this.values.accessToken = token;
+  }
+
+  @action setProvider(provider) {
+    this.values.provider = provider;
   }
 
   @action reset() {
@@ -25,9 +33,11 @@ export default class AuthStore {
   @action login() {
     this.inProgress = true;
     this.errors = undefined;
+    console.log('login중')
     return (
-      agent.Auth.login(this.values.accessToken)
-        .then(({ user }) => CommonStore.setToken(user.token))
+      agent.Auth.login(this.values.accessToken, this.values.provider)
+      .then(res => console.log(res))
+        //.then(({ user }) => CommonStore.setToken(user.token))
         //.then(() => userStore.pullUser()) //login 성공한 유저정보를 불러온다.
         .catch(
           action(err => {
@@ -44,10 +54,10 @@ export default class AuthStore {
     );
   }
 
-  @action register () {
+  @action register() {
     this.inProgress = true;
     this.errors = undefined;
-
+    console.log('register중')
     return (
       agent.Auth.register(this.values.accessToken)
         .then(({ user }) => CommonStore.setToken(user.token))
@@ -67,8 +77,8 @@ export default class AuthStore {
     );
   }
 
-  @action logout(){
-    CommonStore.setToken(undefined)
+  @action logout() {
+    CommonStore.setToken(undefined);
     //userStore.forgetUser();
     return Promise.resolve();
   }
