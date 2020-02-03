@@ -149,6 +149,9 @@ const HeaderInput = styled.input`
   background: inherit;
   color: white;
   /* background: ${props=>props.color}; */
+  :focus{
+      outline: none;
+  }
 `;
 
 const WriteTopBarLayout = styled.div`
