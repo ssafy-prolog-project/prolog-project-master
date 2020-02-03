@@ -1,0 +1,68 @@
+import axios from "axios";
+import commonStore from "./stores/commonStore";
+import authStore from "./stores/authStore";
+
+const API_ROOT = "http://localhost:8080";
+const VERSION = "/v1"
+
+const encode = encodeURIComponent;
+
+const handleErrors = err => {
+  if (err && err.response && err.response.stauts === 401) {
+    console.log("허용되지 않은 접근입니다. ");
+    // 어떻게 동작시키지?
+  }
+  return err;
+};
+
+const responseBody = res => res.body;
+
+//jwt 토큰 세팅
+const tokenWithHeader = req => {
+  if (commonStore.token) {
+    req.set("authorization", `Token ${commonStore.token}`); 
+    //req.set("authorization", `Bearer ${commonStore.token}`); 
+  }
+};
+
+// http request : get, post, del, put 
+const requests = {
+  del: url =>
+    axios
+      .delete(`${API_ROOT}${VERSION}${url}`)
+      .then(res => console.log(res))
+      .catch(err => console.log(err)),
+  get: url =>
+    axios
+      .get(`${API_ROOT}${VERSION}${url}`)
+      .then(res => console.log(res))
+      .catch(err => console.log(err)),
+  post: (url, body) =>
+    axios
+      .post(`${API_ROOT}${VERSION}${url}`, body)
+      .then(res => console.log(res))
+      .catch(err => console.log(err)),
+  put: (url, body) =>
+    axios
+      .put(`${API_ROOT}${VERSION}${url}`, body)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+};
+
+const Auth = {
+    //회원 가입, 로그인
+    register : (snsAccessToken, provider) =>
+    requests.post(`/signup/${provider}`, {accessToken : snsAccessToken}),
+    login : (snsAccessToken, provider) =>
+    requests.post(`/signin/${provider}`, {accessToken : snsAccessToken}),
+    //회원정보 조회
+    current: () =>
+    requests.get('/user'),
+    update : (snsAccessToken, user) =>
+    requests.put('/user', {accessToken : snsAccessToken, user : user}),
+
+}
+
+export default {
+    Auth,
+}
