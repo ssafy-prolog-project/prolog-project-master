@@ -6,15 +6,13 @@ import { Underline} from "styled-icons/boxicons-regular/Underline";
 import { CodeBlock } from "styled-icons/boxicons-regular/CodeBlock";
 
 export const UnderlineIcon = styled(Underline)`
-   width: 60%;
-   height: 60%;
-   margin: 20% 20% 20% 20%;
+   cursor: pointer;
+  width: 40px;
 `;
 
 export const CodeBlockIcon = styled(CodeBlock)`
-width: 60%;
-   height: 60%;
-   margin: 20% 20% 20% 20%;
+cursor: pointer;
+  width: 40px;
 `;
 
 class PostWrite extends Component {
@@ -85,25 +83,26 @@ const PostWriteLayout = styled.div`
 
 
 const PluginSpace = styled.div`
-    float: left;
-    width: 5%;
-    height: 80%;
+    float: right;
+    width: 4rem;
+    height: 10rem;
     background-color: white;
-    margin-top: 10%;
+    margin-top: 6rem;
+    margin-right: 3rem;
 `;
+const Icons = styled.div`
 
-
+    width: 40px;
+    float: right;
+    margin-top: 2rem;
+    :hover {
+        opacity: 50%;
+  }
+`;
 const SaveBtn = styled.button`
     
 `;
 
-const Icons = styled.div`
-    height: 10%;
-    :hover {
-        opacity: 50%;
-        background-color: gray
-  }
-`;
 
 const LoadBtn = styled.button`
     
