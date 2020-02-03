@@ -34,16 +34,6 @@ class GLogin extends Component {
     }).catch((err)=>{
         console.log("실패", err)
     })
-    // axios.post('http://localhost:3000/login',{
-    //     test: 1111
-    // }, { headers: {"Authorization" : `Bearer ${res.accessToken}`,
-    //   "Content-Type":"application/json"}})
-    // .then(function (response){
-    //     console.log(response);
-    // })
-    // .catch(function (error){
-    //     console.log(error);
-    // });
   };
 
   // Login Fail
