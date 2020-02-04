@@ -2,8 +2,10 @@ import axios from "axios";
 import commonStore from "./stores/commonStore";
 import authStore from "./stores/authStore";
 
-const API_ROOT = "http://localhost:8080";
+//const API_ROOT = "http://localhost:8080";
+const API_ROOT = "";
 const VERSION = "/v1"
+//const VERSION = ""
 
 const encode = encodeURIComponent;
 
@@ -51,15 +53,25 @@ const requests = {
 
 const Auth = {
     //회원 가입, 로그인
-    register : (snsAccessToken, provider) =>
-    requests.post(`/signup/${provider}`, {accessToken : snsAccessToken}),
+    register : (snsAccessToken, provider, name) =>
+    requests.post(`/signup/${provider}?accessToken=${snsAccessToken}&name=${name}`),
     login : (snsAccessToken, provider) =>
-    requests.post(`/signin/${provider}`, {accessToken : snsAccessToken}),
+    requests.post(`/signin/${provider}?accessToken=${snsAccessToken}`),
+    //requests.get(`/helloworld/string`),
     //회원정보 조회
     current: () =>
     requests.get('/user'),
     update : (snsAccessToken, user) =>
     requests.put('/user', {accessToken : snsAccessToken, user : user}),
+}
+
+// page 로드를 어떻게 처리할거냐?
+
+const Posts = { 
+  all : () => 
+  requests.get(`/posts`),
+  byAuthor : (author, query) => 
+  requests.get(`/posts?author=${encode(author)}`)
 
 }
 
