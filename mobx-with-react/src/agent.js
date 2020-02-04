@@ -39,9 +39,9 @@ const requests = {
       .get(`${API_ROOT}${VERSION}${url}`)
       .then(res => console.log(res))
       .catch(err => console.log(err)),
-  post: (url, body) =>
+  post: (url, body, header) =>
     axios
-      .post(`${API_ROOT}${VERSION}${url}`, body)
+      .post(`${API_ROOT}${VERSION}${url}`, body, {headers: header})
       .then(res => console.log(res))
       .catch(err => console.log(err)),
   put: (url, body) =>
@@ -51,12 +51,13 @@ const requests = {
       .catch(err => console.log(err))
 };
 
+// 토큰은 다 헤더로 넘기고, 나머지 정보만 body로 넘긴다.
 const Auth = {
     //회원 가입, 로그인
     register : (snsAccessToken, provider, name) =>
-    requests.post(`/signup/${provider}?accessToken=${snsAccessToken}&name=${name}`),
+    requests.post(`/signup/${provider}`, {name :name}, {accessToken: snsAccessToken}),
     login : (snsAccessToken, provider) =>
-    requests.post(`/signin/${provider}?accessToken=${snsAccessToken}`),
+    requests.post(`/signin/${provider}`,{},{accessToken:snsAccessToken}),
     //requests.get(`/helloworld/string`),
     //회원정보 조회
     current: () =>
