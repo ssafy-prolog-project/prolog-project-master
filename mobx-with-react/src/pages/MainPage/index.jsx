@@ -1,20 +1,57 @@
-import React from "react";
+import React,{Component} from "react";
 import PostList from "../../components/PostList";
 import NavBar from "../../components/NavBar";
 import styled from "styled-components";
 import TopBar from "../../components/TopBar";
 import MobileNavBar from "../../components/MobileNavBar";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const MainPage = () => (
-  <MainPageLayout>
-    <NavBar></NavBar>
-    <Div>
-      <TopBar></TopBar>
-      <MobileNavBar></MobileNavBar>
+class NowLoading extends Component{
+  render(){
+    return <CircularProgress/>;
+  }
+}
+
+class MainPage extends Component {
+  state={
+    isLoading: false,
+  }
+
+  componentDidMount(){
+    this.setState({isLoading:true},()=>{console.log(this.state.isLoading)})
+    console.log(this.state.isLoading)
+    fetch('list.json')
+    .then(function(result){
+      return result.json
+    })
+    .then(function(json){
+      console.log(json);
+      this.setState({isLoading:false})
+    }.bind(this))
+  }
+
+  render(){
+    var NavTag = null;
+    if(this.state.isLoading){
+      NavTag=<NowLoading/>
+    }else{
+      NavTag = 
       <PostList></PostList>
-    </Div>
-  </MainPageLayout>
-);
+    }
+    return(
+      <MainPageLayout>
+        <NavBar></NavBar>
+        <Div>
+          <TopBar></TopBar>
+          <MobileNavBar></MobileNavBar>
+           {NavTag}
+        </Div>
+      </MainPageLayout>
+    )  
+  }
+}
+
+
 
 const MainPageLayout = styled.div`
   height: 100vh;
