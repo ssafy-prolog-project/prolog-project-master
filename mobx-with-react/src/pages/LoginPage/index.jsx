@@ -39,7 +39,7 @@ const LoginLayout = styled.div`
 
   @media (max-width: 1024px){
     display: grid;
-    grid-template-columns: 100%;
+    grid-template-columns: auto;
     grid-template-rows: 30% 70%;
     grid-template-areas: "nav"
                           "content";

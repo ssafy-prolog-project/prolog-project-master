@@ -1,47 +1,32 @@
 import React from "react";
 import NavBar from "../../components/NavBar";
 import styled from "styled-components";
-import TopBar from "../../components/TopBar";
-import PostDetail from "../../components/PostDetail";
-import MobileNavBar from '../../components/MobileNavBar';
+import PostHeader from "../../components/Post/Read/PostHeader";
+import PostContent from "../../components/Post/Read/PostContent";
+import PostSequence from "../../components/Post/Read/PostSequence";
 
 // 원칙은 axios 로 호출하는 것일까? 어디서 호출하는지는 생각해봐야할듯
 
 const PostDetailPage = ({ match }) => {
   const { id } = match.params;
-  
+
   return (
     <PostDetailPageLayout>
-      <NavBar></NavBar>
-      <Div>
-        <TopBar></TopBar>
-        <MobileNavBar></MobileNavBar>
-        <PostDetail postid={id}></PostDetail>
-      </Div>
+      <PostHeader></PostHeader>
+      <PostContent id={id}></PostContent>
+      <PostSequence></PostSequence>
     </PostDetailPageLayout>
   );
 };
 
 const PostDetailPageLayout = styled.div`
-    height: 100vh;
-    display: grid;
-    overflow-y: hidden;
-    grid-template-columns: 290px;
-    grid-template-areas:
-        "nav content";
-    @media (max-width: 768px) {
-        grid-template-columns: 100vw;
-    }
-  
-`;
-
-const Div = styled.div`
-  padding-bottom: 5%;
+  height: 100vh;
   display: grid;
-  grid-template-rows: 9% 9% 82%;
-  overflow-y: scroll;
+  /* overflow-y: hidden; */
+  /* grid-template-columns: 290px; */
+  /* grid-template-areas: "nav content"; */
   @media (max-width: 768px) {
-        grid-template-columns: 100%;
+    grid-template-columns: 100vw;
   }
 `;
 
