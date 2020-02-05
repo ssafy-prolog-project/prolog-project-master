@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 import { withRouter } from "react-router-dom";
-import { format, fromUnixTime } from 'date-fns'
 
 // component
 import Logo from "../../components/NavBar/Logo";
-import UserButton from "../../components/Post/UserButton";
-import PostHead from "../../components/Post/PostHead";
+import UserButton from "../../components/Common/UserButton";
+import PostMeta from "../../components/Post/PostMeta";
 import PostDetail from "../../components/Post/PostDetail";
 import PostTags from "../../components/Post/PostTags";
 import PostComments from "../../components/Post/PostComments";
+import PostActions from "../../components/Post/PostActions";
 
 @inject("postStore", "userStore")
 @withRouter
@@ -40,19 +40,11 @@ class PostDetailPage extends Component {
     const { currentUser } = this.props.userStore;
     //커멘트 관련 내용 추가
     const post = this.props.postStore.getPost(id);
-    // 여기서 post 내용을 다 꺼내서 각자에게 props로 뿌려주자.
     if (!post) return <h1>Post가 없습니다. 에러처리</h1>;
+
     const canModify = currentUser && currentUser.name === post.author.username;
 
-    const { imgUrl, title, category, text, author, date, views} = post
-    const dateFormat = fromUnixTime(date)
-    const dateInfo = format(dateFormat, 'yyyy년 MM월 dd일')
-  
-    const propsForHeader = {
-      title: title,
-      date: dateInfo,
-      author: author
-    };
+    //author는 유저정보가 들어오고 클래스여야한다.
 
     return (
       <PostDetailPageLayout>
@@ -64,9 +56,15 @@ class PostDetailPage extends Component {
         <PostContentWrapper>
           <div>Left</div>
           <PostContent>
-            <PostHead data={propsForHeader} post={post}></PostHead>
+            <PostMeta
+              post={post}
+              canModify={canModify}
+              onDelete={this.handleDeletePost}
+            ></PostMeta>
             <PostDetail postid={id}></PostDetail>
             <PostTags></PostTags>
+            <hr></hr>
+            <PostActions></PostActions>
             <PostComments></PostComments>
           </PostContent>
           <div>Right</div>
@@ -107,7 +105,7 @@ const PostContent = styled.div`
 `;
 
 const CenterAreaLayout = styled.div`
-  grid-template-columns : auto;
+  grid-template-columns: auto;
   height: 70vh;
   display: grid;
 `;

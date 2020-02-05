@@ -109,7 +109,7 @@ export default class PostStore {
       title: "test2",
       category: "post",
       text: "test 중입니다.",
-      author: "CKY",
+      author: "정의진",
       date: getUnixTime(new Date(2018, 2, 2)),
       views: 305
     },
@@ -119,7 +119,7 @@ export default class PostStore {
       title: "test3",
       category: "post",
       text: "test 중입니다.",
-      author: "RRRY",
+      author: "CK",
       date: getUnixTime(new Date(2018, 4, 2)),
       views: 999
     },
