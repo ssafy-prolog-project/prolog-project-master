@@ -67,15 +67,26 @@ const Auth = {
 }
 
 // page 로드를 어떻게 처리할거냐?
+const omitId = post => Object.assing({}, post, {id: undefined})
 
 const Posts = { 
   all : () => 
   requests.get(`/posts`),
   byAuthor : (author, query) => 
-  requests.get(`/posts?author=${encode(author)}`)
+  requests.get(`/posts?author=${encode(author)}`),
+  
+  create: post =>
+  requests.post('/posts', {post}),
+  update: post => 
+  requests.put(`/posts/${post.id}`, { post: omitId(post)}),
+  get: id =>
+  requests.get(`/posts/${id}`),
+  del: id => 
+  requests.del(`/posts/${id}`)
 
 }
 
 export default {
     Auth,
+    Posts
 }

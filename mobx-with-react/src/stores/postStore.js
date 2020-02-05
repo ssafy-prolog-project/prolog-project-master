@@ -1,9 +1,94 @@
+import agent from "../agent";
 import { observable, action, computed } from "mobx";
 
 import { getUnixTime } from "date-fns";
 
 // imageUrl, Title, category, text, likes, comments, created_at, updated_at , author
 export default class PostStore {
+  // map으로 관리하는게 더 빠름.
+  @observable isLoading = false;
+  @observable postRegistry = observable.map();
+  @observable predicate = {};
+
+  @computed get length() {
+    return this.postItems.length;
+  }
+
+  @computed get posts() {
+    return this.postRegistry.values();
+  }
+
+  clear() {
+    this.postRegistry.clear();
+  }
+
+  getPost(id) {
+    //TODO
+    //return this.postRegistry.get(id);
+    return this.postItems[id]
+  }
+
+  //이전 정보를 정리해둔다.
+  @action setPredicate(predicate) {
+    if (JSON.stringfy(predicate) === JSON.stringfy(this.predicate)) return;
+    this.clear();
+    this.predicate = predicate;
+  }
+
+  // 전체 Post 가져오기
+  @action loadPosts() {
+    this.isLoading = true;
+    // TODO
+  }
+
+  // 한 개짜리 가져오기 - 이미 가져온 것은 map 에서 바로 꺼내고, 아닌 경우는 백엔드서버에서 호출한다.
+  @action loadPost(id, { acceptCached = false } = {}) {
+    //TODO
+    acceptCached = true;
+    if (acceptCached) {
+      const post = this.getPost(id);
+      if (post) {
+        return Promise.resolve(post);
+      }
+    }
+    this.isLoading = true;
+    return agent.Posts.get(id)
+    .then(action(({post}) => 
+    {
+      this.articleRegistry.set(post.id, post)
+      return post;
+    }
+    ) )
+    .finally(action(() => { this.loading = false}))
+  }
+
+  @action createPost(post) {
+    return agent.Posts.create(post).then(({ post }) => {
+      this.postsRegistry.set(post.id, post);
+      return post;
+    });
+  }
+
+  
+
+  @action updatePost(post) {
+    return agent.Posts.create(post).then(({ post }) => {
+      this.postsRegistry.set(post.id, post);
+      return post;
+    });
+  }
+
+  @action deletePost(id) {
+    return agent.Posts.del(id).then(
+      action(err => {
+        this.loadPosts();
+        throw err;
+      })
+    );
+  }
+
+
+
   @observable nextId = 31;
   @observable returnItems = [];
   @observable postItems = [
@@ -444,7 +529,7 @@ export default class PostStore {
       author: "RRRY",
       date: getUnixTime(new Date(2020, 0, 16, 12)),
       views: 999
-    },
+    }
   ]; // axios로 호출해서 받아오면 된다.
 
   constructor(root) {
@@ -515,16 +600,4 @@ export default class PostStore {
   getItems = (startIndex, count) => {
     this.returnItems = this.postItems.slice(startIndex, startIndex + count);
   };
-
-  @action
-  add10 = () => {
-    for (const i = 0; i < 10; i++) {
-      this.add();
-    }
-  };
-
-    @computed
-    get length() {
-      return this.postItems.length;
-    }
 }
