@@ -156,10 +156,10 @@ const HeaderInput = styled.input`
 
 const WriteTopBarLayout = styled.div`
   height: 28rem;
- /* background-color: #1a3365;  */
-  border-bottom-style: solid;
+ background-color: #1a3365; 
+  /* border-bottom-style: solid;
   border-color: gray;
-  border-width: 1px;
+  border-width: 1px; */
   position: relative;
   background: ${props=>props.color};
   -moz-transition: all .2s ease-in;
