@@ -4,7 +4,18 @@ import { Editor, EditorState, RichUtils, convertToRaw } from "draft-js";
 import './index.css';
 import { Underline} from "styled-icons/boxicons-regular/Underline";
 import { CodeBlock } from "styled-icons/boxicons-regular/CodeBlock";
+import { FormatBold } from "styled-icons/material/FormatBold";
+import { FormatItalic } from "styled-icons/material/FormatItalic";
 
+export const ItalicIcon = styled(FormatItalic)`
+cursor: pointer;
+  width: 40px;
+`;
+
+export const BoldIcon = styled(FormatBold)`
+cursor: pointer;
+  width: 40px;
+`;
 export const UnderlineIcon = styled(Underline)`
    cursor: pointer;
   width: 40px;
@@ -40,6 +51,13 @@ class PostWrite extends Component {
       onToggleCode = () => {
         this.onChange(RichUtils.toggleCode(this.state.editorState));
       }
+
+      onBoldClick = () => {
+        this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
+      }
+      onItalicClick = () => {
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'))
+  }
     
       render() {
           const { classes } = this.props;
@@ -60,6 +78,12 @@ class PostWrite extends Component {
                     </Icons>
                     <Icons>
                         <CodeBlockIcon onClick={this.onToggleCode}></CodeBlockIcon>
+                    </Icons>
+                    <Icons>
+                        <BoldIcon onClick={this.onBoldClick}></BoldIcon>
+                    </Icons>
+                    <Icons>
+                        <ItalicIcon onClick={this.onItalicClick}></ItalicIcon>
                     </Icons>
                 
                 </PluginSpace>
@@ -88,7 +112,7 @@ const PluginSpace = styled.div`
     height: 10rem;
     background-color: white;
     margin-top: 6rem;
-    margin-right: 3rem;
+    margin-right: 10%;
 `;
 const Icons = styled.div`
 
