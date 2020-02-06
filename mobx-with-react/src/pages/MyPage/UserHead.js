@@ -17,7 +17,6 @@ class UserHead extends Component{
 const UserHeadLayout = styled.div`
     display: flex;
     height: 50%;
-    justify-content: center;
 
     @media (max-width: 1024px){
         
@@ -26,6 +25,7 @@ const UserHeadLayout = styled.div`
     @media (max-width: 768px) {
         display: grid;
         flex-direction: column;
+        justify-content: center;
     }
 `;
 
