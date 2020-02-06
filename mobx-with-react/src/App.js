@@ -10,6 +10,7 @@ import MyPage from "./pages/MyPage";
 import PostWritePage from "./pages/PostWritePage";
 import SearchPage from "./pages/SearchPage";
 import { signIn } from "./components/Auth/auth";
+import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
   
@@ -34,7 +35,8 @@ const App = () => {
         {/* <Route path="/post/:id" component={Post} */}
         <Route path="/login" component={LoginPage} />
         <Route path="/post/:id" component={PostDetailPage} />
-        <Route path="/mypage" component={MyPage} />
+        {/* <Route path="/mypage" component={MyPage} /> */}
+        <PrivateRoute path="/mypage" component={MyPage} />
         <Route path="/postwritepage" component={PostWritePage} />
         <Route path="/searchpage" component={SearchPage} />
         <Route path="/" component={MainPage} />
@@ -44,18 +46,33 @@ const App = () => {
 };
 
 const GlobalStyle = createGlobalStyle`
+  #root{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    border:0;
+    outline:0;
+    
+  }
   html{
     width: 100%;
     height: 100%;
     margin: 0;
-    /* padding: 0;
+    padding: 0;
     vertical-align: top;
     border:0;
-    outline:0; */
+    outline:0;
   }
   body{
     width: 100%;
     height: 100%;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    border:0;
+    outline:0;
   }
 `;
 export default App;

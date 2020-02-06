@@ -8,7 +8,7 @@ import { CodeBlock } from "styled-icons/boxicons-regular/CodeBlock";
 import { FormatBold } from "styled-icons/material/FormatBold";
 import { FormatItalic } from "styled-icons/material/FormatItalic";
 import { Link } from "styled-icons/boxicons-regular/Link";
-import ConsoleButtons from "./ConsoleButtons/index";
+// import ConsoleButtons from "./ConsoleButtons/index";
 export const LinkIcon = styled(Link)`
   cursor: pointer;
   width: 30px;
