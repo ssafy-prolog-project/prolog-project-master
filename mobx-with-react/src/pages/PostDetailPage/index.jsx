@@ -12,16 +12,16 @@ import PostTags from "../../components/Post/PostTags";
 import PostComments from "../../components/Post/PostComments";
 import PostActions from "../../components/Post/PostActions";
 
-@inject("postStore", "userStore")
+@inject("postStore", "userStore", "commentStore")
 @withRouter
 @observer
 class PostDetailPage extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.postStore.loadPost(id, { acceptcached: true });
-    // comment 정보들 불러오기
-    // this.props.commentsStore.setArticleSlug(slug);
-    // this.props.commentsStore.loadComments();
+    // store에 커멘트 id를 저장한 다음에 커멘트를 불러온다.
+    this.props.commentStore.setPostId(id);
+    this.props.commentStore.loadComments();
   }
 
   handleDeletePost = id => {
@@ -31,14 +31,15 @@ class PostDetailPage extends Component {
   };
 
   //댓글 삭제 해당 글 쓴 사람만 가능
-  // handleDeleteComment = id => {
-  //   this.props.commentStore.deleteComment(id)
-  // }
+  handleDeleteComment = id => {
+    this.props.commentStore.deleteComment(id);
+  };
 
   render() {
     const id = this.props.match.params.id;
-    const { currentUser } = this.props.userStore;
-    //커멘트 관련 내용 추가
+    //const { currentUser } = this.props.userStore;
+    const currentUser = true;
+    const { comments } = this.props.commentStore;
     const post = this.props.postStore.getPost(id);
     if (!post) return <h1>Post가 없습니다. 에러처리</h1>;
 
@@ -64,8 +65,17 @@ class PostDetailPage extends Component {
             <PostDetail postid={id}></PostDetail>
             <PostTags></PostTags>
             <hr></hr>
-            <PostActions></PostActions>
-            <PostComments></PostComments>
+            <PostActions
+              canModify={canModify}
+              post={post}
+              onDelete={this.handleDeletePost}
+            />
+            <PostComments
+              comments={comments}
+              postId={id}
+              currentUser={currentUser}
+              onDelete={this.handleDeleteComment}
+            ></PostComments>
           </PostContent>
           <div>Right</div>
         </PostContentWrapper>

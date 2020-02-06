@@ -6,12 +6,19 @@ import CommentInput from "../CommentInput";
 import CommentList from "../CommentList";
 
 const PostComments = props => {
-  // 로그인 되어 있는 상태라면
   if (props.currentUser) {
     return (
       <div>
-        <CommentInput></CommentInput>
-        <CommentList></CommentList>
+        <CommentInput
+          postId={props.postId}
+          currentUser={props.currentUser}
+        ></CommentInput>
+        <CommentList
+          postId={props.postId}
+          comments={props.comments}
+          currentUser={props.currentUser}
+          onDelete={props.onDelete}
+        ></CommentList>
       </div>
     );
   } else {
@@ -23,7 +30,13 @@ const PostComments = props => {
           <Link to="/register">sign up</Link>
           &nbsp;to add comments on this post.
         </p>
-        <CommentList></CommentList>
+        <CommentList
+            comments={props.comments}
+          postId={props.postId}
+          comments={props.comments}
+          currentUser={props.currentUser}
+          onDelete={props.onDelete}
+        ></CommentList>
       </div>
     );
   }

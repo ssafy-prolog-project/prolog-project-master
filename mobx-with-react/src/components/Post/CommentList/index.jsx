@@ -1,12 +1,23 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import Comment from "../Comment";
+import React from "react";
+import { observer } from "mobx-react";
 
-
-const CommentList = props => {
-    
-    return (
-        <h1>커멘트리스트</h1>
-    )
-}
+const CommentList = observer(props => {
+  return (
+    <div>
+      {props.comments.map(comment => {
+        return (
+          <Comment
+            comment={comment}
+            currentUser={props.currentUser}
+            postId={props.postId}
+            key={comment.id}
+            onDelete={props.onDelete}
+          />
+        );
+      })}
+    </div>
+  );
+});
 
 export default CommentList;

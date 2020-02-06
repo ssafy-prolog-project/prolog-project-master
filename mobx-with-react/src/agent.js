@@ -86,7 +86,25 @@ const Posts = {
 
 }
 
+const Comments = { 
+  forPost : postId => 
+  console.log('forPost Comment요청'),
+  //requests.get(`/posts/${postId}/comments`),
+  create: (postId, comment) =>
+  //requests.post(`/posts/${postId}/comments`, {comment}),
+  console.log('Comment Create요청'),
+  // 수정을 구현할거인가?
+  // update: (postId, id, comment) => 
+  // requests.put(`/posts/${postId}/comments/${id}`, { comment: omitId(comment)}),
+  delete: (postId, commentId) => 
+  console.log('comment Delete 요청'),
+  //requests.del(`/posts/${postId}/comments/${commentId}`)
+}
+
+
+
 export default {
     Auth,
-    Posts
+    Posts,
+    Comments
 }
