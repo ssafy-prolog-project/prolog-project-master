@@ -1,19 +1,13 @@
-import React, {useState} from "react";
-import WriteTopBar from "../../components/WriteTopBar";
-import PostWrite from "../../components/PostWrite";
+import React, { useState } from "react";
+import WriteTopBar from "../../components/Write/WriteTopBar";
+import WriteEditor from "../../components/Write/WriteEditor";
 import styled from "styled-components";
-
 
 const PostWritePage = () => {
   return (
     <PostWritePageLayout>
       <WriteTopBar></WriteTopBar>
-      <PostWrite></PostWrite>
-      {/* <RichEditorExample
-          editorState={this.state.editorState}
-          onChange={this.onChange}
-          handleBeforeInput={this._handleBeforeInput}
-          handlePastedText={this._handlePastedText} /> */}
+      <WriteEditor></WriteEditor>
     </PostWritePageLayout>
   );
 };

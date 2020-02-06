@@ -1,35 +1,8 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { ArrowBack } from "styled-icons/boxicons-regular/ArrowBack";
-import { Image2 } from "styled-icons/remix-line/Image2";
-import { ColorFill } from "styled-icons/boxicons-solid/ColorFill";
-import { PrimitiveDot } from "styled-icons/octicons/PrimitiveDot";
 
-export const PrimitiveDotIcon = styled(PrimitiveDot)`
-    cursor: pointer;
-    width: 15px;
-    
-`;
-
-export const ImageIcon = styled(Image2)`
-  cursor: pointer;
-  width: 40px;
-  color: white;
-`;
-
-export const ColorFillIcon = styled(ColorFill)`
-  cursor: pointer;
-  width: 40px;
-  color: white;
-`;
-export const ArrowBackIcon = styled(ArrowBack)`
-  cursor: pointer;
-  margin-top: 2rem;
-  margin-left: 2rem;
-  color: white;
-  width: 50px;
-`;
+import { ImageIcon, ArrowBackIcon, ColorFillIcon, PrimitiveDotIcon } from "../../../styles/iconStyle.js"
 
 const WriteTopBar = () => {
     const [color, setColor] = useState("#1a3365");
@@ -71,7 +44,7 @@ const WriteTopBar = () => {
       </Link>
       <PluginSpace color={color}>
         <Icons>
-          <ImageIcon></ImageIcon>
+          <ImageIcon color="white"></ImageIcon>
         </Icons>
         <Icons>
           <ColorFillIcon onClick={ColorClick}></ColorFillIcon>
