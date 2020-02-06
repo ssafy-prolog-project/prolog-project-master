@@ -106,7 +106,7 @@ class PostWrite extends Component {
           </div>
         </div>
         
-        <ConsoleButtons
+        {/* <ConsoleButtons
           buttons={[
             {
               onClick: () => {
@@ -127,7 +127,7 @@ class PostWrite extends Component {
               text: "Clear Console",
             },
           ]}
-        />
+        /> */}
       </div>
     );
   }
