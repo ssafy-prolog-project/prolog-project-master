@@ -17,6 +17,9 @@ const TabsLayout = styled.div`
     margin-bottom: 3rem;
     display: flex;
     justify-content: center;
+    @media (max-width: 768px) {
+        width: 100%;
+    }
 `
 
 export default Tabs;

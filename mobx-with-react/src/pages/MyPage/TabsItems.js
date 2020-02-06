@@ -6,24 +6,24 @@ import { Link } from 'react-router-dom';
 const TabsItems = ({posts}) => {
     return(
         <TabsItemsLayout>
-            <Link to={"/"} style={{textDecoration:"none"}}>
+            <Link to={""} style={{textDecoration:"none"}}>
                 <TabsItem onClick={""}>
                 <ItemContent>포트폴리오</ItemContent>
                 </TabsItem>
             </Link>
-            <Link to={"/"} style={{textDecoration:"none"}}>
+            <Link to={""} style={{textDecoration:"none"}}>
                 <TabsItem onClick={""}>
                 <ItemContent>포스트</ItemContent>
                 </TabsItem>
             </Link>
-            <Link to={"/"} style={{textDecoration:"none"}}>
+            <Link to={""} style={{textDecoration:"none"}}>
                 <TabsItem onClick={""}>
                 <ItemContent>내 프로필</ItemContent>
                 </TabsItem>
             </Link>
-            <Link to={"/"} style={{textDecoration:"none"}}>
+            <Link to={""} style={{textDecoration:"none"}}>
                 <TabsItem onClick={""}>
-                <ItemContent>하나 더?</ItemContent>
+                <ItemContent>4?</ItemContent>
                 </TabsItem>
             </Link>
         </TabsItemsLayout>
@@ -36,7 +36,7 @@ const TabsItemsLayout = styled.div`
 `;
 
 const TabsItem = styled.div`
-    width: 6rem;
+    width: 5rem;
 `;
 
 const ItemContent = styled.div`

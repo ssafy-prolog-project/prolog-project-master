@@ -6,7 +6,9 @@ class UserInfo extends Component{
         return(
             <UserInfoLayout>
                 <UserName>아이디요~</UserName>
-                <ProfileContent>프로필 정보요~</ProfileContent>
+                <ProfileContent>
+                    <h2>이름이요~~~~~</h2>
+                </ProfileContent>
             </UserInfoLayout>
         )
     }
@@ -15,11 +17,11 @@ class UserInfo extends Component{
 const UserInfoLayout = styled.div`
     flex-direction: column;
     margin-left: 2rem;
-    width: 100%;
-   
+    width: 100%-2rem;
+    height: 100%-2rem;
 `
 const UserName = styled.div`
-    padding-top: 10%;
+    padding-top: 3%;
 `
 
 const ProfileContent = styled.div`

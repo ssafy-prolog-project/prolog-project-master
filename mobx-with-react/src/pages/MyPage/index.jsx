@@ -21,10 +21,10 @@ class MyPage extends Component{
 }
 
 const MyPageLayout = styled.div`
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     display: grid;
-    grid-template-rows: 5rem 100%;
+    grid-template-rows: 5rem;
 
     @media (max-width: 1024px) {
         width: 100%;
@@ -32,7 +32,7 @@ const MyPageLayout = styled.div`
     }
 
     @media (max-width: 768px) {
-        width: 100;
+        width: 100%;
         height: 100%;
     }
 `;
@@ -51,15 +51,33 @@ const MLogo = styled.div`
 
 const Div = styled.div`
     font-family: Inconsolata;
-    padding-top: 7%;
+    padding-top: 3rem;
     padding-left: 15%;
     padding-right: 15%;
-    height: 100%;
+    height: 90%;
+    width: 70%;
     display: grid;
-    grid-template-rows: 23%;
-    @media (max-width: 768px) {
+    grid-template-rows: 15rem;
+
+    @media (max-width: 1024px) {
+        margin: 0;
+        display: grid;
         flex-direction: column;
-        width: 100%;
+        height: 90%;
+        width: 90%;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    @media (max-width: 768px) {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        height: 99%;
+        width: 94%;
+        padding-top: 1%;
+        padding-left: 3%;
+        padding-right: 3%;
     }
 `;
 

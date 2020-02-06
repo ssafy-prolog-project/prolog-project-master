@@ -15,9 +15,10 @@ class UserContent extends Component{
 }
 
 const UserContentLayout = styled.div`
-    margin-top: 5%;
+    margin-top: 3%;
+    height: 97%;
     display: grid;
-    grid-template-rows: 80px;
+    grid-template-rows: 5rem;
 `
 
 export default UserContent;

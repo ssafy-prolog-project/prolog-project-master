@@ -16,7 +16,15 @@ class UserHead extends Component{
 
 const UserHeadLayout = styled.div`
     display: flex;
+    height: 50%;
+    justify-content: center;
+
+    @media (max-width: 1024px){
+        
+    }
+
     @media (max-width: 768px) {
+        display: grid;
         flex-direction: column;
     }
 `;
@@ -24,6 +32,8 @@ const UserHeadLayout = styled.div`
 const Img = styled.div`
     display: flex;
     background-color: pink;
+    justify-content: center;
+    text-align: center;
     width: 10rem;
     height: 10rem;
     object-fit: cover;
