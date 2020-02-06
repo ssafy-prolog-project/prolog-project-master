@@ -1,9 +1,10 @@
 import { observable, action, computed } from "mobx";
-
 import { getUnixTime } from "date-fns";
 
 import agent from "../agent";
 import CommonStore from "./commonStore";
+import UserStore from "./userStore"
+
 
 export default class AuthStore {
   constructor(root) {
@@ -37,8 +38,8 @@ export default class AuthStore {
     return (
       agent.Auth.login(this.values.accessToken, this.values.provider)
       .then(res => console.log(res))
-        //.then(({ user }) => CommonStore.setToken(user.token))
-        //.then(() => userStore.pullUser()) //login 성공한 유저정보를 불러온다.
+        .then(({ user }) => CommonStore.setToken(user.token))
+        .then(() => UserStore.pullUser()) //login 성공한 유저정보를 불러온다.
         .catch(
           action(err => {
             this.errors =
@@ -61,7 +62,7 @@ export default class AuthStore {
     return (
       agent.Auth.register(this.values.accessToken)
         .then(({ user }) => CommonStore.setToken(user.token))
-        //.then(() => userStore.pullUser()) //login 성공한 유저정보를 불러온다.
+        .then(() => UserStore.pullUser()) //login 성공한 유저정보를 불러온다.
         .catch(
           action(err => {
             this.errors =
@@ -79,7 +80,7 @@ export default class AuthStore {
 
   @action logout() {
     CommonStore.setToken(undefined);
-    //userStore.forgetUser();
+    UserStore.forgetUser();
     return Promise.resolve();
   }
 }

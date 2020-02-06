@@ -10,6 +10,7 @@ import MyPage from "./pages/MyPage";
 import PostWritePage from "./pages/PostWritePage";
 import SearchPage from "./pages/SearchPage";
 import { signIn } from "./components/Auth/auth";
+import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
   
@@ -34,7 +35,8 @@ const App = () => {
         {/* <Route path="/post/:id" component={Post} */}
         <Route path="/login" component={LoginPage} />
         <Route path="/post/:id" component={PostDetailPage} />
-        <Route path="/mypage" component={MyPage} />
+        {/* <Route path="/mypage" component={MyPage} /> */}
+        <PrivateRoute path="/mypage" component={MyPage} />
         <Route path="/postwritepage" component={PostWritePage} />
         <Route path="/searchpage" component={SearchPage} />
         <Route path="/" component={MainPage} />

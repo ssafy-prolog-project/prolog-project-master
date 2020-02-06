@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { format, fromUnixTime } from 'date-fns'
 
+
 const PostDetail = ({ postid, posts }) => {
   const post = posts.get(postid);
   const { id, title, category, text, author, date, imgUrl } = post;
@@ -12,15 +13,6 @@ const PostDetail = ({ postid, posts }) => {
 
   return (
     <PostDetailLayout>
-      <Div>
-        <PostTitle>Post Detail Page {id}</PostTitle>
-        <PostUserProfile>프로필 정보? 작성자와 차이는?</PostUserProfile>
-        <PostUserProfile>
-          작성일 : {dateInfo} <br/> 작성자 : {author}
-        </PostUserProfile>
-      </Div>
-      <div><hr /></div>
-
       <ImageContent>
         <PostContentImageWrapper>
           <PostContentImage src={imgUrl} alt={title}></PostContentImage>
@@ -53,8 +45,8 @@ const Div = styled.div`
 const PostDetailLayout = styled.div`
   margin-top: 3vh;
   margin-bottom: 5vh;
-  margin-left: 15%;
-  margin-right: 15%;
+  /* margin-left: 15%;
+  margin-right: 15%; */
   /* border-style: solid; */
   background-color: white;
   /* color: white;
@@ -66,12 +58,7 @@ const PostDetailLayout = styled.div`
   }
 `;
 
-const PostTitle = styled.div`
-  /* 구분을 위한 스타일임 수정필요 */
-  background-color: white;
-  font-size: 4rem;
-  font-family: Inconsolata;
-`;
+
 
 const PostUserProfile = styled.div`
   /* 구분을 위한 스타일임 수정필요 */

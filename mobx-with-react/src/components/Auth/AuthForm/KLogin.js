@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import KakaoLogin from "react-kakao-login";
 import styled from "styled-components";
 
+import { inject, observer } from "mobx-react";
 require("dotenv").config();
 
+@inject('authStore')
+@observer
 class KLogin extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +25,7 @@ class KLogin extends Component {
     });
 
     console.log("카카오 login success");
+    console.log(res)
     this.props.authStore.setAccessToken(res.response.access_token);
     this.props.authStore.setProvider("kakao");
     this.props.authStore
