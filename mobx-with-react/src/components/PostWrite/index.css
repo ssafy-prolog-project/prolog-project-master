@@ -2,12 +2,14 @@
   height: 80%;
   width: 80%;
   background-color: white;
-  margin: 10% 0% 10% 10%;
+  margin: 10% 0% 0% 10%;
   float: left;
 }
-
+/* .public-DraftEditorPlaceholder-root{
+  height: 10rem;
+} */
 .DraftEditor-editorContainer {
-  height: 100%;
+  height: 10rem;
   background-color: white;
 }
 .public-DraftEditor-content {

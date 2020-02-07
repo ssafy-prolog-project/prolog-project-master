@@ -6,7 +6,7 @@ import com.ssafy.api.model.response.ListResult;
 import com.ssafy.api.model.response.SingleResult;
 import com.ssafy.api.repository.UserJpaRepo;
 import com.ssafy.api.service.ResponseService;
-import com.ssafy.api.model.User;
+import com.ssafy.api.entity.User;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

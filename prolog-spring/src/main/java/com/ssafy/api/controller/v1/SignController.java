@@ -7,7 +7,7 @@ import com.ssafy.api.advice.exception.CUserExistException;
 import com.ssafy.api.advice.exception.CUserNotFoundException;
 import com.ssafy.api.config.JwtTokenProvider;
 import com.ssafy.api.model.social.KakaoProfile;
-import com.ssafy.api.model.User;
+import com.ssafy.api.entity.User;
 import com.ssafy.api.model.response.CommonResult;
 import com.ssafy.api.repository.UserJpaRepo;
 import com.ssafy.api.service.user.KakaoService;
@@ -49,7 +49,7 @@ public class SignController {
     @PostMapping(value = "/signin/{provider}")
     public SingleResult<String> signinByProvider(
             @ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
-            @ApiParam(value = "소셜 access_token", required = true) @RequestParam String accessToken) {
+            @ApiParam(value = "소셜 access_token", required = true) @RequestHeader String accessToken) {
 
         KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
         User user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
@@ -58,9 +58,9 @@ public class SignController {
 
     @ApiOperation(value = "가입", notes = "회원가입을 한다.")
     @PostMapping(value = "/signup")
-    public CommonResult signup(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
-                               @ApiParam(value = "비밀번호", required = true) @RequestParam String password,
-                               @ApiParam(value = "이름", required = true) @RequestParam String name) {
+    public CommonResult signup(@ApiParam(value = "회원ID : 이메일", required = true) @RequestBody String id,
+                               @ApiParam(value = "비밀번호", required = true) @RequestBody String password,
+                               @ApiParam(value = "이름", required = true) @RequestBody String name) {
 
         userJpaRepo.save(User.builder()
                 .uid(id)
@@ -74,8 +74,8 @@ public class SignController {
     @ApiOperation(value = "소셜 계정 가입", notes = "소셜 계정 회원가입을 한다.")
     @PostMapping(value = "/signup/{provider}")
     public CommonResult signupProvider(@ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
-                                       @ApiParam(value = "소셜 access_token", required = true) @RequestParam String accessToken,
-                                       @ApiParam(value = "이름", required = true) @RequestParam String name) {
+                                       @ApiParam(value = "소셜 access_token", required = true) @RequestHeader String accessToken,
+                                       @ApiParam(value = "이름", required = true) @RequestBody String name) {
 
         KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
         Optional<User> user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider);
