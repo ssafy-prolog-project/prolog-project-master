@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -20,8 +21,8 @@ public class CommentService {
     }
 
     // select by postId : 해당게시물의 comment 불러옴
-    public List<Comment> findByPostId(int postId) {
-        List<Comment> comments = commentRepo.findAllByPostId(postId);
+    public Optional<List<Comment>> findByPostId(int postId) {
+        Optional<List<Comment>> comments = commentRepo.findAllByPostId(postId);
 
         return comments;
     }
@@ -33,6 +34,6 @@ public class CommentService {
 
     //삭제
     public void deleteCommentByCmtId(int cmtId){
-        commentRepo.deleteCommentByCmtId(cmtId);
+        commentRepo.deleteByCmtId(cmtId);
     }
 }

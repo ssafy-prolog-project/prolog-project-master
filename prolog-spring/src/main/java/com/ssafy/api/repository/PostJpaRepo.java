@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PostJpaRepo extends JpaRepository<Post, Integer> {
-    Post findPostByPostCode(int postCode); // select one
+    Post findByPostCode(int postCode); // select one
 
 
 }
