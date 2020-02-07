@@ -1,15 +1,22 @@
-import React from 'react';
+import React,{Component} from 'react';
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { inject, observer } from "mobx-react"
 
+@inject("userStore", "authStore")
+@observer
 // 누르면 버튼으로 할 수 있는 동작 구현
-const UserButton = () => {
-    
-    return (   
-        <LINKS to={"/"} style={{ textDecoration: "none" }}>
-            <Sample></Sample>
-        </LINKS>
+class UserButton extends Component{
+    render(){
+        const {values} = this.props.authStore;
+        const{accessToken,provider, id, name, profileimg} = values;
+
+        return (   
+            <LINKS to={"/"} style={{ textDecoration: "none" }}>
+                <Sample src={profileimg}></Sample>
+            </LINKS>
     )
+    }
 }
 
 export const LINKS = styled(Link)`
@@ -20,7 +27,7 @@ export const LINKS = styled(Link)`
     
 `
 
-const Sample = styled.div`
+const Sample = styled.img`
     /* grid-area: test; */
     cursor: pointer;
     background-color: white;
