@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import React from "react";
+import styled from "styled-components";
 
 const PostActions = props => {
   const post = props.post;
@@ -8,7 +9,7 @@ const PostActions = props => {
   if (props.canModify) {
     return (
       <div>
-        <span>
+        <Span>
           <Link
             // 수정하러가야함. 새로운 link 현재는 없음 TODO
             to={`/editor/${post.id}`} style={{ textDecoration: "none" }} >
@@ -18,12 +19,16 @@ const PostActions = props => {
           <Link to={`/editor/${post.id}`} style={{ textDecoration: "none" }} >
              삭제
           </Link>
-        </span>
+        </Span>
       </div>
     );
   }
 
-  return <span />;
+  return <Span />;
 };
+
+const Span = styled.div`
+  text-align: right;
+`
 
 export default PostActions;

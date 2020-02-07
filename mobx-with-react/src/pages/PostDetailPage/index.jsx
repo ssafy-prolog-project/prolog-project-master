@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import { withRouter } from "react-router-dom";
 
@@ -50,8 +51,9 @@ class PostDetailPage extends Component {
     return (
       <PostDetailPageLayout>
         <PostViewHeader>
-          <Logo></Logo>
-          <div></div>
+        <Link to={"/"} style={{ textDecoration: "none" }}>
+          <MLogo>ProLog;</MLogo>
+        </Link>
           <UserButton></UserButton>
         </PostViewHeader>
         <PostContentWrapper>
@@ -87,23 +89,40 @@ class PostDetailPage extends Component {
 export default PostDetailPage;
 
 const PostDetailPageLayout = styled.div`
-  height: 100vh;
+  height: 100%;
+  width: 100%;
   display: grid;
-
+  grid-template-rows: 5rem;
   /* grid-template-columns: 15% 70% 15% */
   /* grid-template-areas: "nav content"; */
 `;
 
 //TODO 얘는 그리드말고 나중에 flex로 양방향 쪼개기 하면 될듯
 const PostViewHeader = styled.div`
-  grid-template-columns: 10% 80% 10%;
-  grid-template-areas: "nav content";
-  height: 17vh;
   display: grid;
-  background-color: #1a3365;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas: 'logo . . . test';
+  height: 100%;
+  width: 100%;
+  background-color: #1A3365;
+`;
+
+const MLogo = styled.div`
+  grid-area: logo;
+  padding-left: 1.5rem;
+  align-items: end;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  font-size: 2rem;
+  line-height: 2rem;
+  font-family: Inconsolata;
+  padding-top: 1rem;
 `;
 
 const PostContentWrapper = styled.div`
+  padding-top: 5rem;
+  padding-bottom: 5rem;
   display: grid;
   grid-template-columns: 15% 70% 15%;
 `;

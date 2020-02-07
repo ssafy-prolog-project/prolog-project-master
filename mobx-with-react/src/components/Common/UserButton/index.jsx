@@ -13,6 +13,7 @@ const UserButton = () => {
 }
 
 export const LINKS = styled(Link)`
+    grid-area: test;
     display: inline-block;
     padding-left: 12rem;
     padding-top: 1rem;

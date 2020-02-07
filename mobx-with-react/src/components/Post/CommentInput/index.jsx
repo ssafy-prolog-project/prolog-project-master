@@ -44,12 +44,12 @@ class CommentInput extends Component {
             className="comment-author-img"
             alt=""
           />
-          <button
+          <CButton
             className="btn btn-sm btn-primary"
             type="submit"
           >
-            Post Comment
-          </button>
+            댓글 작성하기
+          </CButton>
         </div>
       </form>
     );
