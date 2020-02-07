@@ -19,14 +19,6 @@ const handleErrors = err => {
 
 const responseBody = res => res.body;
 
-//jwt 토큰 세팅
-const tokenWithHeader = req => {
-  if (commonStore.token) {
-    req.set("authorization", `Token ${commonStore.token}`); 
-    //req.set("authorization", `Bearer ${commonStore.token}`); 
-  }
-};
-
 // http request : get, post, del, put 
 const requests = {
   del: url =>
@@ -34,9 +26,9 @@ const requests = {
       .delete(`${API_ROOT}${VERSION}${url}`)
       .then(res => console.log(res))
       .catch(err => console.log(err)),
-  get: url =>
+  get: (url, header) =>
     axios
-      .get(`${API_ROOT}${VERSION}${url}`)
+      .get(`${API_ROOT}${VERSION}${url}`,{headers: header})
       .then(res => console.log(res))
       .catch(err => console.log(err)),
   post: (url, body, header) =>

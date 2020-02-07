@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import UserHead from "./UserHead";
 import UserContent from "./UserContent"
+import UserProfile from "../../components/UserProfile"
 
 class MyPage extends Component{
     render(){
@@ -12,7 +13,7 @@ class MyPage extends Component{
                     <MLogo>Prolog;</MLogo>
                 </Link>
                 <Div>
-                    <UserHead></UserHead>
+                    <UserProfile></UserProfile>
                     <UserContent></UserContent>
                 </Div>
             </MyPageLayout>
@@ -26,12 +27,12 @@ const MyPageLayout = styled.div`
     display: grid;
     grid-template-rows: 5rem;
 
-    @media (max-width: 768px) {
+    @media (max-width: 1024px) {
         width: 100%;
         height: 100%;
     }
 
-    @media (max-width: 1024px) {
+    @media (max-width: 768px) {
         width: 100%;
         height: 100%;
     }
@@ -59,6 +60,16 @@ const Div = styled.div`
     display: grid;
     grid-template-rows: 15rem;
 
+    @media (max-width: 1024px) {
+        margin: 0;
+        display: grid;
+        flex-direction: column;
+        height: 90%;
+        width: 90%;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
     @media (max-width: 768px) {
         margin: 0;
         display: flex;
@@ -68,14 +79,6 @@ const Div = styled.div`
         padding-top: 1%;
         padding-left: 3%;
         padding-right: 3%;
-    }
-
-    @media (min-width:768px) and (max-width: 1024px) {
-        margin: 0;
-        height: 90%;
-        width: 90%;
-        padding-left: 5%;
-        padding-right: 5%;
     }
 `;
 

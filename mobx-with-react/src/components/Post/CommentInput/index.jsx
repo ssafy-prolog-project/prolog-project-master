@@ -1,6 +1,5 @@
 import React, {Component } from 'react';
 import { inject } from 'mobx-react';
-import styled from "styled-components";
 
 @inject('commentStore')
 class CommentInput extends Component {
@@ -28,9 +27,15 @@ class CommentInput extends Component {
     const { isCreatingComment } = this.props.commentStore;
     return (
       <form className="card comment-form" onSubmit={this.createComment}>
+<<<<<<< HEAD
         <DIV className="card-block">
           <TextArea className="form-control"
             placeholder="댓글을 작성해주세요."
+=======
+        <div className="card-block">
+          <textarea className="form-control"
+            placeholder="Write a comment..."
+>>>>>>> develop
             value={this.state.body}
             disabled={isCreatingComment}
             onChange={this.handleBodyChange}
@@ -43,18 +48,19 @@ class CommentInput extends Component {
             className="comment-author-img"
             alt=""
           />
-          <CButton
+          <button
             className="btn btn-sm btn-primary"
             type="submit"
           >
-            댓글 작성하기
-          </CButton>
+            Post Comment
+          </button>
         </div>
       </form>
     );
   }
 }
 
+<<<<<<< HEAD
 const DIV = styled.div`
   padding-right: 3rem;
   width: 100%;
@@ -88,4 +94,6 @@ const CButton = styled.button`
   color: white;
 `;
 
+=======
+>>>>>>> develop
 export default CommentInput;
