@@ -1,7 +1,7 @@
 package com.ssafy.api.service;
 
+import com.ssafy.api.entity.User;
 import com.ssafy.api.model.Post;
-import com.ssafy.api.model.User;
 import com.ssafy.api.repository.PostJpaRepo;
 import com.ssafy.api.repository.UserJpaRepo;
 import lombok.RequiredArgsConstructor;
