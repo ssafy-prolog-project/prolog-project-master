@@ -18,7 +18,7 @@ const PostActions = props => {
           <Link to={`/editor/${post.id}`} style={{ textDecoration: "none" }} >
              삭제
           </Link>
-        </Span>
+        </span>
       </div>
     );
   }

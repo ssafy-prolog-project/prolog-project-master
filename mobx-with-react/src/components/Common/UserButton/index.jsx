@@ -1,9 +1,10 @@
 import React from 'react';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // 누르면 버튼으로 할 수 있는 동작 구현
 const UserButton = () => {
     
-<<<<<<< HEAD
     return (   
         <LINKS to={"/"} style={{ textDecoration: "none" }}>
             <Sample></Sample>
@@ -28,11 +29,4 @@ const Sample = styled.div`
     font-family: Inconsolata;
 `;
 
-=======
-    return (
-        <h1>사용자버튼</h1>
-    )
-}
-
->>>>>>> develop
 export default UserButton;
