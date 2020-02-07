@@ -1,0 +1,52 @@
+h1, p {
+  font-family: Lato;
+}
+
+.DraftEditor-root{
+  height: 300px;
+}
+/* .public-DraftEditorPlaceholder-root{
+  max-height: auto;
+  height: 80%;
+  padding: 0.4em;
+  margin: 1em 1em 1em 1em;
+} */
+
+.notranslate {
+  height:100%;
+  max-height: auto;
+}
+.public-DraftEditor-content{
+  height:100%;
+  max-height: auto;
+}
+.DraftEditor-editorContainer {
+  max-height: auto;
+  height: 80%;
+}
+.public-DraftEditorPlaceholder-inner{
+  max-height: auto;
+  height: 80%;
+}
+.RichEditor-editor{
+  /* border: 1px solid dodgerblue; */
+  /* height: 350px !important; */
+  max-height: auto;
+  height: 80%;
+  padding: 0.4em;
+  margin: 1em 1em 1em 1em;
+  
+}
+
+.RichEditor-controls span{
+  padding: 5px; 
+  margin: 0.4em !important;
+}
+
+.RichEditor-controls{
+  display: inline;
+}
+
+.side-padding-20{
+  padding: 0 20px;
+}
