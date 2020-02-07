@@ -102,8 +102,6 @@ const Comments = {
   //requests.del(`/posts/${postId}/comments/${commentId}`)
 }
 
-
-
 export default {
     Auth,
     Posts,

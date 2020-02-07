@@ -19,7 +19,7 @@ export default class UserStore {
           this.currentUser = user;
         })
       )
-      .finally(
+      .finally( 
         action(() => {
           this.loadingUser = false;
         })

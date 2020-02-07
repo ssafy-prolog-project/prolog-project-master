@@ -2,14 +2,31 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 import { Link } from 'react-router-dom';
+import KakaoLogin from "react-kakao-login";
+require("dotenv").config();
 
-@inject("userStore")
+//@inject("userStore", "authStore")
 @observer
 class UserProfile extends Component {
-  state = {
-    myuserinfo: []
-  };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     id: "",
+  //     name: "",
+  //     provider: ""
+  //   };
+  // }
+  // responseKakao = res => {
+  //   this.setState({
+  //     id: res.profile.id,
+  //     name: res.profile.properties.nickname,
+  //     provider: "kakao"
+  //   });
 
+  //   console.log("여기야여기!!!!!!!!!!!!!!!!!!!!!!!!!");
+  //   console.log(res)
+    
+  // };
 //   componentDidMount() {
 //     const { userInfo } = this.props.userStore;
 
