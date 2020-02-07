@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import KakaoLogin from "react-kakao-login";
 require("dotenv").config();
 
-//@inject("userStore", "authStore")
+@inject("userStore", "authStore")
 @observer
 class UserProfile extends Component {
   // constructor(props) {
@@ -37,7 +37,7 @@ class UserProfile extends Component {
   render() {
     const { userInfo } = this.props.userStore;
     const { profileImg, userId, userName } = userInfo;
-    console.log(userInfo);
+    //console.log(userInfo);
     return (
       <UserProfileLayout>
         <Link to={"/mypage"} style={{textDecoration:"none"}}>
