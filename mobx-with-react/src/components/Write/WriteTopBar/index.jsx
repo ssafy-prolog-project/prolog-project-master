@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { ImageIcon, ArrowBackIcon, ColorFillIcon, PrimitiveDotIcon } from "../../../styles/iconStyle.js"
 
-const WriteTopBar = () => {
+const WriteTopBar = ({title, changeTitle, save}) => {
     const [color, setColor] = useState("#1a3365");
     const BlackClick = () => {
         setColor("#a6a6a6");
@@ -26,10 +26,6 @@ const WriteTopBar = () => {
         setColor("#ac7339");
     }
 
-  const SaveonClick = () => {
-    alert("저장되었습니다.");
-  };
-
   const ColorClick = () => {
     alert("팔레트 열기!");
   };
@@ -40,7 +36,7 @@ const WriteTopBar = () => {
         <ArrowBackIcon></ArrowBackIcon>
       </Link>
       <Link to={"/"} style={{ textDecoration: "none" }}>
-        <SaveBtn onClick={SaveonClick}>저장</SaveBtn>
+        <SaveBtn onClick={save}>저장</SaveBtn>
       </Link>
       <PluginSpace color={color}>
         <Icons>
@@ -51,7 +47,7 @@ const WriteTopBar = () => {
         </Icons>
       </PluginSpace>
       <HeaderDiv>
-        <HeaderInput placeholder="제목을 입력하세요" color={color}></HeaderInput>
+        <HeaderInput placeholder="제목을 입력하세요" color={color} value={title} onChange={changeTitle}></HeaderInput>
       </HeaderDiv>
       <Palette>
           <ColorDiv>

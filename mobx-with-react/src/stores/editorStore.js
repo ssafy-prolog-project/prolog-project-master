@@ -45,6 +45,7 @@ export default class EditorStore {
 
   @action setTitle(title){
       this.title = title;
+      console.log(this.title)
   }
 
   @action setDescription(description) {
@@ -64,20 +65,21 @@ export default class EditorStore {
     this.tagList = this.tagList.filter(t => t !== tag);
   }
 
-  @action submit() {
-    this.inProgress = true;
-    this.errors = undefined;
-    const post = {
-      title: this.title,
-      description: this.description,
-      body: this.body,
-      tagList: this.tagList,
-      slug: this.postId,
-    };
-    return (this.postId ? postStore.updatePost(post) : postStore.createPost(post))
-      .catch(action((err) => {
-        this.errors = err.response && err.response.body && err.response.body.errors; throw err;
-      }))
-      .finally(action(() => { this.inProgress = false; }));
+  @action save() {
+    console.log("post save 명령")
+    // this.inProgress = true;
+    // this.errors = undefined;
+    // const post = {
+    //   title: this.title,
+    //   description: this.description,
+    //   body: this.body,
+    //   tagList: this.tagList,
+    //   postId: this.postId,
+    // };
+    // return (this.postId ? postStore.updatePost(post) : postStore.createPost(post))
+    //   .catch(action((err) => {
+    //     this.errors = err.response && err.response.body && err.response.body.errors; throw err;
+    //   }))
+    //   .finally(action(() => { this.inProgress = false; }));
   }
 }

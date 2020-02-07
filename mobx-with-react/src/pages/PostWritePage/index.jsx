@@ -60,13 +60,14 @@ class PostWritePage extends Component {
     this.props.editorStore.removeTag(tag);
   };
 
-  submitForm = ev => {
+  save = ev => {
     ev.preventDefault();
     const { editorStore } = this.props;
-    editorStore.submit().then(post => {
-      editorStore.reset();
-      this.props.history.replace(`/post/${post.id}`);
-    });
+    editorStore.save()
+    // .then(post => {
+    //   editorStore.reset();
+    //   this.props.history.replace(`/post/${post.id}`);
+    // });
   };
 
   render() {
@@ -76,7 +77,7 @@ class PostWritePage extends Component {
 
     return (
       <PostWritePageLayout>
-        <WriteTopBar title={title} changeTitle={this.changeTitle}></WriteTopBar>
+        <WriteTopBar title={title} changeTitle={this.changeTitle} save={this.save}></WriteTopBar>
         <WriteEditor></WriteEditor>
         <div>
           <WriteTags/>
