@@ -15,18 +15,9 @@ const handleErrors = err => {
     // 어떻게 동작시키지?
   }
   return err;
-};    
+};
 
 const responseBody = res => res.body;
-
-//jwt 토큰 세팅
-const tokenWithHeader = req => {
-  if (commonStore.token) {
-    req.set("authorization", `Tok
-    en ${commonStore.token}`); 
-    //req.set("authorization", `Bearer ${commonStore.token}`); 
-  }
-};
 
 // http request : get, post, del, put 
 const requests = {
@@ -35,9 +26,9 @@ const requests = {
       .delete(`${API_ROOT}${VERSION}${url}`)
       .then(res => console.log(res))
       .catch(err => console.log(err)),
-  get: url =>
+  get: (url, header) =>
     axios
-      .get(`${API_ROOT}${VERSION}${url}`)
+      .get(`${API_ROOT}${VERSION}${url}`,{headers: header})
       .then(res => console.log(res))
       .catch(err => console.log(err)),
   post: (url, body, header) =>
@@ -101,6 +92,8 @@ const Comments = {
   console.log('comment Delete 요청'),
   //requests.del(`/posts/${postId}/comments/${commentId}`)
 }
+
+
 
 export default {
     Auth,

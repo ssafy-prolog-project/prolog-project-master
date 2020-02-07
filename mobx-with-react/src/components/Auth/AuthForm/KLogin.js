@@ -26,6 +26,9 @@ class KLogin extends Component {
 
     console.log("카카오 login success");
     console.log(res)
+    this.props.authStore.setProfileimg(res.profile.properties.profile_image);
+    this.props.authStore.setId(res.profile.id);
+    this.props.authStore.setName(res.profile.properties.nickname);
     this.props.authStore.setAccessToken(res.response.access_token);
     this.props.authStore.setProvider("kakao");
     this.props.authStore
@@ -53,6 +56,7 @@ class KLogin extends Component {
           onSuccess={this.responseKakao}
           onFailure={this.responseFail}
           getProfile="true"
+
         />
       </Container>
     );

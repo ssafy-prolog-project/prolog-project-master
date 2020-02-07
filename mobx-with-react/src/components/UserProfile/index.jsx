@@ -8,50 +8,29 @@ require("dotenv").config();
 @inject("userStore", "authStore")
 @observer
 class UserProfile extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     id: "",
-  //     name: "",
-  //     provider: ""
-  //   };
-  // }
-  // responseKakao = res => {
-  //   this.setState({
-  //     id: res.profile.id,
-  //     name: res.profile.properties.nickname,
-  //     provider: "kakao"
-  //   });
-
-  //   console.log("여기야여기!!!!!!!!!!!!!!!!!!!!!!!!!");
-  //   console.log(res)
-    
-  // };
-//   componentDidMount() {
-//     const { userInfo } = this.props.userStore;
-
-//     this.setState({
-//       myuserinfo: userInfo
-//     });
-//   }
+ 
   render() {
-    const { userInfo } = this.props.userStore;
-    const { profileImg, userId, userName } = userInfo;
-    //console.log(userInfo);
+    // const { userInfo } = this.props.userStore;
+    // const { profileImg, userId, userName } = userInfo;
+    const {values} = this.props.authStore;
+    const{accessToken,provider, id, name, profileimg} = values;
+    console.log("여기!!!!!!!!!!!!!!");
+    console.log(this.props.authStore);
     return (
       <UserProfileLayout>
         <Link to={"/mypage"} style={{textDecoration:"none"}}>
         <Img>
-          {profileImg ? (
-            <ProfileImg src={profileImg}></ProfileImg>
+          {profileimg ? (
+            <ProfileImg src={profileimg}></ProfileImg>
           ) : (
             <DefaultImage></DefaultImage>
           )}
         </Img>
         </Link>
         <UserInfo>
-          <UserName>{userName}</UserName>
-          <UserId>{userId}</UserId>
+          <UserName>{name}</UserName>
+          <UserId>{id}</UserId>
+            
         </UserInfo>
       </UserProfileLayout>
     );
