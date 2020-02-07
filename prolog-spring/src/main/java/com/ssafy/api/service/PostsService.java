@@ -30,7 +30,7 @@ public class PostsService {
 
     // 단일 게시물 - 작성
     public Post writePost(String uid, String title, String content, String thumnail) {
-        //Post post = new Post(userJpaRepo.findByUid(uid).orElseThrow(CUserNotFoundException::new), post.getUsername(), paramsPost.getTitle(), paramsPost.getContent());
+        //  Post post = new Post(userJpaRepo.findByUid(uid).orElseThrow(CUserNotFoundException::new), post.getUsername(), paramsPost.getTitle(), paramsPost.getContent());
         Post post = new Post();
         return postJpaRepo.save(post);
     }
@@ -50,7 +50,7 @@ public class PostsService {
     // 단일 게시물 - 삭제
     public boolean deletePost(int postCode, String userId) {
         Post post = getPost(postCode);
-        Optional<User> user = userJpaRepo.findByUid(userId);
+        Optional<User> user = userJpaRepo.findUserByUid(userId);
         Long msrl = user.get().getMsrl();
         if (msrl == 1) { // admin( 1: admin 2: .user 3: disabled)
             postJpaRepo.delete(post);

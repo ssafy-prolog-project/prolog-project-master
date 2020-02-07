@@ -47,8 +47,6 @@ public class PostsController {
     @ApiOperation(value = "Post 수정", notes = "글을 수정합니다.")
     @PutMapping(value ="/{postCode}")
     public void/*SingleResult<Post> */post(@PathVariable int postCode, @RequestBody Post post, Model model){
-
-
         //return responseService.getSingleResult(postsService.updatePost(postCode,userId,content,title, thumnail));
     }
 
