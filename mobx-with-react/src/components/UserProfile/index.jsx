@@ -8,26 +8,7 @@ require("dotenv").config();
 @inject("userStore", "authStore")
 @observer
 class UserProfile extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     id: "",
-  //     name: "",
-  //     provider: ""
-  //   };
-  // }
-  // responseKakao = res => {
-  //   this.setState({
-  //     id: res.profile.id,
-  //     name: res.profile.properties.nickname,
-  //     provider: "kakao"
-  //   });
-
-  //   console.log("여기야여기!!!!!!!!!!!!!!!!!!!!!!!!!");
-  //   console.log(res)
-    
-  // };
-
+ 
   render() {
     // const { userInfo } = this.props.userStore;
     // const { profileImg, userId, userName } = userInfo;
@@ -49,7 +30,7 @@ class UserProfile extends Component {
         <UserInfo>
           <UserName>{name}</UserName>
           <UserId>{id}</UserId>
-        
+            
         </UserInfo>
       </UserProfileLayout>
     );

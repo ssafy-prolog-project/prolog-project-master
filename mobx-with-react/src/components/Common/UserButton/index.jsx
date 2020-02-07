@@ -12,7 +12,7 @@ class UserButton extends Component{
         const{accessToken,provider, id, name, profileimg} = values;
 
         return (   
-            <LINKS to={"/"} style={{ textDecoration: "none" }}>
+            <LINKS to={"/mypage"} style={{ textDecoration: "none" }}>
                 <Sample src={profileimg}></Sample>
             </LINKS>
     )
