@@ -6,23 +6,21 @@ import styled from "styled-components";
 const UserButton = () => {
     
     return (   
-            <DIV>
-                <Link to={"/"} style={{ textDecoration: "none" }}>
-                    <Sample></Sample>
-                </Link>
-            </DIV>
-        
+        <LINKS to={"/"} style={{ textDecoration: "none" }}>
+            <Sample></Sample>
+        </LINKS>
     )
 }
 
-const DIV = styled.div`
-    padding-left: 10rem;
+export const LINKS = styled(Link)`
+    display: inline-block;
+    padding-left: 12rem;
     padding-top: 1rem;
+    
 `
 
 const Sample = styled.div`
     /* grid-area: test; */
-    padding-right: 1.5rem;
     cursor: pointer;
     background-color: white;
     border-radius: 50%;

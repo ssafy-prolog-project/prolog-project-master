@@ -136,9 +136,8 @@ const PostContentWrapper = styled.div`
 `;
 
 const PostContent = styled.div`
-  /* grid-template-columns: auto; */
-  /* overflow-y: scroll; */
-  /* display: grid; */
+  padding-left: 3rem;
+  padding-right: 3rem;
 `;
 
 const CenterAreaLayout = styled.div`

@@ -28,7 +28,7 @@ class CommentInput extends Component {
     const { isCreatingComment } = this.props.commentStore;
     return (
       <form className="card comment-form" onSubmit={this.createComment}>
-        <div className="card-block">
+        <DIV className="card-block">
           <TextArea className="form-control"
             placeholder="댓글을 작성해주세요."
             value={this.state.body}
@@ -36,7 +36,7 @@ class CommentInput extends Component {
             onChange={this.handleBodyChange}
             rows="3"
           />
-        </div>
+        </DIV>
         <div className="card-footer">
           <img
             src={this.props.currentUser.image}
@@ -55,16 +55,30 @@ class CommentInput extends Component {
   }
 }
 
-const TextArea = styled.textarea`
-  margin-top: .5rem;
-  margin-bottom: .5rem;
+const DIV = styled.div`
+  padding-right: 3rem;
   width: 100%;
-  overflow: visible;
-  border-radius: .5rem;
-  border-color: gray;
+  max-height: 30rem;
+  overflow: hidden;
 `
 
+const TextArea = styled.textarea`
+    margin-top: 1rem;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    resize: none;
+    color: #212529;
+    display: block;
+    line-height: 1.5;
+    height: 10rem;
+`;
+
 const CButton = styled.button`
+  margin-top: 1rem;
   border: 0;
   float: right;
   width: 7rem;
@@ -72,6 +86,6 @@ const CButton = styled.button`
   border-radius: 3px;
   background-color: #1a3365;
   color: white;
-`
+`;
 
 export default CommentInput;

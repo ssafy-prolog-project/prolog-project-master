@@ -12,12 +12,13 @@ const PostActions = props => {
         <Span>
           <Link
             // 수정하러가야함. 새로운 link 현재는 없음 TODO
-            to={`/editor/${post.id}`}
-          >
-            {" "}
-            수정
+            to={`/editor/${post.id}`} style={{ textDecoration: "none" }} >
+            수정 
           </Link>
-          <button onClick={handleDelete}>삭제</button>
+          &nbsp;
+          <Link to={`/editor/${post.id}`} style={{ textDecoration: "none" }} >
+             삭제
+          </Link>
         </Span>
       </div>
     );
