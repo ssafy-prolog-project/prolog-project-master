@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
+import { Link } from 'react-router-dom';
 
 @inject("userStore")
 @observer
@@ -22,6 +23,7 @@ class UserProfile extends Component {
     console.log(userInfo);
     return (
       <UserProfileLayout>
+        <Link to={"/mypage"} style={{textDecoration:"none"}}>
         <Img>
           {profileImg ? (
             <ProfileImg src={profileImg}></ProfileImg>
@@ -29,9 +31,10 @@ class UserProfile extends Component {
             <DefaultImage></DefaultImage>
           )}
         </Img>
+        </Link>
         <UserInfo>
-          <UserId>{userId}</UserId>
           <UserName>{userName}</UserName>
+          <UserId>{userId}</UserId>
         </UserInfo>
       </UserProfileLayout>
     );
