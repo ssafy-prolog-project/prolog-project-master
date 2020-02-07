@@ -52,6 +52,10 @@ public class User implements UserDetails {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
+    public String getPassword() {return this.password.isEmpty() ? null : this.password; }
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Override
     public boolean isAccountNonExpired() {
         return true;
     }

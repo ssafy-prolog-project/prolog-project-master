@@ -1,6 +1,7 @@
 package com.ssafy.api.controller.v1;
 
 import com.ssafy.api.advice.exception.CEmailSigninFailedException;
+import com.ssafy.api.advice.exception.CUserCommunityIdMatchException;
 import com.ssafy.api.model.response.SingleResult;
 import com.ssafy.api.service.ResponseService;
 import com.ssafy.api.advice.exception.CUserExistException;
@@ -11,16 +12,16 @@ import com.ssafy.api.entity.User;
 import com.ssafy.api.model.response.CommonResult;
 import com.ssafy.api.repository.UserJpaRepo;
 import com.ssafy.api.service.user.KakaoService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.Optional;
 
+@Slf4j
 @Api(tags = {"1. Sign"})
 @RequiredArgsConstructor
 @RestController
@@ -49,11 +50,48 @@ public class SignController {
     @PostMapping(value = "/signin/{provider}")
     public SingleResult<String> signinByProvider(
             @ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
-            @ApiParam(value = "소셜 access_token", required = true) @RequestHeader String accessToken) {
+            @ApiParam(value = "소셜 access_token", required = true) @RequestHeader String accessToken
+    ) {
 
         KakaoProfile profile = kakaoService.getKakaoProfile(accessToken);
         User user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
         return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
+    }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @ApiOperation(value = "소셜 로그아웃", notes = "소셜 회원 로그아웃을 한다.")
+    @PostMapping(value = "/signout/{provider}")
+    public CommonResult signoutByProvider(
+            @ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
+            @ApiParam(value = "소셜 access_token", required = true) @RequestHeader String accessToken
+    ) {
+        KakaoProfile profile = kakaoService.postKakaoLogout(accessToken);
+        User user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
+
+        if(!user.getUid().equals(Long.toString(profile.getId()))){
+            throw new CUserCommunityIdMatchException();
+        }
+        return responseService.getSuccessResult();
+    }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @ApiOperation(value = "소셜 언링크", notes = "소셜 회원 언링크을 한다.")
+    @PostMapping(value = "/unlink/{provider}")
+    public CommonResult unlinkByProvider(
+            @ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
+            @ApiParam(value = "소셜 access_token", required = true) @RequestHeader String accessToken
+    ) {
+        KakaoProfile profile = kakaoService.postKakaoUnlink(accessToken);
+        User user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
+
+        if(!user.getUid().equals(Long.toString(profile.getId()))){
+            throw new CUserCommunityIdMatchException();
+        }
+        return responseService.getSuccessResult();
     }
 
     @ApiOperation(value = "가입", notes = "회원가입을 한다.")
@@ -61,6 +99,8 @@ public class SignController {
     public CommonResult signup(@ApiParam(value = "회원ID : 이메일", required = true) @RequestBody String id,
                                @ApiParam(value = "비밀번호", required = true) @RequestBody String password,
                                @ApiParam(value = "이름", required = true) @RequestBody String name) {
+
+
 
         userJpaRepo.save(User.builder()
                 .uid(id)

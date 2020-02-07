@@ -6,7 +6,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 public class KakaoProfile {
     private Long id;
     private Properties properties;

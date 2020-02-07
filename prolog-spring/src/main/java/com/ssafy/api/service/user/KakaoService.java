@@ -67,4 +67,42 @@ public class KakaoService {
         }
         return null;
     }
+
+    public KakaoProfile postKakaoLogout(String accessToken) {
+        // Set header : Content-type: application/x-www-form-urlencoded
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("Authorization", "Bearer " + accessToken);
+
+        // Set http entity
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
+        try {
+            // Request profile
+            ResponseEntity<String> response = restTemplate.postForEntity(env.getProperty("spring.social.kakao.url.logout"), request, String.class);
+            if (response.getStatusCode() == HttpStatus.OK)
+                return gson.fromJson(response.getBody(), KakaoProfile.class);
+        } catch (Exception e) {
+            throw new CCommunicationException();
+        }
+        throw new CCommunicationException();
+    }
+
+    public KakaoProfile postKakaoUnlink(String accessToken){
+        // Set header : Content-type: application/x-www-form-urlencoded
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.set("Authorization", "Bearer " + accessToken);
+
+        // Set http entity
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(null, headers);
+        try {
+            // Request profile
+            ResponseEntity<String> response = restTemplate.postForEntity(env.getProperty("spring.social.kakao.url.unlink"), request, String.class);
+            if (response.getStatusCode() == HttpStatus.OK)
+                return gson.fromJson(response.getBody(), KakaoProfile.class);
+        } catch (Exception e) {
+            throw new CCommunicationException();
+        }
+        throw new CCommunicationException();
+    }
 }
