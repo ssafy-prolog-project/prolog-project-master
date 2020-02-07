@@ -15,14 +15,15 @@ const handleErrors = err => {
     // 어떻게 동작시키지?
   }
   return err;
-};
+};    
 
 const responseBody = res => res.body;
 
 //jwt 토큰 세팅
 const tokenWithHeader = req => {
   if (commonStore.token) {
-    req.set("authorization", `Token ${commonStore.token}`); 
+    req.set("authorization", `Tok
+    en ${commonStore.token}`); 
     //req.set("authorization", `Bearer ${commonStore.token}`); 
   }
 };
@@ -100,8 +101,6 @@ const Comments = {
   console.log('comment Delete 요청'),
   //requests.del(`/posts/${postId}/comments/${commentId}`)
 }
-
-
 
 export default {
     Auth,

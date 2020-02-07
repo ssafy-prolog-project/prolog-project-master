@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import UserHead from "./UserHead";
 import UserContent from "./UserContent"
+import UserProfile from "../../components/UserProfile"
 
 class MyPage extends Component{
     render(){
@@ -12,7 +13,7 @@ class MyPage extends Component{
                     <MLogo>Prolog;</MLogo>
                 </Link>
                 <Div>
-                    <UserHead></UserHead>
+                    <UserProfile></UserProfile>
                     <UserContent></UserContent>
                 </Div>
             </MyPageLayout>
