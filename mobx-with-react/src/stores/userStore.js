@@ -19,7 +19,7 @@ export default class UserStore {
           this.currentUser = user;
         })
       )
-      .finally(
+      .finally( 
         action(() => {
           this.loadingUser = false;
         })
@@ -44,4 +44,13 @@ export default class UserStore {
   @action forgetUser() {
     this.currentUser = undefined;
   }
+
+  @observable userInfo = {
+      profileImg:"https://upload.wikimedia.org/wikipedia/commons/7/7e/Circle-icons-profile.svg",
+      userId: "KYUNGEUN",
+      userName : "경은"
+    };
+  
+
+
 }
