@@ -18,13 +18,8 @@ public class Post extends CommonDateEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private int postCode;
-//    @ManyToOne
-//    @JoinColumn(name="post_user_fkey", referencedColumnName = "user_code")
-//    @Column(nullable = false)
-//    private int userCode;
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action  = OnDeleteAction.CASCADE)
-    //@JoinColumn(name = "msrl") // join
     private User user;  // 게시글 - 회원의 관계 - N:1
 
     @Column(nullable = false, length = 100)
@@ -33,8 +28,6 @@ public class Post extends CommonDateEntity {
     //json - data
     private String content; // json 처리 필요
 
-    //private LocalDateTime createDate; // 시분초
-    //private LocalDateTime updateDate; // 시분초
     @Column(nullable = false) // default 0
     private int postLike;
     @Column(nullable = false) // default 0
