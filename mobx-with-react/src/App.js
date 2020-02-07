@@ -10,7 +10,7 @@ import MyPage from "./pages/MyPage";
 import PostWritePage from "./pages/PostWritePage";
 import SearchPage from "./pages/SearchPage";
 import { signIn } from "./components/Auth/auth";
-import PrivateRoute from "./PrivateRoute";
+//import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
   

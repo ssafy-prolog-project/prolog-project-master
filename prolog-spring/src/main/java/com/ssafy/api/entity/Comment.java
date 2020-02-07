@@ -1,4 +1,4 @@
-package com.ssafy.api.model;
+package com.ssafy.api.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

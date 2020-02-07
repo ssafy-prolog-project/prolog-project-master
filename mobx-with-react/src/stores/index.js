@@ -1,5 +1,5 @@
 import PostStore from './postStore';
-import TestStore from './testStore';
+import EditorStore from './editorStore';
 import AuthStore from './authStore';
 import CommonStore from './commonStore';
 import UserStore from './userStore';
@@ -11,7 +11,7 @@ class RootStore {
     this.commonStore = new CommonStore(this);
     this.userStore = new UserStore(this);
     this.postStore = new PostStore(this);
-    this.testStore = new TestStore(this);
+    this.editorStore = new EditorStore(this);
     this.commentStore = new CommentStore(this);
   }
 }
