@@ -5,15 +5,18 @@ export default class EditorStore {
   constructor(root) {
     this.root = root;
   }
+  //임시
+  @observable postList = []
 
   @observable inProgress = false;
   @observable errors = undefined;
   @observable postId = undefined;
 
   @observable title = ''; //제목
-  @observable description = '';
-  @observable body = ''; // draft js json 형식으로 저장
-  @observable tagList = []; //해쉬태그들?
+  @observable coverColor = 'black'; //커버 칼라 (이미지 세팅 없을 경우만 사용될 것)
+  @observable coverImage = '';
+  @observable body = ''; // html string 형식으로 저장
+  @observable tagList = []; //해쉬태그
 
   @action setPostId(postId) {
       if( this.postId !== postId){
@@ -27,9 +30,10 @@ export default class EditorStore {
     this.inProgress = true;
     return postStore.loadArticle(this.postId, { acceptCached: true })
       .then(action((post) => {
-        if (!post) throw new Error('Can\'t load original post');
+        if (!post) throw new Error('포스트를 불러올 수 없습니다.');
         this.title = post.title;
-        this.description = post.description;
+        this.coverColor = post.coverColor;
+        this.coverImage = post.coverImage;
         this.body = post.body;
         this.tagList = post.tagList;
       }))
@@ -38,23 +42,34 @@ export default class EditorStore {
 
   @action reset(){
     this.title = '';
-    this.description = '';
+    this.coverColor = 'white';
+    this.coverImage = '';
     this.body = '';
     this.tagList = [];
   }
 
   @action setTitle(title){
       this.title = title;
+      console.log(this.title)
   }
 
-  @action setDescription(description) {
-    this.description = description;
+  @action setCoverColor(coverColor) {
+    this.coverColor = coverColor;
+  }
+
+  @action setCoverImage(coverImage){
+    this.coverIamge = coverImage;
   }
 
   @action setBody(body) {
     this.body = body;
   }
 
+  @action setTags(tags){
+    if (this.tagList !== tags) {
+      this.tagList = tags;
+    }
+  }
   @action addTag(tag) {
     if (this.tagList.includes(tag)) return;
     this.tagList.push(tag);
@@ -64,20 +79,22 @@ export default class EditorStore {
     this.tagList = this.tagList.filter(t => t !== tag);
   }
 
-  @action submit() {
-    this.inProgress = true;
-    this.errors = undefined;
-    const post = {
-      title: this.title,
-      description: this.description,
-      body: this.body,
-      tagList: this.tagList,
-      slug: this.postId,
-    };
-    return (this.postId ? postStore.updatePost(post) : postStore.createPost(post))
-      .catch(action((err) => {
-        this.errors = err.response && err.response.body && err.response.body.errors; throw err;
-      }))
-      .finally(action(() => { this.inProgress = false; }));
+  @action save() {
+    //저장하고 글 읽는 페이지로 옮겨가도록
+    console.log("post save 명령")
+    // this.inProgress = true;
+    // this.errors = undefined;
+    // const post = {
+    //   title: this.title,
+    //   description: this.description,
+    //   body: this.body,
+    //   tagList: this.tagList,
+    //   postId: this.postId,
+    // };
+    // return (this.postId ? postStore.updatePost(post) : postStore.createPost(post))
+    //   .catch(action((err) => {
+    //     this.errors = err.response && err.response.body && err.response.body.errors; throw err;
+    //   }))
+    //   .finally(action(() => { this.inProgress = false; }));
   }
 }
