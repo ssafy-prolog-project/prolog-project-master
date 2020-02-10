@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { CirclePicker } from 'react-color'
 
 import {
   ImageIcon,
@@ -25,6 +26,7 @@ const WriteTopBar = ({
   save
 }) => {
   const [color, setColor] = useState(coverColor);
+  const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const onCircleClick = color => {
     setColor(color);
     changeCoverColor(color);
@@ -42,10 +44,38 @@ const WriteTopBar = ({
     alert("팔레트 열기!");
   };
 
+  const handleClick = () => {
+    setDisplayColorPicker(!displayColorPicker)
+  };
+
+  const handleClose = () => {
+    setDisplayColorPicker(false)
+  };
+
+  const handleChange = (color) => {
+    setColor(color.hex)
+  };
+
+  const popover = {
+    position: 'relative',
+    marginRight: "200px"
+    //zIndex: '10',
+    // :hover {
+    //   opacity: 0%;
+    // }
+  }
+  const cover = {
+    position: 'fixed',
+    top: '0px',
+    right: '0px',
+    bottom: '0px',
+    left: '0px',
+  }
+
   return (
     <WriteTopBarLayout color={color}>
       {/* TODO 뒤로가기가 되어야함. 메인으로 가는게 아니라 */}
-      <Link to={"/"} style={{ textDecoration: "none" }}> 
+      <Link to={"/"} style={{ textDecoration: "none" }}>
         <ArrowBackIcon></ArrowBackIcon>
       </Link>
       <SaveBtn onClick={save}>저장</SaveBtn>
@@ -54,8 +84,14 @@ const WriteTopBar = ({
           <ImageIcon color="white"></ImageIcon>
         </Icons>
         <Icons>
-          <ColorFillIcon onClick={ColorClick}></ColorFillIcon>
+          <ColorFillIcon onClick={handleClick}></ColorFillIcon>
+          { displayColorPicker ? <div style={ popover }>
+          <div style={ cover } onClick={ handleClose }/>
+          <CirclePicker color={ color } onChange={handleChange} />
+        </div> : null }
+
         </Icons>
+        
       </PluginSpace>
       <HeaderDiv>
         <HeaderInput
@@ -125,9 +161,9 @@ const Icons = styled.div`
   width: 40px;
   float: right;
   margin-top: 2rem;
-  :hover {
+  /* :hover {
     opacity: 50%;
-  }
+  } */
 `;
 
 const HeaderDiv = styled.div`
