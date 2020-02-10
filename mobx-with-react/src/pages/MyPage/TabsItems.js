@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const TabsItems = ({posts}) => {
     return(
         <TabsItemsLayout>
-            <Link to={""} style={{textDecoration:"none"}}>
+            <Link to={"/portfolio"} style={{textDecoration:"none"}}>
                 <TabsItem onClick={""}>
                 <ItemContent>포트폴리오</ItemContent>
                 </TabsItem>

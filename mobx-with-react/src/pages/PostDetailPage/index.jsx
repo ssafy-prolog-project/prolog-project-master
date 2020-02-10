@@ -57,7 +57,7 @@ class PostDetailPage extends Component {
           <UserButton></UserButton>
         </PostViewHeader>
         <PostContentWrapper>
-          <div>Left</div>
+          <Left>Left</Left>
           <PostContent>
             <PostMeta
               post={post}
@@ -79,7 +79,7 @@ class PostDetailPage extends Component {
               onDelete={this.handleDeleteComment}
             ></PostComments>
           </PostContent>
-          <div>Right</div>
+          <Right>Right</Right>
         </PostContentWrapper>
       </PostDetailPageLayout>
     );
@@ -139,11 +139,38 @@ const PostContentWrapper = styled.div`
   padding-bottom: 5rem;
   display: grid;
   grid-template-columns: 15% 70% 15%;
+  grid-template-areas: 'left contents right';
+
+  @media (max-width: 768px) {
+    grid-template-columns: 100%;
+    grid-template-areas: 'contents';
+  }
+`;
+
+const Left = styled.div`
+  grid-area: left;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const Right = styled.div`
+  grid-area: right;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const PostContent = styled.div`
+  grid-area: contents;
   padding-left: 3rem;
   padding-right: 3rem;
+
+  @media (max-width: 768px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
 `;
 
 const CenterAreaLayout = styled.div`
