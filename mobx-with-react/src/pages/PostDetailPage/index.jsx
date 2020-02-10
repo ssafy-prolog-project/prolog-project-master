@@ -51,10 +51,10 @@ class PostDetailPage extends Component {
     return (
       <PostDetailPageLayout>
         <PostViewHeader>
-          <Link to={"/"} style={{ textDecoration: "none" }}>
-            <MLogo>Prolog;</MLogo>
-          </Link>
-          <DIV><UserButton></UserButton></DIV>
+        <Link to={"/"} style={{ textDecoration: "none" }}>
+          <MLogo>ProLog;</MLogo>
+        </Link>
+          <UserButton></UserButton>
         </PostViewHeader>
         <PostContentWrapper>
           <div>Left</div>
@@ -89,6 +89,7 @@ class PostDetailPage extends Component {
 export default PostDetailPage;
 
 const PostDetailPageLayout = styled.div`
+<<<<<<< HEAD
   flex-direction: row;
   align-items: flex-end;
   width: 100%;
@@ -96,6 +97,12 @@ const PostDetailPageLayout = styled.div`
   grid-template-rows: 5rem;
 
 
+=======
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 5rem;
+>>>>>>> aaf1d30883f0f8ac0ad21b14fbb3546f17385143
   /* grid-template-columns: 15% 70% 15% */
   /* grid-template-areas: "nav content"; */
 `;
@@ -107,14 +114,13 @@ const PostViewHeader = styled.div`
   grid-template-areas: 'logo . . . test';
   height: 100%;
   width: 100%;
-  background-color: #1a3365;
+  background-color: #1A3365;
 `;
 
 const MLogo = styled.div`
   grid-area: logo;
   padding-left: 1.5rem;
   align-items: end;
-  /* float: left; */
   text-align: center;
   cursor: pointer;
   color: white;
@@ -129,16 +135,15 @@ const DIV = styled.div`
 `
 
 const PostContentWrapper = styled.div`
-  padding-top: 5%;
-  padding-bottom: 5%;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
   display: grid;
   grid-template-columns: 15% 70% 15%;
 `;
 
 const PostContent = styled.div`
-  /* grid-template-columns: auto; */
-  /* overflow-y: scroll; */
-  /* display: grid; */
+  padding-left: 3rem;
+  padding-right: 3rem;
 `;
 
 const CenterAreaLayout = styled.div`

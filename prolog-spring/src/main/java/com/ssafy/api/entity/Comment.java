@@ -1,8 +1,10 @@
-package com.ssafy.api.model;
+package com.ssafy.api.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,7 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "comments")
-public class Comment {
+public class Comment extends CommonDateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "comment_code")
@@ -21,8 +23,9 @@ public class Comment {
     private String userName;
     @Column(name = "content", nullable = false)
     private String comment;
-    @Column(name = "create_date")
-    private LocalDateTime createTime;
-    @Column(name = "update_date")
-    private int postId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action  = OnDeleteAction.CASCADE)
+    private Post post; // postId 사용
+
 }

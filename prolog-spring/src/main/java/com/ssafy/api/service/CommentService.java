@@ -1,6 +1,6 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.model.Comment;
+import com.ssafy.api.entity.Comment;
 import com.ssafy.api.repository.CommentRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

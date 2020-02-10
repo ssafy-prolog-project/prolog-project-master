@@ -21,12 +21,8 @@ const PostDetail = ({ postid, posts }) => {
 
       <Div>
       <PostContent>
-        <p>컨텐트이것도 컴포넌트로 넘기는게 좋을 듯</p>
-        
-        
-        <h2>{title}</h2>
-        <h3>{category}</h3>
-        <p>{text}</p>
+        <h3>얘는 카테고리 : {category}</h3>
+        <p>얘는 내용? : {text}</p>
       </PostContent>
       </Div>
     </PostDetailLayout>

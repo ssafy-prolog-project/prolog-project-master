@@ -1,6 +1,7 @@
 package com.ssafy.api.controller.v1;
 
-import com.ssafy.api.model.Post;
+import com.ssafy.api.advice.exception.CUserNotFoundException;
+import com.ssafy.api.entity.Post;
 import com.ssafy.api.model.response.CommonResult;
 import com.ssafy.api.model.response.ListResult;
 import com.ssafy.api.model.response.SingleResult;
@@ -12,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.models.Model;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/post")
@@ -31,7 +33,7 @@ public class PostsController {
     @GetMapping(value = "/{postCode}")
     public SingleResult<Post> post(@PathVariable int postCode, Model model){
 
-        return responseService.getSingleResult(postsService.getPost(postCode));
+        return responseService.getSingleResult(postsService.getPost(postCode).orElseThrow(CUserNotFoundException::new));
     }
 
     @ApiImplicitParams({
@@ -39,17 +41,19 @@ public class PostsController {
     })
     @ApiOperation(value = "Post 작성", notes = "글을 새로 작성합니다.")
     @PostMapping(value = "/{userId}")
-    public SingleResult<Post> post(@PathVariable String userId, String title, String content, String thumbnail){
-        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return responseService.getSingleResult(postsService.writePost(userId,title,
-                content,thumbnail));
+    public String post(@PathVariable String userId, @RequestParam String title,
+                       @RequestParam String content,@RequestParam String thumbnail){
+        Post post = new Post();
+        postsService.writePost(post);
+        return "redirect:/";
     }
+
     @ApiOperation(value = "Post 수정", notes = "글을 수정합니다.")
     @PutMapping(value ="/{postCode}")
-    public void/*SingleResult<Post> */post(@PathVariable int postCode, @RequestBody Post post, Model model){
-
-
-        //return responseService.getSingleResult(postsService.updatePost(postCode,userId,content,title, thumnail));
+    public CommonResult post(@PathVariable int postCode, @RequestBody Post post){
+        //User id 대조가 필요함
+        postsService.updatePost(post);
+        return responseService.getSuccessResult();
     }
 
     @ApiOperation( value="Post Delete", notes = "")

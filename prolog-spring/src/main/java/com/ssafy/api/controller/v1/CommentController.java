@@ -1,6 +1,6 @@
 package com.ssafy.api.controller.v1;
 
-import com.ssafy.api.model.Comment;
+import com.ssafy.api.entity.Comment;
 import com.ssafy.api.model.response.CommonResult;
 import com.ssafy.api.model.response.ListResult;
 import com.ssafy.api.service.CommentService;
@@ -49,7 +49,7 @@ public class CommentController {
         return new ResponseEntity<Comment>(commentService.save(comment), HttpStatus.OK);
     }
 
-    //modify
+    //modify - comments
 
 
 }

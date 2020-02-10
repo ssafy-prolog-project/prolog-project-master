@@ -16,15 +16,28 @@ export default class AuthStore {
   //sns accessToken 타입들이 어떻게 들어올까?
   @observable values = {
     accessToken: undefined,
-    provider : undefined
+    provider : undefined,
+    id: undefined,
+    name: undefined,
+    profileimg: undefined
   };
-
+  @action setProfileimg(profileimg) {
+    this.values.profileimg = profileimg;
+  }
+  @action setId(id) {
+    this.values.id = id;
+  }
+  @action setName(name) {
+    this.values.name = name;
+  }
   @action setAccessToken(token) {
     this.values.accessToken = token;
   }
 
   @action setProvider(provider) {
     this.values.provider = provider;
+    console.log("Store에서 넘어가기전!!!!");
+    console.log(this.values);
   }
 
   @action reset() {
