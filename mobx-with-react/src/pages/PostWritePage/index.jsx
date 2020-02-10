@@ -24,15 +24,20 @@ class PostWritePage extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.id !== prevProps.match.params.id) {
-      this.props.editorStore.setPostIf(this.props.match.params.id);
+      this.props.editorStore.setPostId(this.props.match.params.id);
       this.props.editorStore.loadInitialData();
     }
   }
 
   changeTitle = e => this.props.editorStore.setTitle(e.target.value);
+
+  changeCoverColor = color => this.props.editorStore.setCoverColor(color);
+
+  changeCoverImage = src => this.props.editorStore.setCoverImage(src);
   changeDescription = e =>
     this.props.editorStore.setDescription(e.target.value);
   changeBody = e => this.props.editorStore.setBody(e.target.value);
+  changeTags = (tags) => this.props.editorStore.setTags(tags);
   changeTagInput = e => this.setState({ tagInput: e.target.value });
 
   handleTagInputKeyDown = ev => {
@@ -60,27 +65,41 @@ class PostWritePage extends Component {
     this.props.editorStore.removeTag(tag);
   };
 
-  submitForm = ev => {
+  save = ev => {
     ev.preventDefault();
     const { editorStore } = this.props;
-    editorStore.submit().then(post => {
-      editorStore.reset();
-      this.props.history.replace(`/post/${post.id}`);
-    });
+    editorStore.save();
+    // .then(post => {
+    //   editorStore.reset();
+    //   this.props.history.replace(`/post/${post.id}`);
+    // });
   };
 
   render() {
-    const { inProgress, errors, title, description, body, tagList } = this.props.editorStore;
-
-
+    const {
+      inProgress,
+      errors,
+      title,
+      coverColor,
+      coverImage,
+      body,
+      tagList
+    } = this.props.editorStore;
 
     return (
       <PostWritePageLayout>
-        <WriteTopBar title={title} changeTitle={this.changeTitle}></WriteTopBar>
+        <WriteTopBar
+          title={title}
+          coverColor={coverColor}
+          coverImage={coverImage}
+          changeTitle={this.changeTitle}
+          changeCoverColor={this.changeCoverColor}
+          changeCoverImage={this.changeCoverImage}
+          save={this.save}
+        ></WriteTopBar>
+
         <WriteEditor></WriteEditor>
-        <div>
-          <WriteTags/>
-        </div>
+        <WriteTags changeTags={this.changeTags} tagList={this.props.editorStore.tagList} inProgress={this.inProgress}> </WriteTags>
       </PostWritePageLayout>
     );
   }
@@ -89,5 +108,11 @@ class PostWritePage extends Component {
 const PostWritePageLayout = styled.div`
   height: 100%;
 `;
+
+const WriteTagLayout = styled.div`
+  background-color: #1a3365;
+  /* align-items: "center"; */
+`;
+
 
 export default PostWritePage;

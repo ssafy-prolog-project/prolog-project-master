@@ -28,7 +28,7 @@ const Write = () => {
     <WriteLayout>
       <PlusIcon></PlusIcon>
       <SelectMenus className="a">
-        <Link to={"/postwritepage"} style={{ textDecoration: "none" }}>
+        <Link to={"/write"} style={{ textDecoration: "none" }}>
           <SelectMenu>Post</SelectMenu>
         </Link>
         <SelectMenu onClick={PortfolioClick}>Portfolio</SelectMenu>
