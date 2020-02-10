@@ -15,6 +15,20 @@ public class GithubProfile implements SocialProfile {
     private String repos_url;
 
 
+    @Override
+    public String getPicture() {
+        return this.avatar_url;
+    }
+
+    @Override
+    public String getRefreshToken() {
+        return null;
+    }
+
+    @Override
+    public void setRefreshToken(String refreshToken) {
+        
+    }
 
 
 //            "login": "RyuIL",

@@ -1,7 +1,11 @@
 package com.ssafy.api.model.social;
 
 public interface SocialProfile {
-    String id = null;
-    public String getId();
-    public String getName();
+    String getId();
+    String getName();
+    String getPicture();
+    String getRefreshToken();
+    void setRefreshToken(String refreshToken);
+    String getEmail();
+
 }

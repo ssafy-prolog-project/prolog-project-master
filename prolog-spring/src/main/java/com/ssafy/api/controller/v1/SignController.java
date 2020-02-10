@@ -129,7 +129,8 @@ public class SignController {
     @ApiOperation(value = "소셜 계정 가입", notes = "소셜 계정 회원가입을 한다.")
     @PostMapping(value = "/signup/{provider}")
     public CommonResult signupProvider(@ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
-                                       @ApiParam(value = "소셜 access_token", required = true) @RequestHeader String accessToken
+                                       @ApiParam(value = "소셜 access_token", required = true) @RequestHeader String accessToken,
+                                       @ApiParam(value = "소셜 refresh_token", required = false) @RequestHeader String refreshToken
                                        ) {
         SocialProfile profile = null;
 
@@ -143,6 +144,10 @@ public class SignController {
             throw new CUserCommunityIdMatchException();
         }
 
+        if(refreshToken != null){
+            profile.setRefreshToken(refreshToken);
+        }
+
         Optional<User> user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider);
         if (user.isPresent())
             throw new CUserExistException();
@@ -151,6 +156,9 @@ public class SignController {
                 .uid(String.valueOf(profile.getId()))
                 .provider(provider)
                 .name(profile.getName())
+                .picture(profile.getPicture())
+                .refresh_token(profile.getRefreshToken())
+                .email(profile.getEmail())
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build();
 

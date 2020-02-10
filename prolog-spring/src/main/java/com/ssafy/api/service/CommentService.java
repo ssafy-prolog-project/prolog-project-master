@@ -21,8 +21,8 @@ public class CommentService {
     }
 
     // select by postId : 해당게시물의 comment 불러옴
-    public Optional<List<Comment>> findByPostId(int postId) {
-        Optional<List<Comment>> comments = commentRepo.findAllByPostId(postId);
+    public Optional<List<Comment>> findByPostId(int postCode) {
+        Optional<List<Comment>> comments = commentRepo.findAllByPost(postCode);
 
         return comments;
     }
