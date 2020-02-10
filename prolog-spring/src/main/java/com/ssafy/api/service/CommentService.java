@@ -15,6 +15,7 @@ public class CommentService {
 
     private CommentRepo commentRepo;
 
+    // 쓸일없...
     public List<Comment> findAllComments(){
         return commentRepo.findAll();
     }
@@ -26,7 +27,7 @@ public class CommentService {
         return comments;
     }
     //select one target
-    //insert
+    //insert & update
     public Comment save(Comment comment) {
         return commentRepo.save(comment);
     }
