@@ -2,11 +2,10 @@ package com.ssafy.api.model.social;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-public class RetKakaoAuth{
+public class RetGoogleAuth {
     private String access_token;
     private String token_type;
     private String refresh_token;

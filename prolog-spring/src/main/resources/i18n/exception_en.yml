@@ -20,3 +20,6 @@ communicationError:
 existingUser:
   code: "-1005"
   msg: "You are an existing member."
+userIdNotMatch:
+  code: "-1006"
+  msg: "The requested ID is different from the response ID"

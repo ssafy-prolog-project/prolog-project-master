@@ -1,12 +1,15 @@
 package com.ssafy.api.controller.common;
 
 import com.google.gson.Gson;
+import com.ssafy.api.model.social.RetKakaoAuth;
 import com.ssafy.api.service.user.KakaoService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
@@ -15,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/social/login")
+@Slf4j
 public class SocialController {
 
     private final Environment env;
@@ -53,7 +57,9 @@ public class SocialController {
      */
     @GetMapping(value = "/kakao")
     public ModelAndView redirectKakao(ModelAndView mav, @RequestParam String code) {
-        mav.addObject("authInfo", kakaoService.getKakaoTokenInfo(code));
+        RetKakaoAuth authInfo = kakaoService.getKakaoTokenInfo(code);
+        mav.addObject("authInfo", authInfo);
+        log.info(authInfo.toString());
         mav.setViewName("social/redirectKakao");
         return mav;
     }
