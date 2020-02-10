@@ -31,7 +31,9 @@ const Write = () => {
         <Link to={"/postwritepage"} style={{ textDecoration: "none" }}>
           <SelectMenu>Post</SelectMenu>
         </Link>
-        <SelectMenu onClick={PortfolioClick}>Portfolio</SelectMenu>
+        <Link to={"/portfolio"} style={{ textDecoration: "none" }}>
+        <SelectMenu>Portfolio</SelectMenu>
+        </Link>
       </SelectMenus>
     </WriteLayout>
   );

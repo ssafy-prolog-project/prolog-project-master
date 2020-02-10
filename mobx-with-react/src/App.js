@@ -11,6 +11,7 @@ import PostWritePage from "./pages/PostWritePage";
 import SearchPage from "./pages/SearchPage";
 import { signIn } from "./components/Auth/auth";
 import PrivateRoute from "./PrivateRoute";
+import PortfolioPage from "./pages/PortfolioPage";
 
 const App = () => {
   
@@ -39,6 +40,7 @@ const App = () => {
         {/* <PrivateRoute path="/mypage" component={MyPage} /> */}
         <Route path="/postwritepage" component={PostWritePage} />
         <Route path="/searchpage" component={SearchPage} />
+        <Route path="/portfolio" component={PortfolioPage} />
         <Route path="/" component={MainPage} />
       </Switch>
     </div>
