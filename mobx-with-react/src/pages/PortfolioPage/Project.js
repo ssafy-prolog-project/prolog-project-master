@@ -60,7 +60,8 @@ export const InfiniteLayout = styled(InfiniteScroll)`
 `
 
 const ProjectLayout = styled.div`
-    width:85%;
+    padding: 5%;
+    width: auto;
     margin-left: 5rem;
     grid-template-columns: 100%;
     grid-template-rows: repeat(auto-fit, 1fr);
