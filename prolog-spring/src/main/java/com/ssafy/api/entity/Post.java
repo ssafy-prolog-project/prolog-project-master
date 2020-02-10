@@ -37,10 +37,13 @@ public class Post extends CommonDateEntity {
     private int postNext;
 
     // 수정 set method 필요?
-    public Post setUpdate(User user, String title, String content) {
+    public Post setUpdate(User user, String title, String content, String thumbnail, int postPrev, int postNext) {
         this.user = user;
         this.title = title;
         this.content = content;
+        this.thumbnail = thumbnail;
+        this.postPrev = postPrev;
+        this.postNext = postNext;
         return this;
     }
 }

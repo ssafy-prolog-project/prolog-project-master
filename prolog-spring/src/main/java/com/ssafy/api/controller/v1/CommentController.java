@@ -1,6 +1,7 @@
 package com.ssafy.api.controller.v1;
 
 import com.ssafy.api.entity.Comment;
+import com.ssafy.api.entity.User;
 import com.ssafy.api.model.response.CommonResult;
 import com.ssafy.api.model.response.ListResult;
 import com.ssafy.api.service.CommentService;
@@ -12,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
 
 @Api(tags={"1.comment"})
 @RestController
@@ -28,11 +27,8 @@ public class CommentController {
     @ApiOperation(value = "one" , notes = "한 포스트에 대한 코멘트 리스트")
     @GetMapping(value = "/comment/{postId}")
     public ListResult<Comment> getCommentsEachPost(@PathVariable int postId){
-        Optional<List<Comment>> comments = commentService.findByPostId(postId);
-        //return new ResponseEntity<List<Comment>>(comments, HttpStatus.OK);
-        return responseService.getListResult(commentService.findAllComments());
+        return responseService.getListResult(commentService.findByPostId(postId));
     }
-
     // delete comments
     @ApiOperation(value = "delete" , notes = "삭제")
     @DeleteMapping(value = "/comment/{commentId}")
@@ -43,13 +39,17 @@ public class CommentController {
 
     //insert comments
     @ApiOperation(value = "all" , notes = "전체")
-    @PostMapping()
+    @PostMapping(value = "/")
     public ResponseEntity<Comment> save(@RequestBody Comment comment){
-
         return new ResponseEntity<Comment>(commentService.save(comment), HttpStatus.OK);
     }
 
     //modify - comments
+    @ApiOperation(value = "update", notes = "수정")
+    @PutMapping(value="/comment/{commentId}")
+    public Comment updateComment( @PathVariable int commentId,@RequestBody Comment comment){
+        // 기존 값 find & set
 
-
+        return commentService.save(comment); // save --> update
+    }
 }
