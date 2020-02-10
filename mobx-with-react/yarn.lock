@@ -9477,7 +9477,7 @@ react-dom-factories@^1.0.0:
   resolved "https://registry.yarnpkg.com/react-dom-factories/-/react-dom-factories-1.0.2.tgz#eb7705c4db36fb501b3aa38ff759616aa0ff96e0"
   integrity sha1-63cFxNs2+1AbOqOP91lhaqD/luA=
 
-react-dom@^16.12.0:
+react-dom@^16.12.0, react-dom@^16.6.3:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.12.0.tgz#0da4b714b8d13c2038c9396b54a92baea633fe11"
   integrity sha512-LMxFfAGrcS3kETtQaCkTKjMiifahaMySFDn71fZUNpPHZQEzmk/GiAeIT8JSOrHB23fnuCOMruL2a8NYlw+8Gw==
@@ -9657,6 +9657,15 @@ react-scripts@^3.3.0:
   optionalDependencies:
     fsevents "2.1.2"
 
+react-tageditor@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/react-tageditor/-/react-tageditor-0.2.3.tgz#cd88872c1aad95f714fddfffb6bc6f8b6e23c3d4"
+  integrity sha512-iN8SI1HuAhuk3bLe2iRE5R5+1xS2r2CHRspKGbCGgynrVnLJswqSqTmEZ8KGjOkaigaXDOZrHqtBMGOlTlQKnQ==
+  dependencies:
+    react "^16.6.3"
+    react-dom "^16.6.3"
+    sass-pattern "^0.1.10"
+
 react-transition-group@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.3.0.tgz#fea832e386cf8796c58b61874a3319704f5ce683"
@@ -9667,7 +9676,7 @@ react-transition-group@^4.3.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^16.12.0:
+react@^16.12.0, react@^16.6.3:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
   integrity sha512-fglqy3k5E+81pA8s+7K0/T3DBCF0ZDOher1elBFzF7O6arXJgzyu/FW+COxFvAWXJoJN9KIZbT2LXlukwphYTA==
@@ -10193,6 +10202,11 @@ sass-loader@8.0.0:
     neo-async "^2.6.1"
     schema-utils "^2.1.0"
     semver "^6.3.0"
+
+sass-pattern@^0.1.10:
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/sass-pattern/-/sass-pattern-0.1.10.tgz#3ab770fcc4ffc5bdee0c13aa542ccf04cf530321"
+  integrity sha1-Ordw/MT/xb3uDBOqVCzPBM9TAyE=
 
 sax@^1.2.4, sax@~1.2.4:
   version "1.2.4"

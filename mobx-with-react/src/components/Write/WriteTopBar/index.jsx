@@ -1,44 +1,55 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { ImageIcon, ArrowBackIcon, ColorFillIcon, PrimitiveDotIcon } from "../../../styles/iconStyle.js"
+import {
+  ImageIcon,
+  ArrowBackIcon,
+  ColorFillIcon,
+  PrimitiveDotIcon
+} from "../../../styles/iconStyle.js";
 
-const WriteTopBar = ({title, changeTitle, save}) => {
-    const [color, setColor] = useState("#1a3365");
-    const BlackClick = () => {
-        setColor("#a6a6a6");
-    }
+const blackColor = "#a6a6a6";
+const redColor = "#ff9999";
+const greenColor = "#66cc99";
+const blueColor = "#9494d1";
+const yellowColor = "#ac7339";
 
-    const RedClick = () => {
-        setColor("#ff9999");
-    }
+const WriteTopBar = ({
+  title,
+  coverColor,
+  coverImage,
+  changeTitle,
+  changeCoverColor,
+  changeCoverImage,
+  save
+}) => {
+  const [color, setColor] = useState(coverColor);
+  const onCircleClick = color => {
+    setColor(color);
+    changeCoverColor(color);
+  };
 
-    const GreenClick = () => {
-        setColor("#66cc99");
-    }
-
-    const BlueClick = () => {
-        setColor("#9494d1");
-    }
-
-    const YellowClick = () => {
-        setColor("#ac7339");
-    }
+  //왜 직접 <PrimitiveDotIcon style={{color: "#a6a6a6"}} onClick={onCircleClick(blackColor)}></PrimitiveDotIcon>
+  //같은 식으로 짜면 무한대 리렌더가 발생하는걸까?
+  const BlackClick = () => onCircleClick(blackColor);
+  const RedClick = () => onCircleClick(redColor);
+  const GreenClick = () => onCircleClick(greenColor);
+  const BlueClick = () => onCircleClick(blueColor);
+  const YellowClick = () => onCircleClick(yellowColor);
 
   const ColorClick = () => {
     alert("팔레트 열기!");
   };
- 
-  return ( 
+
+  return (
     <WriteTopBarLayout color={color}>
-      <Link to={"/"} style={{ textDecoration: "none" }}>
+      {/* TODO 뒤로가기가 되어야함. 메인으로 가는게 아니라 */}
+      <Link to={"/"} style={{ textDecoration: "none" }}> 
         <ArrowBackIcon></ArrowBackIcon>
       </Link>
-      <Link to={"/"} style={{ textDecoration: "none" }}>
-        <SaveBtn onClick={save}>저장</SaveBtn>
-      </Link>
-      <PluginSpace color={color}>
+      <SaveBtn onClick={save}>저장</SaveBtn>
+      <PluginSpace>
         <Icons>
           <ImageIcon color="white"></ImageIcon>
         </Icons>
@@ -47,40 +58,60 @@ const WriteTopBar = ({title, changeTitle, save}) => {
         </Icons>
       </PluginSpace>
       <HeaderDiv>
-        <HeaderInput placeholder="제목을 입력하세요" color={color} value={title} onChange={changeTitle}></HeaderInput>
+        <HeaderInput
+          placeholder="제목을 입력하세요"
+          color={color}
+          value={title}
+          onChange={changeTitle}
+        ></HeaderInput>
       </HeaderDiv>
       <Palette>
-          <ColorDiv>
-          <PrimitiveDotIcon style={{color: "#a6a6a6"}} onClick={BlackClick}></PrimitiveDotIcon>
-          </ColorDiv>
-          <ColorDiv>
-          <PrimitiveDotIcon style={{color: "#ff9999"}} onClick={RedClick}></PrimitiveDotIcon>
-          </ColorDiv>
-          <ColorDiv>
-          <PrimitiveDotIcon style={{color: "#66cc99"}} onClick={GreenClick}></PrimitiveDotIcon>
-          </ColorDiv>
-          <ColorDiv>
-          <PrimitiveDotIcon style={{color: "#9494d1"}} onClick={BlueClick}></PrimitiveDotIcon>
-          </ColorDiv>
-          <ColorDiv>
-          <PrimitiveDotIcon style={{color: "#ac7339"}} onClick={YellowClick}></PrimitiveDotIcon>
-          </ColorDiv>
+        <ColorDiv>
+          <PrimitiveDotIcon
+            style={{ color: "#a6a6a6" }}
+            onClick={BlackClick}
+          ></PrimitiveDotIcon>
+        </ColorDiv>
+        <ColorDiv>
+          <PrimitiveDotIcon
+            style={{ color: "#ff9999" }}
+            onClick={RedClick}
+          ></PrimitiveDotIcon>
+        </ColorDiv>
+        <ColorDiv>
+          <PrimitiveDotIcon
+            style={{ color: "#66cc99" }}
+            onClick={GreenClick}
+          ></PrimitiveDotIcon>
+        </ColorDiv>
+        <ColorDiv>
+          <PrimitiveDotIcon
+            style={{ color: "#9494d1" }}
+            onClick={BlueClick}
+          ></PrimitiveDotIcon>
+        </ColorDiv>
+        <ColorDiv>
+          <PrimitiveDotIcon
+            style={{ color: "#ac7339" }}
+            onClick={YellowClick}
+          ></PrimitiveDotIcon>
+        </ColorDiv>
       </Palette>
     </WriteTopBarLayout>
   );
 };
 
 const ColorDiv = styled.div`
-    width:2rem;
-    float: left;
-    text-align: center;
+  width: 2rem;
+  float: left;
+  text-align: center;
 `;
 const Palette = styled.div`
-    width:10rem;
-    height: 2rem;
-    margin-top: 20rem;
-    position: absolute;
-    margin-left: 45%;
+  width: 10rem;
+  height: 2rem;
+  margin-top: 20rem;
+  position: absolute;
+  margin-left: 45%;
 `;
 
 const PluginSpace = styled.div`
@@ -117,7 +148,7 @@ const HeaderInput = styled.input`
   border-color: transparent;
   background: inherit;
   color: white;
-  /* background: ${props=>props.color}; */
+  /* background: ${props => props.color}; */
   :focus{
       outline: none;
   }
@@ -125,16 +156,15 @@ const HeaderInput = styled.input`
 
 const WriteTopBarLayout = styled.div`
   height: 28rem;
- background-color: #1a3365; 
   /* border-bottom-style: solid;
   border-color: gray;
   border-width: 1px; */
   position: relative;
-  background: ${props=>props.color};
-  -moz-transition: all .2s ease-in;
-    -o-transition: all .2s ease-in;
-    -webkit-transition: all .2s ease-in;
-    transition: all .2s ease-in;
+  background-color: ${props => props.color};
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
 `;
 
 const SaveBtn = styled.div`
