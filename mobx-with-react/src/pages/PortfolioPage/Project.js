@@ -5,7 +5,16 @@ import { inject, observer } from "mobx-react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "react-loader-spinner";
 
-import ProjectList from './ProjectList'
+import ProjectList from './ProjectList';
+import {Edit} from 'styled-icons/boxicons-regular/Edit';
+
+export const EditP = styled(Edit)`
+    color: #DCDCDC;
+    width: 1rem;
+    height: 1rem;
+    margin-bottom: 2.4rem;
+`
+
 
 @inject("postStore")
 @observer
@@ -44,7 +53,7 @@ class Project extends Component {
               endMessage={<h4></h4>}
             >
             
-            <ProTitle>Project</ProTitle>
+            <ProTitle>Project<EditP/></ProTitle>
             <ProjectLayout>
             {items.map((item, index) => (
                 <ProjectList key={index} post={item} />

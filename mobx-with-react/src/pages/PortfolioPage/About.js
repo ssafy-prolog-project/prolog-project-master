@@ -1,23 +1,111 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import {Edit} from 'styled-icons/boxicons-regular/Edit';
 
+import { inject, observer } from "mobx-react";
+
+@inject('portfolioStore')
+@observer
 class About extends Component{
+    constructor(props){
+        super(props);
+
+        this.state={
+            isEdit: false,
+            about: ''
+        };
+
+        this.handleChange=this.handleChange.bind(this);
+    }
+    handleChange=e=>{
+        console.log(this.state.about)
+        console.log(this.props.portfolioStore.values.about)
+        // const nextState={};
+        // nextState[e.target.about]=e.target.value;
+        this.setState(e.target.value);
+    }
+
     render(){
-        return(
+        const handleClick=()=>{
+            // isEdit:!isEdit;
+            if(!this.state.isEdit) {
+                console.log(this.state.about);
+                const {isEdit} = this.state;
+                 this.setState({
+                      isEdit: true,
+                 });
+            } else {
+                console.log(this.state.isEdit)
+                console.log(this.state.about);
+                const {isEdit} = this.state;
+                this.props.portfolioStore.setAbout(this.state.about);
+                 this.setState({
+                      isEdit: false,
+                      about: this.props.portfolioStore.values.about
+                 })
+                 console.log(this.props.portfolioStore.values.about)
+            }
+       };
+       
+        let commonView=(
             <AboutLayout>
-                <AbTitle>About ME</AbTitle>
+                <AbTitle>About ME<EditP onClick={handleClick}/></AbTitle>
                 <AbContent>
-                Lorem ipsum dolor sit amet, ea unum dicunt invenire vim, audiam dolorum intellegat eu quo, sea eleifend senserit torquatos ad. Ea quando nostrum lucilius cum, est everti diceret ne, nam soluta fuisset ex. Per magna expetendis eu, nam sint legere adversarium ei. In est dicant complectitur, ne mea dolorum imperdiet. Quo amet minimum cu, euismod suscipiantur usu ei, ad mea nulla saperet mediocrem. In omnis tractatos iracundia mei, omittam phaedrum mei te. Duo eu habeo blandit volutpat, duo invenire atomorum intellegat ad.
+                {this.props.portfolioStore.values.about}
                 </AbContent>
             </AboutLayout>
+        );
+
+        let editView=(
+            <AboutLayout>
+                <AbTitle>About ME<EditP onClick={handleClick}/></AbTitle>
+                <AbContent>
+               
+                <Input type="text" name="about" value={this.state.about} onChange={this.handleChange}></Input>
+              
+                </AbContent>
+            </AboutLayout>
+        );
+        
+        return(
+            <div>
+                {this.state.isEdit? editView:commonView}
+            </div>
         )
     }
 }
 
+export const EditP = styled(Edit)`
+    color: #DCDCDC;
+    width: 1rem;
+    height: 1rem;
+    margin-bottom: 2.4rem;
+    cursor: point;
+`
+
+export const Input = styled.textarea`
+    /* outline: none;
+    border: none;
+    height: 100%; */
+    margin-top: 1rem;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    resize: none;
+    color: #212529;
+    display: block;
+    line-height: 1.5;
+    height: 10rem;
+`
+
 const AboutLayout = styled.div`
     grid-area: about;
-    display: flex;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-areas: 'atitle acontent';
     height: 100%;
     width: 100%;
 
@@ -29,12 +117,10 @@ const AboutLayout = styled.div`
 `;
 
 const AbTitle = styled.div`
-    position: relative;
     text-align: center;
     font-size: 2.4rem;
     margin-left: 6vw;
     margin-right: 12vw;
-    width: 25vw;
     box-sizing: border-box;
     align-self: center;
 
@@ -44,6 +130,12 @@ const AbTitle = styled.div`
 `
 
 const AbContent = styled.div`
+    grid-area: 'acontent';
+    padding-right: 2%;
+    width: 50rem;
+    max-height: 30rem;
+    overflow: hidden;
+
     max-width: 100%;
     margin-bottom: 4rem;
     margin-top: 4rem;

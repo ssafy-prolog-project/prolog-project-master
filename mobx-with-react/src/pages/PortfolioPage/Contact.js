@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { inject, observer } from "mobx-react"
+import { inject, observer } from "mobx-react";
+import {Edit} from 'styled-icons/boxicons-regular/Edit';
+
+export const EditP = styled(Edit)`
+    color: #DCDCDC;
+    width: 1rem;
+    height: 1rem;
+    margin-bottom: 2.4rem;
+`
+
 
 @inject("userStore", "authStore")
 @observer
@@ -11,7 +20,7 @@ class Contact extends Component{
 
         return(
             <ContactLayout>
-                <ContTitle>Contact</ContTitle>
+                <ContTitle>Contact<EditP/></ContTitle>
                 <Info>Email : {email}</Info>
             </ContactLayout>
         )
