@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { SearchAlt2 } from "styled-icons/boxicons-regular/SearchAlt2";
 import { signIn } from "../Auth/auth";
 import AuthRoute from "../Auth/AuthRoute";
-import LoginBtn from "./LoginBtn";
+import UserButton from "../Common/UserButton"
 
 export const MSearchIcon = styled(SearchAlt2)`
   width: 20%;
@@ -31,22 +31,9 @@ const TopBar = () => {
   const logout = () => setUser(null);
   return (
     <TopBarLayout>
-      <Link to={"/searchpage"} style={{ textDecoration: "none" }}>
-        <MSearchIcon></MSearchIcon>
-      </Link>
-      <Link to={"/"} style={{ textDecoration: "none" }}>
-        <MLogo>Prolog;</MLogo>
-      </Link>
-      {/* <button onClick={login}> login</button>
-      <button onClick={logout}> logout</button> */}
-      {authenticated ? (
-        <>
-          <ProfileBtn></ProfileBtn>
-          <Write></Write>
-        </>
-      ) : (
-        <LoginBtn></LoginBtn>
-      )}
+    
+        <UserButton></UserButton>
+        
     </TopBarLayout>
   );
 };
