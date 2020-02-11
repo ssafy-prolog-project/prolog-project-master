@@ -65,7 +65,7 @@ public class User extends CommonDateEntity implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getUsername() {
-        return this.uid;
+        return Long.toString(this.msrl);
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

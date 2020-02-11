@@ -10,6 +10,6 @@ public interface UserJpaRepo extends JpaRepository<User, Long> {
     Optional<User> findUserByUid(String email);
     Optional<User> findByUidAndProvider(String uid, String provider);
     Optional<User> findMsrlByUidAndProvider(String uid, String provider);
-    Optional<User> findUserByMsrl(Long msrl);
+    Optional<User> findByMsrl(Long msrl);
     int deleteByMsrl(Long msrl);
 }
