@@ -2,6 +2,7 @@ import React, { Component, useState } from "react";
 import WriteTopBar from "../../components/Write/WriteTopBar";
 import WriteEditor from "../../components/Write/WriteEditor";
 import WriteTags from "../../components/Write/WriteTags";
+import EditorHelper from "../../components/Write/EditorHelper";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 import { withRouter } from "react-router-dom";
@@ -37,7 +38,7 @@ class PostWritePage extends Component {
   changeDescription = e =>
     this.props.editorStore.setDescription(e.target.value);
   changeBody = e => this.props.editorStore.setBody(e.target.value);
-  changeTags = (tags) => this.props.editorStore.setTags(tags);
+  changeTags = tags => this.props.editorStore.setTags(tags);
   changeTagInput = e => this.setState({ tagInput: e.target.value });
 
   handleTagInputKeyDown = ev => {
@@ -97,9 +98,23 @@ class PostWritePage extends Component {
           changeCoverImage={this.changeCoverImage}
           save={this.save}
         ></WriteTopBar>
-
-        <WriteEditor></WriteEditor>
-        <WriteTags changeTags={this.changeTags} tagList={this.props.editorStore.tagList} inProgress={this.inProgress}> </WriteTags>
+        <WriteAreaLayout>
+          <div></div>
+          <div>
+            <WriteEditor></WriteEditor>
+            <WriteTags
+              changeTags={this.changeTags}
+              tagList={this.props.editorStore.tagList}
+              inProgress={this.inProgress}
+            >
+              {" "}
+            </WriteTags>
+            <SaveBtn onClick={this.save}>저장</SaveBtn>
+          </div>
+          <div>
+            <EditorHelper></EditorHelper>
+          </div>
+        </WriteAreaLayout>
       </PostWritePageLayout>
     );
   }
@@ -107,6 +122,7 @@ class PostWritePage extends Component {
 
 const PostWritePageLayout = styled.div`
   height: 100%;
+  margin-bottom: 5rem;
 `;
 
 const WriteTagLayout = styled.div`
@@ -114,5 +130,25 @@ const WriteTagLayout = styled.div`
   /* align-items: "center"; */
 `;
 
+const WriteAreaLayout = styled.div`
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+`;
+
+const SaveBtn = styled.button`
+  border-radius: 5px;
+  border-color: black;
+  border: 1px solid black;
+  color: black;
+  cursor: pointer;
+  height: 30px;
+  width: 60px;
+  background-color: white;
+  float: right;
+  margin-top: 1%;
+  margin-right: 1%;
+  text-align: center;
+  padding-top: 3px;
+`;
 
 export default PostWritePage;

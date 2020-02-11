@@ -30,21 +30,23 @@ export default class EditorHelper extends Component {
         <ImageIcon color="black"/>
         <VideoIcon />
         <AudioIcon />
-        <PaperclipIcon />
+        {/* <PaperclipIcon />
         <LocationIcon />
-        <AlignLeftIcon />
+        <AlignLeftIcon /> */}
       </EditorHelperLayout>
     );
   }
 }
 
 const EditorHelperLayout = styled.div`
-  box-sizing: border-box;
-  border: 1px solid #ddd;
-  cursor: text;
-  padding: 16px;
-  border-radius: 2px;
-  margin-bottom: 2em;
-  box-shadow: inset 0px 1px 8px -3px #ababab;
+  /* box-sizing: border-box; */
+  /* border: 1px solid #ddd; */
+  /* border-radius: 2px;
+  margin-bottom: 2em; */
+  /* box-shadow: inset 0px 1px 8px -3px #ababab; */
+  margin-top: 3em;
   background: #fefefe;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

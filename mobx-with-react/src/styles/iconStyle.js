@@ -75,7 +75,8 @@ cursor: pointer;
 
 export const PrimitiveDotIcon = styled(PrimitiveDot)`
     cursor: pointer;
-    width: 15px;
+    width: 12px;
+    color: ${props => props.color};
     
 `;
 
