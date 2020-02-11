@@ -89,20 +89,15 @@ class PostDetailPage extends Component {
 export default PostDetailPage;
 
 const PostDetailPageLayout = styled.div`
-<<<<<<< HEAD
   flex-direction: row;
   align-items: flex-end;
   width: 100%;
   display: grid;
   grid-template-rows: 5rem;
-
-
-=======
   height: 100%;
   width: 100%;
   display: grid;
   grid-template-rows: 5rem;
->>>>>>> aaf1d30883f0f8ac0ad21b14fbb3546f17385143
   /* grid-template-columns: 15% 70% 15% */
   /* grid-template-areas: "nav content"; */
 `;
@@ -121,7 +116,6 @@ const MLogo = styled.div`
   grid-area: logo;
   padding-left: 1.5rem;
   align-items: end;
-  text-align: center;
   cursor: pointer;
   color: white;
   font-size: 2rem;

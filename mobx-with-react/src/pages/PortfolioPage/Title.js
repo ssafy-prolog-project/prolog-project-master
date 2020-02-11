@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { Link } from 'react-router-dom';
 import { inject, observer } from "mobx-react"
 
 @inject("userStore", "authStore")
@@ -10,12 +11,31 @@ class Title extends Component{
         const{accessToken,provider, id, name, profileimg} = values;
 
         return(
-            <TitleLayout>
-                <PorTitle>개발자 {name}의 포트폴리오</PorTitle>
-            </TitleLayout>
+            <DIV>
+                <Link to={"/"} style={{ textDecoration: "none" }}>
+                    <MLogo>ProLog;</MLogo>
+                </Link>
+                <TitleLayout>
+                    <PorTitle>개발자 {name}의 포트폴리오</PorTitle>
+                </TitleLayout>
+            </DIV>
         )
     }
 }
+
+const DIV = styled.div``;
+
+const MLogo = styled.div`
+    grid-area: logo;
+    padding-left: 1.5rem;
+    align-items: end;
+    cursor: pointer;
+    color: white;
+    font-size: 2rem;
+    line-height: 2rem;
+    font-family: Inconsolata;
+    padding-top: 1rem;
+`;
 
 const PorTitle = styled.div`    
     text-align: center;
