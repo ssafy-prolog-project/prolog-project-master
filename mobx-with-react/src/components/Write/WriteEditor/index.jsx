@@ -24,8 +24,8 @@ export default class WriteEditor extends Component {
                     console.log( 'Editor is ready to use!', editor );
                 } }
                 onChange={ ( event, editor ) => {
-                    // const data = editor.getData();
-                    // console.log( { event, editor, data } );
+                    const data = editor.getData();
+                    console.log( { event, editor, data } );
                 } }
                 onBlur={ ( event, editor ) => {
                     //console.log( 'Blur.', editor );

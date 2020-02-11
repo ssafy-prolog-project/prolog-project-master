@@ -24,23 +24,27 @@ public class Post extends CommonDateEntity {
 
     @Column(nullable = false, length = 100)
     private String title;
+    @Column
+    private String coverColor;
+    @Column
+    private String tagList;
 
-    //json - data
-    private String content; // json 처리 필요
+    @Column(name = "contents")
+    private String content;
 
     @Column(nullable = false) // default 0
     private int postLike;
     @Column(nullable = false) // default 0
     private int postView;
+    @Column
     private String thumbnail;
+    @Column
     private int postPrev;
+    @Column
     private int postNext;
+    @Column(columnDefinition = "boolean default false")
+    private boolean pinPost;
+    @Column(columnDefinition = "boolean default false")
+    private boolean pinProject;
 
-    // 수정 set method 필요?
-    public Post setUpdate(User user, String title, String content) {
-        this.user = user;
-        this.title = title;
-        this.content = content;
-        return this;
-    }
 }
