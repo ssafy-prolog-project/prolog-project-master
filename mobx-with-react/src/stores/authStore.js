@@ -17,6 +17,7 @@ export default class AuthStore {
   @observable values = {
     accessToken: undefined,
     provider : undefined,
+    email: undefined,
     id: undefined,
     name: undefined,
     profileimg: undefined
@@ -32,6 +33,9 @@ export default class AuthStore {
   }
   @action setAccessToken(token) {
     this.values.accessToken = token;
+  }
+  @action setEmail(email) {
+    this.values.email = email;
   }
 
   @action setProvider(provider) {

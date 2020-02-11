@@ -74,6 +74,14 @@ const ImageContent = styled.div`
   /* 구분을 위한 스타일임 수정필요 */
   background-color: white;
   padding-top: 5%;
+  @media (max-width: 768px) {
+    margin:0;
+  }
+  
+  @media (min-width: 768px) and (max-width: 1024px){
+    padding-left: 10%;
+    padding-right: 10%;
+  }
   `;
 
 const PostContentImageWrapper = styled.div`

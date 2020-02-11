@@ -57,8 +57,8 @@ class CommentInput extends Component {
 }
 
 const DIV = styled.div`
-  padding-right: 3rem;
-  width: 100%;
+  padding-right: 2%;
+  width: 98%;
   max-height: 30rem;
   overflow: hidden;
 `
