@@ -11,12 +11,8 @@ import java.util.Optional;
 
 @Repository
 public interface CommentRepo extends JpaRepository<Comment, Integer> {
-    List<Comment> findAllByPostId(int postId);
+
+    Optional<List<Comment>> findAllByPost(int postCode);
     Optional<Void> deleteByCmtId(int cmtId);
-
-//    @Modifying
-//    @Query("update Comment c SET c.comment = content  WHERE c.comment_code = :cmtId ")
-//    Optional<Void> updatComment();
-
 
 }

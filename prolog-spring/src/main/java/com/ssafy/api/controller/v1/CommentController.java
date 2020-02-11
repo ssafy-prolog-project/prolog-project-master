@@ -27,7 +27,7 @@ public class CommentController {
     @ApiOperation(value = "one" , notes = "한 포스트에 대한 코멘트 리스트")
     @GetMapping(value = "/comment/{postId}")
     public ListResult<Comment> getCommentsEachPost(@PathVariable int postId){
-        return responseService.getListResult(commentService.findByPostId(postId));
+        return responseService.getListResult(commentService.findByPostId(postId).get());
     }
     // delete comments
     @ApiOperation(value = "delete" , notes = "삭제")

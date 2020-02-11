@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.ssafy.api.advice.exception.CCommunicationException;
 import com.ssafy.api.model.social.KakaoProfile;
 import com.ssafy.api.model.social.RetKakaoAuth;
+import com.ssafy.api.repository.UserJpaRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
@@ -13,6 +14,8 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import javax.transaction.Transactional;
+
 @RequiredArgsConstructor
 @Service
 public class KakaoService {
@@ -20,6 +23,7 @@ public class KakaoService {
     private final RestTemplate restTemplate;
     private final Environment env;
     private final Gson gson;
+    private final UserJpaRepo userJpaRepo;
 
     @Value("${spring.url.base}")
     private String baseUrl;

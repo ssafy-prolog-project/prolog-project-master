@@ -29,6 +29,7 @@ public class Post extends CommonDateEntity {
     @Column
     private String tagList;
 
+    @Column(name = "contents")
     private String content;
 
     @Column(nullable = false) // default 0

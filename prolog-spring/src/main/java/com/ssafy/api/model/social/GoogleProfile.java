@@ -16,4 +16,5 @@ public class GoogleProfile implements SocialProfile{
     private String family_name;
     private String picture;
     private String locale;
+    private String refreshToken;
 }

@@ -5,11 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,7 +25,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="user")
-public class User implements UserDetails {
+public class User extends CommonDateEntity implements UserDetails {
     @Id // pk
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long msrl;
@@ -34,6 +38,18 @@ public class User implements UserDetails {
     private String name;
     @Column(length = 100)
     private String provider;
+    @Column(length = 300)
+    private String picture;
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean disable;
+    @Column(length = 200)
+    private String email;
+    @Column(length = 1000)
+    private String repository;
+    @Column(length = 1000)
+    private String greeting;
+    @Column
+    private String refresh_token;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default

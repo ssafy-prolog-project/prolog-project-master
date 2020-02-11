@@ -9,10 +9,10 @@ import com.ssafy.api.model.response.SingleResult;
 import com.ssafy.api.repository.UserJpaRepo;
 import com.ssafy.api.service.PostsService;
 import com.ssafy.api.service.ResponseService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.Model;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-
+@Api(tags={"3.post"})
 @RestController
-@RequestMapping("/post/@userId")
+@RequestMapping("/post")
 @RequiredArgsConstructor
 public class PostsController {
 
@@ -82,7 +82,7 @@ public class PostsController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
         Optional<Post> post = postsService.getPost(postCode);
-        if(id.equals(post.get().getUser().getUid())){
+        if(id.equals(post.get().getUser().getMsrl())){
             postsService.deletePost(postCode);
         }
         return responseService.getSuccessResult();
