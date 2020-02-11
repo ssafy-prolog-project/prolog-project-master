@@ -15,16 +15,23 @@ class UserButton extends Component{
             <LINKS to={"/mypage"} style={{ textDecoration: "none" }}>
                 <Sample src={profileimg}></Sample>
             </LINKS>
-    )
+        )
     }
 }
 
 export const LINKS = styled(Link)`
     grid-area: test;
     display: inline-block;
-    padding-left: 12rem;
     padding-top: 1rem;
+    padding-left: 70%;
     
+    @media (max-width: 768px) {
+        padding-left: 0;
+    }
+
+    @media (min-width: 768px) and (max-width: 1024px) {
+        padding-left: 60%;
+    }
 `
 
 const Sample = styled.img`
