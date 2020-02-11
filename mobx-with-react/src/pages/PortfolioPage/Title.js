@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom';
 import { inject, observer } from "mobx-react"
+import {Edit} from 'styled-icons/boxicons-regular/Edit';
+
+export const EditP = styled(Edit)`
+    color: #DCDCDC;
+    width: 1rem;
+    height: 1rem;
+    margin-bottom: 2.4rem;
+`
 
 @inject("userStore", "authStore")
 @observer
@@ -11,33 +19,40 @@ class Title extends Component{
         const{accessToken,provider, id, name, profileimg} = values;
 
         return(
-            <DIV>
+            <TitleLayout>
                 <Link to={"/"} style={{ textDecoration: "none" }}>
                     <MLogo>ProLog;</MLogo>
                 </Link>
-                <TitleLayout>
-                    <PorTitle>개발자 {name}의 포트폴리오</PorTitle>
-                </TitleLayout>
-            </DIV>
+                <DIV>
+                    <PorTitle>개발자 {name}의 포트폴리오<EditP/></PorTitle>
+                </DIV>
+            </TitleLayout>
         )
     }
 }
 
-const DIV = styled.div``;
 
 const MLogo = styled.div`
     grid-area: logo;
     padding-left: 1.5rem;
     align-items: end;
     cursor: pointer;
-    color: white;
+    color: black;
     font-size: 2rem;
     line-height: 2rem;
     font-family: Inconsolata;
     padding-top: 1rem;
 `;
 
-const PorTitle = styled.div`    
+const DIV = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+`
+
+const PorTitle = styled.div`
+    grid-area: title;
     text-align: center;
     font-size: 2.4rem;
     font-family: Noto Sans KR,sans-serif;
@@ -57,11 +72,10 @@ const TitleLayout = styled.div`
      background-color: black;
     grid-area: title; */
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-rows: 10% 90%;
+    grid-template-areas: 'logo' 'title';
     height: 100vh;
-    background-attachment: fixed;
     width: 100%;
 `;
 

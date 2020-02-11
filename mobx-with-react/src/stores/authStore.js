@@ -17,10 +17,11 @@ export default class AuthStore {
   @observable values = {
     accessToken: undefined,
     provider : undefined,
-    email: undefined,
+    email: "이메일을 입력해주세요.",
     id: undefined,
     name: undefined,
-    profileimg: undefined
+    profileimg: undefined,
+    intro: "소개를 입력해주세요."
   };
   @action setProfileimg(profileimg) {
     this.values.profileimg = profileimg;
@@ -36,6 +37,9 @@ export default class AuthStore {
   }
   @action setEmail(email) {
     this.values.email = email;
+  }
+  @action setIntro(intro) {
+    this.values.intro = intro;
   }
 
   @action setProvider(provider) {
