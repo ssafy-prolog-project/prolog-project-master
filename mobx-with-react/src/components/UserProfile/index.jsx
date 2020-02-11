@@ -58,11 +58,11 @@ class UserProfile extends Component {
           name: this.props.authStore.values.name
         });
       }
-      else{
-        this.setState({
-          name: this.props.authStore.values.name
-        });
-      }
+      // else{
+      //   this.setState({
+      //     name: this.props.authStore.values.name
+      //   });
+      // }
 
       const { isEditName } = this.state;
       this.setState({

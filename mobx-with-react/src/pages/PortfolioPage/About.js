@@ -12,58 +12,47 @@ class About extends Component{
 
         this.state={
             isEdit: false,
-            about: ''
+            about: ""
         };
 
         this.handleChange=this.handleChange.bind(this);
     }
     handleChange=e=>{
-        console.log(this.state.about)
-        console.log(this.props.portfolioStore.values.about)
-        // const nextState={};
-        // nextState[e.target.about]=e.target.value;
-        this.setState(e.target.value);
+        const nextState={};
+        nextState[e.target.name]=e.target.value;
+        this.setState(nextState);
     }
 
     render(){
         const handleClick=()=>{
-            // isEdit:!isEdit;
-            if(!this.state.isEdit) {
-                console.log(this.state.about);
-                const {isEdit} = this.state;
-                 this.setState({
-                      isEdit: true,
-                 });
-            } else {
-                console.log(this.state.isEdit)
-                console.log(this.state.about);
-                const {isEdit} = this.state;
+            if(this.state.isEdit) {
+                
                 this.props.portfolioStore.setAbout(this.state.about);
+                
                  this.setState({
-                      isEdit: false,
-                      about: this.props.portfolioStore.values.about
-                 })
-                 console.log(this.props.portfolioStore.values.about)
-            }
+                    about: this.props.portfolioStore.values.about
+                 });
+            } 
+            const { isEdit } = this.state;
+            this.setState({
+                isEdit: !isEdit
+            });
+            console.log("여기야!!!");
        };
        
-        let commonView=(
+        const commonView=(
             <AboutLayout>
                 <AbTitle>About ME<EditP onClick={handleClick}/></AbTitle>
-                <AbContent>
-                {this.props.portfolioStore.values.about}
-                </AbContent>
+                <AbContent>{this.props.portfolioStore.values.about}</AbContent>
             </AboutLayout>
         );
 
-        let editView=(
+        const editView=(
             <AboutLayout>
                 <AbTitle>About ME<EditP onClick={handleClick}/></AbTitle>
-                <AbContent>
-               
-                <Input type="text" name="about" value={this.state.about} onChange={this.handleChange}></Input>
+            
+                <Input type="text" placeholder={this.props.portfolioStore.values.about} name="about" value={this.state.about} onChange={this.handleChange}></Input>
               
-                </AbContent>
             </AboutLayout>
         );
         
@@ -83,11 +72,26 @@ export const EditP = styled(Edit)`
     cursor: point;
 `
 
-export const Input = styled.textarea`
-    /* outline: none;
-    border: none;
-    height: 100%; */
-    margin-top: 1rem;
+// export const Input = styled.textarea`
+//     /* outline: none;
+//     border: none;
+//     height: 100%; */
+//     margin-top: 1rem;
+//     width: 100%;
+//     border: none;
+//     outline: none;
+//     font-size: 1rem;
+//     border: 1px solid #e9ecef;
+//     border-radius: 4px;
+//     resize: none;
+//     color: #212529;
+//     display: block;
+//     line-height: 1.5;
+//     height: 10rem;
+// `
+
+const Input = styled.input`
+margin-top: 1rem;
     width: 100%;
     border: none;
     outline: none;
@@ -99,7 +103,7 @@ export const Input = styled.textarea`
     display: block;
     line-height: 1.5;
     height: 10rem;
-`
+`;
 
 const AboutLayout = styled.div`
     grid-area: about;

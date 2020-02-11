@@ -15,7 +15,7 @@ export default class PortfolioStore{
     @observable values = {
         title: undefined,
         title_back: undefined,
-        about: undefined,
+        about: "about입니당",
         skills: undefined,
         email: undefined,
         posts: undefined,
@@ -29,6 +29,7 @@ export default class PortfolioStore{
     }
     @action setAbout(about){
         this.values.about = about;
+        console.log("about이 바꼈어!!@")
     }
     @action setSkills(skills){
         this.values.skills = skills;
