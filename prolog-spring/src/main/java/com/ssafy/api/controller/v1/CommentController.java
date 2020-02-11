@@ -49,7 +49,6 @@ public class CommentController {
     @PutMapping(value="/comment/{commentId}")
     public Comment updateComment( @PathVariable int commentId,@RequestBody Comment comment){
         // 기존 값 find & set
-
         return commentService.save(comment); // save --> update
     }
 }

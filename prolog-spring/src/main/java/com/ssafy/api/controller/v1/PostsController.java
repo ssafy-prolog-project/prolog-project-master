@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Api(tags={"3.post"})
@@ -47,26 +48,28 @@ public class PostsController {
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "Post 작성", notes = "글을 새로 작성합니다.")
-    @PostMapping(value = "/user/{userId}")
-    public String post(@PathVariable String userId, @RequestBody Post post){
+    @PostMapping(value = "/{userId}")
+    public CommonResult post(@PathVariable String userId, @RequestBody Post post){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
-        if(userId.equals(id)){ // Id 일치시 게시글 작성
+        User user = userJpaRepo.findByUid(userId).get();
+        if(id.equals(user.getMsrl())){ // Id 일치시 게시글 작성
             postsService.writePost(post);
         }
-        return "redirect:/post/postcard";
+        return responseService.getSuccessResult();
     }
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "Post 수정", notes = "글을 수정합니다.")
-    @PutMapping(value ="/update/{postCode}")
+    @PutMapping(value ="/{postCode}")
     public CommonResult post(@PathVariable int postCode, @RequestBody Post post){
         //User id 대조가 필요함
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
-        if(post.getUser().getUid().equals(id)){
+        Optional<Post> postEdit = postsService.getPost(postCode);
+        if(id.equals(postEdit.get().getUser().getMsrl())){
             postsService.updatePost(post); //
         }
         return responseService.getSuccessResult();

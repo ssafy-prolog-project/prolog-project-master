@@ -42,7 +42,9 @@ public class Post extends CommonDateEntity {
     private int postPrev;
     @Column
     private int postNext;
-    @Column
-    private boolean pin;
+    @Column(columnDefinition = "boolean default false")
+    private boolean pinPost;
+    @Column(columnDefinition = "boolean default false")
+    private boolean pinProject;
 
 }
