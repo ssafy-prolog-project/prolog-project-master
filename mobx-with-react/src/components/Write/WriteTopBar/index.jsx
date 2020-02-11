@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { CirclePicker } from 'react-color'
+import { HuePicker } from 'react-color'
 
 import {
   ImageIcon,
@@ -87,7 +87,7 @@ const WriteTopBar = ({
           <ColorFillIcon onClick={handleClick}></ColorFillIcon>
           { displayColorPicker ? <div style={ popover }>
           <div style={ cover } onClick={ handleClose }/>
-          <CirclePicker color={ color } onChange={handleChange} />
+          <HuePicker color={ color } onChange={handleChange} />
         </div> : null }
 
         </Icons>
