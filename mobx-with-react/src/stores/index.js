@@ -4,6 +4,7 @@ import AuthStore from './authStore';
 import CommonStore from './commonStore';
 import UserStore from './userStore';
 import CommentStore from './commentStore';
+import PortfolioStore from './portfolioStore';
 
 class RootStore {
   constructor() {
@@ -13,6 +14,7 @@ class RootStore {
     this.postStore = new PostStore(this);
     this.editorStore = new EditorStore(this);
     this.commentStore = new CommentStore(this);
+    this.portfolioStore = new PortfolioStore(this);
   }
 }
 

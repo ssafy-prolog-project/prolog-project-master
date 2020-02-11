@@ -16,6 +16,7 @@ public class CommentService {
 
     private CommentRepo commentRepo;
 
+    // 쓸일없...
     public List<Comment> findAllComments(){
         return commentRepo.findAll();
     }
@@ -23,11 +24,10 @@ public class CommentService {
     // select by postId : 해당게시물의 comment 불러옴
     public Optional<List<Comment>> findByPostId(int postCode) {
         Optional<List<Comment>> comments = commentRepo.findAllByPost(postCode);
-
         return comments;
     }
-
-    //insert
+    //select one target
+    //insert & update
     public Comment save(Comment comment) {
         return commentRepo.save(comment);
     }
