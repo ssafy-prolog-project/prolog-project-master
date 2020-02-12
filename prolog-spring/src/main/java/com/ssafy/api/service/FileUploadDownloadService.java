@@ -14,6 +14,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Date;
+import java.util.UUID;
 
 @Service
 public class FileUploadDownloadService {
@@ -22,8 +24,10 @@ public class FileUploadDownloadService {
     @Value(value = "${file.upload-dir}")
     private String uploadDir;
 
-    public void checkDirectory(String msrl){
-        this.fileLocation = Paths.get(uploadDir+"/"+msrl)
+    private void checkDirectory(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(uploadDir).append('/');
+        this.fileLocation = Paths.get(sb.toString())
                 .toAbsolutePath().normalize();
         try {
             Files.createDirectories(this.fileLocation);
@@ -32,14 +36,17 @@ public class FileUploadDownloadService {
         }
     }
 
-    public String storeFile(MultipartFile file, String msrl) {
-        checkDirectory(msrl);
+    public String storeFile(MultipartFile file) {
+        checkDirectory();
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
             // 파일명에 부적합 문자가 있는지 확인한다.
             if(fileName.contains(".."))
                 throw new CFileUploadException("파일명에 부적합 문자가 포함되어 있습니다. " + fileName);
+            String extension = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+            UUID uuid = UUID.randomUUID();
+            fileName = uuid.toString() + extension;
             Path targetLocation = this.fileLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
@@ -64,6 +71,4 @@ public class FileUploadDownloadService {
             throw new CFileDownloadException(fileName + " 파일을 찾을 수 없습니다.", e);
         }
     }
-
-
 }

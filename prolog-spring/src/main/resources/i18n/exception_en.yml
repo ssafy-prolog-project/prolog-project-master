@@ -23,3 +23,9 @@ existingUser:
 userIdNotMatch:
   code: "-1006"
   msg: "The requested ID is different from the response ID"
+fileUploadError:
+  code: "-1007"
+  msg: "Do not create directory."
+fileDownloadError:
+  code: "-1008"
+  msg: "Not found file"

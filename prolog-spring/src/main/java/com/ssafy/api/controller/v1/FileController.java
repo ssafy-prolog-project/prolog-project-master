@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.ssafy.api.advice.exception.CUserNotFoundException;
 import com.ssafy.api.model.response.FileUploadResponse;
 import com.ssafy.api.service.FileUploadDownloadService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -28,9 +29,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Api(tags = {"4. File"})
 @RestController
 @RequestMapping(value = "/v1")
 @RequiredArgsConstructor
@@ -42,15 +45,11 @@ public class FileController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @PostMapping("/post/{userId}")
+    @PostMapping("/file")
     public FileUploadResponse uploadFile(@RequestParam("upload") MultipartFile file) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if(!authentication.isAuthenticated()){
-            throw new CUserNotFoundException();
-        }
-
-        String fileName = service.storeFile(file, authentication.getName());
+        String fileName = service.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/v1/downloadFile/")
@@ -60,7 +59,10 @@ public class FileController {
         return new FileUploadResponse(fileDownloadUri, true);
     }
 
-    @PostMapping("/uploadMultipleFiles")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @PostMapping("/files")
     public List<FileUploadResponse> uploadMultipleFiles(@RequestParam("uploads") MultipartFile[] files){
         return Arrays.asList(files)
                 .stream()
