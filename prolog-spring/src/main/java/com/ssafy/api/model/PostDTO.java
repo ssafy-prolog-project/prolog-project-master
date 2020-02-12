@@ -1,43 +1,32 @@
-//package com.ssafy.api.model;
-//
-//import com.ssafy.api.entity.User;
-//import lombok.*;
-//import java.text.ParseException;
-//import java.text.SimpleDateFormat;
-//import java.util.Date;
-//import java.util.TimeZone;
-//
-//@Getter
-//@Setter
-//@ToString
-//@AllArgsConstructor
-//@NoArgsConstructor
-//public class PostDTO {
-//    private static final SimpleDateFormat dateFormat
-//     = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-//
-//    private int postCode;
-//    private User user;  // 게시글 - 회원의 관계 - N:1
-//    private String title;
-//    private String coverColor;
-//    private String tagList;
-//    private String content;
-//    private int postLike;
-//    private int postView;
-//    private String thumbnail;
-//    private int postPrev;
-//    private int postNext;
-//    private boolean pin;
-//
-//    private String date;
-//
-//    public Date getSubmissionDateConverted(String timezone) throws ParseException {
-//        dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
-//        return dateFormat.parse(this.date);
-//    }
-//
-//    public void setSubmissionDate(Date date, String timezone) {
-//        dateFormat.setTimeZone(TimeZone.getTimeZone(timezone));
-//        this.date = dateFormat.format(date);
-//    }
-//}
+package com.ssafy.api.model;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
+
+import javax.persistence.Column;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class PostDTO {
+    @NotEmpty
+    //@Size(min=2, max=100)
+    @ApiModelProperty(value = "제목", required = true)
+    private String title;
+    @ApiModelProperty(value = "내용")
+    private String content;
+    @NotEmpty
+    @ApiModelProperty(value = "표지색상")
+    private String coverColor;
+    @NotEmpty
+    @ApiModelProperty(value = "썸네일")
+    private String thumbnail;
+    @ApiModelProperty(value = "태그")
+    private String tagList;
+    @ApiModelProperty(value = "포스트핀")
+    private boolean pinPost;
+    @ApiModelProperty(value = "프로젝트핀")
+    private boolean pinProject;
+}
