@@ -13,11 +13,11 @@ export default class PortfolioStore{
     @observable errors = undefined;
 
     @observable values = {
-        title: undefined,
+        title: "제목을 입력하세요",
         title_back: undefined,
-        about: "about입니당",
+        about: "자신에 대해서 소개해주세요.",
         skills: undefined,
-        email: undefined,
+        email: "이메일을 입력하세요.",
         posts: undefined,
     }
 

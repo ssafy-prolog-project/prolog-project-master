@@ -11,26 +11,87 @@ export const EditP = styled(Edit)`
     margin-bottom: 2.4rem;
 `
 
-@inject("userStore", "authStore")
+@inject("userStore", "authStore","portfolioStore")
 @observer
 class Title extends Component{
+    constructor(props){
+        super(props);
+
+        this.state={
+            isEdit: false,
+            title: ""
+        };
+
+        this.handleChange=this.handleChange.bind(this);
+    }
+    handleChange=e=>{
+        const nextState={};
+        nextState[e.target.name]=e.target.value;
+        this.setState(nextState);
+    }
+
     render(){
         const {values} = this.props.authStore;
         const{accessToken,provider, id, name, profileimg} = values;
+        
+        const handleClick=()=>{
+            if(this.state.isEdit) {
+                
+                this.props.portfolioStore.setTitle(this.state.title);
+                 this.setState({
+                    about: this.props.portfolioStore.values.title
+                 });
+            } 
+            const { isEdit } = this.state;
+            this.setState({
+                isEdit: !isEdit
+            });
+       };
+
+       const commonView=(
+            <TitleLayout>
+            <Link to={"/"} style={{ textDecoration: "none" }}>
+                <MLogo>ProLog;</MLogo>
+            </Link>
+            <DIV>
+                <PorTitle>{this.props.portfolioStore.values.title}<EditP onClick={handleClick}/></PorTitle>
+            </DIV>
+            </TitleLayout>
+        );
+
+        const editView=(
+            <TitleLayout>
+            <Link to={"/"} style={{ textDecoration: "none" }}>
+                <MLogo>ProLog;</MLogo>
+            </Link>
+            <DIV>
+                <PorTitle>
+                <Input type="text" name="title" value={this.state.title} onChange={this.handleChange}></Input>
+                <EditP onClick={handleClick}/></PorTitle>
+            </DIV>
+            </TitleLayout>
+        )
 
         return(
-            <TitleLayout>
-                <Link to={"/"} style={{ textDecoration: "none" }}>
-                    <MLogo>ProLog;</MLogo>
-                </Link>
-                <DIV>
-                    <PorTitle>개발자 {name}의 포트폴리오<EditP/></PorTitle>
-                </DIV>
-            </TitleLayout>
+            <div>
+                {this.state.isEdit? editView:commonView}
+            </div>
         )
     }
 }
 
+const Input = styled.input`
+    margin-top: 1rem;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    border: 1px solid #e9ecef;
+    color: #212529;
+    display: block;
+    line-height: 1.5;
+    font-size: 2.4rem;
+`;
 
 const MLogo = styled.div`
     grid-area: logo;
