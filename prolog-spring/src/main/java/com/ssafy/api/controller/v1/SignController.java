@@ -150,7 +150,8 @@ public class SignController {
 
         Optional<User> user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider);
         if (user.isPresent())
-            throw new CUserExistException();
+            return signinByProvider(provider, accessToken);
+//            throw new CUserExistException();
 
         User inUser = User.builder()
                 .uid(String.valueOf(profile.getId()))
