@@ -49,15 +49,12 @@ public class PostsController {
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "Post 작성", notes = "글을 새로 작성합니다.")
-    @PostMapping(value = "/{msrl}")
-    public CommonResult post(@PathVariable Long msrl,@RequestBody @Valid PostDTO post){
-
+    @PostMapping(value = "/write")
+    public CommonResult post(@RequestBody @Valid PostDTO post){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
-        User user = userJpaRepo.findUserByMsrl(msrl).get();
-      //  if(id.equals(user.getMsrl())){ // Id 일치시 게시글 작성
-            postsService.writePost(user, post);
-       // }
+        User user = userJpaRepo.findByMsrl(Long.parseLong(id)).get(); //게시글 : 현재 사용자(로그인) + 저장할 게시글
+        postsService.writePost(user, post);
         return responseService.getSuccessResult();
     }
 
@@ -69,11 +66,7 @@ public class PostsController {
     public SingleResult<Post> post(@PathVariable int postCode, @RequestBody PostDTO post){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
-        long msrl = 1;
-        User user = userJpaRepo.findUserByMsrl(msrl).get();
-       // if(id.equals(postEdit.getUser().getMsrl())){
-            //postsService.updatePost(postCode,user, post);
-        //}
+        User user = userJpaRepo.findByMsrl(Long.parseLong(id)).get(); // 사용자 찾기
         return responseService.getSingleResult(postsService.updatePost(postCode,user, post));
     }
 
@@ -85,9 +78,7 @@ public class PostsController {
     public CommonResult deletePost(@PathVariable int postCode){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
-        //if(id.equals(postsService.getPost(postCode).getUser().getMsrl())){
-            postsService.deletePost(postCode);
-        //}
+        postsService.deletePost(Long.parseLong(id),postCode);
         return responseService.getSuccessResult();
     }
 }
