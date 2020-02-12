@@ -26,6 +26,11 @@ public class CommentService {
         Optional<List<Comment>> comments = commentRepo.findAllByPost(postCode);
         return comments;
     }
+    //select one
+    public Comment fingByCmtId(int cmtId){
+        return commentRepo.findByCmtId(cmtId).get();
+    }
+
     //select one target
     //insert & update
     public Comment save(Comment comment) {
@@ -34,6 +39,6 @@ public class CommentService {
 
     //삭제
     public void deleteCommentByCmtId(int cmtId){
-        commentRepo.deleteByCmtId(cmtId);
+        commentRepo.deleteById(cmtId);
     }
 }

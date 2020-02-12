@@ -29,3 +29,9 @@ fileUploadError:
 fileDownloadError:
   code: "-1008"
   msg: "Not found file"
+notOwner:
+  code: "-1006"
+  msg: "You are not the owner of this resource."
+resourceNotExist:
+  code: "-1007"
+  msg: "This resource does not exist."
