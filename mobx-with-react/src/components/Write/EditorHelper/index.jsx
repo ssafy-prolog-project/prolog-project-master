@@ -27,12 +27,14 @@ export default class EditorHelper extends Component {
   render() {
     return (
       <EditorHelperLayout>
-        <ImageIcon color="black"/>
-        <VideoIcon />
-        <AudioIcon />
-        <PaperclipIcon />
+        <ImageIcon onClick={this.props.onClickInsertImage} color="black"/>
+        <ImageIcon onClick={this.props.onClickImageUpload} color="red" />
+        <ImageIcon onClick={this.props.onClickHorizontalLine} color="blue" />
+        <VideoIcon onClick={this.props.onClickInsertMedia}/>
+        
+        {/* <PaperclipIcon />
         <LocationIcon />
-        <AlignLeftIcon />
+        <AlignLeftIcon /> */}
       </EditorHelperLayout>
     );
   }
@@ -47,4 +49,7 @@ const EditorHelperLayout = styled.div`
   margin-bottom: 2em;
   box-shadow: inset 0px 1px 8px -3px #ababab;
   background: #fefefe;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;

@@ -63,6 +63,7 @@ export default class EditorStore {
 
   @action setBody(body) {
     this.body = body;
+    console.log(this.body)
   }
 
   @action setTags(tags){
