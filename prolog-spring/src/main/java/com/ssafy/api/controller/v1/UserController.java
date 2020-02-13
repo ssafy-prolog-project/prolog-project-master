@@ -37,7 +37,7 @@ public class UserController {
     })
     @ApiOperation(value = "회원 단건 조회", notes = "회원번호(msrl)로 회원을 조회한다")
     @GetMapping(value = "/user")
-    public SingleResult<User> findUserById(@ApiParam(value = "언어", defaultValue = "ko") @RequestParam String lang) {
+    public SingleResult<User> findUserById() {
         // SecurityContext에서 인증받은 회원의 정보를 얻어온다.
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
