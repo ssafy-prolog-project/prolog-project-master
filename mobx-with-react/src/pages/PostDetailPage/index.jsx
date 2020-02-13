@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import { withRouter } from "react-router-dom";
 
 // component
 import Logo from "../../components/NavBar/Logo";
-import UserButton from "../../components/Common/UserButton";
+ import UserButton from "../../components/Common/UserButton";
 import PostMeta from "../../components/Post/PostMeta";
 import PostDetail from "../../components/Post/PostDetail";
 import PostTags from "../../components/Post/PostTags";
 import PostComments from "../../components/Post/PostComments";
 import PostActions from "../../components/Post/PostActions";
 
-@inject("postStore", "userStore", "commentStore")
-@withRouter
+@inject("postStore", "userStore", "commentStore", "authStore")
+// @withRouter
 @observer
 class PostDetailPage extends Component {
   componentDidMount() {
@@ -47,13 +47,23 @@ class PostDetailPage extends Component {
     const canModify = currentUser && currentUser.name === post.author.username;
 
     //author는 유저정보가 들어오고 클래스여야한다.
-
+    const { values } = this.props.authStore;
+    const { accessToken, provider, vid, name, profileimg } = values;
+    const Logout = () => {
+      this.props.authStore.setAccessToken(undefined);
+      this.props.authStore.setProfileimg(undefined);
+      this.props.authStore.setId(undefined);
+      this.props.authStore.setName(undefined);
+      this.props.authStore.setEmail("이메일을 입력해주세요.");
+      this.props.authStore.setIntro("소개를 입력해주세요.");
+      this.props.authStore.setProvider(undefined);
+    };
     return (
       <PostDetailPageLayout>
         <PostViewHeader>
-        <Link to={"/"} style={{ textDecoration: "none" }}>
-          <MLogo>ProLog;</MLogo>
-        </Link>
+          <Link to={"/"} style={{ textDecoration: "none" }}>
+            <MLogo>Prolog;</MLogo>
+          </Link>
           <UserButton></UserButton>
         </PostViewHeader>
         <PostContentWrapper>
@@ -87,6 +97,112 @@ class PostDetailPage extends Component {
 }
 
 export default PostDetailPage;
+export const LINKS = styled(Link)`
+  
+`;
+
+const LoginButton = styled.div`
+  border-style: solid;
+  border-width: 1.5px;
+  width: 5rem;
+  height: 2rem;
+  float: right;
+  margin-right: 2rem;
+  border-color: white;
+  margin-top: 0.5rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const SelectMenus = styled.div`
+  display: none;
+  position: relative;
+  background-color: #f1f1f1;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  &:hover .menubar {
+    display: block;
+  }
+  margin-right: 50rem;
+  margin-top: 3.2rem;
+  @media (max-width: 768px) {
+    right: 3rem;
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    left: -150px;
+    top: 0%;
+  }
+  /*display: none;
+  margin-top: -1rem;
+  float: right;
+  margin-right: 3rem;
+   position: absolute; */
+  /*background-color: #f9f9f9;
+  min-width: 100px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 3;*/
+`;
+const SelectMenu = styled.a`
+  color: black;
+  padding: 10px 12px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+
+  /* position: absolute; */
+  /* color: black;
+  padding: 10px 12px;
+  display: block;
+  text-align: left;
+  position: absolute; */
+  cursor: pointer;
+  :hover {
+    background-color: #b0b0b0;
+  }
+`;
+const Img = styled.div`
+  position: relative;
+  display: inline-block;
+  grid-area: test;
+
+  padding-top: 1rem;
+  margin-left: 85%;
+  &:hover .menubar {
+    display: block;
+  }
+  @media (max-width: 768px) {
+    padding-left: 0;
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    padding-left: 10%;
+  }
+`;
+
+const ProfileImg = styled.img`
+  width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  float: right;
+  margin-right: 3rem;
+  z-index: 2;
+  &:hover .menubar {
+    display: block;
+  }
+  @media (max-width: 768px) {
+    margin-right: 10%;
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    margin-right: 1rem;
+  }
+`;
 
 const PostDetailPageLayout = styled.div`
   flex-direction: row;
@@ -106,10 +222,10 @@ const PostDetailPageLayout = styled.div`
 const PostViewHeader = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-areas: 'logo . . . test';
+  grid-template-areas: "logo . . . test";
   height: 100%;
   width: 100%;
-  background-color: #1A3365;
+  background-color: #1a3365;
 `;
 
 const MLogo = styled.div`
@@ -126,18 +242,18 @@ const MLogo = styled.div`
 
 const DIV = styled.div`
   grid-area: test;
-`
+`;
 
 const PostContentWrapper = styled.div`
   padding-top: 5rem;
   padding-bottom: 5rem;
   display: grid;
   grid-template-columns: 15% 70% 15%;
-  grid-template-areas: 'left contents right';
+  grid-template-areas: "left contents right";
 
   @media (max-width: 768px) {
     grid-template-columns: 100%;
-    grid-template-areas: 'contents';
+    grid-template-areas: "contents";
   }
 `;
 
@@ -164,7 +280,6 @@ const PostContent = styled.div`
     padding-left: 1rem;
     padding-right: 1rem;
   }
-
 `;
 
 const CenterAreaLayout = styled.div`
