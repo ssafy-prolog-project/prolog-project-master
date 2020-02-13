@@ -82,17 +82,20 @@ export default class EditorStore {
 
   @action save() {
     //저장하고 글 읽는 페이지로 옮겨가도록
-    console.log("post save 명령")
+    
     this.inProgress = true;
     this.errors = undefined;
     const post = {
       title: this.title,
       coverColor: this.coverColor,
-      coverImage: this.coverImage,
+      coverImage: "image",
       body: this.body,
-      tagList: this.tagList,
-      postCode: this.postCode
+      postCode: 1
+      //tagList: this.tagList,
+      //postCode: this.postCode
     };
+    console.log("여기!!!!!")
+    console.log(post)
     return (this.postCode ? this.root.postStore.updatePost(post) : this.root.postStore.createPost(post))
       .catch(action((err) => {
         this.errors = err.response && err.response.body && err.response.body.errors; throw err;

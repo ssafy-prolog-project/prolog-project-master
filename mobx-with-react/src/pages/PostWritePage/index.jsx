@@ -11,7 +11,13 @@ import { withRouter } from "react-router-dom";
 @observer
 class PostWritePage extends Component {
   state = {
-    tagInput: ""
+    tagInput: "",
+    title:"",
+    coverColor:"",
+      coverImage:"",
+      body:"",
+      tagList:"",
+      postCode:""
   };
 
   componentWillMount() {
@@ -69,6 +75,7 @@ class PostWritePage extends Component {
     ev.preventDefault();
     const { editorStore } = this.props;
     editorStore.save();
+    
     // .then(post => {
     //   editorStore.reset();
     //   this.props.history.replace(`/post/${post.id}`);
@@ -114,7 +121,16 @@ class PostWritePage extends Component {
             >
               {" "}
             </WriteTags>
-            <SaveBtn onClick={this.save}>저장</SaveBtn>
+            <SaveBtn 
+            title={title}
+            coverColor={coverColor}
+            coverImage={coverImage}
+            changeTitle={this.changeTitle}
+            changeCoverColor={this.changeCoverColor}
+            changeCoverImage={this.changeCoverImage}
+            postCode={this.postCode}
+            save={this.save}
+            onClick={this.save}>저장</SaveBtn>
           </div>
           <div></div>
         </WriteAreaLayout>

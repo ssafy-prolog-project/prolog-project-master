@@ -86,7 +86,7 @@ class UserProfile extends Component {
       if (!this.state.isIntroEdit) {
         this.props.authStore.setIntro(this.state.intro);
         this.setState({
-          intro: this.props.authStore.values.intro
+          intro: this.props.authStore.values.greeting
         });
       }
 
@@ -112,7 +112,7 @@ class UserProfile extends Component {
 
     const showintro = (
       <UpdateIntro>
-      <UserIntro>Intro: {this.props.authStore.values.intro}</UserIntro>
+      <UserIntro>Intro: {this.props.authStore.values.greeting}</UserIntro>
       <PencilIncon onClick={IntroClick}></PencilIncon>
       </UpdateIntro>
     );
@@ -151,7 +151,7 @@ class UserProfile extends Component {
         <InputIntro
           type="text"
           name="intro"
-          placeholder={this.props.authStore.values.intro}
+          placeholder={this.props.authStore.values.greeting}
           value={this.state.intro}
           onChange={this.handleChange}
         />
@@ -166,9 +166,9 @@ class UserProfile extends Component {
       <UserProfileLayout>
         <Link to={"/mypage"} style={{ textDecoration: "none" }}>
           <Img>
-            {this.props.authStore.values.profileimg ? (
+            {this.props.authStore.values.picture ? (
               <ProfileImg
-                src={this.props.authStore.values.profileimg}
+                src={this.props.authStore.values.picture}
               ></ProfileImg>
             ) : (
               <DefaultImage src="https://image.flaticon.com/icons/svg/747/747376.svg"></DefaultImage>

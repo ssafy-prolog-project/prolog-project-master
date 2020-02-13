@@ -15,16 +15,17 @@ export default class AuthStore {
 
   //sns accessToken 타입들이 어떻게 들어올까?
   @observable values = {
-    accessToken: undefined,
-    provider : undefined,
+    accessToken: "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTU4MTU3ODQxMywiZXhwIjoxNTgxNTgyMDEzfQ.0wQwjm7G-FhM_WvZQ_to7uaaqckrKc7dK7dbCO_qWpo",
+    // accessToken: undefined,
+    provider : "kakap",
     email: "이메일을 입력해주세요.",
-    id: undefined,
-    name: undefined,
-    profileimg: undefined,
-    intro: "소개를 입력해주세요."
+    msrl: 1,
+    name: "경은",
+    picture: "http://k.kakaocdn.net/dn/dHTLeA/btqBuhFFnC5/81KQjyt54LiQvu6MiIGl8k/img_640x640.jpg",
+    greeting: "소개를 입력해주세요."
   };
   @action setProfileimg(profileimg) {
-    this.values.profileimg = profileimg;
+    this.values.picture = profileimg;
   }
   @action setId(id) {
     this.values.id = id;
@@ -33,13 +34,14 @@ export default class AuthStore {
     this.values.name = name;
   }
   @action setAccessToken(token) {
-    this.values.accessToken = token;
+    //this.values.accessToken = token;
+    this.values.accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTU4MTU3ODQxMywiZXhwIjoxNTgxNTgyMDEzfQ.0wQwjm7G-FhM_WvZQ_to7uaaqckrKc7dK7dbCO_qWpo";
   }
   @action setEmail(email) {
     this.values.email = email;
   }
   @action setIntro(intro) {
-    this.values.intro = intro;
+    this.values.greeting = intro;
   }
 
   @action setProvider(provider) {
