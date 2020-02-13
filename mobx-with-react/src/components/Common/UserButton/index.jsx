@@ -9,7 +9,7 @@ import { inject, observer } from "mobx-react"
 class UserButton extends Component{
     render(){
         const {values} = this.props.authStore;
-        const{accessToken,provider, id, name, profileimg} = values;
+        const{accessToken,refreshToken, provider, id, name, profileimg} = values;
 
         return (   
             <LINKS to={"/mypage"} style={{ textDecoration: "none" }}>

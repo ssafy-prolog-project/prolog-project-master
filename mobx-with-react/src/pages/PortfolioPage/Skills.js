@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import {Edit} from 'styled-icons/boxicons-regular/Edit';
+import { inject, observer } from "mobx-react";
+import DevIcon from "devicon-react-svg";
+import Form from "./Form";
+import SkillItemList from "./SkillItemList"
 
 export const EditP = styled(Edit)`
     color: #DCDCDC;
@@ -9,15 +13,88 @@ export const EditP = styled(Edit)`
     margin-bottom: 2.4rem;
 `
 
+export const Icon = styled(DevIcon)`
+    width: 3rem;
+    height: 3rem;
+`
+
+@inject('portfolioStore')
+@observer
+
 class Skills extends Component{
+    constructor(props){
+        super(props);
+
+        this.state={
+            isEdit: false,
+            input: '',
+            skills: [{text: 'mongodb', checked: true}]
+        };
+
+        this.handleChange=this.handleChange.bind(this);
+    }
+    handleChange=e=>{
+        const nextState={};
+        nextState[e.target.name]=e.target.value;
+        this.setState(nextState);
+    }
     render(){
-        return(
+        const {input, skills}=this.state;
+        const handleClick=()=>{
+            if(this.state.isEdit) {
+                
+                this.props.portfolioStore.setSkills(this.state.skills);
+                 this.setState({
+                    skills: this.props.portfolioStore.values.skills
+                 });
+            } 
+            const { isEdit } = this.state;
+            this.setState({
+                isEdit: !isEdit
+            });
+       };
+
+       const handleChange=e=>{
+           this.setState({
+               input: e.target.value
+           })
+       }
+
+       const handleAdd=()=>{
+            const{input, skills} = this.state;
+            this.setState({
+                input: '',
+                skills: skills.concat({
+                    text: input,
+                    checked: false
+                })
+            })
+       }
+
+       const commonView=(
             <SkillsLayout>
-                <SkTitle>Skills<EditP/></SkTitle>
+                <SkTitle>Skills<EditP onClick={handleClick}/></SkTitle>
                 <SkContent>
-                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain, but occasionally circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that produces no resultant pleasure?
+                {this.props.portfolioStore.values.skills}
+                
                 </SkContent>
             </SkillsLayout>
+        );
+
+        const editView=(
+            <SkillsLayout>
+                <SkTitle>Skills<EditP onClick={handleClick}/></SkTitle>
+                <SkContent>
+                <Form value={input} onChange={handleChange} onCreate={handleAdd}/>
+                <SkillItemList skills={skills}/>
+                </SkContent>
+            </SkillsLayout>
+        );
+
+        return(
+            <div>
+                {this.state.isEdit? editView:commonView}
+            </div>
         )
     }
 }
@@ -40,7 +117,7 @@ const SkTitle = styled.div`
 
 const SkContent = styled.div`
     text-align:center;
-    padding: 5%;
+    padding: 2%;
 
     @media (max-width: 768px){
         display: inline-block;
@@ -50,5 +127,19 @@ const SkContent = styled.div`
         padding: 1rem;
     }
 `
+
+const Input = styled.input`
+    /* white-space: pre-wrap; */
+    margin-top: 1rem;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    border: 1px solid #e9ecef;
+    color: #212529;
+    display: block;
+    line-height: 1.5;
+    height: 10rem;
+`;
 
 export default Skills;

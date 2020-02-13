@@ -16,6 +16,7 @@ export default class AuthStore {
   //sns accessToken 타입들이 어떻게 들어올까?
   @observable values = {
     accessToken: undefined,
+    refreshToken: undefined,
     provider : undefined,
     email: "이메일을 입력해주세요.",
     id: undefined,
@@ -35,6 +36,9 @@ export default class AuthStore {
   @action setAccessToken(token) {
     this.values.accessToken = token;
   }
+  @action setRefreshToken(token) {
+    this.values.refreshToken = token;
+  }
   @action setEmail(email) {
     this.values.email = email;
   }
@@ -50,6 +54,7 @@ export default class AuthStore {
 
   @action reset() {
     this.values.accessToken = undefined;
+    this.values.refreshToken = undefined;
   }
 
   @action login() {
@@ -57,10 +62,10 @@ export default class AuthStore {
     this.errors = undefined;
     console.log('login중')
     return (
-      agent.Auth.login(this.values.accessToken, this.values.provider)
+      agent.Auth.login(this.values.accessToken, this.values.refreshToken, this.values.provider)
       .then(res => console.log(res))
-        .then(({ user }) => CommonStore.setToken(user.token))
-        .then(() => UserStore.pullUser()) //login 성공한 유저정보를 불러온다.
+        .then(({ user }) => this.root.commonStore.setToken(user.token))
+        .then(() => this.root.userStore.pullUser()) //login 성공한 유저정보를 불러온다.
         .catch(
           action(err => {
             this.errors =
@@ -81,9 +86,9 @@ export default class AuthStore {
     this.errors = undefined;
     console.log('register중')
     return (
-      agent.Auth.register(this.values.accessToken)
-        .then(({ user }) => CommonStore.setToken(user.token))
-        .then(() => UserStore.pullUser()) //login 성공한 유저정보를 불러온다.
+      agent.Auth.register(this.values.accessToken, this.values.refreshToken)
+        .then(({ user }) => this.root.commonStore.setToken(user.token))
+        .then(() => this.root.userStore.pullUser()) //login 성공한 유저정보를 불러온다.
         .catch(
           action(err => {
             this.errors =
@@ -100,8 +105,8 @@ export default class AuthStore {
   }
 
   @action logout() {
-    CommonStore.setToken(undefined);
-    UserStore.forgetUser();
+    this.root.commonStore.setToken(undefined);
+    this.root.userStore.forgetUser();
     return Promise.resolve();
   }
 }

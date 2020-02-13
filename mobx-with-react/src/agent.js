@@ -46,16 +46,16 @@ const requests = {
 // 토큰은 다 헤더로 넘기고, 나머지 정보만 body로 넘긴다.
 const Auth = {
     //회원 가입, 로그인
-    register : (snsAccessToken, provider, name) =>
-    requests.post(`/signup/${provider}`, {name :name}, {accessToken: snsAccessToken}),
-    login : (snsAccessToken, provider) =>
-    requests.post(`/signin/${provider}`,{},{accessToken:snsAccessToken}),
+    register : (snsAccessToken, snsRefreshToken, provider, name) =>
+    requests.post(`/signup/${provider}`, {name :name}, {accessToken: snsAccessToken}, {refreshToken: snsRefreshToken}),
+    login : (snsAccessToken, snsRefreshToken, provider) =>
+    requests.post(`/signup/${provider}`,{},{accessToken:snsAccessToken}, {refreshToken: snsRefreshToken}),
     //requests.get(`/helloworld/string`),
     //회원정보 조회
     current: () =>
     requests.get('/user'),
-    update : (snsAccessToken, user) =>
-    requests.put('/user', {accessToken : snsAccessToken, user : user}),
+    update : (snsAccessToken, snsRefreshToken, user) =>
+    requests.put('/user', {accessToken : snsAccessToken, refreshToken: snsRefreshToken, user : user}),
 }
 
 // page 로드를 어떻게 처리할거냐?

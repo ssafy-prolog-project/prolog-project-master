@@ -31,6 +31,7 @@ class KLogin extends Component {
     this.props.authStore.setName(res.profile.properties.nickname);
     this.props.authStore.setEmail(res.profile.kakao_account.email);
     this.props.authStore.setAccessToken(res.response.access_token);
+    this.props.authStore.setRefreshToken(res.response.refresh_token);
     this.props.authStore.setProvider("kakao");
     this.props.authStore
       .login()
