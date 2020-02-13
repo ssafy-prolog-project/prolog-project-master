@@ -130,7 +130,7 @@ public class SignController {
     @PostMapping(value = "/signup/{provider}")
     public CommonResult signupProvider(@ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
                                        @ApiParam(value = "소셜 access_token", required = true) @RequestHeader String accessToken,
-                                       @ApiParam(value = "소셜 refresh_token", required = false) @RequestHeader String refreshToken
+                                       @ApiParam(value = "소셜 refresh_token") @RequestHeader(defaultValue = "") String refreshToken
                                        ) {
         SocialProfile profile = null;
 
@@ -149,6 +149,7 @@ public class SignController {
         }
 
         Optional<User> user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider);
+
         if (user.isPresent())
             return signinByProvider(provider, accessToken);
 //            throw new CUserExistException();
@@ -164,6 +165,7 @@ public class SignController {
                 .build();
 
         userJpaRepo.save(inUser);
-        return responseService.getSuccessResult();
+        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(inUser.getMsrl()), inUser.getRoles()));
+//        return responseService.getSuccessResult();
     }
 }

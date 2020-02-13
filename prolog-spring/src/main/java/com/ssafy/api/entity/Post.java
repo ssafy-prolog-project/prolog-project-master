@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 
@@ -16,6 +17,7 @@ import javax.persistence.*;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "posts")
+
 public class Post extends CommonDateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +63,13 @@ public class Post extends CommonDateEntity {
         this.thumbnail = thumbnail;
         this.coverColor = coverColor;
         this.tagList = tagList;
+    }
+// 임시
+    public Post(User user, String title, String coverColor) {
+        this.user = user;
+        this.title = title;
+        this.coverColor = coverColor;
+
     }
 
     // 수정시 데이터 처리
