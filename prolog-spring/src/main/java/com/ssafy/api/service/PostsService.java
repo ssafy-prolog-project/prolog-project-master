@@ -23,6 +23,10 @@ public class PostsService {
     public List<Post> getAllPosts() {
         return postJpaRepo.findAll();
     }
+    //게시물 전체 - By Id
+    public List<Post> getAllPostsByUser(Long msrl) {
+        return postJpaRepo.findAllByUserMsrl(msrl).get();
+    }
     //단일 게시물 - 읽기
     public Post getPost(int postCode) {
         return postJpaRepo.findById(postCode).get();

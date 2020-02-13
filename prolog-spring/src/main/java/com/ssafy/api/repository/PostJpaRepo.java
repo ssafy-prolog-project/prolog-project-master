@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface PostJpaRepo extends JpaRepository<Post, Integer> {
     //Optional<Post> findByPostCode(int postCode); // select one
     //Optional<Void> deleteByPostCode(int postCode);
-    Optional<List<Post>> findByUser(Optional<User> user); // user에 해당하는 모든 게시물
+    Optional<List<Post>> findAllByUserMsrl(Long msrl); // user에 해당하는 모든 게시물
 
 
 }
