@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter, Link } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 
 // Pages

@@ -69,6 +69,17 @@ public class ExceptionAdvice {
         return responseService.getFailResult(Integer.valueOf(getMessage("userIdNotMatch.code")), getMessage("userIdNotMatch.msg"));
     }
 
+    @ExceptionHandler(CFileUploadException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public CommonResult fileUploadException(HttpServletRequest request, CUserCommunityIdMatchException e){
+        return responseService.getFailResult(Integer.parseInt(getMessage("fileUploadError.code")), getMessage("fileUploadError.msg"));
+    }
+
+    @ExceptionHandler(CFileDownloadException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public CommonResult fileUploadException(HttpServletRequest request, CFileDownloadException e){
+        return responseService.getFailResult(Integer.parseInt(getMessage("fileDownloadError.code")), getMessage("fileDownloadError.msg"));
+    }
     // code정보에 해당하는 메시지를 조회합니다.
     private String getMessage(String code) {
         return getMessage(code, null);
@@ -76,6 +87,18 @@ public class ExceptionAdvice {
     // code정보, 추가 argument로 현재 locale에 맞는 메시지를 조회합니다.
     private String getMessage(String code, Object[] args) {
         return messageSource.getMessage(code, args, LocaleContextHolder.getLocale());
+    }
+
+    @ExceptionHandler(CNotOwnerException.class)
+    @ResponseStatus(HttpStatus.NON_AUTHORITATIVE_INFORMATION)
+    public CommonResult notOwnerException(HttpServletRequest request, CNotOwnerException e) {
+        return responseService.getFailResult(Integer.valueOf(getMessage("notOwner.code")), getMessage("notOwner.msg"));
+    }
+
+    @ExceptionHandler(CResourceNotExistException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public CommonResult resourceNotExistException(HttpServletRequest request, CResourceNotExistException e) {
+        return responseService.getFailResult(Integer.valueOf(getMessage("resourceNotExist.code")), getMessage("resourceNotExist.msg"));
     }
 
 

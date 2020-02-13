@@ -75,6 +75,10 @@ class PostWritePage extends Component {
     // });
   };
 
+  setBody = b => {
+    this.props.editorStore.setBody(b)
+  }
+
   render() {
     const {
       inProgress,
@@ -83,7 +87,7 @@ class PostWritePage extends Component {
       coverColor,
       coverImage,
       body,
-      tagList
+      tagList,
     } = this.props.editorStore;
 
     return (
@@ -97,9 +101,21 @@ class PostWritePage extends Component {
           changeCoverImage={this.changeCoverImage}
           save={this.save}
         ></WriteTopBar>
-
-        <WriteEditor></WriteEditor>
-        <WriteTags changeTags={this.changeTags} tagList={this.props.editorStore.tagList} inProgress={this.inProgress}> </WriteTags>
+        <WriteEditor setBody={this.setBody}></WriteEditor>
+        <WriteAreaLayout>
+          <div></div>
+          <div>
+            <WriteTags
+              changeTags={this.changeTags}
+              tagList={this.props.editorStore.tagList}
+              inProgress={this.inProgress}
+            >
+              {" "}
+            </WriteTags>
+            <SaveBtn onClick={this.save}>저장</SaveBtn>
+          </div>
+          <div></div>
+        </WriteAreaLayout>
       </PostWritePageLayout>
     );
   }
@@ -114,5 +130,26 @@ const WriteTagLayout = styled.div`
   /* align-items: "center"; */
 `;
 
+const WriteAreaLayout = styled.div`
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+`
+
+
+const SaveBtn = styled.div`
+  border-radius: 5px;
+  border-color: black;
+  border: 1px solid black;
+  color: black;
+  cursor: pointer;
+  height: 30px;
+  width: 60px;
+  background-color: white;
+  float: right;
+  margin-top: 1%;
+  margin-right: 1%;
+  text-align: center;
+  padding-top: 3px;
+`;
 
 export default PostWritePage;
