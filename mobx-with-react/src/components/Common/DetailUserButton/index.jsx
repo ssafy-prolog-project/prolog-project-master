@@ -2,12 +2,11 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
-import LoginButton from "../LoginButton";
 
 @inject("userStore", "authStore")
 @observer
 // 누르면 버튼으로 할 수 있는 동작 구현
-class UserButton extends Component {
+class DetailUserButton extends Component {
   render() {
     const { values } = this.props.authStore;
     const { accessToken, provider, id, name, profileimg } = values;
@@ -40,16 +39,36 @@ class UserButton extends Component {
           </>
         ) : (
           <LINKS to={"/login"} style={{ textDecoration: "none" }}>
-            <LoginButton></LoginButton>
+            <LoginButton>Login</LoginButton>
           </LINKS>
         )}
       </Img>
     );
   }
 }
+
+export const LINKS = styled(Link)`
+  
+`;
+
+const LoginButton = styled.div`
+  border-style: solid;
+  border-width: 1.5px;
+  width: 5rem;
+  height: 2rem;
+  float: right;
+  margin-right: 2rem;
+  border-color: white;
+  margin-top: 0.5rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const SelectMenus = styled.div`
   display: none;
-  position: absolute;
+  position: relative;
   background-color: #f1f1f1;
   min-width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -57,14 +76,15 @@ const SelectMenus = styled.div`
   &:hover .menubar {
     display: block;
   }
-  margin-right: 3rem;
-  margin-top: 3rem;
+  margin-right: 50rem;
+  margin-top: 3.2rem;
   @media (max-width: 768px) {
-    left: -3rem;
+    right: 3rem;
   }
 
   @media (min-width: 768px) and (max-width: 1024px) {
-    left: -3rem;
+    left: -150px;
+    top: 0%;
   }
   /*display: none;
   margin-top: -1rem;
@@ -120,7 +140,7 @@ const ProfileImg = styled.img`
   border-radius: 50%;
   cursor: pointer;
   float: right;
-  margin-right: 5%;
+  margin-right: 3rem;
   z-index: 2;
   &:hover .menubar {
     display: block;
@@ -130,12 +150,9 @@ const ProfileImg = styled.img`
   }
 
   @media (min-width: 768px) and (max-width: 1024px) {
-    margin-left: -10rem;
+    margin-right: 1rem;
   }
 `;
 
-export const LINKS = styled(Link)``;
 
-
-
-export default UserButton;
+export default DetailUserButton;

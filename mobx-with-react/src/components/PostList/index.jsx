@@ -84,6 +84,7 @@ const GridDiv = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, 33%);
   grid-template-rows: repeat(auto-fit, 1fr);
+  z-index: 1;
 
   @media (max-width: 1024px) {
     /*태블릿?*/
