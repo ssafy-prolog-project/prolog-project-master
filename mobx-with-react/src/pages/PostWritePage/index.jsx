@@ -88,6 +88,7 @@ class PostWritePage extends Component {
       coverImage,
       body,
       tagList,
+      postCode
     } = this.props.editorStore;
 
     return (
@@ -99,6 +100,7 @@ class PostWritePage extends Component {
           changeTitle={this.changeTitle}
           changeCoverColor={this.changeCoverColor}
           changeCoverImage={this.changeCoverImage}
+          postCode={this.postCode}
           save={this.save}
         ></WriteTopBar>
         <WriteEditor setBody={this.setBody}></WriteEditor>

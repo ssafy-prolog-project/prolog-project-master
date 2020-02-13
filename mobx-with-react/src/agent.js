@@ -47,50 +47,54 @@ const requests = {
 const Auth = {
     //회원 가입, 로그인
     register : (snsAccessToken, provider, name) =>
-    requests.post(`/signup/${provider}`, {name :name}, {accessToken: snsAccessToken}),
+    requests.post(`/v1/signup/${provider}`, {name :name}, {accessToken: snsAccessToken}),
     login : (snsAccessToken, provider) =>
-    requests.post(`/signin/${provider}`,{},{accessToken:snsAccessToken}),
+    requests.post(`/v1/signin/${provider}`,{},{accessToken:snsAccessToken}),
     //requests.get(`/helloworld/string`),
     //회원정보 조회
     current: () =>
-    requests.get('/user'),
+    requests.get('/v1/user'),
     update : (snsAccessToken, user) =>
-    requests.put('/user', {accessToken : snsAccessToken, user : user}),
+    requests.put('/v1/user', {accessToken : snsAccessToken, user : user}),
 }
 
 // page 로드를 어떻게 처리할거냐?
-const omitId = post => Object.assing({}, post, {id: undefined})
+const omitId = post => Object.assign({}, post,  {id: undefined})
 
 const Posts = { 
   all : () => 
-  requests.get(`/posts`),
-  byAuthor : (author, query) => 
-  requests.get(`/posts?author=${encode(author)}`),
+  requests.get('/v1/posts'),
+
+  byAuthor : () => 
+  requests.get(`/v1/post`),
   
   create: post =>
-  requests.post('/posts', {post}),
+  requests.post('/v1/post', {post}),
+
   update: post => 
-  requests.put(`/posts/${post.id}`, { post: omitId(post)}),
+  requests.put(`/v1/post/${post.id}`, { post}),
+  
   get: id =>
-  requests.get(`/posts/${id}`),
+  requests.get(`/v1/post/${id}`),
+  
   del: id => 
-  requests.del(`/posts/${id}`)
+  requests.del(`/v1/post/${id}`)
 
 }
 
 const Comments = { 
   forPost : postId => 
   console.log('forPost Comment요청'),
-  //requests.get(`/posts/${postId}/comments`),
+  //requests.get(`/v1/posts/${postId}/comments`),
   create: (postId, comment) =>
-  //requests.post(`/posts/${postId}/comments`, {comment}),
+  //requests.post(`/v1/posts/${postId}/comments`, {comment}),
   console.log('Comment Create요청'),
   // 수정을 구현할거인가?
   // update: (postId, id, comment) => 
-  // requests.put(`/posts/${postId}/comments/${id}`, { comment: omitId(comment)}),
+  // requests.put(`/v1/posts/${postId}/comments/${id}`, { comment: omitId(comment)}),
   delete: (postId, commentId) => 
   console.log('comment Delete 요청'),
-  //requests.del(`/posts/${postId}/comments/${commentId}`)
+  //requests.del(`/v1/posts/${postId}/comments/${commentId}`)
 }
 
 
