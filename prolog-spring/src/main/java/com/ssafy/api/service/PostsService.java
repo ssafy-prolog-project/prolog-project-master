@@ -35,9 +35,8 @@ public class PostsService {
     // 단일 게시물 - 작성
     public Post writePost(User user, PostDTO post) {
         //ID check - 존재하면 작성가능
-//        Post newPost = new Post(user,post.getTitle(),post.getContent(), post.getThumbnail(),post.getCoverColor(),
-//                post.getTagList());
-        Post newPost = new Post(user,post.getTitle(),post.getCoverColor());
+        Post newPost = new Post(user,post.getTitle(),post.getContent(), post.getThumbnail(),post.getCoverColor(),
+                post.getTagList());
         return postJpaRepo.save(newPost);
     }
     // 단일 게시물 - 수정
@@ -46,7 +45,7 @@ public class PostsService {
         Post postOrigin = getPost(postCode);
         if(postOrigin.getUser().getMsrl() != user.getMsrl())
             throw new CNotOwnerException();
-        //postOrigin.setUpdate(post.getTitle(),post.getContent(),post.getThumbnail(),post.getCoverColor(),post.getTagList());
+        postOrigin.setUpdate(post.getTitle(),post.getContent(),post.getThumbnail(),post.getCoverColor(),post.getTagList());
         return postOrigin;
     }
 

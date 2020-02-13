@@ -64,13 +64,6 @@ public class Post extends CommonDateEntity {
         this.coverColor = coverColor;
         this.tagList = tagList;
     }
-// 임시
-    public Post(User user, String title, String coverColor) {
-        this.user = user;
-        this.title = title;
-        this.coverColor = coverColor;
-
-    }
 
     // 수정시 데이터 처리
     public Post setUpdate(String title, String content, String thumbnail, String coverColor, String tagList) {
