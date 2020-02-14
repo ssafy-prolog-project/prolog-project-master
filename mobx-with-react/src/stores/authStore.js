@@ -44,6 +44,7 @@ export default class AuthStore {
     intro: "소개를 입력해주세요.",
     sub: "",
     role: "",
+    picture:""
   };
   @action setProfileimg(profileimg) {
     this.values.profileimg = profileimg;
