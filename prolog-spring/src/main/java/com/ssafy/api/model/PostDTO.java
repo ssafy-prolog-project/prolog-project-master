@@ -11,16 +11,16 @@ import javax.validation.constraints.Size;
 @Setter
 @NoArgsConstructor
 public class PostDTO {
-    @NotEmpty
+
     //@Size(min=2, max=100)
     @ApiModelProperty(value = "제목", required = true)
     private String title;
     @ApiModelProperty(value = "내용")
     private String body;
-    @NotEmpty
+
     @ApiModelProperty(value = "표지색상")
     private String coverColor;
-    @NotEmpty
+
     @ApiModelProperty(value = "표지이미지")
     private String coverImage;
 //    @ApiModelProperty(value = "태그")

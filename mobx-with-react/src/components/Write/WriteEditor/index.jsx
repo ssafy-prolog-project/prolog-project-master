@@ -72,7 +72,7 @@ export default class WriteEditor extends Component {
   };
 
   onClickImageUpload = () => {
-    //this.state.ckeditor.execute( 'imageInsert', { source: 'https://t1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/2Y5/image/ScuGzfGLXhYGmB0P2CZ1RgCrPDQ.jpg' } );
+    this.state.ckeditor.execute( 'imageInsert', { source: 'https://t1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/2Y5/image/ScuGzfGLXhYGmB0P2CZ1RgCrPDQ.jpg' } );
   };
 
   onClickHorizontalLine = () => {

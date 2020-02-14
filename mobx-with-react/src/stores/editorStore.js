@@ -28,7 +28,7 @@ export default class EditorStore {
   @action loadInitialData() {
     if (!this.postId) return Promise.resolve();
     this.inProgress = true;
-    return postStore.loadArticle(this.postId, { acceptCached: true })
+    return this.root.postStore.loadArticle(this.postId, { acceptCached: true })
       .then(action((post) => {
         if (!post) throw new Error('포스트를 불러올 수 없습니다.');
         this.title = post.title;
@@ -82,17 +82,22 @@ export default class EditorStore {
 
   @action save() {
     //저장하고 글 읽는 페이지로 옮겨가도록
-    console.log("post save 명령")
-    // this.inProgress = true;
-    // this.errors = undefined;
-    // const post = {
-    //   title: this.title,
-    //   description: this.description,
-    //   body: this.body,
-    //   tagList: this.tagList,
-    //   postId: this.postId,
-    // };
-    // return (this.postId ? postStore.updatePost(post) : postStore.createPost(post))
+    
+    this.inProgress = true;
+    this.errors = undefined;
+    const post = {
+      title: this.title,
+      coverColor: this.coverColor,
+      coverImage: "image",
+      body: this.body,
+      postCode: undefined,
+      tagList: this.tagList,
+      //postCode: this.postCode
+    };
+    console.log("여기!!!!!")
+    console.log(post)
+    return (this.postCode ? this.root.postStore.updatePost(post) : this.root.postStore.createPost(post))
+    // return (this.postCode ? this.root.postStore.updatePost(post) : this.root.postStore.createPost(post))
     //   .catch(action((err) => {
     //     this.errors = err.response && err.response.body && err.response.body.errors; throw err;
     //   }))

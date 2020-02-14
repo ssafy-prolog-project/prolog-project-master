@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@CrossOrigin("*")
+@CrossOrigin({"*"})
 @EnableJpaAuditing
 public class PrologApplication {
 
