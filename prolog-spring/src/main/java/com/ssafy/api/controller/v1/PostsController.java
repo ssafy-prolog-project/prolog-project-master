@@ -30,11 +30,9 @@ public class PostsController {
 
     private final PostsService postsService;
     private final ResponseService responseService;
-    private final UserJpaRepo userJpaRepo;
-
 
     @ApiOperation(value="게시판 글 목록" , notes= "게시글 리스트 입니다.")
-    @GetMapping("/posts")
+    @GetMapping("/postsAll")
     public ListResult<Post> posts(){
         return responseService.getListResult(postsService.getAllPosts());
     }
@@ -53,20 +51,18 @@ public class PostsController {
     @ApiOperation(value = "게시판 글 상세", notes = "게시판 글 상세정보를 조회한다.")
     @GetMapping(value = "/post/{postCode}") //id
     public SingleResult<Post> post(@PathVariable int postCode){
-        return responseService.getSingleResult(postsService.getPost(postCode));/*.orElseThrow(CUserNotFoundException::new));*/
+        return responseService.getSingleResult(postsService.getPost(postCode));
     }
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "Post 작성", notes = "글을 새로 작성합니다.")
-    @PostMapping(value = "/post", name = "") //data : post()
-    public CommonResult post(@RequestBody @Valid PostDTO post){
+    @PostMapping(value = "/post") //data : post()
+    public SingleResult<Post> post(@RequestBody @Valid PostDTO post){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
-        User user = userJpaRepo.findByMsrl(Long.parseLong(id)).get(); //게시글 : 현재 사용자(로그인) + 저장할 게시글
-        postsService.writePost(user, post);
-        return responseService.getSuccessResult();
+        return responseService.getSingleResult(postsService.writePost(Long.parseLong(id), post));
     }
 
     @ApiImplicitParams({
@@ -77,8 +73,7 @@ public class PostsController {
     public SingleResult<Post> post(@PathVariable int postCode, @RequestBody PostDTO post){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
-        User user = userJpaRepo.findByMsrl(Long.parseLong(id)).get(); // 사용자 찾기
-        return responseService.getSingleResult(postsService.updatePost(postCode,user, post));
+        return responseService.getSingleResult(postsService.updatePost(postCode,Long.parseLong(id), post));
     }
 
     @ApiImplicitParams({
