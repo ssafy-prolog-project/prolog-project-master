@@ -3,8 +3,8 @@ import authStore from "./stores/authStore";
 import userStore from "./stores/userStore";
 
  //const API_ROOT = "http://70.12.229.94:8080";
-const API_ROOT = "http://localhost:8080";
-const VERSION = "/v1"
+const API_ROOT = "/";
+const VERSION = "v1"
 //const VERSION = ""
 
 const encode = encodeURIComponent;
@@ -35,9 +35,9 @@ const requests = {
   //   axios
   //     .post(`${API_ROOT}${VERSION}${url}`, body, {headers: header}),
       
-  post: (url, body) =>
+  post: (url, body, header) =>
     axios
-      .post(`${API_ROOT}${VERSION}${url}`, body),
+      .post(`${API_ROOT}${VERSION}${url}`, body,{headers: header}),
       //.then(res => console.log(res))
       //.catch(err =>  console.log(err)),
   put: (url, body) =>

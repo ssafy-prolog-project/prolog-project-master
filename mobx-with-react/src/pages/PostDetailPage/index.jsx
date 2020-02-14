@@ -70,7 +70,10 @@ class PostDetailPage extends Component {
         <PostContentWrapper>
           <Left>Left</Left>
           <PostContent>
-            <PostMeta
+            <p>{this.props.postStore.detailPost.title}</p>
+            <p>{this.props.postStore.detailPost.updateDate}</p>
+            <p>{this.props.postStore.detailPost.body}</p>
+            {/* <PostMeta
               post={this.props.postStore.detailPost}
               canModify={canModify}
               onDelete={this.handleDeletePost}
@@ -88,7 +91,7 @@ class PostDetailPage extends Component {
               postId={this.props.postStore.detailPost.postCode}
               currentUser={currentUser}
               onDelete={this.handleDeleteComment}
-            ></PostComments>
+            ></PostComments> */}
           </PostContent>
           <Right>Right</Right>
         </PostContentWrapper>
