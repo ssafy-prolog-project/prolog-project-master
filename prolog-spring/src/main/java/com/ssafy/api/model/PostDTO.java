@@ -16,17 +16,17 @@ public class PostDTO {
     @ApiModelProperty(value = "제목", required = true)
     private String title;
     @ApiModelProperty(value = "내용")
-    private String content;
+    private String body;
     @NotEmpty
     @ApiModelProperty(value = "표지색상")
     private String coverColor;
     @NotEmpty
-    @ApiModelProperty(value = "썸네일")
-    private String thumbnail;
-    @ApiModelProperty(value = "태그")
-    private String tagList;
-    @ApiModelProperty(value = "포스트핀")
-    private boolean pinPost;
-    @ApiModelProperty(value = "프로젝트핀")
-    private boolean pinProject;
+    @ApiModelProperty(value = "표지이미지")
+    private String coverImage;
+//    @ApiModelProperty(value = "태그")
+//    private String[] tagList;
+//    @ApiModelProperty(value = "포스트핀")
+//    private boolean pinPost;
+//    @ApiModelProperty(value = "프로젝트핀")
+//    private boolean pinProject;
 }

@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 
@@ -38,14 +37,14 @@ public class Post extends CommonDateEntity {
     private String tagList;
 
     @Column(name = "contents")
-    private String content;
+    private String body;
 
     @Column(nullable = false, columnDefinition = "int default 0") // default 0
     private int postLike;
     @Column(nullable = false, columnDefinition = "int default 0") // default 0
     private int postView;
     @Column
-    private String thumbnail;
+    private String coverImage;
     @Column(columnDefinition = "int default 0")
     private int postPrev;
     @Column(columnDefinition = "int default 0")
@@ -56,20 +55,30 @@ public class Post extends CommonDateEntity {
     private boolean pinProject;
 
     // 생성자
-    public Post(User user, String title, String content, String thumbnail, String coverColor, String tagList) {
+    public Post(User user, String title, String body, String coverImage, String coverColor, String tagList) {
         this.user = user;
         this.title = title;
-        this.content = content;
-        this.thumbnail = thumbnail;
+        this.body = body;
+        this.coverImage = coverImage;
         this.coverColor = coverColor;
         this.tagList = tagList;
     }
 
-    // 수정시 데이터 처리
-    public Post setUpdate(String title, String content, String thumbnail, String coverColor, String tagList) {
+    // test용
+    public Post(User user, String title, String body, String coverImage, String coverColor) {
+        this.user = user;
         this.title = title;
-        this.content = content;
-        this.thumbnail = thumbnail;
+        this.body = body;
+        this.coverImage = coverImage;
+        this.coverColor = coverColor;
+
+    }
+
+    // 수정시 데이터 처리
+    public Post setUpdate(String title, String body, String thumbnail, String coverColor, String tagList) {
+        this.title = title;
+        this.body = body;
+        this.coverImage = coverImage;
         this.coverColor = coverColor;
         this.tagList = tagList;
         return this;
