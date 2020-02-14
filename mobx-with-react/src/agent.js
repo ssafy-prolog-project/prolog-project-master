@@ -2,8 +2,8 @@ import axios from "axios";
 import commonStore from "./stores/commonStore";
 import authStore from "./stores/authStore";
 
-const API_ROOT = "http://localhost:8080";
-//const API_ROOT = "";
+ const API_ROOT = "http://70.12.229.94:8080";
+//const API_ROOT = "http://localhost:8080";
 const VERSION = "/v1"
 //const VERSION = ""
 
@@ -35,7 +35,8 @@ const requests = {
     axios
       .post(`${API_ROOT}${VERSION}${url}`, body, {headers: header})
       .then(res => console.log(res))
-      .catch(err => console.log(err)),
+      .catch(err =>  console.log(err)),
+  
   put: (url, body) =>
     axios
       .put(`${API_ROOT}${VERSION}${url}`, body)
