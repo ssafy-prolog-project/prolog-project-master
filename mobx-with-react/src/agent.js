@@ -2,8 +2,8 @@ import axios from "axios";
 import authStore from "./stores/authStore";
 import userStore from "./stores/userStore";
 
-//const API_ROOT = "http://localhost:8080";
-const API_ROOT = "";
+ //const API_ROOT = "http://70.12.229.94:8080";
+const API_ROOT = "http://localhost:8080";
 const VERSION = "/v1"
 //const VERSION = ""
 
@@ -29,16 +29,17 @@ const requests = {
       ,
   get: (url, header) =>
     axios
-      .get(`${API_ROOT}${VERSION}${url}`,{headers: header})
-      // .then(res => console.log(res))
-      // .catch(err => console.log(err)),
-      ,
-  post: (url, body, header) =>
+      .get(`${API_ROOT}${VERSION}${url}`,{headers: header}),
+     
+  // post: (url, body, header) =>
+  //   axios
+  //     .post(`${API_ROOT}${VERSION}${url}`, body, {headers: header}),
+      
+  post: (url, body) =>
     axios
-      .post(`${API_ROOT}${VERSION}${url}`, body, {headers: header})
-      // .then(res => console.log("?"+res))
-      // .catch(err => console.log(err)),
-      ,
+      .post(`${API_ROOT}${VERSION}${url}`, body),
+      //.then(res => console.log(res))
+      //.catch(err =>  console.log(err)),
   put: (url, body) =>
     axios
       .put(`${API_ROOT}${VERSION}${url}`, body)
@@ -69,38 +70,43 @@ const Auth = {
 }
 
 // page 로드를 어떻게 처리할거냐?
-const omitId = post => Object.assing({}, post, {id: undefined})
+const omitId = post => Object.assign({}, post,  {id: undefined})
 
 const Posts = { 
-  all : () => 
-  requests.get(`/posts`),
-  byAuthor : (author, query) => 
-  requests.get(`/posts?author=${encode(author)}`),
   
-  create: post =>
-  requests.post('/posts', {post}),
+  all : () => 
+  requests.get('/postsAll'),
+
+  byAuthor : () => 
+  requests.get(`/post`),
+  
+  create: (post) =>
+  requests.post('/post', {post}),
+
   update: post => 
-  requests.put(`/posts/${post.id}`, { post: omitId(post)}),
+  requests.put(`/post/${post.id}`, { post}),
+  
   get: id =>
-  requests.get(`/posts/${id}`),
+  requests.get(`/post/${id}`),
+  
   del: id => 
-  requests.del(`/posts/${id}`)
+  requests.del(`/post/${id}`)
 
 }
 
 const Comments = { 
   forPost : postId => 
   console.log('forPost Comment요청'),
-  //requests.get(`/posts/${postId}/comments`),
+  //requests.get(`/v1/posts/${postId}/comments`),
   create: (postId, comment) =>
-  //requests.post(`/posts/${postId}/comments`, {comment}),
+  //requests.post(`/v1/posts/${postId}/comments`, {comment}),
   console.log('Comment Create요청'),
   // 수정을 구현할거인가?
   // update: (postId, id, comment) => 
-  // requests.put(`/posts/${postId}/comments/${id}`, { comment: omitId(comment)}),
+  // requests.put(`/v1/posts/${postId}/comments/${id}`, { comment: omitId(comment)}),
   delete: (postId, commentId) => 
   console.log('comment Delete 요청'),
-  //requests.del(`/posts/${postId}/comments/${commentId}`)
+  //requests.del(`/v1/posts/${postId}/comments/${commentId}`)
 }
 
 export default{

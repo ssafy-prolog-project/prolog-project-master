@@ -56,6 +56,7 @@ export default class AuthStore {
   }
   @action setAccessToken(token) {
     this.values.accessToken = token;
+    //this.values.accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTU4MTU3ODQxMywiZXhwIjoxNTgxNTgyMDEzfQ.0wQwjm7G-FhM_WvZQ_to7uaaqckrKc7dK7dbCO_qWpo";
   }
   @action setRefreshToken(token) {
     this.values.refreshToken = token;

@@ -11,16 +11,15 @@ import { ko } from 'date-fns/locale'
 // 일단 내부적으로 정의된 Post가 있고 이 Post의 DB 형태는 글을 작성하는 쪽에서 결정해야한다.
 // 여기에서는 요청 결과로 들어온 Post 결과물만을 보여주면 충분하다.
 const PostCard = ({ post }) => {
-  const { id, imgUrl, title, text, author, date, views } = post;
-  const dateFormat = fromUnixTime(date)
-  const dateInfo = formatDistanceToNow(dateFormat, {addSuffix:true, locale:ko})
+  const {createDate ,updateDate,postCode, user,title,coverColor,tagList,body,postLike,postView,coverImage,postPrev,postNext,pinPost,pinProject} = post;
 
   return (
     <CardMainLayOut>
       <OutL>
-        <Link to={"/post/" + id}>
-          {imgUrl ? (
-            <CardImage src={imgUrl}></CardImage>
+        <Link to={"/post/" + postCode}>
+         
+          {coverImage ? (
+            <CardImage src={coverImage}></CardImage>
           ) : (
             <DefaultImage></DefaultImage>
           )}
@@ -28,11 +27,11 @@ const PostCard = ({ post }) => {
       </OutL>
       <OutT>
         <CardTitle>{title}</CardTitle>
-        <Date>{dateInfo}</Date>
+        {/* <Date>{dateInfo}</Date> */}
         {/* <CardDescription>{text}</CardDescription> */}
-        <p style={{ color: "black" }}>작성자 : {author}</p>
+        {/* <p style={{ color: "black" }}>작성자 : {author}</p>
         <p style={{ color: "black" }}>조회수 : {views}</p>
-        <p style={{ color: "black" }}>아이디 : {id}</p>
+        <p style={{ color: "black" }}>아이디 : {id}</p> */}
       </OutT>
     </CardMainLayOut>
   );
@@ -68,7 +67,7 @@ const CardImage = styled.img`
   height: 100%;
 `;
 
-const DefaultImage = styled.img`
+const DefaultImage = styled.div`
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   position: absolute;
@@ -76,7 +75,7 @@ const DefaultImage = styled.img`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: black;
+  /* background-color: ; */
 `;
 
 const CardTitle = styled.h2`

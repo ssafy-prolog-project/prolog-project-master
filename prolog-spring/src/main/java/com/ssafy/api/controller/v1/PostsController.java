@@ -25,6 +25,7 @@ import javax.validation.Valid;
 @Api(tags={"3.Post"})
 @RestController
 @RequestMapping("/v1")
+@CrossOrigin({"*"})
 @RequiredArgsConstructor
 public class PostsController {
 
@@ -60,8 +61,12 @@ public class PostsController {
     @ApiOperation(value = "Post 작성", notes = "글을 새로 작성합니다.")
     @PostMapping(value = "/post") //data : post()
     public SingleResult<Post> post(@RequestBody @Valid PostDTO post){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String id = authentication.getName();
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println(post.getTitle());
+        System.out.println(post.getBody());
+        // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // String id = authentication.getName();
+        String id = "1";
         return responseService.getSingleResult(postsService.writePost(Long.parseLong(id), post));
     }
 
