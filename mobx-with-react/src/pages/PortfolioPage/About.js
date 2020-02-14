@@ -28,7 +28,6 @@ class About extends Component{
             if(this.state.isEdit) {
                 
                 this.props.portfolioStore.setAbout(this.state.about);
-                
                  this.setState({
                     about: this.props.portfolioStore.values.about
                  });
@@ -37,7 +36,6 @@ class About extends Component{
             this.setState({
                 isEdit: !isEdit
             });
-            console.log("여기야!!!");
        };
        
         const commonView=(
@@ -49,10 +47,8 @@ class About extends Component{
 
         const editView=(
             <AboutLayout>
-                <AbTitle>About ME<EditP onClick={handleClick}/></AbTitle>
-            
-                <Input type="text" placeholder={this.props.portfolioStore.values.about} name="about" value={this.state.about} onChange={this.handleChange}></Input>
-              
+                <AbTitle>About ME<EditP onClick={handleClick}/></AbTitle>           
+                <Input style={{ whiteSpace: 'pre-wrap' }} type="text" name="about" value={this.state.about} onChange={this.handleChange}></Input>
             </AboutLayout>
         );
         
@@ -90,9 +86,10 @@ export const EditP = styled(Edit)`
 //     height: 10rem;
 // `
 
-const Input = styled.input`
-margin-top: 1rem;
-    width: 100%;
+const Input = styled.textarea`
+    /* white-space: pre-wrap; */
+    margin-top: 1rem;
+    width: 80%;
     border: none;
     outline: none;
     font-size: 1rem;

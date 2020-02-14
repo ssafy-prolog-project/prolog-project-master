@@ -33,13 +33,14 @@ public class UserController {
     }
 
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = false, dataType = "String", paramType = "header")
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "회원 단건 조회", notes = "회원번호(msrl)로 회원을 조회한다")
     @GetMapping(value = "/user")
     public SingleResult<User> findUserById() {
         // SecurityContext에서 인증받은 회원의 정보를 얻어온다.
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        authentication.getPrincipal();
         String id = authentication.getName();
         // 결과데이터가 단일건인경우 getSingleResult를 이용해서 결과를 출력한다.
         return responseService.getSingleResult(userJpaRepo.findByMsrl(Long.parseLong(id)).orElseThrow(CUserNotFoundException::new));

@@ -1,7 +1,8 @@
 import { observable, action } from "mobx";
 import agent from "../agent";
 
-export default class UserStore {
+
+export default class UserStore{
   constructor(root) {
     this.root = root;
   }
@@ -11,9 +12,9 @@ export default class UserStore {
   @observable updatingUser;
   @observable updatingUserErrors;
 
-  @action pullUser() {
+  @action pullUser(jwt) {
     this.loadingUser = true;
-    return agent.Auth.current()
+    return agent.Auth.current(jwt)
       .then(
         action(({ user }) => {
           this.currentUser = user;

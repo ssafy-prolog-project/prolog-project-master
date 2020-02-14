@@ -25,17 +25,20 @@ class KLogin extends Component {
     });
 
     console.log("카카오 login success");
-    console.log(res)
-    this.props.authStore.setProfileimg(res.profile.properties.profile_image);
-    this.props.authStore.setId(res.profile.id);
-    this.props.authStore.setName(res.profile.properties.nickname);
-    this.props.authStore.setEmail(res.profile.kakao_account.email);
+    // console.log(res)
     this.props.authStore.setAccessToken(res.response.access_token);
+    this.props.authStore.setRefreshToken(res.response.refresh_token);
     this.props.authStore.setProvider("kakao");
     this.props.authStore
       .login()
       .then(() => {
         console.log("우리 서비스 로그인 성공");
+        console.log(this.props.authStore.token);
+        const jwt = this.props.authStore.token;
+        this.props.authStore.setProfileimg(jwt.picture);
+        this.props.authStore.setName(jwt.name);
+        this.props.authStore.setEmail(jwt.email);
+        
         // 현재는 cors 에러 나서 실패했는데도 로그인 성공으로 찍어버림.
       })
       .catch(err => {
