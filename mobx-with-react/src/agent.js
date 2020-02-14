@@ -2,8 +2,8 @@ import axios from "axios";
 import commonStore from "./stores/commonStore";
 import authStore from "./stores/authStore";
 
- const API_ROOT = "http://70.12.229.94:8080";
-//const API_ROOT = "http://localhost:8080";
+ //const API_ROOT = "http://70.12.229.94:8080";
+const API_ROOT = "http://localhost:8080";
 const VERSION = "/v1"
 //const VERSION = ""
 
@@ -28,15 +28,17 @@ const requests = {
       .catch(err => console.log(err)),
   get: (url, header) =>
     axios
-      .get(`${API_ROOT}${VERSION}${url}`,{headers: header})
-      .then(res => console.log(res))
-      .catch(err => console.log(err)),
-  post: (url, body, header) =>
+      .get(`${API_ROOT}${VERSION}${url}`,{headers: header}),
+     
+  // post: (url, body, header) =>
+  //   axios
+  //     .post(`${API_ROOT}${VERSION}${url}`, body, {headers: header}),
+      
+  post: (url, body) =>
     axios
-      .post(`${API_ROOT}${VERSION}${url}`, body, {headers: header})
-      .then(res => console.log(res))
-      .catch(err =>  console.log(err)),
-  
+      .post(`${API_ROOT}${VERSION}${url}`, body),
+      //.then(res => console.log(res))
+      //.catch(err =>  console.log(err)),
   put: (url, body) =>
     axios
       .put(`${API_ROOT}${VERSION}${url}`, body)
@@ -65,22 +67,22 @@ const omitId = post => Object.assign({}, post,  {id: undefined})
 const Posts = { 
   
   all : () => 
-  requests.get('/v1/posts'),
+  requests.get('/postsAll'),
 
   byAuthor : () => 
-  requests.get(`/v1/post`),
+  requests.get(`/post`),
   
   create: (post) =>
   requests.post('/post', {post}),
 
   update: post => 
-  requests.put(`/v1/post/${post.id}`, { post}),
+  requests.put(`/post/${post.id}`, { post}),
   
   get: id =>
-  requests.get(`/v1/post/${id}`),
+  requests.get(`/post/${id}`),
   
   del: id => 
-  requests.del(`/v1/post/${id}`)
+  requests.del(`/post/${id}`)
 
 }
 

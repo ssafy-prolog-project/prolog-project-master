@@ -17,7 +17,17 @@ export default class PostStore {
   @computed get posts() {
     return this.postRegistry.values();
   }
+  @observable nextId = 31;
+  @observable returnItems = [];
+  @observable postItems = []; // axios로 호출해서 받아오면 된다.
+  @observable detailPost = undefined;
 
+  @action setPostItems(postItems){
+    this.postItems = postItems;
+    this.getItems(0,1);
+    //console.log("오긴왔니?")
+    //console.log(this.postItems);
+  }
   clear() {
     this.postRegistry.clear();
   }
@@ -25,28 +35,32 @@ export default class PostStore {
   getPost(id) {
     //TODO
     //return this.postRegistry.get(id);
-    return this.postItems[id]
+    return agent.Posts.get(id)
+    .then(res => 
+      this.detailPost = (res.data.data)
+      )
+      .catch(err => console.log(err))
   }
 
   //이전 정보를 정리해둔다.
   @action setPredicate(predicate) {
     if (JSON.stringfy(predicate) === JSON.stringfy(this.predicate)) return;
     this.clear();
-    this.predicate = predicate;
+    this.predicate = predicate
   }
 
   // 전체 Post 가져오기
   @action loadPosts() {
     this.isLoading = true;
-    // TODO
-    // return agent.Posts.get()
-    // .then(action(() => 
-    // {
-    //   this.articleRegistry.set(post.id, post)
-    //   return post;
-    // }
-    // ) )
-    // .finally(action(() => { this.loading = false}))
+    //TODO
+    //console.log("요청보내기!");
+    return agent.Posts.all()
+    .then(res => 
+      //console.log(res.data.list),
+      this.setPostItems(res.data.list)
+      )
+      .catch(err => console.log(err))
+    .finally(action(() => { this.loading = false}))
   }
 
   // 한 개짜리 가져오기 - 이미 가져온 것은 map 에서 바로 꺼내고, 아닌 경우는 백엔드서버에서 호출한다.
@@ -72,13 +86,12 @@ export default class PostStore {
 
   @action createPost(post) {
     console.log("여기가 두번쩨!!!!!");
-    console.log(post);
+    //console.log(post);
     return agent.Posts.create(post)
     .then(res => 
-      console.log(res.data)
-      
+      console.log("성공했니?")
       )
-    .catch(err => console.log(err))
+    .catch(err => console.log( err))
     // .then(action(({ post }) => 
     // {
     //   this.postRegistry.set(post.postCode, post);
@@ -104,55 +117,6 @@ export default class PostStore {
       })
     );
   }
-
-
-
-  @observable nextId = 31;
-  @observable returnItems = [];
-  @observable postItems = [
-    {
-      id: 0,
-      imgUrl:
-        "http://file2.instiz.net/data/file/20141221/2/0/2/2027c83dca8a9b5658498d9e641153b1.jpg",
-      title: "test1",
-      category: "post",
-      text: "test 중..",
-      author: "JEJ",
-      date: getUnixTime(new Date(2019, 2, 2)),
-      views: 5555
-    },
-    {
-      id: 1,
-      imgUrl: "",
-      title: "test2",
-      category: "post",
-      text: "test 중입니다.",
-      author: "정의진",
-      date: getUnixTime(new Date(2018, 2, 2)),
-      views: 305
-    },
-    {
-      id: 2,
-      imgUrl: "",
-      title: "test3",
-      category: "post",
-      text: "test 중입니다.",
-      author: "CK",
-      date: getUnixTime(new Date(2018, 4, 2)),
-      views: 999
-    },
-    {
-      id: 3,
-      imgUrl:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpw1rVXmdKGZf0_yS-e5PwKbYRLo8f1MZUiO-acYrpvoLW958LKA&s",
-      title: "미래의 글",
-      category: "post",
-      text: "test 중입니다.",
-      author: "한글",
-      date: getUnixTime(new Date(2020, 2, 5)),
-      views: 10
-    }
-  ]; // axios로 호출해서 받아오면 된다.
 
   constructor(root) {
     this.root = root;
@@ -220,6 +184,7 @@ export default class PostStore {
 
   @action
   getItems = (startIndex, count) => {
-    this.returnItems = this.postItems.slice(startIndex, startIndex + count);
+    this.returnItems = this.postItems;
+   
   };
 }

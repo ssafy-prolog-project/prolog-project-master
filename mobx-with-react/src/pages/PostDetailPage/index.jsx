@@ -41,10 +41,11 @@ class PostDetailPage extends Component {
     //const { currentUser } = this.props.userStore;
     const currentUser = true;
     const { comments } = this.props.commentStore;
-    const post = this.props.postStore.getPost(id);
-    if (!post) return <h1>Post가 없습니다. 에러처리</h1>;
+    this.props.postStore.getPost(id);
+    //const post = this.props.postStore.detailPost;
+    if (!this.props.postStore.detailPost) return <h1>Post가 없습니다. 에러처리</h1>;
 
-    const canModify = currentUser && currentUser.name === post.author.username;
+    const canModify = currentUser && currentUser.name === this.props.postStore.detailPost.user.username;
 
     //author는 유저정보가 들어오고 클래스여야한다.
     const { values } = this.props.authStore;
@@ -70,21 +71,21 @@ class PostDetailPage extends Component {
           <Left>Left</Left>
           <PostContent>
             <PostMeta
-              post={post}
+              post={this.props.postStore.detailPost}
               canModify={canModify}
               onDelete={this.handleDeletePost}
             ></PostMeta>
-            <PostDetail postid={id}></PostDetail>
+            <PostDetail postid={this.props.postStore.detailPost.postCode}></PostDetail>
             <PostTags></PostTags>
             <hr></hr>
             <PostActions
               canModify={canModify}
-              post={post}
+              post={this.props.postStore.detailPost}
               onDelete={this.handleDeletePost}
             />
             <PostComments
               comments={comments}
-              postId={id}
+              postId={this.props.postStore.detailPost.postCode}
               currentUser={currentUser}
               onDelete={this.handleDeleteComment}
             ></PostComments>

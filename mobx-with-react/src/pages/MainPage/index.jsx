@@ -17,18 +17,18 @@ class MainPage extends Component {
     isLoading: false,
   }
 
-  componentDidMount(){
-    this.setState({isLoading:true},()=>{console.log(this.state.isLoading)})
-    console.log(this.state.isLoading)
-    fetch('list.json')
-    .then(function(result){
-      return result.json
-    })
-    .then(function(json){
-      console.log(json);
-      this.setState({isLoading:false})
-    }.bind(this))
-  }
+  // componentDidMount(){
+  //   this.setState({isLoading:true},()=>{console.log(this.state.isLoading)})
+  //   console.log(this.state.isLoading)
+  //   fetch('list.json')
+  //   .then(function(result){
+  //     return result.json
+  //   })
+  //   .then(function(json){
+  //     console.log(json);
+  //     this.setState({isLoading:false})
+  //   }.bind(this))
+  // }
 
   render(){
     var NavTag = null;

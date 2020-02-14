@@ -8,28 +8,31 @@ import Loader from "react-loader-spinner";
 @inject("postStore")
 @observer
 class PostList extends Component {
+ 
+  componentDidMount(){
+    this.props.postStore.loadPosts();
+  }
+
   state = {
     items: [],
     hasMoreItems: true
   };
+//    componentDidMount() {
+    
+// const { postStore } = this.props;
+  
+// postStore.loadPosts();
+//   //postStore.getItems(0, 5);
+//   //console.log(postStore.postItems);
+//   console.log(postStore.returnItems);
+//     this.setState({
+//       items: postStore.returnItems
+      
+//     });
+// console.log(this.items);
+    
+//   }
 
-  componentDidMount() {
-    const { postStore } = this.props;
-    postStore.getItems(0, 6);
-    this.setState({
-      items: postStore.returnItems
-    });
-  }
-
-  // //젤 처음에 보여줄 곳을 axios로 우리 back에서 호출하자.
-  // fetch("https://jsonplaceholder.typicode.com/photos/100")
-  //   .then(response => response.json())
-  //   .then(json => {
-  //     console.log(json.id)
-  //     console.log(json.title)
-  //   }
-  //   )
-  // }
 
   //추가로 데이터를 호출한다. axios로. 이걸 여기서 할지 store에서 할 지는 고민을 좀 해보자.
   fetchMoreData = () => {
@@ -48,10 +51,10 @@ class PostList extends Component {
 
   render() {
     const { items, hasMoreItems } = this.state;
-
+    
     return (
       <InfiniteScroll
-        dataLength={items.length}
+        dataLength={this.props.postStore.returnItems.length}
         next={this.fetchMoreData}
         hasMore={hasMoreItems}
         loader={
@@ -67,12 +70,15 @@ class PostList extends Component {
         }
         endMessage={<h4>End</h4>}
       >
+        
         <GridDiv>
-          {items.map((item, index) => (
-            <PostCard key={index} post={item} />
+        
+          {this.props.postStore.returnItems.map((item, index) => (
+            
+             <PostCard key={index} post={item} />
           ))}
         </GridDiv>
-      </InfiniteScroll>
+     </InfiniteScroll>
     );
   }
 }

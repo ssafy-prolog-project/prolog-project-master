@@ -97,9 +97,10 @@ export default class EditorStore {
     console.log("여기!!!!!")
     console.log(post)
     return (this.postCode ? this.root.postStore.updatePost(post) : this.root.postStore.createPost(post))
-      .catch(action((err) => {
-        this.errors = err.response && err.response.body && err.response.body.errors; throw err;
-      }))
-      .finally(action(() => { this.inProgress = false; }));
+    // return (this.postCode ? this.root.postStore.updatePost(post) : this.root.postStore.createPost(post))
+    //   .catch(action((err) => {
+    //     this.errors = err.response && err.response.body && err.response.body.errors; throw err;
+    //   }))
+    //   .finally(action(() => { this.inProgress = false; }));
   }
 }
