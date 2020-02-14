@@ -1,6 +1,5 @@
 package com.ssafy.api.config;
 
-import com.ssafy.api.entity.User;
 import com.ssafy.api.model.user.UserParamDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -61,9 +60,8 @@ public class JwtTokenProvider { // JWT 토큰을 생성 및 검증 모듈
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public Object getUserInfo(String token){
-        Object userParamDTO = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("userInfo");
-        return userParamDTO;
+    public UserParamDTO getUserInfo(String token){
+        return (UserParamDTO)Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("userInfo");
     }
 
     // Request의 Header에서 token 파싱 : "X-AUTH-TOKEN: jwt토큰"
