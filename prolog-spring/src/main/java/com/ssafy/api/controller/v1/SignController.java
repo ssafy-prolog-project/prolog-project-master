@@ -5,6 +5,7 @@ import com.ssafy.api.advice.exception.CUserCommunityIdMatchException;
 import com.ssafy.api.model.response.SingleResult;
 import com.ssafy.api.model.social.GoogleProfile;
 import com.ssafy.api.model.social.SocialProfile;
+import com.ssafy.api.model.user.UserParamDTO;
 import com.ssafy.api.service.ResponseService;
 import com.ssafy.api.advice.exception.CUserExistException;
 import com.ssafy.api.advice.exception.CUserNotFoundException;
@@ -46,10 +47,11 @@ public class SignController {
                                        @ApiParam(value = "비밀번호", required = true) @RequestParam String password) {
 
         User user = userJpaRepo.findByUid(id).orElseThrow(CEmailSigninFailedException::new);
+        UserParamDTO userParamDTO = new UserParamDTO(user);
         if (!passwordEncoder.matches(password, user.getPassword()))
             throw new CEmailSigninFailedException();
 
-        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
+        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles(), userParamDTO));
     }
 
     @ApiOperation(value = "소셜 로그인", notes = "소셜 회원 로그인을 한다.")
@@ -70,7 +72,8 @@ public class SignController {
         }
 
         User user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
-        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
+        UserParamDTO userParamDTO = new UserParamDTO(user);
+        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles(), userParamDTO));
     }
 
     @ApiImplicitParams({
@@ -165,7 +168,10 @@ public class SignController {
                 .build();
 
         userJpaRepo.save(inUser);
-        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(inUser.getMsrl()), inUser.getRoles()));
+
+        UserParamDTO userParamDTO = new UserParamDTO(inUser);
+
+        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(inUser.getMsrl()), inUser.getRoles(), userParamDTO));
 //        return responseService.getSuccessResult();
     }
 }
