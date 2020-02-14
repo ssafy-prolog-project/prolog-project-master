@@ -90,8 +90,8 @@ export default class EditorStore {
       coverColor: this.coverColor,
       coverImage: "image",
       body: this.body,
-      postCode: 1
-      //tagList: this.tagList,
+      postCode: undefined,
+      tagList: this.tagList,
       //postCode: this.postCode
     };
     console.log("여기!!!!!")

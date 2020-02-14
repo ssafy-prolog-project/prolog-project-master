@@ -2,7 +2,7 @@ import axios from "axios";
 import commonStore from "./stores/commonStore";
 import authStore from "./stores/authStore";
 
-const API_ROOT = "http://70.12.229.94:8080";
+const API_ROOT = "http://localhost:8080";
 //const API_ROOT = "";
 const VERSION = "/v1"
 //const VERSION = ""
