@@ -10,6 +10,7 @@ import LoginButton from "../LoginButton";
 class UserButton extends Component {
   render() {
     const { values } = this.props.authStore;
+    const check = this.props.authStore.values.sub;
     const { accessToken, provider, id, name, profileimg } = values;
     const Logout = () => {
       this.props.authStore.setAccessToken(undefined);
@@ -22,7 +23,7 @@ class UserButton extends Component {
     };
     return (
       <Img>
-        {profileimg ? (
+        {check ? (
           <>
             <ProfileImg src={profileimg}></ProfileImg>
             <SelectMenus className="menubar">

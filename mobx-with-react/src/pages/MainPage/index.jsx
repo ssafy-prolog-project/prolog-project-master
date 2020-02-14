@@ -5,6 +5,10 @@ import styled from "styled-components";
 import TopBar from "../../components/TopBar";
 import MobileNavBar from "../../components/MobileNavBar";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import CommonStore from '../../stores/commonStore'
+import agent from "../../agent"
+
+const tt = new CommonStore();
 
 class NowLoading extends Component{
   render(){
@@ -34,6 +38,9 @@ class MainPage extends Component {
     var NavTag = null;
     if(this.state.isLoading){
       NavTag=<NowLoading/>
+      console.log("확인"+tt.token);
+      const jwt = window.sessionStorage.getItem("jwt");
+      agent.Auth.current(jwt);
     }else{
       NavTag = 
       <PostList></PostList>

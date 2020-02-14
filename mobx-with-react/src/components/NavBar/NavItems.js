@@ -19,7 +19,7 @@ const NavItems = ({
 }) => {
   const postCards = posts.map(item => <PostCard key={item.id} post={item} />);
   
-  
+    const jwt = window.sessionStorage.getItem("jwt");
     const { accessToken, provider, id, name, profileimg } = values;
   return (
     <NavItemsLayout>
@@ -38,7 +38,7 @@ const NavItems = ({
           <ItemContent>내가 쓴 글</ItemContent>
         </NavItem>
         </Link> */}
-      {profileimg ? (
+      {jwt ? (
         <NavItem onClick={onSortByAuthors}>
           <ItemContent>내가 쓴 글</ItemContent>
         </NavItem>
