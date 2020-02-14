@@ -2,7 +2,6 @@ import { observable, action, computed } from "mobx";
 import { getUnixTime } from "date-fns";
 
 import agent from "../agent";
-import CommonStore from "./commonStore";
 
 export default class PortfolioStore{
     constructor(root){

@@ -24,7 +24,6 @@ export default class CommonStore {
       }
     );
   }
-
   @action setToken(token) {
     this.token = token;
   }

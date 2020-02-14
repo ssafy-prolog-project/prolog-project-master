@@ -1,5 +1,4 @@
 import axios from "axios";
-import CommonStore from "./stores/commonStore";
 import authStore from "./stores/authStore";
 import userStore from "./stores/userStore";
 

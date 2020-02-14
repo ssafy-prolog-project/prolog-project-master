@@ -9,9 +9,8 @@ import LoginButton from "../LoginButton";
 // 누르면 버튼으로 할 수 있는 동작 구현
 class UserButton extends Component {
   render() {
-    const { values } = this.props.authStore;
-    const check = this.props.authStore.values.sub;
-    const { accessToken, provider, id, name, profileimg } = values;
+    const { picture, name, email } = this.props.authStore.user_info;
+    const check = this.props.authStore.token;
     const Logout = () => {
       this.props.authStore.setAccessToken(undefined);
       this.props.authStore.setProfileimg(undefined);
@@ -25,7 +24,7 @@ class UserButton extends Component {
       <Img>
         {check ? (
           <>
-            <ProfileImg src={profileimg}></ProfileImg>
+            <ProfileImg src={picture}></ProfileImg>
             <SelectMenus className="menubar">
               <Link to={"/write"} style={{ textDecoration: "none" }}>
                 <SelectMenu>Post</SelectMenu>

@@ -1,6 +1,5 @@
 import { observable, action } from "mobx";
 import agent from "../agent";
-import commonStore from "./commonStore";
 
 
 export default class UserStore{

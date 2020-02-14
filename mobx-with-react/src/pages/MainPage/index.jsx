@@ -5,10 +5,10 @@ import styled from "styled-components";
 import TopBar from "../../components/TopBar";
 import MobileNavBar from "../../components/MobileNavBar";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import CommonStore from '../../stores/commonStore'
+import authStore from '../../stores/authStore'
 import agent from "../../agent"
 
-const tt = new CommonStore();
+const tt = new authStore();
 
 class NowLoading extends Component{
   render(){
@@ -38,7 +38,8 @@ class MainPage extends Component {
     var NavTag = null;
     if(this.state.isLoading){
       NavTag=<NowLoading/>
-      console.log("확인"+tt.token);
+      console.log(window.sessionStorage.getItem("jwt"));
+      console.log(tt.user_info);
       const jwt = window.sessionStorage.getItem("jwt");
       agent.Auth.current(jwt);
     }else{
