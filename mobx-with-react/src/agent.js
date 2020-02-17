@@ -76,7 +76,7 @@ const Auth = {
     name_update: (name) =>
     requests.put('/user/name',{name: name},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
     
-    getUserDetail: (jwt) =>
+    getUserInfo: (jwt) =>
     requests.get('/user', {"X-AUTH-TOKEN": jwt}),
 }
 

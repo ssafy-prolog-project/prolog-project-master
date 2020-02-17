@@ -34,9 +34,9 @@ class UserProfile extends Component {
       isEditEmail: false,
       isEditIntro: false,
       profileimg: "",
-      name: this.props.authStore.user_info.name,
-      email: this.props.authStore.user_info.email,
-      intro: this.props.authStore.user_info.greeting,
+      name: "",
+      email: "",
+      intro: "",
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -48,7 +48,7 @@ class UserProfile extends Component {
 
   render() {
     
-    const { picture, name, email, greeting } = this.props.authStore.user_info;
+    const { picture, name, email, greeting } = this.props.authStore.user_detail;
     // const { userInfo } = this.props.userStore;
     // const { profileImg, userId, userName } = userInfo;
     //const { values } = this.props.authStore;

@@ -19,7 +19,7 @@ class UserButton extends Component {
       <Img>
         {check ? (
           <>
-            <ProfileImg src={this.props.authStore.user_info.picture}></ProfileImg>
+            <ProfileImg src={this.props.authStore.user_detail.picture}></ProfileImg>
             <SelectMenus className="menubar">
               <Link to={"/write"} style={{ textDecoration: "none" }}>
                 <SelectMenu>Post</SelectMenu>

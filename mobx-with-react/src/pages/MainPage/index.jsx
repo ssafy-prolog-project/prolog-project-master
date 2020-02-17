@@ -39,7 +39,7 @@ class MainPage extends Component {
     if(this.state.isLoading){
       NavTag=<NowLoading/>
       console.log(window.sessionStorage.getItem("jwt"));
-      console.log(tt.user_info);
+      console.log(tt.user_detail);
       const jwt = window.sessionStorage.getItem("jwt");
       agent.Auth.current(jwt);
     }else{
