@@ -8,14 +8,11 @@ import Skills from "../../components/Portfolio/Skills";
 import Project from "./Project";
 import Contact from "./Contact";
 
-import SkillIcon, { jquery} from "../../components/Common/SkillIcon"
-
 class PortfolioPage extends Component{
     render(){
         return(
             
             <PortfolioLayout>
-                <SkillIcon></SkillIcon>
                 <Title></Title>
                 <About></About>
                 <Skills></Skills>
