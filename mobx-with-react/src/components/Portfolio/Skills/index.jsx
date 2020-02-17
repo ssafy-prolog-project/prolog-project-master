@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Edit } from "styled-icons/boxicons-regular/Edit";
 import { inject, observer } from "mobx-react";
-import DevIcon from "devicon-react-svg";
 import SkillItemList from "../SkillItemList";
 import SkillComboBox from "../SkillComboBox";
 
@@ -11,11 +10,6 @@ export const EditP = styled(Edit)`
   width: 1rem;
   height: 1rem;
   margin-bottom: 2.4rem;
-`;
-
-export const Icon = styled(DevIcon)`
-  width: 3rem;
-  height: 3rem;
 `;
 
 @inject("portfolioStore")
