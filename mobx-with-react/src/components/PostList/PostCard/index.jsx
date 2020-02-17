@@ -16,17 +16,19 @@ const PostCard = ({ post }) => {
   return (
     <CardMainLayOut>
       <OutL>
-        <Link to={"/post/" + postCode}>
+        <Link to={"/post/" + postCode} style={{ textDecoration: "none" }}>
          
           {coverImage ? (
             <CardImage src={coverImage}></CardImage>
           ) : (
-            <DefaultImage></DefaultImage>
+            <DefaultImage color={coverColor}></DefaultImage>
           )}
+           
         </Link>
+        
       </OutL>
       <OutT>
-        <CardTitle>{title}</CardTitle>
+      <CardTitle>{title}</CardTitle>
         {/* <Date>{dateInfo}</Date> */}
         {/* <CardDescription>{text}</CardDescription> */}
         {/* <p style={{ color: "black" }}>작성자 : {author}</p>
@@ -65,6 +67,9 @@ const CardImage = styled.img`
   left: 0;
   width: 100%;
   height: 100%;
+  :hover{
+    filter: brightness(70%);
+  }
 `;
 
 const DefaultImage = styled.div`
@@ -75,12 +80,22 @@ const DefaultImage = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: ${props => props.color};
+  z-index: 1;
+  :hover{
+    filter: brightness(70%);
+  }
   /* background-color: ; */
 `;
 
 const CardTitle = styled.h2`
-  font-weight: bold;
   color: black;
+  z-index: 2;
+  position: relative;
+  /* top:60px;
+  left: 40%; */
+  font-family: Inconsolas;
+  font-size: 20px;
 `;
 
 const OutT = styled.div`

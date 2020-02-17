@@ -88,19 +88,20 @@ export default class EditorStore {
     const post = {
       title: this.title,
       coverColor: this.coverColor,
-      coverImage: "image",
+      coverImage: this.coverImage,
       body: this.body,
-      postCode: undefined,
-      tagList: this.tagList,
+      //postCode: undefined,
+      //tagList: this.tagList,
       //postCode: this.postCode
     };
-    console.log("여기!!!!!")
-    console.log(post)
     return (this.postCode ? this.root.postStore.updatePost(post) : this.root.postStore.createPost(post))
     // return (this.postCode ? this.root.postStore.updatePost(post) : this.root.postStore.createPost(post))
-    //   .catch(action((err) => {
-    //     this.errors = err.response && err.response.body && err.response.body.errors; throw err;
-    //   }))
-    //   .finally(action(() => { this.inProgress = false; }));
+//     .then(res=>{
+// console.log(res)
+//     })  
+//     .catch(action((err) => {
+//         this.errors = err.response && err.response.body && err.response.body.errors; throw err;
+//       }))
+//       .finally(action(() => { this.inProgress = false; }));
   }
 }

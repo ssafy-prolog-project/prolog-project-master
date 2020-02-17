@@ -80,9 +80,9 @@ class PostDetailPage extends Component {
             <Cover color={this.props.postStore.detailPost.coverColor}></Cover>
           )}
             <Title>{this.props.postStore.detailPost.title}</Title>
-            {/* <p>게시날짜: {this.props.postStore.detailPost.updateDate}</p> */}
+            <Date>{this.props.postStore.detailPost.updateDate}</Date>
+            {/* <p>게시날짜: </p> */}
             
-
             <TestContainer>
           <div></div>
         <EditorLayout>
@@ -127,8 +127,16 @@ const Title = styled.div`
   font-size: 60px;
   font-family: Inconsolas;
 `;
+const Date = styled.div`
+z-index: 2;
+  position: relative;
+  top: -150px;
+  left: 15%;
+  /* font-size: 60px; */
+  font-family: Inconsolas;
+`;
 const Coverimg = styled.img`
-z-index: 1;
+z-index: 2;
   height: 28rem;
   /* border-bottom-style: solid;
   border-color: gray;
