@@ -14,19 +14,13 @@ const NavItems = ({
   onSortByIds,
   onSortByViews,
   onSortByAuthors,
-  onSortByDates
+  onSortByDates,
+  values
 }) => {
   const postCards = posts.map(item => <PostCard key={item.id} post={item} />);
-  const [user, setUser] = useState("10");
-  const authenticated = user != null;
-
-  const login = ({ email, password }) =>
-    setUser({ email: "kim@test.com", password: "123", name: "Kim" });
-  // signIn({ email, password })
-  const logout = () => setUser(null);
-  const LoginAlert = () => {
-    alert("로그인해주세요!");
-  };
+  
+    const jwt = window.sessionStorage.getItem("jwt");
+    const { accessToken, provider, id, name, profileimg } = values;
   return (
     <NavItemsLayout>
       <Link to={"/"} style={{ textDecoration: "none" }}>
@@ -44,7 +38,7 @@ const NavItems = ({
           <ItemContent>내가 쓴 글</ItemContent>
         </NavItem>
         </Link> */}
-      {authenticated ? (
+      {jwt ? (
         <NavItem onClick={onSortByAuthors}>
           <ItemContent>내가 쓴 글</ItemContent>
         </NavItem>
@@ -90,7 +84,7 @@ const ItemContent = styled.a`
   align-items: center;
 `;
 
-export default inject(({ postStore }) => ({
+export default inject(({ postStore, authStore }) => ({
   posts: postStore.postItems,
   onAdd: postStore.add,
   onDelete: postStore.delete,
@@ -98,5 +92,6 @@ export default inject(({ postStore }) => ({
   onSortByIds: postStore.sortByIds,
   onSortByViews: postStore.sortByViews,
   onSortByAuthors: postStore.sortByAuthors,
-  onSortByDates: postStore.sortByDates
+  onSortByDates: postStore.sortByDates,
+  values: authStore.values
 }))(observer(NavItems));

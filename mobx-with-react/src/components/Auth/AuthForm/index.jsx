@@ -22,8 +22,8 @@ class AuthForm extends React.Component {
 
   render() {
     const { values, inProgress } = this.props.authStore;
-    const { accessToken, provider} = values;
-    console.log(accessToken, provider)
+    const { accessToken, refreshToken, provider} = values;
+    console.log(accessToken, refreshToken, provider)
     console.log('inprogress', inProgress)
     return (
       <LineBox>

@@ -25,13 +25,15 @@ width: 2rem;
 @inject("userStore", "authStore")
 @observer
 class UserProfile extends Component {
+
   constructor(props) {
     super(props);
+    const check = this.props.authStore.token;
     this.state = {
       isEditName: false,
       isEditEmail: false,
       isEditIntro: false,
-      profileimg: this.props.authStore.values.profileimg,
+      profileimg: "",
       name: "",
       email: "",
       intro: ""
@@ -45,6 +47,8 @@ class UserProfile extends Component {
   };
 
   render() {
+    
+    const { picture, name, email, greeting } = this.props.authStore.user_info;
     // const { userInfo } = this.props.userStore;
     // const { profileImg, userId, userName } = userInfo;
     //const { values } = this.props.authStore;
@@ -98,21 +102,21 @@ class UserProfile extends Component {
 
     const showname = (
       <UpdateName>
-        <UserName>Name: {this.props.authStore.values.name}</UserName>
+        <UserName>Name: {name}</UserName>
         <PencilIncon onClick={NameClick}></PencilIncon>
       </UpdateName>
     );
 
     const showemail = (
       <UpdateEmail>
-        <UserEmail>Email: {this.props.authStore.values.email}</UserEmail>
+        <UserEmail>Email: {email}</UserEmail>
         <PencilIncon onClick={EmailClick}></PencilIncon>
       </UpdateEmail>
     );
 
     const showintro = (
       <UpdateIntro>
-      <UserIntro>Intro: {this.props.authStore.values.intro}</UserIntro>
+      <UserIntro>Intro: {greeting}</UserIntro>
       <PencilIncon onClick={IntroClick}></PencilIncon>
       </UpdateIntro>
     );
@@ -123,7 +127,7 @@ class UserProfile extends Component {
         <InputName
           type="text"
           name="name"
-          placeholder={this.props.authStore.values.name}
+          placeholder={name}
           value={this.state.name}
           onChange={this.handleChange}
         ></InputName>
@@ -137,7 +141,7 @@ class UserProfile extends Component {
         <InputEmail
           type="text"
           name="email"
-          placeholder={this.props.authStore.values.email}
+          placeholder={email}
           value={this.state.email}
           onChange={this.handleChange}
         />
@@ -151,7 +155,7 @@ class UserProfile extends Component {
         <InputIntro
           type="text"
           name="intro"
-          placeholder={this.props.authStore.values.intro}
+          placeholder={greeting}
           value={this.state.intro}
           onChange={this.handleChange}
         />
@@ -166,9 +170,9 @@ class UserProfile extends Component {
       <UserProfileLayout>
         <Link to={"/mypage"} style={{ textDecoration: "none" }}>
           <Img>
-            {this.props.authStore.values.profileimg ? (
+            {picture ? (
               <ProfileImg
-                src={this.props.authStore.values.profileimg}
+                src={picture}
               ></ProfileImg>
             ) : (
               <DefaultImage src="https://image.flaticon.com/icons/svg/747/747376.svg"></DefaultImage>

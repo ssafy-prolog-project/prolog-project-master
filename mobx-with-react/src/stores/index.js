@@ -1,7 +1,6 @@
 import PostStore from './postStore';
 import EditorStore from './editorStore';
 import AuthStore from './authStore';
-import CommonStore from './commonStore';
 import UserStore from './userStore';
 import CommentStore from './commentStore';
 import PortfolioStore from './portfolioStore';
@@ -9,7 +8,6 @@ import PortfolioStore from './portfolioStore';
 class RootStore {
   constructor() {
     this.authStore = new AuthStore(this);
-    this.commonStore = new CommonStore(this);
     this.userStore = new UserStore(this);
     this.postStore = new PostStore(this);
     this.editorStore = new EditorStore(this);

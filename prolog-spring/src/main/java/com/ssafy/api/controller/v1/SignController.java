@@ -5,6 +5,7 @@ import com.ssafy.api.advice.exception.CUserCommunityIdMatchException;
 import com.ssafy.api.model.response.SingleResult;
 import com.ssafy.api.model.social.GoogleProfile;
 import com.ssafy.api.model.social.SocialProfile;
+import com.ssafy.api.model.user.UserParamDTO;
 import com.ssafy.api.service.ResponseService;
 import com.ssafy.api.advice.exception.CUserExistException;
 import com.ssafy.api.advice.exception.CUserNotFoundException;
@@ -46,10 +47,11 @@ public class SignController {
                                        @ApiParam(value = "비밀번호", required = true) @RequestParam String password) {
 
         User user = userJpaRepo.findByUid(id).orElseThrow(CEmailSigninFailedException::new);
+        UserParamDTO userParamDTO = new UserParamDTO(user);
         if (!passwordEncoder.matches(password, user.getPassword()))
             throw new CEmailSigninFailedException();
 
-        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
+        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles(), userParamDTO));
     }
 
     @ApiOperation(value = "소셜 로그인", notes = "소셜 회원 로그인을 한다.")
@@ -70,7 +72,8 @@ public class SignController {
         }
 
         User user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
-        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
+        UserParamDTO userParamDTO = new UserParamDTO(user);
+        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles(), userParamDTO));
     }
 
     @ApiImplicitParams({
@@ -130,7 +133,7 @@ public class SignController {
     @PostMapping(value = "/signup/{provider}")
     public CommonResult signupProvider(@ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
                                        @ApiParam(value = "소셜 access_token", required = true) @RequestHeader String accessToken,
-                                       @ApiParam(value = "소셜 refresh_token", required = false) @RequestHeader String refreshToken
+                                       @ApiParam(value = "소셜 refresh_token") @RequestHeader(defaultValue = "") String refreshToken
                                        ) {
         SocialProfile profile = null;
 
@@ -144,13 +147,15 @@ public class SignController {
             throw new CUserCommunityIdMatchException();
         }
 
-        if(refreshToken != null){
+        if(refreshToken != null || refreshToken.equals("")){
             profile.setRefreshToken(refreshToken);
         }
 
         Optional<User> user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider);
+
         if (user.isPresent())
-            throw new CUserExistException();
+            return signinByProvider(provider, accessToken);
+//            throw new CUserExistException();
 
         User inUser = User.builder()
                 .uid(String.valueOf(profile.getId()))
@@ -163,6 +168,10 @@ public class SignController {
                 .build();
 
         userJpaRepo.save(inUser);
-        return responseService.getSuccessResult();
+
+        UserParamDTO userParamDTO = new UserParamDTO(inUser);
+
+        return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(inUser.getMsrl()), inUser.getRoles(), userParamDTO));
+//        return responseService.getSuccessResult();
     }
 }

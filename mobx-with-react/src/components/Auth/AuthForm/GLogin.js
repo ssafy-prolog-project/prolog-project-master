@@ -26,6 +26,7 @@ class GLogin extends Component {
       provider: "google"
     });
     console.log("구글 login success");
+    console.log(res);
     this.props.authStore.setAccessToken(res.accessToken);
     this.props.authStore.setProvider("google");
     this.props.authStore.login().then(() => {

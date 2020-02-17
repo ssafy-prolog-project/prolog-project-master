@@ -1,6 +1,10 @@
 package com.ssafy.api.config.security;
 
 import com.ssafy.api.config.JwtTokenProvider;
+import com.ssafy.api.model.user.UserParamDTO;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;

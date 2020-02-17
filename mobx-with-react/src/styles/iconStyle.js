@@ -12,6 +12,8 @@ import {AlignLeft} from "styled-icons/boxicons-regular/AlignLeft"
 import { ArrowBack } from "styled-icons/boxicons-regular/ArrowBack";
 import { ColorFill } from "styled-icons/boxicons-solid/ColorFill";
 import { PrimitiveDot } from "styled-icons/octicons/PrimitiveDot";
+import { LinearScale } from "styled-icons/material/LinearScale";
+import { ImageAdd } from "styled-icons/remix-fill/ImageAdd";
 
 export const KakaoTalkIcon = styled(KakaoTalk)`
   cursor: pointer;
@@ -42,6 +44,13 @@ export const ImageIcon = styled(Image2)`
   width: 40px;
   color: ${props => props.color};
 `;
+
+export const ImageAddIcon = styled(ImageAdd)`
+  cursor: pointer;
+  width: 40px;
+  color: ${props => props.color};
+`;
+
 
 export const VideoIcon = styled(Videos)`
   cursor: pointer;
@@ -92,3 +101,9 @@ export const ArrowBackIcon = styled(ArrowBack)`
   color: white;
   width: 50px;
 `;
+
+export const HorizontalLineIcon = styled(LinearScale)`
+  cursor: pointer;
+  width: 40px;
+  color: black;
+`

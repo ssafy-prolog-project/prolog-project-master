@@ -1,5 +1,6 @@
 package com.ssafy.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,19 +14,24 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "comments")
 public class Comment extends CommonDateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "comment_code")
     private int cmtId;
-    @Column(name = "username", nullable = false)
-    private String userName;
+    
     @Column(name = "content", nullable = false)
     private String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action  = OnDeleteAction.CASCADE)
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action  = OnDeleteAction.CASCADE)
+    @JoinColumn(name = "post_code")
     private Post post; // postId 사용
 
 }

@@ -2,7 +2,6 @@ import { observable, action, computed } from "mobx";
 import { getUnixTime } from "date-fns";
 
 import agent from "../agent";
-import CommonStore from "./commonStore";
 
 export default class PortfolioStore{
     constructor(root){
@@ -13,11 +12,11 @@ export default class PortfolioStore{
     @observable errors = undefined;
 
     @observable values = {
-        title: undefined,
+        title: "제목을 입력하세요",
         title_back: undefined,
-        about: "about입니당",
-        skills: undefined,
-        email: undefined,
+        about: "자신에 대해서 소개해주세요.",
+        skills: "react",
+        email: "이메일을 입력하세요.",
         posts: undefined,
     }
 

@@ -30,11 +30,10 @@ class WriteTags extends React.Component {
           ref="tagEditor"
           tags={this.state.tags}
           delimiters={[13, ","]} //13은 enter
-          placeholder="태그를 입력해주세요~"
+          placeholder="태그를 입력해주세요."
           onChange={this.handleTagsChange}
         />
         {/* <div className="output">Tags output: {this.state.tags.join(", ")}</div> */}
-        
       </WriteTagLayout>
     );
   }

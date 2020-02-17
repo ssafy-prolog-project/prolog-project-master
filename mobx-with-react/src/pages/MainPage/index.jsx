@@ -5,6 +5,10 @@ import styled from "styled-components";
 import TopBar from "../../components/TopBar";
 import MobileNavBar from "../../components/MobileNavBar";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import authStore from '../../stores/authStore'
+import agent from "../../agent"
+
+const tt = new authStore();
 
 class NowLoading extends Component{
   render(){
@@ -17,23 +21,27 @@ class MainPage extends Component {
     isLoading: false,
   }
 
-  componentDidMount(){
-    this.setState({isLoading:true},()=>{console.log(this.state.isLoading)})
-    console.log(this.state.isLoading)
-    fetch('list.json')
-    .then(function(result){
-      return result.json
-    })
-    .then(function(json){
-      console.log(json);
-      this.setState({isLoading:false})
-    }.bind(this))
-  }
+  // componentDidMount(){
+  //   this.setState({isLoading:true},()=>{console.log(this.state.isLoading)})
+  //   console.log(this.state.isLoading)
+  //   fetch('list.json')
+  //   .then(function(result){
+  //     return result.json
+  //   })
+  //   .then(function(json){
+  //     console.log(json);
+  //     this.setState({isLoading:false})
+  //   }.bind(this))
+  // }
 
   render(){
     var NavTag = null;
     if(this.state.isLoading){
       NavTag=<NowLoading/>
+      console.log(window.sessionStorage.getItem("jwt"));
+      console.log(tt.user_info);
+      const jwt = window.sessionStorage.getItem("jwt");
+      agent.Auth.current(jwt);
     }else{
       NavTag = 
       <PostList></PostList>

@@ -12,7 +12,13 @@ import { withRouter } from "react-router-dom";
 @observer
 class PostWritePage extends Component {
   state = {
-    tagInput: ""
+    tagInput: "",
+    title:"",
+    coverColor:"",
+      coverImage:"",
+      body:"",
+      tagList:"",
+      postCode:""
   };
 
   componentWillMount() {
@@ -70,11 +76,16 @@ class PostWritePage extends Component {
     ev.preventDefault();
     const { editorStore } = this.props;
     editorStore.save();
+    
     // .then(post => {
     //   editorStore.reset();
     //   this.props.history.replace(`/post/${post.id}`);
     // });
   };
+
+  setBody = b => {
+    this.props.editorStore.setBody(b)
+  }
 
   render() {
     const {
@@ -84,7 +95,8 @@ class PostWritePage extends Component {
       coverColor,
       coverImage,
       body,
-      tagList
+      tagList,
+      postCode
     } = this.props.editorStore;
 
     return (
@@ -96,12 +108,13 @@ class PostWritePage extends Component {
           changeTitle={this.changeTitle}
           changeCoverColor={this.changeCoverColor}
           changeCoverImage={this.changeCoverImage}
+          postCode={this.postCode}
           save={this.save}
         ></WriteTopBar>
+        <WriteEditor setBody={this.setBody}></WriteEditor>
         <WriteAreaLayout>
           <div></div>
           <div>
-            <WriteEditor></WriteEditor>
             <WriteTags
               changeTags={this.changeTags}
               tagList={this.props.editorStore.tagList}
@@ -109,11 +122,18 @@ class PostWritePage extends Component {
             >
               {" "}
             </WriteTags>
-            <SaveBtn onClick={this.save}>저장</SaveBtn>
+            <SaveBtn 
+            title={title}
+            coverColor={coverColor}
+            coverImage={coverImage}
+            changeTitle={this.changeTitle}
+            changeCoverColor={this.changeCoverColor}
+            changeCoverImage={this.changeCoverImage}
+            postCode={this.postCode}
+            save={this.save}
+            onClick={this.save}>저장</SaveBtn>
           </div>
-          <div>
-            <EditorHelper></EditorHelper>
-          </div>
+          <div></div>
         </WriteAreaLayout>
       </PostWritePageLayout>
     );
@@ -133,9 +153,10 @@ const WriteTagLayout = styled.div`
 const WriteAreaLayout = styled.div`
   display: grid;
   grid-template-columns: 15% 70% 15%;
-`;
+`
 
-const SaveBtn = styled.button`
+
+const SaveBtn = styled.div`
   border-radius: 5px;
   border-color: black;
   border: 1px solid black;

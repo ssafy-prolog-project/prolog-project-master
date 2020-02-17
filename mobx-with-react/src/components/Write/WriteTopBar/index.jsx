@@ -5,17 +5,18 @@ import { SketchPicker } from "react-color";
 
 import { ArrowBackIcon, PrimitiveDotIcon } from "../../../styles/iconStyle.js";
 
+
 const blackColor = "#a6a6a6";
 const redColor = "#ff9999";
 const greenColor = "#66cc99";
 const blueColor = "#9494d1";
 const yellowColor = "#ac7339";
 const color10 = "#555555";
-const color9 = "#A97857"
-const color8 = "#536B82"
-
+const color9 = "#A97857";
+const color8 = "#536B82";
 
 const WriteTopBar = ({ title, coverColor, changeTitle, changeCoverColor }) => {
+
   const [color, setColor] = useState(coverColor);
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const onCircleClick = color => {
@@ -68,6 +69,7 @@ const WriteTopBar = ({ title, coverColor, changeTitle, changeCoverColor }) => {
       <Link to={"/"} style={{ textDecoration: "none" }}>
         <ArrowBackIcon></ArrowBackIcon>
       </Link>
+      
       <HeaderDiv>
         <HeaderInput placeholder="제목을 입력하세요" color={color} value={title} onChange={changeTitle} />
       </HeaderDiv>
@@ -121,7 +123,7 @@ const ColorDots = styled.div`
   margin-top: 12rem;
   position: absolute;
   margin-left: 33%;
-`;
+  `
 
 const HeaderDiv = styled.div`
   text-align: center;

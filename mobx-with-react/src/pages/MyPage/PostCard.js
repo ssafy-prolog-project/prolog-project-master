@@ -6,16 +6,16 @@ import { formatDistanceToNow, fromUnixTime } from 'date-fns'
 import { ko } from 'date-fns/locale'
 
 const PostCard = ({ post }) => {
-    const { id, imgUrl, title, text, author, date, views } = post;
-    const dateFormat = fromUnixTime(date)
-    const dateInfo = formatDistanceToNow(dateFormat, {addSuffix:true, locale:ko})
+    const { postCode, coverImg, title, body, author, updateDate, postView } = post;
+    //const dateFormat = fromUnixTime(date)
+    //const dateInfo = formatDistanceToNow(dateFormat, {addSuffix:true, locale:ko})
   
     return (
       <CardMainLayOut>
         <OutL>
-          <Link to={"/post/" + id}>
-            {imgUrl ? (
-              <CardImage src={imgUrl}></CardImage>
+          <Link to={"/post/" + postCode}>
+            {coverImg ? (
+              <CardImage src={coverImg}></CardImage>
             ) : (
               <DefaultImage></DefaultImage>
             )}
@@ -23,9 +23,8 @@ const PostCard = ({ post }) => {
         </OutL>
         <OutT>
           <CardTitle>{title}</CardTitle>
-          <CardDescription>{text}</CardDescription>
-          <Date>{dateInfo}</Date>
-          <p style={{ color: "black" }}>조회수 : {views}</p>
+          <Date>{updateDate}</Date>
+          <p style={{ color: "black" }}>조회수 : {postView}</p>
         </OutT>
         <hr/>
       </CardMainLayOut>
