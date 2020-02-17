@@ -6,10 +6,12 @@ import { formatDistanceToNow, fromUnixTime } from 'date-fns'
 import { ko } from 'date-fns/locale'
 
 const ProjectList = ({post}) => {
-    const { id, imgUrl, title, text, author, date, views } = post;
-    const dateFormat = fromUnixTime(date)
-    const dateInfo = formatDistanceToNow(dateFormat, {addSuffix:true, locale:ko})
-
+    const { id, imgUrl, title, text, author, updateDate, views } = post;
+    //console.log(updateDate)
+    //const dateFormat = fromUnixTime(updateDate)
+    //console.log("여기야!!!!!" + dateFormat + " " + updateDate);
+    //const dateInfo = formatDistanceToNow(dateFormat, {addSuffix:true, locale:ko})
+   
     return(
         <ProjectListLayout>
             <OutL>

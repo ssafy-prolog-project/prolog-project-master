@@ -147,7 +147,7 @@ public class SignController {
             throw new CUserCommunityIdMatchException();
         }
 
-        if(refreshToken != null){
+        if(refreshToken != null || refreshToken.equals("")){
             profile.setRefreshToken(refreshToken);
         }
 
