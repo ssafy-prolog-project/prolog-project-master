@@ -48,7 +48,7 @@ class PostDetailPage extends Component {
     this.props.postStore.getPost(id);
     //const post = this.props.postStore.detailPost;
     if (!this.props.postStore.detailPost) return <h1>Post가 없습니다. 에러처리</h1>;
-
+console.log(this.props.postStore.detailPost);
     const canModify = currentUser && currentUser.name === this.props.postStore.detailPost.user.username;
 
     //author는 유저정보가 들어오고 클래스여야한다.
@@ -63,6 +63,7 @@ class PostDetailPage extends Component {
       this.props.authStore.setIntro("소개를 입력해주세요.");
       this.props.authStore.setProvider(undefined);
     };
+    const post = this.props.postStore.detailPost;
     return (
       <PostDetailPageLayout>
         <PostViewHeader>
@@ -74,13 +75,13 @@ class PostDetailPage extends Component {
         <PostContentWrapper>
           
           <PostContent>
-          {this.props.postStore.detailPost.coverImg ? (
-            <Coverimg src={this.props.postStore.detailPost.coverImg}></Coverimg>
+          {post.coverImg ? (
+            <Coverimg src={post.coverImg}></Coverimg>
           ) : (
-            <Cover color={this.props.postStore.detailPost.coverColor}></Cover>
+            <Cover color={post.coverColor}></Cover>
           )}
-            <Title>{this.props.postStore.detailPost.title}</Title>
-            <Date>{this.props.postStore.detailPost.updateDate}</Date>
+            <Title>{post.title}</Title>
+            <Date>{post.updateDate}</Date>
             {/* <p>게시날짜: </p> */}
             
             <TestContainer>
