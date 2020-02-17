@@ -28,7 +28,7 @@ class Skills extends Component{
         this.state={
             isEdit: false,
             input: '',
-            skills: [{text: 'mongodb', checked: true}]
+            skills: [{id:0, text: 'mongodb', checked: true}]
         };
 
         this.handleChange=this.handleChange.bind(this);
@@ -38,8 +38,49 @@ class Skills extends Component{
         nextState[e.target.name]=e.target.value;
         this.setState(nextState);
     }
+    
+    handleToggle = (id) => {
+        const {skills} = this.state;
+        const index = skills.findIndex(skill => skill.id ===id);
+        const selected = skills[index];
+        const nextSkills = [...skills];
+    
+        nextSkills[index]={
+          ...selected,
+          checked: !selected.checked
+        }
+    
+        this.setState({
+          skills: nextSkills
+        })
+      }
+
+      
+      handleAdd=()=>{
+        const{input, skills} = this.state;
+        this.setState({
+            input: '',
+            skills: skills.concat({
+                id: this.id++,
+                text: input,
+                checked: false
+            })
+        })
+   }
+
+   handleRemove=(id)=>{
+    const{skills} = this.state;
+    this.setState({
+      skills:skills.filter(skill=> skill.id !==id)
+    })
+  }
     render(){
         const {input, skills}=this.state;
+        const{
+            handleToggle,
+            handleRemove,
+            handleAdd
+          }=this;
         const handleClick=()=>{
             if(this.state.isEdit) {
                 
@@ -60,16 +101,6 @@ class Skills extends Component{
            })
        }
 
-       const handleAdd=()=>{
-            const{input, skills} = this.state;
-            this.setState({
-                input: '',
-                skills: skills.concat({
-                    text: input,
-                    checked: false
-                })
-            })
-       }
 
        const commonView=(
             <SkillsLayout>
@@ -86,7 +117,7 @@ class Skills extends Component{
                 <SkTitle>Skills<EditP onClick={handleClick}/></SkTitle>
                 <SkContent>
                 <Form value={input} onChange={handleChange} onCreate={handleAdd}/>
-                <SkillItemList skills={skills}/>
+                <SkillItemList skills={skills} onToggle={handleToggle} onRemove={handleRemove}/>
                 </SkContent>
             </SkillsLayout>
         );

@@ -111,7 +111,7 @@ export default class AuthStore {
       // .then(() => this.root.userStore.pullUser()) //login 성공한 유저정보를 불러온다.
       .catch(
         action(err => {
-          console.log("err" + err);
+          console.log("err   " + err);
           this.errors =
             err.response && err.response.body && err.response.body.errors;
           throw err;
@@ -149,8 +149,7 @@ export default class AuthStore {
   }
 
   @action logout() {
-    this.setToken(undefined);
-    this.root.userStore.forgetUser();
-    return Promise.resolve();
+    window.sessionStorage.removeItem("jwt");
+    window.location.reload();
   }
 }
