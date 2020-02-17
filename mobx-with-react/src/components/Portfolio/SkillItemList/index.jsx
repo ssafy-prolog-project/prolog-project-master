@@ -5,9 +5,16 @@ import styled from 'styled-components';
 class SkillItemList extends Component {
   render() {
     //TODO : null처리
-    const skillList  = this.props.skills.map((item,index)=> (
-      <SkillItem key={index} text={item.value} />
-    ));
+    let skillList = undefined
+    if(this.props.skills){
+      skillList  = this.props.skills.map((item,index)=> (
+        <SkillItem key={index} text={item.value} />
+      ));
+    }
+    else{
+      skillList = (<div></div>)
+    }
+    
     return (
       <SkillItemListLayout>
         {skillList}       

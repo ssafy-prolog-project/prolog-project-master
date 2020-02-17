@@ -83,7 +83,7 @@ class Skills extends Component {
             skills={this.state.skills}
             change={this.handleChangeSkills}
           ></SkillComboBox>
-          <SkillItemList skills={this.state.skills} />
+          <SkillItemList skills={this.props.portfolioStore.skills} />
         </SkContent>
       </SkillsLayout>
     );
