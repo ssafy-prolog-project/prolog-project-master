@@ -61,12 +61,8 @@ public class PostsController {
     @ApiOperation(value = "Post 작성", notes = "글을 새로 작성합니다.")
     @PostMapping(value = "/post") //data : post()
     public SingleResult<Post> post(@RequestBody @Valid PostDTO post){
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println(post.getTitle());
-        System.out.println(post.getBody());
-        // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        // String id = authentication.getName();
-        String id = "1";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
         return responseService.getSingleResult(postsService.writePost(Long.parseLong(id), post));
     }
 
@@ -74,7 +70,7 @@ public class PostsController {
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
     @ApiOperation(value = "Post 수정", notes = "글을 수정합니다.")
-    @PutMapping(value ="/post/{postCode}")//id
+    @PutMapping(value ="/post/{postCode}")
     public SingleResult<Post> post(@PathVariable int postCode, @RequestBody PostDTO post){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
@@ -92,4 +88,10 @@ public class PostsController {
         postsService.deletePost(Long.parseLong(id),postCode);
         return responseService.getSuccessResult();
     }
+
+//    @ApiOperation(value="Post Search" , notes = "글을 검색합니다.")
+//    @GetMapping(value="/post/search/{searchKeyWord}")
+//    public ListResult<Post> getSearchPosts(@PathVariable String searchKeyWord){
+//        return responseService.getListResult(postsService.searchByKeyWords(searchKeyWord));
+//    }
 }
