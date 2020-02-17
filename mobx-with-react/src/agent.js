@@ -37,7 +37,7 @@ const requests = {
       
   post: (url, body, header) =>
     axios
-      .post(`${API_ROOT}${VERSION}${url}`, body,{headers: header}),
+      .post(`${API_ROOT}${VERSION}${url}`, body, {headers: header}),
       //.then(res => console.log(res))
       //.catch(err =>  console.log(err)),
   put: (url, body) =>
@@ -80,11 +80,16 @@ const Posts = {
   byAuthor : () => 
   requests.get(`/post`),
   
-  create: (post) =>
-  requests.post('/post', {post}),
+  create: post =>{
+    // if(window.sessionStorage.getItem("jwt")==null || window.sessionStorage.getItem("jwt")=="") new Error("로그인 하러 가자!")
+    console.log("왜안될까...?")
+    console.log(post);
+    requests.post('/post', {post}, {"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")})
+  },
+
 
   update: post => 
-  requests.put(`/post/${post.id}`, { post}),
+  requests.put(`/post/${post.id}`, {post}),
   
   get: id =>
   requests.get(`/post/${id}`),

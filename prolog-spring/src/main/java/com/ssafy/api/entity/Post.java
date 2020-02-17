@@ -1,22 +1,25 @@
 package com.ssafy.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "posts")
-
 public class Post extends CommonDateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,8 +36,10 @@ public class Post extends CommonDateEntity {
     private String title;
     @Column
     private String coverColor;
-    @Column
-    private String tagList;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> tagList = new ArrayList<>();
 
     @Column(name = "contents")
     private String body;
@@ -55,13 +60,13 @@ public class Post extends CommonDateEntity {
     private boolean pinProject;
 
     // 생성자
-    public Post(User user, String title, String body, String coverImage, String coverColor, String tagList) {
+    public Post(User user, String title, String body, String coverImage, String coverColor, String[] tagList) {
         this.user = user;
         this.title = title;
         this.body = body;
         this.coverImage = coverImage;
         this.coverColor = coverColor;
-        this.tagList = tagList;
+        this.tagList = Arrays.asList(tagList);
     }
 
     // test용
@@ -75,7 +80,7 @@ public class Post extends CommonDateEntity {
     }
 
     // 수정시 데이터 처리
-    public Post setUpdate(String title, String body, String thumbnail, String coverColor, String tagList) {
+    public Post setUpdate(String title, String body, String coverImage, String coverColor, List<String> tagList) {
         this.title = title;
         this.body = body;
         this.coverImage = coverImage;

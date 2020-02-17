@@ -88,10 +88,10 @@ export default class PostStore {
     console.log("여기가 두번쩨!!!!!");
     //console.log(post);
     return agent.Posts.create(post)
-    .then(res => 
-      console.log("성공했니?")
-      )
-    .catch(err => console.log( err))
+    // .then(res => 
+    //   console.log("성공했니?")
+    //   )
+    // .catch(err => console.log( err))
     // .then(action(({ post }) => 
     // {
     //   this.postRegistry.set(post.postCode, post);
