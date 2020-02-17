@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 import DevIcon, {iconList} from "devicon-react-svg";
-import IconAmazonwebservices from 'react-devicon/amazonwebservices/plain-wordmark'
 
 
 
