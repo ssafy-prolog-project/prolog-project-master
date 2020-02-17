@@ -36,6 +36,10 @@ class PostDetailPage extends Component {
     this.props.commentStore.deleteComment(id);
   };
 
+  createMarkup = () => {
+    return { __html: this.props.postStore.detailPost.body };
+  };
+  
   render() {
     const id = this.props.match.params.id;
     //const { currentUser } = this.props.userStore;
@@ -68,9 +72,28 @@ class PostDetailPage extends Component {
           <DetailUserButton></DetailUserButton>
         </PostViewHeader>
         <PostContentWrapper>
-          <Left>Left</Left>
+          
           <PostContent>
-            <PostMeta
+          {this.props.postStore.detailPost.coverImg ? (
+            <Coverimg src={this.props.postStore.detailPost.coverImg}></Coverimg>
+          ) : (
+            <Cover color={this.props.postStore.detailPost.coverColor}></Cover>
+          )}
+            <Title>{this.props.postStore.detailPost.title}</Title>
+            {/* <p>게시날짜: {this.props.postStore.detailPost.updateDate}</p> */}
+            
+
+            <TestContainer>
+          <div></div>
+        <EditorLayout>
+          <div
+            className="ck-content"
+            dangerouslySetInnerHTML={this.createMarkup()}
+          />
+        </EditorLayout>
+        <div></div>
+        </TestContainer>
+            {/* <PostMeta
               post={this.props.postStore.detailPost}
               canModify={canModify}
               onDelete={this.handleDeletePost}
@@ -88,14 +111,49 @@ class PostDetailPage extends Component {
               postId={this.props.postStore.detailPost.postCode}
               currentUser={currentUser}
               onDelete={this.handleDeleteComment}
-            ></PostComments>
+            ></PostComments> */}
           </PostContent>
-          <Right>Right</Right>
         </PostContentWrapper>
       </PostDetailPageLayout>
     );
   }
 }
+
+const Title = styled.div`
+  z-index: 2;
+  position: relative;
+  top: -150px;
+  left: 15%;
+  font-size: 60px;
+  font-family: Inconsolas;
+`;
+const Coverimg = styled.img`
+z-index: 1;
+  height: 28rem;
+  /* border-bottom-style: solid;
+  border-color: gray;
+  border-width: 1px; */
+  position: relative;
+  background-color: ${props => props.color};
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+`;
+
+const Cover = styled.div`
+z-index: 2;
+  height: 28rem;
+  /* border-bottom-style: solid;
+  border-color: gray;
+  border-width: 1px; */
+  position: relative;
+  background-color: ${props => props.color};
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+`;
 
 export default PostDetailPage;
 export const LINKS = styled(Link)`
@@ -105,8 +163,20 @@ export const LINKS = styled(Link)`
 export const DetailUserButton = styled(UserButton)`
   
 `;
-
-
+const EditorLayout = styled.div`
+  box-sizing: border-box;
+  /* border: 1px solid #ddd; */
+  cursor: text;
+  padding: 16px;
+  border-radius: 2px;
+  margin-bottom: 2em;
+  /* box-shadow: inset 0px 1px 8px -3px #ababab; */
+  background: #fefefe;
+`;
+const TestContainer = styled.div`
+  display: grid;
+  /* grid-template-columns: 15% 70% 15%; */
+`;
 
 const PostDetailPageLayout = styled.div`
   flex-direction: row;
@@ -118,8 +188,8 @@ const PostDetailPageLayout = styled.div`
   width: 100%;
   display: grid;
   grid-template-rows: 5rem;
-  /* grid-template-columns: 15% 70% 15% */
-  /* grid-template-areas: "nav content"; */
+  /* grid-template-columns: 15% 70% 15%;
+  grid-template-areas: "nav content"; */
 `;
 
 //TODO 얘는 그리드말고 나중에 flex로 양방향 쪼개기 하면 될듯
@@ -177,8 +247,8 @@ const Right = styled.div`
 
 const PostContent = styled.div`
   grid-area: contents;
-  padding-left: 3rem;
-  padding-right: 3rem;
+  /* padding-left: 3rem;
+  padding-right: 3rem; */
 
   @media (max-width: 768px) {
     padding-left: 1rem;

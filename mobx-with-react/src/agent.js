@@ -38,8 +38,8 @@ const requests = {
   post: (url, body, header) =>
     axios
       .post(`${API_ROOT}${VERSION}${url}`, body,{headers: header}),
-      // .then(res => console.log("post!"+res))
-      // .catch(err =>  console.log("post!"+err)),
+      //.then(res => console.log(res))
+      //.catch(err =>  console.log(err)),
   put: (url, body) =>
     axios
       .put(`${API_ROOT}${VERSION}${url}`, body)

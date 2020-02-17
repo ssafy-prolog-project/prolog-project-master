@@ -7,22 +7,22 @@ import { format, fromUnixTime } from 'date-fns'
 
 const PostDetail = ({ postid, posts }) => {
   const post = posts.get(postid);
-  const { id, title, category, text, author, date, imgUrl } = post;
-  const dateFormat = fromUnixTime(date)
-  const dateInfo = format(dateFormat, 'yyyy년 MM월 dd일')
+  const { postCode, title, body, author, updateDate, coverImg } = post;
+  //const dateFormat = fromUnixTime(date)
+  //const dateInfo = format(dateFormat, 'yyyy년 MM월 dd일')
 
   return (
     <PostDetailLayout>
       <ImageContent>
         <PostContentImageWrapper>
-          <PostContentImage src={imgUrl} alt={title}></PostContentImage>
+          <PostContentImage src={coverImg} alt={title}></PostContentImage>
         </PostContentImageWrapper>
       </ImageContent>
 
       <Div>
       <PostContent>
-        <h3>얘는 카테고리 : {category}</h3>
-        <p>얘는 내용? : {text}</p>
+        
+        <p>얘는 내용? : {body}</p>
       </PostContent>
       </Div>
     </PostDetailLayout>
