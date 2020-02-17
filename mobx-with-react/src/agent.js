@@ -84,7 +84,7 @@ const Posts = {
     // if(window.sessionStorage.getItem("jwt")==null || window.sessionStorage.getItem("jwt")=="") new Error("로그인 하러 가자!")
     console.log("왜안될까...?")
     console.log(post);
-    requests.post('/post', {post}, {"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")})
+    requests.post('/post', {"title":post.title, "coverColor":post.coverColor, "coverImage":post.coverImage, "body": post.body, "tagList": post.tagList}, {"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")})
   },
 
 

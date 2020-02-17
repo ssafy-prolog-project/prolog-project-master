@@ -66,7 +66,7 @@ console.log(this.props.postStore.detailPost);
     const post = this.props.postStore.detailPost;
     return (
       <PostDetailPageLayout>
-        <PostViewHeader>
+        <PostViewHeader color={post.coverColor}>
           <Link to={"/"} style={{ textDecoration: "none" }}>
             <MLogo>Prolog;</MLogo>
           </Link>
@@ -76,12 +76,18 @@ console.log(this.props.postStore.detailPost);
           
           <PostContent>
           {post.coverImg ? (
-            <Coverimg src={post.coverImg}></Coverimg>
+            <Coverimg src={post.coverImg}>
+              <Title>{post.title}</Title>
+              {/* <Date>{post.updateDate}</Date> */}
+            </Coverimg>
           ) : (
-            <Cover color={post.coverColor}></Cover>
+            <Cover color={post.coverColor}>
+              <Title>{post.title}</Title>
+              {/* <Date>{post.updateDate}</Date> */}
+            </Cover>
           )}
-            <Title>{post.title}</Title>
-            <Date>{post.updateDate}</Date>
+            
+            
             {/* <p>게시날짜: </p> */}
             
             <TestContainer>
@@ -122,17 +128,17 @@ console.log(this.props.postStore.detailPost);
 
 const Title = styled.div`
   z-index: 2;
-  position: relative;
-  top: -150px;
-  left: 15%;
-  font-size: 60px;
+  padding-top: 15rem;
+  padding-left: 15rem;
+  width: 80%;
+  font-size: 3.5rem;
+  white-space: pre-line;
   font-family: Inconsolas;
 `;
 const Date = styled.div`
-z-index: 2;
-  position: relative;
-  top: -150px;
-  left: 15%;
+  z-index: 2;
+  padding-top: 14rem;
+  padding-left: 7rem;
   /* font-size: 60px; */
   font-family: Inconsolas;
 `;
@@ -184,7 +190,7 @@ const EditorLayout = styled.div`
 `;
 const TestContainer = styled.div`
   display: grid;
-  /* grid-template-columns: 15% 70% 15%; */
+  grid-template-columns: 15% 70% 15%;
 `;
 
 const PostDetailPageLayout = styled.div`
@@ -204,11 +210,11 @@ const PostDetailPageLayout = styled.div`
 //TODO 얘는 그리드말고 나중에 flex로 양방향 쪼개기 하면 될듯
 const PostViewHeader = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  /* grid-template-columns: repeat(5, 1fr); */
   grid-template-areas: "logo . . . test";
   height: 100%;
   width: 100%;
-  background-color: #1a3365;
+  background-color: ${props => props.color};
 `;
 
 const MLogo = styled.div`
@@ -228,10 +234,10 @@ const DIV = styled.div`
 `;
 
 const PostContentWrapper = styled.div`
-  padding-top: 5rem;
+  /* padding-top: 5rem; */
   padding-bottom: 5rem;
   display: grid;
-  grid-template-columns: 15% 70% 15%;
+  grid-template-columns: 0% 100% 0%;
   grid-template-areas: "left contents right";
 
   @media (max-width: 768px) {
@@ -260,8 +266,8 @@ const PostContent = styled.div`
   padding-right: 3rem; */
 
   @media (max-width: 768px) {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    /* padding-left: 1rem;
+    padding-right: 1rem; */
   }
 `;
 
