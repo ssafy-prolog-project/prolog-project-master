@@ -41,6 +41,7 @@ class PostDetailPage extends Component {
   };
   
   render() {
+    console.log("???")
     const id = this.props.match.params.id;
     //const { currentUser } = this.props.userStore;
     const currentUser = true;
@@ -55,13 +56,8 @@ class PostDetailPage extends Component {
     const { values } = this.props.authStore;
     const { accessToken, provider, vid, name, profileimg } = values;
     const Logout = () => {
-      this.props.authStore.setAccessToken(undefined);
-      this.props.authStore.setProfileimg(undefined);
-      this.props.authStore.setId(undefined);
-      this.props.authStore.setName(undefined);
-      this.props.authStore.setEmail("이메일을 입력해주세요.");
-      this.props.authStore.setIntro("소개를 입력해주세요.");
-      this.props.authStore.setProvider(undefined);
+      console.log("logout 발생");
+      this.props.authStore.logout();
     };
     return (
       <PostDetailPageLayout>

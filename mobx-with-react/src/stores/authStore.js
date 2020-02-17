@@ -13,12 +13,15 @@ export default class AuthStore {
   @observable appName = "Prolog";
   @observable token = window.sessionStorage.getItem("jwt");
   @observable user_info = undefined;
+  @observable user_detail = undefined;
   
   constructor(root) {
     this.root = root;
     if(this.token){
       this.user_info=jwtDecode(this.token).userInfo;
+      this.user_detail=this.getUserDetail(this.token);
     }
+
 
     reaction(
       () => this.token,
@@ -69,6 +72,7 @@ export default class AuthStore {
   }
   @action setIntro(intro) {
     this.values.intro = intro;
+    console.log(intro);
     agent.Auth.intro_update(intro);
   }
   @action setSub(sub){
@@ -149,6 +153,9 @@ export default class AuthStore {
           this.inProgress = false;
         })
       );
+  }
+  @action getUserDetail(jwt){
+    agent.Auth.getUserInfo(jwt);
   }
 
   @action logout() {

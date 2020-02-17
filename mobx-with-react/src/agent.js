@@ -68,7 +68,7 @@ const Auth = {
       requests.put('/user', {accessToken : snsAccessToken, refreshToken: snsRefreshToken, user : user},{}),
     
     intro_update: (intro) =>
-    requests.put('/user/intro',{greeting: intro},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
+    requests.put('/user/greeting',{greeting: intro},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
     
     email_update: (email) =>
     requests.put('/user/email',{email: email},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
@@ -76,6 +76,8 @@ const Auth = {
     name_update: (name) =>
     requests.put('/user/name',{name: name},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
     
+    getUserDetail: (jwt) =>
+    requests.get('/user', {"X-AUTH-TOKEN": jwt}),
 }
 
 // page 로드를 어떻게 처리할거냐?
