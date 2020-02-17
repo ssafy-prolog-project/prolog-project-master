@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import Select, { components } from "react-select";
-import { colourOptions, programmingLanguages } from "../data";
+import { programmingLanguages } from "../data";
 
 const IndicatorsContainer = props => {
   return (
-    <div style={{ background: colourOptions[2].color }}>
+    <div style={{ background: "#0052CC" }}>
       <components.IndicatorsContainer {...props} />
     </div>
   );
@@ -19,7 +19,6 @@ export default class SkillComboBox extends React.Component {
     this.setState({ selectedOption }, () =>
       console.log(`Option selected:`, this.state.selectedOption)
     );
-    console.log(this.props)
     this.props.change(selectedOption)
   };
 
@@ -32,8 +31,9 @@ export default class SkillComboBox extends React.Component {
         onChange={this.handleChange}
         closeMenuOnSelect={false}
         components={{ IndicatorsContainer }}
-        defaultValue={[]} //{[colourOptions[4], colourOptions[5]]}
+        defaultValue={[]}
         isMulti
+        isSearchable={true}
         options={programmingLanguages}
       />
     );

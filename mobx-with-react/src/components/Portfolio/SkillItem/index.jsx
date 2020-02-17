@@ -1,35 +1,28 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-
-import DevIcon, {iconList} from "devicon-react-svg";
-
-
+import { languageMapper } from "../data.js";
 
 class SkillItem extends Component {
   render() {
-    const devIconStyle = {
-      fill: "black",
-      width: "150px",
-  };
-  // <DevIcon icon="react" style={devIconStyle} viewBox="0 0 32 32"/>
     const { text } = this.props;
-    //console.log(`Here is a list of icon names used by this component: ${iconList}`);
+    const version = text + "-" + languageMapper[text];
+    const srcAddress = `https://cdn.rawgit.com/konpa/devicon/master/icons/${text}/${version}.svg`
     return (
       <SkillItemLayout>
-        <DevIcon icon={text} style={devIconStyle}/>
+        <img src={srcAddress} alt="" />
       </SkillItemLayout>
     );
   }
 }
 
 const SkillItemLayout = styled.div`
-    width:200px;
-  height:200px;
+  width: 200px;
+  height: 200px;
   /* border:1px solid red; */
-  display:inline-flex;
-  vertical-align:top;
-  justify-content:center;
-  align-items:center;
+  display: inline-flex;
+  vertical-align: top;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default SkillItem;

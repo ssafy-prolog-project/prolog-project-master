@@ -25,23 +25,18 @@ class Skills extends Component {
     super(props);
     this.state = {
       isEdit: false,
-      input: "",
       skills: []
     };
 
-    this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
-
-  handleChange = e => {
-    const nextState = {};
-    nextState[e.target.name] = e.target.value;
-    this.setState(nextState);
-  };
 
   handleClick = () => {
     if (this.state.isEdit) {
       this.props.portfolioStore.setSkills(this.state.skills);
+    }
+    else{
+      this.state.skills = this.props.portfolioStore.skills
     }
     const { isEdit } = this.state;
     this.setState({
@@ -53,12 +48,10 @@ class Skills extends Component {
     this.setState({
       skills: values
     });
-    console.log(values);
-    console.log(this.state.skills);
   };
 
   render() {
-    const { input, skills } = this.state;
+    const { skills } = this.state;
 
     const commonView = (
       <SkillsLayout>
@@ -83,7 +76,7 @@ class Skills extends Component {
             skills={this.state.skills}
             change={this.handleChangeSkills}
           ></SkillComboBox>
-          <SkillItemList skills={this.props.portfolioStore.skills} />
+          <SkillItemList skills={this.state.skills} />
         </SkContent>
       </SkillsLayout>
     );
@@ -93,7 +86,6 @@ class Skills extends Component {
 }
 
 const SkillsLayout = styled.div`
-  grid-area: skills;
   height: 100%;
   width: auto;
   padding: 5%;
@@ -119,20 +111,6 @@ const SkContent = styled.div`
     width: auto;
     padding: 1rem;
   }
-`;
-
-const Input = styled.input`
-  /* white-space: pre-wrap; */
-  margin-top: 1rem;
-  width: 100%;
-  border: none;
-  outline: none;
-  font-size: 1rem;
-  border: 1px solid #e9ecef;
-  color: #212529;
-  display: block;
-  line-height: 1.5;
-  height: 10rem;
 `;
 
 export default Skills;

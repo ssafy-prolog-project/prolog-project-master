@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 class SkillItemList extends Component {
   render() {
-    //TODO : null처리
     let skillList = undefined
     if(this.props.skills){
       skillList  = this.props.skills.map((item,index)=> (
@@ -24,7 +23,6 @@ class SkillItemList extends Component {
 }
 
 const SkillItemListLayout = styled.div`
- /* display: flex; */
 `
 
 export default SkillItemList;
