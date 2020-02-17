@@ -4,6 +4,7 @@ import com.ssafy.api.advice.exception.CUserNotFoundException;
 import com.ssafy.api.model.response.CommonResult;
 import com.ssafy.api.model.response.ListResult;
 import com.ssafy.api.model.response.SingleResult;
+import com.ssafy.api.model.user.UserParamDTO;
 import com.ssafy.api.repository.UserJpaRepo;
 import com.ssafy.api.service.ResponseService;
 import com.ssafy.api.entity.User;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Api(tags = {"2. User"})
 @RequiredArgsConstructor
@@ -64,6 +67,31 @@ public class UserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
+    @ApiOperation(value = "회원 인삿말, email, name 수정", notes = "msrl를 통해 회원 정보 업데이트")
+    @PutMapping(value = "/user/{updateTargetName}")
+    public SingleResult<User> modify(
+            @ApiParam(value = "타겟 컬럼 이름", required = true) @PathVariable String updateTargetName,
+            @ApiParam(value = "타겟 컬럼 정보", required = true) @RequestBody UserParamDTO userDto
+            ) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        long msrl = Long.parseLong(authentication.getName());
+        User user = userJpaRepo.findByMsrl(msrl).orElseThrow(CUserNotFoundException::new);
+
+        if(updateTargetName.equals("greeting")){
+            user.setGreeting(userDto.getGreeting());
+        }else if(updateTargetName.equals("email")){
+            user.setEmail(userDto.getEmail());
+        }else if(updateTargetName.equals("name")){
+            user.setName(userDto.getName());
+        }
+
+        return responseService.getSingleResult(userJpaRepo.save(user));
+    }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
     @ApiOperation(value = "회원 삭제", notes = "userId로 회원정보를 삭제한다")
     @DeleteMapping(value = "/user/{msrl}")
     public CommonResult delete(
@@ -71,5 +99,33 @@ public class UserController {
         userJpaRepo.deleteById(msrl);
         // 성공 결과 정보만 필요한경우 getSuccessResult()를 이용하여 결과를 출력한다.
         return responseService.getSuccessResult();
+    }
+
+    @ApiOperation(value = "회원 개발스택 리스트 조회", notes = "msrl로 유저 개발 스택 리스트를 조회한다")
+    @GetMapping(value = "/techs/{msrl}")
+    public ListResult<String> getUserTechs(
+            @ApiParam(value = "회원번호", required = true) @PathVariable long msrl) {
+        return responseService.getListResult(userJpaRepo.getUserTechsByMsrl(msrl));
+    }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @ApiOperation(value = "회원 개발스택 삭제", notes = "msrl로 유저 개발 스택 리스트를 삭제한다")
+    @DeleteMapping(value = "/techs/{tech}")
+    public CommonResult delteUserTechs(
+            @ApiParam(value = "회원번호", required = true) @PathVariable String tech) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        long msrl = Long.parseLong(authentication.getName());
+//        userJpaRepo.getUserTechsByMsrl(tech, msrl);
+        return responseService.getSuccessResult();
+    }
+
+    @ApiOperation(value = "Get 테스트", notes = "테스트")
+    @GetMapping(value = "/test/{msrl}")
+    public ListResult<User> getTest(
+            @ApiParam(value = "회원번호", required = true) @PathVariable long msrl) {
+        // 성공 결과 정보만 필요한경우 getSuccessResult()를 이용하여 결과를 출력한다.
+        return responseService.getListResult(userJpaRepo.findTechsByMsrl(msrl));
     }
 }
