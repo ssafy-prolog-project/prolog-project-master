@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -31,7 +32,11 @@ public class PostsService {
     }
     //단일 게시물 - 읽기
     public Post getPost(int postCode) {
-
+        // 빈도수 셋팅 필요
+        Post post = postJpaRepo.findById(postCode).get();
+        int viewCnt= post.getPostView();
+        post.setPostView(viewCnt+1);
+        postJpaRepo.save(post); // view update
         return postJpaRepo.findById(postCode).orElseThrow(CResourceNotExistException::new);
     }
 
@@ -39,7 +44,7 @@ public class PostsService {
     public Post writePost(Long msrl, PostDTO post) {
         //ID check - 존재하면 작성가능
         Post newPost = new Post(userJpaRepo.findByMsrl(msrl).orElseThrow(CUserNotFoundException::new),post.getTitle(),post.getBody(),
-                post.getCoverImage(),post.getCoverColor());
+                post.getCoverImage(),post.getCoverColor(),post.getTagList());
         return postJpaRepo.save(newPost);
     }
     // 단일 게시물 - 수정
@@ -48,8 +53,11 @@ public class PostsService {
         Post postOrigin = getPost(postCode);
         if(postOrigin.getUser().getMsrl() != mrsl)
             throw new CNotOwnerException();
-        String list = "11111";
-        postOrigin.setUpdate(post.getTitle(),post.getBody(),post.getCoverImage(),post.getCoverColor(),list);
+        List<String> tagListToLowerCase = Arrays.asList(new String[postOrigin.getTagList().size()]);
+        for (String target:post.getTagList()) {
+            tagListToLowerCase.add(target.toLowerCase());
+        }
+        postOrigin.setUpdate(post.getTitle(),post.getBody(),post.getCoverImage(),post.getCoverColor(),tagListToLowerCase);
         return postOrigin;
     }
 
@@ -61,5 +69,10 @@ public class PostsService {
         postJpaRepo.deleteById(postCode);
         return true;
     }
+
+//    //해쉬태그 이용 검색
+//    public List<Post> searchByKeyWords(String searchKeyWord){
+//        return postJpaRepo.findAllByKeywords(searchKeyWord).orElseThrow(CResourceNotExistException::new); // Keyword를 이용해서 찾은 Post들을 반환한다.
+//    }
 
 }

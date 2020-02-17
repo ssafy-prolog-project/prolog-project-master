@@ -23,8 +23,10 @@ public class PostDTO {
 
     @ApiModelProperty(value = "표지이미지")
     private String coverImage;
-//    @ApiModelProperty(value = "태그")
-//    private String[] tagList;
+
+    @ApiModelProperty(value = "태그 리스트")
+    private String[] tagList;
+
 //    @ApiModelProperty(value = "포스트핀")
 //    private boolean pinPost;
 //    @ApiModelProperty(value = "프로젝트핀")
