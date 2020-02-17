@@ -54,6 +54,7 @@ export default class AuthStore {
   }
   @action setName(name) {
     this.values.name = name;
+    agent.Auth.name_update(name);
   }
   @action setAccessToken(token) {
     this.values.accessToken = token;
@@ -64,9 +65,11 @@ export default class AuthStore {
   }
   @action setEmail(email) {
     this.values.email = email;
+    agent.Auth.email_update(email);
   }
   @action setIntro(intro) {
     this.values.intro = intro;
+    agent.Auth.intro_update(intro);
   }
   @action setSub(sub){
     this.values.sub=sub;

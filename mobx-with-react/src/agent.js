@@ -40,9 +40,9 @@ const requests = {
       .post(`${API_ROOT}${VERSION}${url}`, body,{headers: header}),
       //.then(res => console.log(res))
       //.catch(err =>  console.log(err)),
-  put: (url, body) =>
+  put: (url, body, header) =>
     axios
-      .put(`${API_ROOT}${VERSION}${url}`, body)
+      .put(`${API_ROOT}${VERSION}${url}`, body,{headers: header})
       // .then(res => console.log(res))
       // .catch(err => console.log(err))
 };
@@ -65,7 +65,16 @@ const Auth = {
       .then(res=>console.log("?일단 넘어오는 건 성공"))
       .catch(err=>console.log("??????>????"+err))},
       update : (snsAccessToken, snsRefreshToken, user) =>
-      requests.put('/user', {accessToken : snsAccessToken, refreshToken: snsRefreshToken, user : user}),
+      requests.put('/user', {accessToken : snsAccessToken, refreshToken: snsRefreshToken, user : user},{}),
+    
+    intro_update: (intro) =>
+    requests.put('/user/intro',{greeting: intro},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
+    
+    email_update: (email) =>
+    requests.put('/user/email',{email: email},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
+    
+    name_update: (name) =>
+    requests.put('/user/name',{name: name},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
     
 }
 

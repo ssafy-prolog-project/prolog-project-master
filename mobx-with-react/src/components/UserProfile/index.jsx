@@ -34,9 +34,9 @@ class UserProfile extends Component {
       isEditEmail: false,
       isEditIntro: false,
       profileimg: "",
-      name: "",
-      email: "",
-      intro: ""
+      name: this.props.authStore.user_info.name,
+      email: this.props.authStore.user_info.email,
+      intro: this.props.authStore.user_info.greeting,
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -102,21 +102,21 @@ class UserProfile extends Component {
 
     const showname = (
       <UpdateName>
-        <UserName>Name: {name}</UserName>
+        <UserName>Name: {this.state.name}</UserName>
         <PencilIncon onClick={NameClick}></PencilIncon>
       </UpdateName>
     );
 
     const showemail = (
       <UpdateEmail>
-        <UserEmail>Email: {email}</UserEmail>
+        <UserEmail>Email: {this.state.email}</UserEmail>
         <PencilIncon onClick={EmailClick}></PencilIncon>
       </UpdateEmail>
     );
 
     const showintro = (
       <UpdateIntro>
-      <UserIntro>Intro: {greeting}</UserIntro>
+      <UserIntro>Intro: {this.state.intro}</UserIntro>
       <PencilIncon onClick={IntroClick}></PencilIncon>
       </UpdateIntro>
     );
