@@ -4,7 +4,9 @@ import Popup from "reactjs-popup";
 
 import {
   ImageIcon,
+  ImageAddIcon,
   VideoIcon,
+  HorizontalLineIcon,
 } from "../../../styles/iconStyle.js";
 
 export default class EditorHelper extends Component {
@@ -86,8 +88,8 @@ export default class EditorHelper extends Component {
   render() {
     return (
       <EditorHelperLayout>
-        <ImageIcon onClick={this.onClickImageUpload} color="red" />
-        <ImageIcon onClick={this.onClickHorizontalLine} color="blue" />
+        <ImageAddIcon onClick={this.onClickImageUpload}/>
+        <HorizontalLineIcon onClick={this.onClickHorizontalLine} />
         <Popup
           onClose={this.onClickInsertImage}
           trigger={open => (
