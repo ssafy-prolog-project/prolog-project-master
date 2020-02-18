@@ -111,4 +111,8 @@ public class PostsService {
         return true;
     }
 
+    //검색어 이용
+    public List<Post> searchByKeyWords(String searchKeyWord) {
+        return postJpaRepo.findAllByTitleContains(searchKeyWord).get();
+    }
 }
