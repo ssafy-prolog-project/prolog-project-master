@@ -58,8 +58,6 @@ public class PostsController {
     @ApiOperation(value="글 목록" , notes= "계정에 따른 게시글 리스트 입니다.")
     @GetMapping("/post/user/{msrl}")
     public ListResult<Post> getPostsById(@PathVariable Long msrl){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //String id = authentication.getName();
         return responseService.getListResult(postsService.getAllPostsByUser(msrl));
     }
 
