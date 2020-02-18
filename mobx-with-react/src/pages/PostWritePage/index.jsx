@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import WriteTopBar from "../../components/Write/WriteTopBar";
 import WriteEditor from "../../components/Write/WriteEditor";
 import WriteTags from "../../components/Write/WriteTags";
@@ -145,11 +145,6 @@ class PostWritePage extends Component {
 
 const PostWritePageLayout = styled.div`
   height: 100%;
-`;
-
-const WriteTagLayout = styled.div`
-  background-color: #1a3365;
-  /* align-items: "center"; */
 `;
 
 const WriteAreaLayout = styled.div`
