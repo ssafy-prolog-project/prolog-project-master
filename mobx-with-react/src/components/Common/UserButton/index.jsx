@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { toJS } from "mobx";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
@@ -19,7 +20,7 @@ class UserButton extends Component {
       <Img>
         {check ? (
           <>
-            <ProfileImg src={this.props.authStore.user_detail.picture}></ProfileImg>
+            <ProfileImg src={this.props.authStore.user_info.picture}></ProfileImg>
             <SelectMenus className="menubar">
               <Link to={"/write"} style={{ textDecoration: "none" }}>
                 <SelectMenu>Post</SelectMenu>

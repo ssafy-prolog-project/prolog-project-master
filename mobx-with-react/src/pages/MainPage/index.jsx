@@ -8,8 +8,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import authStore from '../../stores/authStore'
 import agent from "../../agent"
 
-const tt = new authStore();
-
 class NowLoading extends Component{
   render(){
     return <CircularProgress/>;
@@ -38,10 +36,6 @@ class MainPage extends Component {
     var NavTag = null;
     if(this.state.isLoading){
       NavTag=<NowLoading/>
-      console.log(window.sessionStorage.getItem("jwt"));
-      console.log(tt.user_detail);
-      const jwt = window.sessionStorage.getItem("jwt");
-      agent.Auth.current(jwt);
     }else{
       NavTag = 
       <PostList></PostList>

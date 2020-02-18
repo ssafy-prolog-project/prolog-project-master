@@ -1,6 +1,7 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Switch, Route, withRouter, Link } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+import { inject } from "mobx-react";
 
 // Pages
 import MainPage from "./pages/MainPage";
@@ -12,40 +13,52 @@ import SearchPage from "./pages/SearchPage";
 import { signIn } from "./components/Auth/auth";
 import PrivateRoute from "./PrivateRoute";
 import PortfolioPage from "./pages/PortfolioPage";
+import agent from "./agent";
+import authStore from "./stores/authStore"
 
-const App = () => {
-  
-
-  const [user, setUser] = useState(null);
-  const authenticated = user != null;
-  const login = ({ email, password }) => setUser(signIn({ email, password }));
-  const logout = () => setUser(null);
-
-  return (
-    <div>
-      <GlobalStyle></GlobalStyle>
-      <Switch>
-        {/* 
-            <Route path="/register" component={Register} />
-            <Route path="/editor/:slug?" component={Editor} />
-            <Route path="/article/:id" component={Article} />
-            <PrivateRoute path="/settings" component={Settings} />
-            <Route path="/@:username" component={Profile} />
-            <Route path="/@:username/favorites" component={Profile} />
-            <Route path="/" component={Home} /> */}
-        {/* <Route path="/post/:id" component={Post} */}
-        <Route path="/login" component={LoginPage} />
-        <Route path="/post/:id" component={PostDetailPage} />
-        <Route path="/mypage" component={MyPage} />
-        {/* <PrivateRoute path="/mypage" component={MyPage} /> */}
-        <Route path="/write" component={PostWritePage} />
-        <Route path="/searchpage" component={SearchPage} />
-        <Route path="/portfolio" component={PortfolioPage} />
-        <Route path="/" component={MainPage} />
-      </Switch>
-    </div>
-  );
-};
+@inject('authStore')
+class App extends Component{
+  initializeUserInfo = async () => {
+    const loggedInfo = this.props.authStore.token;
+    if(!loggedInfo) return; // 로그인 정보가 없다면 여기서 멈춥니다.
+    
+    //this.props.authStore.setIntro(this.)
+  }
+  componentDidMount() {
+    this.initializeUserInfo();
+  }
+  render(){
+    // const [user, setUser] = useState(null);
+    // const authenticated = user != null;
+    // const login = ({ email, password }) => setUser(signIn({ email, password }));
+    // const logout = () => setUser(null);
+    // const [userDetail] = useState("");
+    return (
+      <div>
+        <GlobalStyle></GlobalStyle>
+        <Switch>
+          {/* 
+              <Route path="/register" component={Register} />
+              <Route path="/editor/:slug?" component={Editor} />
+              <Route path="/article/:id" component={Article} />
+              <PrivateRoute path="/settings" component={Settings} />
+              <Route path="/@:username" component={Profile} />
+              <Route path="/@:username/favorites" component={Profile} />
+              <Route path="/" component={Home} /> */}
+          {/* <Route path="/post/:id" component={Post} */}
+          <Route path="/login" component={LoginPage} />
+          <Route path="/post/:id" component={PostDetailPage} />
+          <Route path="/mypage" component={MyPage} />
+          {/* <PrivateRoute path="/mypage" component={MyPage} /> */}
+          <Route path="/write" component={PostWritePage} />
+          <Route path="/searchpage" component={SearchPage} />
+          <Route path="/portfolio" component={PortfolioPage} />
+          <Route path="/" component={MainPage} />
+        </Switch>
+      </div>
+    );
+  }
+}
 
 const GlobalStyle = createGlobalStyle`
   #root{

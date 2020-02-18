@@ -62,7 +62,7 @@ const Auth = {
     current: (jwt) =>{
       if(jwt==null || jwt=="") new Error("로그인 하러 가자!")
       requests.get('/user', {"X-AUTH-TOKEN": jwt})
-      .then(res=>console.log("?일단 넘어오는 건 성공"))
+      .then(res=>{return res.data.data})
       .catch(err=>console.log("??????>????"+err))},
       update : (snsAccessToken, snsRefreshToken, user) =>
       requests.put('/user', {accessToken : snsAccessToken, refreshToken: snsRefreshToken, user : user},{}),
@@ -76,8 +76,15 @@ const Auth = {
     name_update: (name) =>
     requests.put('/user/name',{name: name},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
     
-    getUserInfo: (jwt) =>
-    requests.get('/user', {"X-AUTH-TOKEN": jwt}),
+    getUserInfo: (jwt) =>{
+      // if(jwt==null || jwt=="") {
+      //   //return Promise.resolve("")
+      // }
+      // else{
+      return requests.get('/user', {"X-AUTH-TOKEN": jwt})
+    // }
+      
+    },
 }
 
 // page 로드를 어떻게 처리할거냐?
