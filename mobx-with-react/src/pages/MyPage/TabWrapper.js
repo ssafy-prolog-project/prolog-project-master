@@ -14,11 +14,18 @@ class TabWrapper extends Component{
     };
 
     componentDidMount() {
+        const userid=this.props.userid
         const { postStore } = this.props;
-        postStore.getItems(0, 6);
-        this.setState({
-          items: postStore.returnItems
-        });
+        postStore.loadPosts(userid).then((res) => {
+          this.setState({
+          items: postStore.postItems
+        })
+
+        }
+          
+        );
+        //postStore.getItems(0, 2);
+        
     }
 
     fetchMoreData = () => {
@@ -55,9 +62,9 @@ class TabWrapper extends Component{
         }
         endMessage={<h4></h4>}
       >
-      
             <TabWrapperLayout>
             {items.map((item, index) => (
+              // {item.user.msrl === this.props.userStore.}
                 <PostCard key={index} post={item} />
               ))}
             </TabWrapperLayout>

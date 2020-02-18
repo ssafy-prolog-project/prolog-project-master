@@ -14,8 +14,6 @@ import PrivateRoute from "./PrivateRoute";
 import PortfolioPage from "./pages/PortfolioPage";
 
 const App = () => {
-  
-
   const [user, setUser] = useState(null);
   const authenticated = user != null;
   const login = ({ email, password }) => setUser(signIn({ email, password }));
@@ -36,6 +34,7 @@ const App = () => {
         {/* <Route path="/post/:id" component={Post} */}
         <Route path="/login" component={LoginPage} />
         <Route path="/post/:id" component={PostDetailPage} />
+        <Route path="/mypage/:msrl" component={MyPage} />
         <Route path="/mypage" component={MyPage} />
         {/* <PrivateRoute path="/mypage" component={MyPage} /> */}
         <Route path="/write" component={PostWritePage} />

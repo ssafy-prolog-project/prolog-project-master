@@ -39,7 +39,7 @@ public class JwtTokenProvider { // JWT 토큰을 생성 및 검증 모듈
     public String createToken(String userPk, List<String> roles, UserParamDTO user) {
         Claims claims = Jwts.claims().setSubject(userPk);
         claims.put("roles", roles);
-        claims.put("userInfo", user);
+        claims.put("userInfo", user.getPicture());
         Date now = new Date();
         return Jwts.builder()
                 .setClaims(claims) // 데이터

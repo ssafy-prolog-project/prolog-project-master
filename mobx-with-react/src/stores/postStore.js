@@ -24,10 +24,11 @@ export default class PostStore {
 
   @action setPostItems(postItems){
     this.postItems = postItems;
-    this.getItems(0,1);
+    console.log(this.postItems)
     //console.log("오긴왔니?")
     //console.log(this.postItems);
   }
+
   clear() {
     this.postRegistry.clear();
   }
@@ -52,17 +53,26 @@ export default class PostStore {
   }
 
   // 전체 Post 가져오기
-  @action loadPosts() {
+  @action loadPosts(userid) {
     this.isLoading = true;
     //TODO
     //console.log("요청보내기!");
-    return agent.Posts.all()
-    .then(res => 
+    if (userid === -1){
+      return agent.Posts.all().then(res => 
       //console.log(res.data.list),
       this.setPostItems(res.data.list)
       )
       .catch(err => console.log(err))
     .finally(action(() => { this.loading = false}))
+    }
+    else {
+      return agent.Posts.byAuthorPublic(userid).then((res) => {
+        this.setPostItems(res.data.list)}
+        )
+      .catch(err => console.log(err))
+    .finally(action(() => { this.loading = false}))
+    }
+    
   }
 
   // 한 개짜리 가져오기 - 이미 가져온 것은 map 에서 바로 꺼내고, 아닌 경우는 백엔드서버에서 호출한다.
@@ -116,7 +126,7 @@ export default class PostStore {
   @action deletePost(id) {
     return agent.Posts.del(id).then(
       action(err => {
-        this.loadPosts();
+        this.loadPosts(-1);
         throw err;
       })
     );
