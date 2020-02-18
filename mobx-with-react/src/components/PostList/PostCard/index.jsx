@@ -23,12 +23,16 @@ const PostCard = ({ post }) => {
           ) : (
             <DefaultImage color={coverColor}></DefaultImage>
           )}
-           
         </Link>
-        
       </OutL>
       <OutT>
       <CardTitle>{title}</CardTitle>
+    
+      {user.picture ? (
+            <ProfileImage src={user.picture}></ProfileImage>
+          ) : (
+            <DefaultProfile color={coverColor}></DefaultProfile>
+          )}
         {/* <Date>{dateInfo}</Date> */}
         {/* <CardDescription>{text}</CardDescription> */}
         {/* <p style={{ color: "black" }}>작성자 : {author}</p>
@@ -38,6 +42,27 @@ const PostCard = ({ post }) => {
     </CardMainLayOut>
   );
 };
+const ProfileImage = styled.img`
+width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  float: right;
+  z-index: 2;
+`;
+
+const DefaultProfile = styled.div`
+width: 3rem;
+  height: 3rem;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+  float: right;
+  margin-right: 5%;
+  z-index: 2;
+  background-color: ${props => props.color};
+`;
 
 const CardMainLayOut = styled.div`
   color: #fff;
@@ -96,6 +121,7 @@ const CardTitle = styled.h2`
   left: 40%; */
   font-family: Inconsolas;
   font-size: 20px;
+  float: left;
 `;
 
 const OutT = styled.div`
