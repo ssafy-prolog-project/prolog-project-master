@@ -1,9 +1,6 @@
 package com.ssafy.api.controller.v1;
 
-import com.ssafy.api.advice.exception.CUserNotFoundException;
 import com.ssafy.api.entity.Post;
-import com.ssafy.api.entity.TagManage;
-import com.ssafy.api.entity.User;
 import com.ssafy.api.model.PostDTO;
 import com.ssafy.api.model.PostResponseDTO;
 import com.ssafy.api.model.response.CommonResult;
@@ -51,12 +48,19 @@ public class PostsController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value="글 목록" , notes= "한 계정에 대한 게시글 리스트 입니다.")
+    @ApiOperation(value="글 목록" , notes= "현 계정에 대한 게시글 리스트 입니다.")
     @GetMapping("/post")
-    public ListResult<Post> postsById(){
+    public ListResult<Post> postsBySignInId(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
         return responseService.getListResult(postsService.getAllPostsByUser(Long.parseLong(id)));
+    }
+    @ApiOperation(value="글 목록" , notes= "계정에 따른 게시글 리스트 입니다.")
+    @GetMapping("/post/user/{msrl}")
+    public ListResult<Post> getPostsById(@PathVariable Long msrl){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //String id = authentication.getName();
+        return responseService.getListResult(postsService.getAllPostsByUser(msrl));
     }
 
     @ApiOperation(value = "게시판 글 상세", notes = "게시판 글 상세정보를 조회한다.")
@@ -102,14 +106,9 @@ public class PostsController {
         return responseService.getSuccessResult();
     }
 
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
-    })
     @ApiOperation( value="작성된 태그들 Msrl로 검색", notes = "해쉬태그 전체 검색.")
     @GetMapping(value="/tags/{msrl}") // id
     public List<String> getUserTags(@PathVariable Long msrl) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String id = authentication.getName();
         //msrl의 postCode로 - tag 검색
         List<Post> posts = postsService.getAllPostsByUser(msrl);
         Set<String> tagSet = new HashSet<>();
@@ -125,8 +124,6 @@ public class PostsController {
     @ApiOperation(value="Post Search" , notes = "글을 검색합니다.")
     @GetMapping(value="/post/search/{searchKeyWord}")
     public ListResult<Post> getSearchPosts(@PathVariable String searchKeyWord){
-
-
         return responseService.getListResult(postsService.searchByKeyWords(searchKeyWord));
     }
 
