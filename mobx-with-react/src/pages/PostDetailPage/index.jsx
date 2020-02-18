@@ -27,9 +27,9 @@ class PostDetailPage extends Component {
   }
 
   handleDeletePost = id => {
-    this.props.postStore.deletePost(id);
     // 글을 지운다. 나만 가능
-    //.then(() => this.props.history.replace('/'))
+    this.props.postStore.deletePost(id).
+    then(() => this.props.history.replace('/'))
   };
 
   //댓글 삭제 해당 글 쓴 사람만 가능

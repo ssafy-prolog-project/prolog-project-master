@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import React from "react";
 import Select, { components } from "react-select";
 import { programmingLanguages } from "../data";
@@ -23,9 +22,6 @@ export default class SkillComboBox extends React.Component {
   };
 
   render() {
-    const { selectedOption } = this.state;
-    const { skills, change } = this.props;
-
     return (
       <Select
         onChange={this.handleChange}
