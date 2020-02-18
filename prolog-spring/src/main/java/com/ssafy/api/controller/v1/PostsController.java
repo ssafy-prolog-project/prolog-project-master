@@ -121,11 +121,12 @@ public class PostsController {
         return new ArrayList<>(tagSet);
     }
 
-//    @ApiOperation(value="Post Search" , notes = "글을 검색합니다.")
-//    @GetMapping(value="/post/search/{searchKeyWord}")
-//    public ListResult<Post> getSearchPosts(@PathVariable String searchKeyWord){
-//
-//
-//        return responseService.getListResult(postsService.searchByKeyWords(searchKeyWord));
-//    }
+    @ApiOperation(value="Post Search" , notes = "글을 검색합니다.")
+    @GetMapping(value="/post/search/{searchKeyWord}")
+    public ListResult<Post> getSearchPosts(@PathVariable String searchKeyWord){
+
+
+        return responseService.getListResult(postsService.searchByKeyWords(searchKeyWord));
+    }
+
 }
