@@ -19,6 +19,7 @@ class UserButton extends Component {
       this.props.authStore.setIntro("소개를 입력해주세요.");
       this.props.authStore.setProvider(undefined);
     };
+    
     return (
       <Img>
         {check ? (
