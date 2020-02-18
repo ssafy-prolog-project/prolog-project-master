@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import BalloonEditor from '@ckeditor/ckeditor5-build-balloon';
-//import {BalloonEditor}  from '../../../ckeditor5-build-balloon/build/ckeditor.js';
+// import * as BalloonEditor  from '../../../ckeditor5-build-balloon/build/ckeditor.js';
+//const BalloonEditor = require('../../../ckeditor5-build-balloon')
+//import BalloonEditor from '../../../ckeditor5-build-balloon/build/ckeditor.js'
 import "../../../styles/content-style.css";
 import EditorHelper from "../EditorHelper";
-
+// const aa = require('./build/ckeditor.js')
+{/* <script src='../../../ckeditor5-build-balloon/build/ckeditor.js'></script> */}
 
 export default class WriteEditor extends Component {
   state = {
@@ -23,19 +26,18 @@ export default class WriteEditor extends Component {
 
   render() {
     return (
-      <WriteEditorLayout>
+      <WriteEditorLayout >
         <TestContainer>
           <div></div>
-          <EditorLayout>
+          <EditorLayout id="editor">
             <CKEditor
               editor={BalloonEditor}
-              data="<p>Hello from CKEditor 5!</p>"
+              data=""
               onInit={editor => {
                 //console.log(Balloon Editor.builtinPlugins.map(plugin => plugin.pluginName))
                 //console.log(Array.from(editor.ui.componentFactory.nameS()))
                 // You can store the "editor" and use when it is needed.
                 //console.log(Array.<String|module:font/fontfamily~FontFamilyOption>)
-                console.log("Editor is ready to use!", editor);
                 this.setState({ ckeditor: editor });
               }}
               onChange={(event, editor) => {
@@ -92,3 +94,11 @@ const TestContainer = styled.div`
 `;
 
 const WriteEditorLayout = styled.div``;
+
+
+
+
+
+
+
+

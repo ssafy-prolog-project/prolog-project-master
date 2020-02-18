@@ -4,7 +4,7 @@ import Popup from "reactjs-popup";
 
 import {
   ImageIcon,
-  ImageAddIcon,
+  // ImageAddIcon,
   VideoIcon,
   HorizontalLineIcon,
 } from "../../../styles/iconStyle.js";
@@ -46,40 +46,13 @@ export default class EditorHelper extends Component {
     // } );
   };
 
-  onClickImageUpload = () => {
-    //this.props.editor.execute(( 'imageUpload', new ImageUploadCommand(this.props.editor  ) ));
-    console.log(this.props.editor);
-    console.log(Array.from(this.props.editor.ui.componentFactory.names()));
-    ///console.log(this.props.editor.ui.componentFactory.get("imageUpload"))
-    //   // console.log(this.props.editor.commands.get("imageUpload"))
-    //console.log(this.props.editor.plugins);
-    console.log(this.props.editor.plugins.get("ImageUpload"));
-
-    //   console.log(this.props.editor.plugins.get("FileRepository"))
-    //   console.log(this.props.editor.plugins.get("SimpleUpload"))
-    //   console.log(this.props.editor.editing)
-    //   let adapter= this.props.editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
-    //     return new this.props.editor.plugins.get("SimpleUpload")( loader );
-    // };
-
-    // this.props.editor.plugins.get("SimpleUpload").upload()
-    //this.props.editor.execute( 'imageUpload', { file: "frame6.jpg" } );
-
-    //   this.props.editor.commands["imageUpload"].listenTo( this.props.editor.editing.view.document, 'clipboardInput', ( evt, data ) => {
-    //     // Assuming that only images were pasted:
-    //     const images = Array.from( data.dataTransfer.files );
-
-    //     // Upload the first image:
-    //     this.props.editor.execute( 'imageUpload', { file: images[ 0 ] } );
-    // } );
-
-    // console.log(this.props.editor.commands);
-
-    // this.props.editor.execute("imageInsert", {
-    //   source:
-    //     "https://t1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/2Y5/image/ScuGzfGLXhYGmB0P2CZ1RgCrPDQ.jpg"
-    // });
-  };
+  // onClickImageUpload = () => {
+  //   //this.props.editor.execute(( 'imageUpload', new ImageUploadCommand(this.props.editor  ) ));
+  //   //console.log(Array.from(this.props.editor.ui.componentFactory.names()));
+  //   //console.log(this.props.editor.plugins);
+  //   //console.log(this.props.editor.plugins.get("ImageUpload"));
+  //   //   console.log(this.props.editor.editing)
+  // };
 
   onClickHorizontalLine = () => {
     this.props.editor.execute("horizontalLine");
@@ -88,7 +61,7 @@ export default class EditorHelper extends Component {
   render() {
     return (
       <EditorHelperLayout>
-        <ImageAddIcon onClick={this.onClickImageUpload}/>
+        {/* <ImageAddIcon onClick={this.onClickImageUpload}/> */}
         <HorizontalLineIcon onClick={this.onClickHorizontalLine} />
         <Popup
           onClose={this.onClickInsertImage}
@@ -120,14 +93,10 @@ export default class EditorHelper extends Component {
 }
 
 const EditorHelperLayout = styled.div`
-  box-sizing: border-box;
-  border: 1px solid #ddd;
   cursor: text;
   padding: 16px;
   border-radius: 2px;
   margin-bottom: 2em;
-  box-shadow: inset 0px 1px 8px -3px #ababab;
-  background: #fefefe;
   display: flex;
   flex-direction: column;
   align-items: center;

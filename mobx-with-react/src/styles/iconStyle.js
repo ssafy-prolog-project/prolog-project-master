@@ -14,6 +14,7 @@ import { ColorFill } from "styled-icons/boxicons-solid/ColorFill";
 import { PrimitiveDot } from "styled-icons/octicons/PrimitiveDot";
 import { LinearScale } from "styled-icons/material/LinearScale";
 import { ImageAdd } from "styled-icons/remix-fill/ImageAdd";
+import {Edit} from 'styled-icons/boxicons-regular/Edit';
 
 export const KakaoTalkIcon = styled(KakaoTalk)`
   cursor: pointer;
@@ -106,4 +107,11 @@ export const HorizontalLineIcon = styled(LinearScale)`
   cursor: pointer;
   width: 40px;
   color: black;
+`
+
+export const EditP = styled(Edit)`
+    color: #DCDCDC;
+    width: 1rem;
+    height: 1rem;
+    margin-bottom: 2.4rem;
 `

@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { formatDistanceToNow, fromUnixTime } from 'date-fns'
-import { ko } from 'date-fns/locale'
+// import { formatDistanceToNow, fromUnixTime } from 'date-fns'
+// import { ko } from 'date-fns/locale'
 
 const PostCard = ({ post }) => {
-    const { postCode, coverImg, title, body, author, updateDate, postView } = post;
+    const { postCode, coverImg, title, updateDate, postView } = post;
     //const dateFormat = fromUnixTime(date)
     //const dateInfo = formatDistanceToNow(dateFormat, {addSuffix:true, locale:ko})
   
@@ -89,19 +89,6 @@ const PostCard = ({ post }) => {
     color: black;
     font-weight: 300;
     margin: 6px 0;
-  `;
-  
-  const CardDescription = styled.p`
-    color: black;
-    max-height: 5.5rem;
-    text-overflow: ellipsis;
-    font-weight: 300;
-    overflow: hidden;
-    width: 100%;
-
-    @media (max-width: 1024px){
-      
-    }
   `;
   
   export default PostCard;
