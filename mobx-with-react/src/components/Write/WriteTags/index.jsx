@@ -23,18 +23,18 @@ class WriteTags extends React.Component {
   render() {
     const tagList = this.props.tagList;
     return (
-      <div>
+      <WriteTagLayout>
         {/* <button onClick={()=>console.log(tagList)}>체크</button> */}
         {/* <TagEditor tags={tagList} delimiters={[',']} placeholder="태그를 입력하세요." onChange={} /> */}
         <TagEditor
           ref="tagEditor"
           tags={this.state.tags}
           delimiters={[13, ","]} //13은 enter
-          placeholder="Input tags..."
+          placeholder="태그를 입력해주세요."
           onChange={this.handleTagsChange}
         />
         {/* <div className="output">Tags output: {this.state.tags.join(", ")}</div> */}
-      </div>
+      </WriteTagLayout>
     );
   }
 }
@@ -52,7 +52,6 @@ const HeaderInput = styled.input`
 `;
 
 const WriteTagLayout = styled.div`
-  background-color: #1a3365;
   /* align-items: "center"; */
 `;
 

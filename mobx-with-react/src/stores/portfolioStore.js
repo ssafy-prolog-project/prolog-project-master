@@ -15,7 +15,7 @@ export default class PortfolioStore{
         title: "제목을 입력하세요",
         title_back: undefined,
         about: "자신에 대해서 소개해주세요.",
-        skills: "react",
+        skills: [],
         email: "이메일을 입력하세요.",
         posts: undefined,
     }

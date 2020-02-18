@@ -20,6 +20,7 @@ import com.ssafy.api.service.user.KakaoService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -97,18 +98,25 @@ public class SignController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "소셜 언링크", notes = "소셜 회원 언링크을 한다.")
+    @ApiOperation(value = "소셜 언링크", notes = "소셜 회원 언링크을 한다. / 현재 카카오만 가능 ")
     @PostMapping(value = "/unlink/{provider}")
     public CommonResult unlinkByProvider(
             @ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
             @ApiParam(value = "소셜 access_token", required = true) @RequestHeader String accessToken
     ) {
-        KakaoProfile profile = kakaoService.postKakaoUnlink(accessToken);
-        User user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
-
-        if(!user.getUid().equals(profile.getId())){
-            throw new CUserCommunityIdMatchException();
+        KakaoProfile profile = null;
+        User user = null;
+        if(provider.equals("kakao")){
+            profile = kakaoService.postKakaoUnlink(accessToken);
+            user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
+            if(!user.getUid().equals(profile.getId())){
+                throw new CUserCommunityIdMatchException();
+            }
+        }else {
+            user = userJpaRepo.findByMsrl(Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getName())).orElseThrow(CUserNotFoundException::new);
         }
+
+        userJpaRepo.delete(user);
         return responseService.getSuccessResult();
     }
 
@@ -117,9 +125,6 @@ public class SignController {
     public CommonResult signup(@ApiParam(value = "회원ID : 이메일", required = true) @RequestBody String id,
                                @ApiParam(value = "비밀번호", required = true) @RequestBody String password,
                                @ApiParam(value = "이름", required = true) @RequestBody String name) {
-
-
-
         userJpaRepo.save(User.builder()
                 .uid(id)
                 .password(passwordEncoder.encode(password))
@@ -147,7 +152,7 @@ public class SignController {
             throw new CUserCommunityIdMatchException();
         }
 
-        if(refreshToken != null){
+        if(refreshToken != null || refreshToken.equals("")){
             profile.setRefreshToken(refreshToken);
         }
 

@@ -34,12 +34,14 @@ export default class PostStore {
 
   getPost(id) {
     //TODO
-    //return this.postRegistry.get(id);
-    return agent.Posts.get(id)
-    .then(res => 
-      this.detailPost = (res.data.data)
-      )
-      .catch(err => console.log(err))
+    return this.postRegistry.get(id)
+    
+    
+    // return agent.Posts.get(id)
+    // .then(res => 
+    //   this.detailPost = (res.data.data)
+    //   )
+    //   .catch(err => console.log(err))
   }
 
   //이전 정보를 정리해둔다.
@@ -75,10 +77,12 @@ export default class PostStore {
     }
     this.isLoading = true;
     return agent.Posts.get(id)
-    .then(action(({post}) => 
+    .then(action((res) => 
     {
-      this.articleRegistry.set(post.id, post)
-      return post;
+      this.detailPost = (res.data.data)
+      console.log(res)
+      this.postRegistry.set(this.detailPost.postCode, this.detailPost)
+      //return post;
     }
     ) )
     .finally(action(() => { this.loading = false}))
