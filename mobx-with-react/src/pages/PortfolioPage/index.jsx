@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 
 import Title from "./Title";
 import About from "./About";
-import Skills from "./Skills";
+import Skills from "../../components/Portfolio/Skills";
 import Project from "./Project";
 import Contact from "./Contact";
 
 class PortfolioPage extends Component{
     render(){
         return(
+            
             <PortfolioLayout>
                 <Title></Title>
                 <About></About>

@@ -1,30 +1,22 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { HuePicker } from 'react-color'
+import { SketchPicker } from "react-color";
 
-import {
-  ImageIcon,
-  ArrowBackIcon,
-  ColorFillIcon,
-  PrimitiveDotIcon
-} from "../../../styles/iconStyle.js";
+import { ArrowBackIcon, PrimitiveDotIcon } from "../../../styles/iconStyle.js";
+
 
 const blackColor = "#a6a6a6";
 const redColor = "#ff9999";
 const greenColor = "#66cc99";
 const blueColor = "#9494d1";
 const yellowColor = "#ac7339";
+const color10 = "#555555";
+const color9 = "#A97857";
+const color8 = "#536B82";
 
-const WriteTopBar = ({
-  title,
-  coverColor,
-  coverImage,
-  changeTitle,
-  changeCoverColor,
-  changeCoverImage,
-  save
-}) => {
+const WriteTopBar = ({ title, coverColor, changeTitle, changeCoverColor }) => {
+
   const [color, setColor] = useState(coverColor);
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const onCircleClick = color => {
@@ -39,10 +31,10 @@ const WriteTopBar = ({
   const GreenClick = () => onCircleClick(greenColor);
   const BlueClick = () => onCircleClick(blueColor);
   const YellowClick = () => onCircleClick(yellowColor);
+  const color8Click = () => onCircleClick(color8);
+  const color9Click = () => onCircleClick(color9);
+  const color10Click = () => onCircleClick(color10);
 
-  const ColorClick = () => {
-    alert("팔레트 열기!");
-  };
 
   const handleClick = () => {
     setDisplayColorPicker(!displayColorPicker)
@@ -78,61 +70,45 @@ const WriteTopBar = ({
       <Link to={"/"} style={{ textDecoration: "none" }}>
         <ArrowBackIcon></ArrowBackIcon>
       </Link>
-      <SaveBtn onClick={save}>저장</SaveBtn>
-      <PluginSpace>
-        <Icons>
-          <ImageIcon color="white"></ImageIcon>
-        </Icons>
-        <Icons>
-          <ColorFillIcon onClick={handleClick}></ColorFillIcon>
-          { displayColorPicker ? <div style={ popover }>
-          <div style={ cover } onClick={ handleClose }/>
-          <HuePicker color={ color } onChange={handleChange} />
-        </div> : null }
-
-        </Icons>
-        
-      </PluginSpace>
+      
       <HeaderDiv>
-        <HeaderInput
-          placeholder="제목을 입력하세요"
-          color={color}
-          value={title}
-          onChange={changeTitle}
-        ></HeaderInput>
+        <HeaderInput placeholder="제목을 입력하세요" color={color} value={title} onChange={changeTitle} />
       </HeaderDiv>
-      <Palette>
-        <ColorDiv>
-          <PrimitiveDotIcon
-            style={{ color: "#a6a6a6" }}
-            onClick={BlackClick}
-          ></PrimitiveDotIcon>
+      <ColorDots>
+      <ColorDiv>
+          <PrimitiveDotIcon color={"white"} onClick={handleClick} />
+          {displayColorPicker ? (
+            <div style={popover}>
+              <div style={cover} onClick={handleClose} />
+              <SketchPicker color={color} onChange={handleChange} />
+            </div>
+          ) : null}
         </ColorDiv>
         <ColorDiv>
-          <PrimitiveDotIcon
-            style={{ color: "#ff9999" }}
-            onClick={RedClick}
-          ></PrimitiveDotIcon>
+          <PrimitiveDotIcon color={"#a6a6a6"} onClick={BlackClick} />
         </ColorDiv>
         <ColorDiv>
-          <PrimitiveDotIcon
-            style={{ color: "#66cc99" }}
-            onClick={GreenClick}
-          ></PrimitiveDotIcon>
+          <PrimitiveDotIcon color={"#ff9999"} onClick={RedClick} />
         </ColorDiv>
         <ColorDiv>
-          <PrimitiveDotIcon
-            style={{ color: "#9494d1" }}
-            onClick={BlueClick}
-          ></PrimitiveDotIcon>
+          <PrimitiveDotIcon color={"#66cc99"} onClick={GreenClick} />
         </ColorDiv>
         <ColorDiv>
-          <PrimitiveDotIcon
-            style={{ color: "#ac7339" }}
-            onClick={YellowClick}
-          ></PrimitiveDotIcon>
+          <PrimitiveDotIcon color={"#9494d1"} onClick={BlueClick} />
         </ColorDiv>
-      </Palette>
+        <ColorDiv>
+          <PrimitiveDotIcon color={"#ac7339"} onClick={YellowClick} />
+        </ColorDiv>
+        <ColorDiv>
+          <PrimitiveDotIcon color={"#536B82"} onClick={color8Click} />
+        </ColorDiv>
+        <ColorDiv>
+          <PrimitiveDotIcon color={"#A97857"} onClick={color9Click} />
+        </ColorDiv>
+        <ColorDiv>
+          <PrimitiveDotIcon color={"#555555"} onClick={color10Click} />
+        </ColorDiv>
+      </ColorDots>
     </WriteTopBarLayout>
   );
 };
@@ -142,40 +118,25 @@ const ColorDiv = styled.div`
   float: left;
   text-align: center;
 `;
-const Palette = styled.div`
-  width: 10rem;
+
+const ColorDots = styled.div`
+  width: 18rem;
   height: 2rem;
-  margin-top: 20rem;
+  margin-top: 12rem;
   position: absolute;
-  margin-left: 45%;
-`;
-
-const PluginSpace = styled.div`
-  float: right;
-  width: 4rem;
-  height: 10rem;
-  margin-top: 6rem;
-`;
-
-const Icons = styled.div`
-  width: 40px;
-  float: right;
-  margin-top: 2rem;
-  /* :hover {
-    opacity: 50%;
-  } */
-`;
+  margin-left: 33%;
+  `
 
 const HeaderDiv = styled.div`
-  text-align: left;
+  text-align: center;
   transform: translate(50%, -50px);
   -webkit-transform: translate(50%, -50px);
   position: absolute;
   z-index: 11;
-  width: 700px;
+  width: 100%;
   height: 100px;
   right: 50%;
-  margin-top: 15rem;
+  margin-top: 8rem;
 `;
 
 const HeaderInput = styled.input`
@@ -191,7 +152,7 @@ const HeaderInput = styled.input`
 `;
 
 const WriteTopBarLayout = styled.div`
-  height: 28rem;
+  height: 20rem;
   /* border-bottom-style: solid;
   border-color: gray;
   border-width: 1px; */
@@ -201,22 +162,6 @@ const WriteTopBarLayout = styled.div`
   -o-transition: all 0.2s ease-in;
   -webkit-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
-`;
-
-const SaveBtn = styled.div`
-  border-radius: 5px;
-  border-color: black;
-  border: 1px solid black;
-  color: black;
-  cursor: pointer;
-  height: 30px;
-  width: 60px;
-  background-color: white;
-  float: right;
-  margin-top: 1%;
-  margin-right: 1%;
-  text-align: center;
-  padding-top: 3px;
 `;
 
 export default WriteTopBar;
