@@ -85,11 +85,9 @@ const Posts = {
 
     requests.post('/post', {"title":post.title, "coverColor":post.coverColor, "coverImage":post.coverImage, "body": post.body, "tagList": post.tagList}, {"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")})
   
-
-    
   },
   update: post => 
-  requests.put(`/post/${post.id}`, {post}),
+  requests.put(`/post/${post.id}`, {"title":post.title, "coverColor":post.coverColor, "coverImage":post.coverImage, "body": post.body, "tagList": post.tagList}),
   
   get: id =>
   requests.get(`/post/${id}`),

@@ -66,20 +66,37 @@ export default class PostStore {
   }
 
   // 한 개짜리 가져오기 - 이미 가져온 것은 map 에서 바로 꺼내고, 아닌 경우는 백엔드서버에서 호출한다.
-  @action loadPost(id, { acceptCached = false } = {}) {
+  // @action loadPost(id, { acceptCached = false } = {}) {
+  //   //TODO
+  //   acceptCached = true;
+  //   if (acceptCached) {
+  //     const post = this.getPost(id);
+  //     if (post) {
+  //       return Promise.resolve(post);
+  //     }
+  //   }
+  //   this.isLoading = true;
+  //   return agent.Posts.get(id)
+  //   .then(action((res) => 
+  //   {
+  //     this.detailPost = (res.data.data)
+  //     console.log(res)
+  //     this.postRegistry.set(this.detailPost.postCode, this.detailPost)
+  //     //return post;
+  //   }
+  //   ) )
+  //   .finally(action(() => { this.loading = false}))
+  // }
+
+
+  @action loadPost(id) {
     //TODO
-    acceptCached = true;
-    if (acceptCached) {
-      const post = this.getPost(id);
-      if (post) {
-        return Promise.resolve(post);
-      }
-    }
-    this.isLoading = true;
+    console.log("번호확인" + id)
     return agent.Posts.get(id)
     .then(action((res) => 
     {
       this.detailPost = (res.data.data)
+     
       console.log(res)
       this.postRegistry.set(this.detailPost.postCode, this.detailPost)
       //return post;
@@ -87,6 +104,7 @@ export default class PostStore {
     ) )
     .finally(action(() => { this.loading = false}))
   }
+
 
   @action createPost(post) {
     console.log("여기가 두번쩨!!!!!");
@@ -114,12 +132,7 @@ export default class PostStore {
   }
 
   @action deletePost(id) {
-    return agent.Posts.del(id).then(
-      action(err => {
-        this.loadPosts();
-        throw err;
-      })
-    );
+    return agent.Posts.del(id);
   }
 
   constructor(root) {

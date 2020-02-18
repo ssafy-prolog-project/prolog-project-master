@@ -54,7 +54,14 @@ console.log(this.props.postStore.detailPost);
 
     //author는 유저정보가 들어오고 클래스여야한다.
     const { values } = this.props.authStore;
-  
+    const Delete = () => {
+      this.props.postStore.deletePost(id)
+      .then(
+        this.props.history.push('/'),
+    window.location.reload()
+      );
+      
+    }
     const post = this.props.postStore.detailPost;
     console.log("ㅠㅠㅠㅠㅠ" + post.coverImage);
     return (
@@ -94,7 +101,7 @@ console.log(this.props.postStore.detailPost);
             dangerouslySetInnerHTML={this.createMarkup()}
           />
         </EditorLayout>
-
+            <DeleteBtn onClick={Delete}>삭제</DeleteBtn>
         <div></div>
         </TestContainer>
             {/* <PostMeta
@@ -122,6 +129,12 @@ console.log(this.props.postStore.detailPost);
     );
   }
 }
+
+const DeleteBtn = styled.div`
+  width: 3rem;
+  height: 1.5rem;
+  cursor: pointer;
+`;
 
 const Title = styled.div`
   z-index: 2;
