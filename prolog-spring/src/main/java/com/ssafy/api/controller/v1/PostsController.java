@@ -60,6 +60,7 @@ public class PostsController {
     @GetMapping(value = "/post/{postCode}") //id
     public SingleResult<PostResponseDTO> post(@PathVariable int postCode){
         //PostDTO 반환
+        System.out.println("!!" + postCode);
         return responseService.getSingleResult(postsService.getPostDetail(postCode));
     }
 
