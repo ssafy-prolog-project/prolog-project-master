@@ -82,11 +82,8 @@ const Posts = {
   
   create: post =>{
     // if(window.sessionStorage.getItem("jwt")==null || window.sessionStorage.getItem("jwt")=="") new Error("로그인 하러 가자!")
-
     requests.post('/post', {"title":post.title, "coverColor":post.coverColor, "coverImage":post.coverImage, "body": post.body, "tagList": post.tagList}, {"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")})
   
-
-    
   },
   update: post => 
   requests.put(`/post/${post.id}`, {post}),
