@@ -98,7 +98,7 @@ public class SignController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "소셜 언링크", notes = "소셜 회원 언링크을 한다.")
+    @ApiOperation(value = "소셜 언링크", notes = "소셜 회원 언링크을 한다. / 현재 카카오만 가능 ")
     @PostMapping(value = "/unlink/{provider}")
     public CommonResult unlinkByProvider(
             @ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
@@ -125,9 +125,6 @@ public class SignController {
     public CommonResult signup(@ApiParam(value = "회원ID : 이메일", required = true) @RequestBody String id,
                                @ApiParam(value = "비밀번호", required = true) @RequestBody String password,
                                @ApiParam(value = "이름", required = true) @RequestBody String name) {
-
-
-
         userJpaRepo.save(User.builder()
                 .uid(id)
                 .password(passwordEncoder.encode(password))
