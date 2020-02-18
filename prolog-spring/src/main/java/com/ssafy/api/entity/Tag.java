@@ -19,7 +19,7 @@ public class Tag {
     @Column(nullable = false)
     private Long tId; // tag Numbering
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = true, unique = true, columnDefinition = "String default null")
     @OnDelete(action  = OnDeleteAction.CASCADE)
     private String tag; // tag name
     public Tag(String tag) {
