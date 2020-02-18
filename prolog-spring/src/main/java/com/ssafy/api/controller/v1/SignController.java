@@ -20,6 +20,7 @@ import com.ssafy.api.service.user.KakaoService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -103,12 +104,19 @@ public class SignController {
             @ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
             @ApiParam(value = "소셜 access_token", required = true) @RequestHeader String accessToken
     ) {
-        KakaoProfile profile = kakaoService.postKakaoUnlink(accessToken);
-        User user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
-
-        if(!user.getUid().equals(profile.getId())){
-            throw new CUserCommunityIdMatchException();
+        KakaoProfile profile = null;
+        User user = null;
+        if(provider.equals("kakao")){
+            profile = kakaoService.postKakaoUnlink(accessToken);
+            user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
+            if(!user.getUid().equals(profile.getId())){
+                throw new CUserCommunityIdMatchException();
+            }
+        }else {
+            user = userJpaRepo.findByMsrl(Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getName())).orElseThrow(CUserNotFoundException::new);
         }
+
+        userJpaRepo.delete(user);
         return responseService.getSuccessResult();
     }
 

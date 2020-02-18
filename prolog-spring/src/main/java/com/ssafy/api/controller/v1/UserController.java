@@ -50,6 +50,18 @@ public class UserController {
         return responseService.getSingleResult(userParamDTO);
     }
 
+    @ApiOperation(value = "회원 단건 조회", notes = "회원번호(msrl)로 회원을 조회한다")
+    @GetMapping(value = "/user/{msrl}")
+    public SingleResult<UserParamDTO> findUserByParhVariableId(@ApiParam(value = "회원 번호", required = true) @PathVariable Long msrl) {
+        // SecurityContext에서 인증받은 회원의 정보를 얻어온다.
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        authentication.getPrincipal();
+        String id = authentication.getName();
+        // 결과데이터가 단일건인경우 getSingleResult를 이용해서 결과를 출력한다.
+        UserParamDTO userParamDTO = new UserParamDTO(userJpaRepo.findByMsrl(Long.parseLong(id)).orElseThrow(CUserNotFoundException::new));
+        return responseService.getSingleResult(userParamDTO);
+    }
+
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
