@@ -12,7 +12,7 @@ const IndicatorsContainer = props => {
 
 export default class SkillComboBox extends React.Component {
   state = {
-    selectedOption: null
+    selectedOption: this.props.skills
   };
   handleChange = selectedOption => {
     this.setState({ selectedOption })
@@ -25,7 +25,7 @@ export default class SkillComboBox extends React.Component {
         onChange={this.handleChange}
         closeMenuOnSelect={false}
         components={{ IndicatorsContainer }}
-        defaultValue={[]}
+        defaultValue={this.state.selectedOption}
         isMulti
         isSearchable={true}
         options={programmingLanguages}

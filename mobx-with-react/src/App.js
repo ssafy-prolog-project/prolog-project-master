@@ -39,6 +39,7 @@ const App = () => {
         {/* <PrivateRoute path="/mypage" component={MyPage} /> */}
         <Route path="/write" component={PostWritePage} />
         <Route path="/searchpage" component={SearchPage} />
+        <Route path="/portfolio/:msrl" component={PortfolioPage} />
         <Route path="/portfolio" component={PortfolioPage} />
         <Route path="/" component={MainPage} />
       </Switch>

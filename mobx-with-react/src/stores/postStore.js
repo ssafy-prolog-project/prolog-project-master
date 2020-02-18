@@ -24,9 +24,7 @@ export default class PostStore {
 
   @action setPostItems(postItems){
     this.postItems = postItems;
-    console.log(this.postItems)
-    //console.log("오긴왔니?")
-    //console.log(this.postItems);
+    this.getItems(0,2)
   }
 
   clear() {

@@ -67,6 +67,14 @@ const Auth = {
       update : (snsAccessToken, snsRefreshToken, user) =>
       requests.put('/user', {accessToken : snsAccessToken, refreshToken: snsRefreshToken, user : user}),
     
+    // id로 회원정보 조회
+    get: id =>
+    requests.get(`/user/${id}`),
+    // 기술스택 조회
+    getStack: id => 
+    requests.get(`/techs/${id}`),
+    
+    
 }
 
 // page 로드를 어떻게 처리할거냐?

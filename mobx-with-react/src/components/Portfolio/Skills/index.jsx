@@ -19,18 +19,16 @@ class Skills extends Component {
     super(props);
     this.state = {
       isEdit: false,
-      skills: []
+      skills: this.props.portfolioStore.values.skills
     };
-
+    
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick = () => {
     if (this.state.isEdit) {
       this.props.portfolioStore.setSkills(this.state.skills);
-    }
-    else{
-      this.state.skills = this.props.portfolioStore.skills
+      this.props.portfolioStore.saveSkills();
     }
     const { isEdit } = this.state;
     this.setState({
@@ -42,6 +40,7 @@ class Skills extends Component {
     this.setState({
       skills: values
     });
+    //console.log(this.props.portfolioStore.values)
   };
 
   render() {
@@ -54,7 +53,7 @@ class Skills extends Component {
           <EditP onClick={this.handleClick} />
         </SkTitle>
         <SkContent>
-          <SkillItemList skills={this.state.skills} />
+          <SkillItemList skills={skills} />
         </SkContent>
       </SkillsLayout>
     );
@@ -67,10 +66,10 @@ class Skills extends Component {
         </SkTitle>
         <SkContent>
           <SkillComboBox
-            skills={this.state.skills}
+            skills={skills}
             change={this.handleChangeSkills}
           ></SkillComboBox>
-          <SkillItemList skills={this.state.skills} />
+          <SkillItemList skills={skills} />
         </SkContent>
       </SkillsLayout>
     );

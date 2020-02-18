@@ -10,8 +10,7 @@ export default class UserStore{
   @observable currentUser;
   @observable loadingUser;
   @observable updatingUser;
-  @observable updatingUserErrors;
-
+  
   @action pullUser(jwt) {
     this.loadingUser = true;
     return agent.Auth.current(jwt)
@@ -45,13 +44,4 @@ export default class UserStore{
   @action forgetUser() {
     this.currentUser = undefined;
   }
-
-  @observable userInfo = {
-      profileImg:"https://upload.wikimedia.org/wikipedia/commons/7/7e/Circle-icons-profile.svg",
-      userId: "KYUNGEUN",
-      userName : "경은"
-    };
-  
-
-
 }
