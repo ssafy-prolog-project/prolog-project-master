@@ -58,12 +58,12 @@ console.log(this.props.postStore.detailPost);
       this.props.postStore.deletePost(id)
       .then(
         this.props.history.push('/'),
-    window.location.reload()
+        window.location.reload()
       );
       
     }
+
     const post = this.props.postStore.detailPost;
-    console.log("ㅠㅠㅠㅠㅠ" + post.coverImage);
     return (
       <PostDetailPageLayout>
         <PostViewHeader color={post.coverColor}>
@@ -89,8 +89,6 @@ console.log(this.props.postStore.detailPost);
               
             </Cover>
           )}
-            
-            
             {/* <p>게시날짜: </p> */}
             
             <TestContainer>
@@ -101,9 +99,13 @@ console.log(this.props.postStore.detailPost);
             dangerouslySetInnerHTML={this.createMarkup()}
           />
         </EditorLayout>
-            <DeleteBtn onClick={Delete}>삭제</DeleteBtn>
+            
         <div></div>
         </TestContainer>
+        <DeleteBtn onClick={Delete}>삭제</DeleteBtn>
+            <Link to={"/write/" + id} style={{ textDecoration: "none" }}>
+              <UpdateBtn>수정</UpdateBtn>
+            </Link>
             {/* <PostMeta
               post={this.props.postStore.detailPost}
               canModify={canModify}
@@ -134,6 +136,25 @@ const DeleteBtn = styled.div`
   width: 3rem;
   height: 1.5rem;
   cursor: pointer;
+  border-color: black;
+  float:right;
+  border-width: 1px;
+  border-style: solid;
+  text-align: center;
+  margin: 1rem 1rem 1rem 1rem;
+`;
+
+const UpdateBtn = styled.div`
+  width: 3rem;  
+  height: 1.5rem;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  color: black;
+  float:right;
+  text-align: center;
+  margin: 1rem 0rem 1rem 1rem;
 `;
 
 const Title = styled.div`
@@ -156,14 +177,7 @@ const Coverimg = styled.img`
 z-index: 2;
   height: 28rem;
   width: 100%;
-  /* border-bottom-style: solid;
-  border-color: gray;
-  border-width: 1px; */
   position: relative;
-  /* -moz-transition: all 0.2s ease-in;
-  -o-transition: all 0.2s ease-in;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in; */
 `;
 
 const Cover = styled.div`

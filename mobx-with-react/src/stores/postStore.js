@@ -132,7 +132,12 @@ export default class PostStore {
   }
 
   @action deletePost(id) {
-    return agent.Posts.del(id);
+    //console.log("삭제" + id)
+    return agent.Posts.del(id)
+    .then((res) => {
+      console.log("삭제!")
+      console.log(res)
+    });
   }
 
   constructor(root) {

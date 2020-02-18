@@ -37,6 +37,7 @@ const App = () => {
         <Route path="/mypage/:msrl" component={MyPage} />
         <Route path="/mypage" component={MyPage} />
         {/* <PrivateRoute path="/mypage" component={MyPage} /> */}
+        <Route path="/write/:postCode" component={PostWritePage} />
         <Route path="/write" component={PostWritePage} />
         <Route path="/searchpage" component={SearchPage} />
         <Route path="/portfolio" component={PortfolioPage} />

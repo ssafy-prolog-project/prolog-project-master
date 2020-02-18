@@ -21,30 +21,20 @@ const responseBody = res => res.body;
 
 // http request : get, post, del, put 
 const requests = {
-  del: url =>
+  del: (url, header) =>
     axios
-      .delete(`${API_ROOT}${VERSION}${url}`)
-      // .then(res => console.log(res))
-      // .catch(err => console.log(err)),
-      ,
+      .delete(`${API_ROOT}${VERSION}${url}`,{headers: header}),
+      
   get: (url, header) =>
     axios
       .get(`${API_ROOT}${VERSION}${url}`,{headers: header}),
-     
-  // post: (url, body, header) =>
-  //   axios
-  //     .post(`${API_ROOT}${VERSION}${url}`, body, {headers: header}),
-      
+   
   post: (url, body, header) =>
     axios
       .post(`${API_ROOT}${VERSION}${url}`, body, {headers: header}),
-      //.then(res => console.log(res))
-      //.catch(err =>  console.log(err)),
   put: (url, body) =>
     axios
       .put(`${API_ROOT}${VERSION}${url}`, body)
-      // .then(res => console.log(res))
-      // .catch(err => console.log(err))
 };
 
 // 토큰은 다 헤더로 넘기고, 나머지 정보만 body로 넘긴다.
@@ -92,7 +82,7 @@ const Posts = {
   requests.get(`/post/${id}`),
   
   del: id => 
-  requests.del(`/post/${id}`)
+  requests.del(`/post/${id}`, {"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")})
 
   
 
