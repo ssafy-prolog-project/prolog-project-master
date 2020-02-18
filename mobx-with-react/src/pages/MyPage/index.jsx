@@ -7,6 +7,8 @@ import UserProfile from "../../components/UserProfile"
 
 class MyPage extends Component{
     render(){
+        const userid = this.props.match.params.id;
+
         return(
             <MyPageLayout>
                 <Link to={"/"} style={{ textDecoration: "none" }}>
@@ -14,7 +16,7 @@ class MyPage extends Component{
                 </Link>
                 <Div>
                     <UserProfile></UserProfile>
-                    <UserContent></UserContent>
+                    <UserContent userid={userid}></UserContent>
                 </Div>
             </MyPageLayout>
         )

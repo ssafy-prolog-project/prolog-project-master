@@ -33,6 +33,7 @@ export default class WriteEditor extends Component {
             <CKEditor
               editor={BalloonEditor}
               data=""
+              //config={}
               onInit={editor => {
                 //console.log(Balloon Editor.builtinPlugins.map(plugin => plugin.pluginName))
                 this.setState({ ckeditor: editor });

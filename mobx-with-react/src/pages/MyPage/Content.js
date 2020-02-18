@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import styled from "styled-components";
-import TabWrapper from "./TabWrapper"
+import TabWrapper from "./TabWrapper";
+import SideWrapper from "./SideWrapper";
 
 class Content extends Component{
     render(){
         return(
             <ContentLayout>
-                <SideWrapper>태그태그</SideWrapper>
-                <TabWrapper></TabWrapper>
+                <SideWrapper useid={this.props.userid}></SideWrapper>
+                <TabWrapper userid={this.props.userid}></TabWrapper>
             </ContentLayout>
         )
     }
@@ -22,16 +23,6 @@ const ContentLayout = styled.div`
     @media (max-width: 768px) {
         grid-template-columns: 100%;
     }
-    
-`
-
-const SideWrapper = styled.div`
-    flex-shrink: 0;
-    background-color: red;
-   
-    @media (max-width: 768px) {
-        display: none
-    }
-`
+`    
 
 export default Content;

@@ -14,6 +14,8 @@ class TabWrapper extends Component{
     };
 
     componentDidMount() {
+        this.props.postStore.loadPosts();
+        const userid=this.props.userid
         const { postStore } = this.props;
         postStore.getItems(0, 6);
         this.setState({
@@ -55,7 +57,6 @@ class TabWrapper extends Component{
         }
         endMessage={<h4></h4>}
       >
-      
             <TabWrapperLayout>
             {items.map((item, index) => (
               // {item.user.msrl === this.props.userStore.}
