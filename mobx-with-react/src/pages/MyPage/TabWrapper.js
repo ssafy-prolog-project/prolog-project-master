@@ -58,6 +58,7 @@ class TabWrapper extends Component{
       
             <TabWrapperLayout>
             {items.map((item, index) => (
+              // {item.user.msrl === this.props.userStore.}
                 <PostCard key={index} post={item} />
               ))}
             </TabWrapperLayout>

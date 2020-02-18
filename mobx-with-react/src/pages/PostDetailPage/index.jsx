@@ -7,6 +7,7 @@ import { withRouter } from "react-router-dom";
 // component
 import Logo from "../../components/NavBar/Logo";
  import UserButton from "../../components/Common/UserButton";
+
 import PostMeta from "../../components/Post/PostMeta";
 import PostDetail from "../../components/Post/PostDetail";
 import PostTags from "../../components/Post/PostTags";
@@ -22,13 +23,13 @@ class PostDetailPage extends Component {
     this.props.postStore.loadPost(id, { acceptcached: true });
     // store에 커멘트 id를 저장한 다음에 커멘트를 불러온다.
     this.props.commentStore.setPostId(id);
-    this.props.commentStore.loadComments();
+    //this.props.commentStore.loadComments();
   }
 
   handleDeletePost = id => {
-    this.props.postStore.deletePost(id);
     // 글을 지운다. 나만 가능
-    //.then(() => this.props.history.replace('/'))
+    this.props.postStore.deletePost(id).
+    then(() => this.props.history.replace('/'))
   };
 
   //댓글 삭제 해당 글 쓴 사람만 가능
@@ -50,7 +51,7 @@ class PostDetailPage extends Component {
     //const post = this.props.postStore.detailPost;
     if (!this.props.postStore.detailPost) return <h1>Post가 없습니다. 에러처리</h1>;
 console.log(this.props.postStore.detailPost);
-    const canModify = currentUser && currentUser.name === this.props.postStore.detailPost.user.username;
+    const canModify = currentUser && currentUser.name === this.props.postStore.detailPost.userName;
 
     //author는 유저정보가 들어오고 클래스여야한다.
     const { values } = this.props.authStore;
@@ -60,9 +61,10 @@ console.log(this.props.postStore.detailPost);
       this.props.authStore.logout();
     };
     const post = this.props.postStore.detailPost;
+    console.log("ㅠㅠㅠㅠㅠ" + post.coverImage);
     return (
       <PostDetailPageLayout>
-        <PostViewHeader>
+        <PostViewHeader color={post.coverColor}>
           <Link to={"/"} style={{ textDecoration: "none" }}>
             <MLogo>Prolog;</MLogo>
           </Link>
@@ -71,13 +73,22 @@ console.log(this.props.postStore.detailPost);
         <PostContentWrapper>
           
           <PostContent>
-          {post.coverImg ? (
-            <Coverimg src={post.coverImg}></Coverimg>
-          ) : (
-            <Cover color={post.coverColor}></Cover>
-          )}
+          
+          {post.coverImage ? (
+            <>
+            <Coverimg src={post.coverImage}>
+              
+            </Coverimg>
             <Title>{post.title}</Title>
-            <Date>{post.updateDate}</Date>
+            </>
+          ) : (
+            <Cover color={post.coverColor}>
+              <Title>{post.title}</Title>
+              
+            </Cover>
+          )}
+            
+            
             {/* <p>게시날짜: </p> */}
             
             <TestContainer>
@@ -88,6 +99,7 @@ console.log(this.props.postStore.detailPost);
             dangerouslySetInnerHTML={this.createMarkup()}
           />
         </EditorLayout>
+
         <div></div>
         </TestContainer>
             {/* <PostMeta
@@ -118,32 +130,32 @@ console.log(this.props.postStore.detailPost);
 
 const Title = styled.div`
   z-index: 2;
-  position: relative;
-  top: -150px;
-  left: 15%;
-  font-size: 60px;
+  padding-top: 15rem;
+  padding-left: 15rem;
+  width: 80%;
+  font-size: 3.5rem;
+  white-space: pre-line;
   font-family: Inconsolas;
 `;
 const Date = styled.div`
-z-index: 2;
-  position: relative;
-  top: -150px;
-  left: 15%;
+  z-index: 2;
+  padding-top: 14rem;
+  padding-left: 7rem;
   /* font-size: 60px; */
   font-family: Inconsolas;
 `;
 const Coverimg = styled.img`
 z-index: 2;
   height: 28rem;
+  width: 100%;
   /* border-bottom-style: solid;
   border-color: gray;
   border-width: 1px; */
   position: relative;
-  background-color: ${props => props.color};
-  -moz-transition: all 0.2s ease-in;
+  /* -moz-transition: all 0.2s ease-in;
   -o-transition: all 0.2s ease-in;
   -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in; */
 `;
 
 const Cover = styled.div`
@@ -154,10 +166,10 @@ z-index: 2;
   border-width: 1px; */
   position: relative;
   background-color: ${props => props.color};
-  -moz-transition: all 0.2s ease-in;
+  /* -moz-transition: all 0.2s ease-in;
   -o-transition: all 0.2s ease-in;
   -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in; */
 `;
 
 export default PostDetailPage;
@@ -180,7 +192,7 @@ const EditorLayout = styled.div`
 `;
 const TestContainer = styled.div`
   display: grid;
-  /* grid-template-columns: 15% 70% 15%; */
+  grid-template-columns: 15% 70% 15%;
 `;
 
 const PostDetailPageLayout = styled.div`
@@ -200,11 +212,11 @@ const PostDetailPageLayout = styled.div`
 //TODO 얘는 그리드말고 나중에 flex로 양방향 쪼개기 하면 될듯
 const PostViewHeader = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  /* grid-template-columns: repeat(5, 1fr); */
   grid-template-areas: "logo . . . test";
   height: 100%;
   width: 100%;
-  background-color: #1a3365;
+  background-color: ${props => props.color};
 `;
 
 const MLogo = styled.div`
@@ -224,10 +236,10 @@ const DIV = styled.div`
 `;
 
 const PostContentWrapper = styled.div`
-  padding-top: 5rem;
+  /* padding-top: 5rem; */
   padding-bottom: 5rem;
   display: grid;
-  grid-template-columns: 15% 70% 15%;
+  grid-template-columns: 0% 100% 0%;
   grid-template-areas: "left contents right";
 
   @media (max-width: 768px) {
@@ -256,8 +268,8 @@ const PostContent = styled.div`
   padding-right: 3rem; */
 
   @media (max-width: 768px) {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    /* padding-left: 1rem;
+    padding-right: 1rem; */
   }
 `;
 

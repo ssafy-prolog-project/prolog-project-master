@@ -90,9 +90,7 @@ export default class EditorStore {
       coverColor: this.coverColor,
       coverImage: this.coverImage,
       body: this.body,
-      //postCode: undefined,
-      //tagList: this.tagList,
-      //postCode: this.postCode
+      tagList: this.tagList
     };
     return (this.postCode ? this.root.postStore.updatePost(post) : this.root.postStore.createPost(post))
     // return (this.postCode ? this.root.postStore.updatePost(post) : this.root.postStore.createPost(post))

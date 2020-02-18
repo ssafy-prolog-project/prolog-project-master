@@ -1,10 +1,11 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import WriteTopBar from "../../components/Write/WriteTopBar";
 import WriteEditor from "../../components/Write/WriteEditor";
 import WriteTags from "../../components/Write/WriteTags";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 import { withRouter } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 @inject("editorStore", "userStore")
 @withRouter
@@ -75,7 +76,8 @@ class PostWritePage extends Component {
     ev.preventDefault();
     const { editorStore } = this.props;
     editorStore.save();
-    
+    this.props.history.push('/');
+    window.location.reload();
     // .then(post => {
     //   editorStore.reset();
     //   this.props.history.replace(`/post/${post.id}`);
@@ -121,6 +123,7 @@ class PostWritePage extends Component {
             >
               {" "}
             </WriteTags>
+            <Link to={"/"} style={{ textDecoration: "none" }}>
             <SaveBtn 
             title={title}
             coverColor={coverColor}
@@ -131,6 +134,7 @@ class PostWritePage extends Component {
             postCode={this.postCode}
             save={this.save}
             onClick={this.save}>저장</SaveBtn>
+            </Link>
           </div>
           <div></div>
         </WriteAreaLayout>
@@ -141,11 +145,6 @@ class PostWritePage extends Component {
 
 const PostWritePageLayout = styled.div`
   height: 100%;
-`;
-
-const WriteTagLayout = styled.div`
-  background-color: #1a3365;
-  /* align-items: "center"; */
 `;
 
 const WriteAreaLayout = styled.div`

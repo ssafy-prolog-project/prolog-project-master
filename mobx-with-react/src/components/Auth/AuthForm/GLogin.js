@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { GoogleLogin } from "react-google-login";
 import styled from "styled-components";
-import axios from "axios";
-
 import { inject, observer } from "mobx-react";
 
 require("dotenv").config();
@@ -18,7 +16,7 @@ class GLogin extends Component {
       provider: ""
     };
   }
-  // Google Login
+  
   responseGoogle = res => {
     this.setState({
       id: res.googleId,
