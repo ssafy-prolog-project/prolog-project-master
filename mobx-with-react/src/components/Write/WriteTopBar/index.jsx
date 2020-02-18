@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { SketchPicker } from "react-color";
-
 import { ArrowBackIcon, PrimitiveDotIcon } from "../../../styles/iconStyle.js";
+import { inject, observer } from "mobx-react";
 
 const blackColor = "#a6a6a6";
 const redColor = "#ff9999";
@@ -27,7 +27,7 @@ const WriteTopBar = ({
     setColor(color);
     changeCoverColor(color);
   };
-
+  console.log(title);
   //왜 직접 <PrimitiveDotIcon style={{color: "#a6a6a6"}} onClick={onCircleClick(blackColor)}></PrimitiveDotIcon>
   //같은 식으로 짜면 무한대 리렌더가 발생하는걸까?
   const BlackClick = () => onCircleClick(blackColor);
@@ -68,7 +68,7 @@ const WriteTopBar = ({
   };
 
   return (
-    <WriteTopBarLayout color={color}>
+    <WriteTopBarLayout color={coverColor}>
       {/* TODO 뒤로가기가 되어야함. 메인으로 가는게 아니라 */}
       <Link to={"/"} style={{ textDecoration: "none" }}>
         <ArrowBackIcon></ArrowBackIcon>
@@ -84,8 +84,8 @@ const WriteTopBar = ({
           />
         ) : (
           <HeaderInput
-            placeholder="제목을 받아와야하는데..."
-            color={color}
+            placeholder={title}
+            color={coverColor}
             value={title}
             onChange={changeTitle}
           />
@@ -154,6 +154,7 @@ const HeaderDiv = styled.div`
   height: 100px;
   right: 50%;
   margin-top: 8rem;
+  background-color: ${props => props.color};
 `;
 
 const HeaderInput = styled.input`
@@ -181,4 +182,6 @@ const WriteTopBarLayout = styled.div`
   transition: all 0.2s ease-in;
 `;
 
-export default WriteTopBar;
+export default inject(({ postStore, authStore }) => ({
+  values: authStore.values
+}))(observer(WriteTopBar));

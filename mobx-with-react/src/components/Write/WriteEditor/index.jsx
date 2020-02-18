@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import BalloonEditor from '@ckeditor/ckeditor5-build-balloon';
+import React, { Component } from "react";
+import styled from "styled-components";
+import CKEditor from "@ckeditor/ckeditor5-react";
+import BalloonEditor from "@ckeditor/ckeditor5-build-balloon";
 // import * as BalloonEditor  from '../../../ckeditor5-build-balloon/build/ckeditor.js';
 //const BalloonEditor = require('../../../ckeditor5-build-balloon')
 //import BalloonEditor from '../../../ckeditor5-build-balloon/build/ckeditor.js'
 import "../../../styles/content-style.css";
 import EditorHelper from "../EditorHelper";
 // const aa = require('./build/ckeditor.js')
-{/* <script src='../../../ckeditor5-build-balloon/build/ckeditor.js'></script> */}
+{
+  /* <script src='../../../ckeditor5-build-balloon/build/ckeditor.js'></script> */
+}
 
 export default class WriteEditor extends Component {
   state = {
@@ -26,35 +28,63 @@ export default class WriteEditor extends Component {
 
   render() {
     return (
-      <WriteEditorLayout >
+      <WriteEditorLayout>
         <TestContainer>
           <div></div>
           <EditorLayout id="editor">
-            <CKEditor
-              editor={BalloonEditor}
-              data=""
-              onInit={editor => {
-                //console.log(Balloon Editor.builtinPlugins.map(plugin => plugin.pluginName))
-                //console.log(Array.from(editor.ui.componentFactory.nameS()))
-                // You can store the "editor" and use when it is needed.
-                //console.log(Array.<String|module:font/fontfamily~FontFamilyOption>)
-                this.setState({ ckeditor: editor });
-              }}
-              onChange={(event, editor) => {
-                // const data = editor.getData();
-                // console.log( { event, editor, data } );
-                this.setState({ data1: editor.getData() });
-                this.props.setBody(editor.getData());
-              }}
-              onBlur={(event, editor) => {
-                //console.log( 'Blur.', editor );
-                //const data = editor.getData();
-                //console.log( { event, editor, data } );
-              }}
-              onFocus={(event, editor) => {
-                //console.log( 'Focus.', editor );
-              }}
-            />
+            {this.props.postCode === undefined ? (
+              <CKEditor
+                editor={BalloonEditor}
+                data=""
+                onInit={editor => {
+                  //console.log(Balloon Editor.builtinPlugins.map(plugin => plugin.pluginName))
+                  //console.log(Array.from(editor.ui.componentFactory.nameS()))
+                  // You can store the "editor" and use when it is needed.
+                  //console.log(Array.<String|module:font/fontfamily~FontFamilyOption>)
+                  this.setState({ ckeditor: editor });
+                }}
+                onChange={(event, editor) => {
+                  // const data = editor.getData();
+                  // console.log( { event, editor, data } );
+                  this.setState({ data1: editor.getData() });
+                  this.props.setBody(editor.getData());
+                }}
+                onBlur={(event, editor) => {
+                  //console.log( 'Blur.', editor );
+                  //const data = editor.getData();
+                  //console.log( { event, editor, data } );
+                }}
+                onFocus={(event, editor) => {
+                  //console.log( 'Focus.', editor );
+                }}
+              />
+            ) : (
+              <CKEditor
+                editor={BalloonEditor}
+                data={this.props.body}
+                onInit={editor => {
+                  //console.log(Balloon Editor.builtinPlugins.map(plugin => plugin.pluginName))
+                  //console.log(Array.from(editor.ui.componentFactory.nameS()))
+                  // You can store the "editor" and use when it is needed.
+                  //console.log(Array.<String|module:font/fontfamily~FontFamilyOption>)
+                  this.setState({ ckeditor: editor });
+                }}
+                onChange={(event, editor) => {
+                  // const data = editor.getData();
+                  // console.log( { event, editor, data } );
+                  this.setState({ data1: editor.getData() });
+                  this.props.setBody(editor.getData());
+                }}
+                onBlur={(event, editor) => {
+                  //console.log( 'Blur.', editor );
+                  //const data = editor.getData();
+                  //console.log( { event, editor, data } );
+                }}
+                onFocus={(event, editor) => {
+                  //console.log( 'Focus.', editor );
+                }}
+              />
+            )}
           </EditorLayout>
           <div>
             <EditorHelper editor={this.state.ckeditor} />
@@ -63,17 +93,17 @@ export default class WriteEditor extends Component {
 
         <TestContainer>
           <div></div>
-        <EditorLayout>
-          <div
-            className="ck-content"
-            dangerouslySetInnerHTML={this.createMarkup()}
-          />
-        </EditorLayout>
-        <div></div>
+          <EditorLayout>
+            <div
+              className="ck-content"
+              dangerouslySetInnerHTML={this.createMarkup()}
+            />
+          </EditorLayout>
+          <div></div>
         </TestContainer>
       </WriteEditorLayout>
     );
-}
+  }
 }
 
 const EditorLayout = styled.div`
@@ -94,11 +124,3 @@ const TestContainer = styled.div`
 `;
 
 const WriteEditorLayout = styled.div``;
-
-
-
-
-
-
-
-

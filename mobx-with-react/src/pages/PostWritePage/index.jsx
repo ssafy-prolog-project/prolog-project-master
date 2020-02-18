@@ -24,7 +24,13 @@ class PostWritePage extends Component {
 
   componentWillMount() {
     if (this.props.match.params.postCode) {
-      this.modify = true;
+      this.props.editorStore.setPostId(this.props.match.params.postCode);
+      this.props.editorStore.loadInitialData().then(
+        res => console.log(res)
+        // this.setState({
+
+        // })
+      );
     }
     console.log("여기;ㅠㅠㅠㅠㅠㅠ");
     console.log(this.modify);
@@ -80,9 +86,9 @@ class PostWritePage extends Component {
   save = ev => {
     ev.preventDefault();
     const { editorStore } = this.props;
-    editorStore.save();
-    this.props.history.push("/");
-    window.location.reload();
+    editorStore.save(this.props.match.params.postCode);
+    //this.props.history.push("/");
+    //window.location.reload();
     // .then(post => {
     //   editorStore.reset();
     //   this.props.history.replace(`/post/${post.id}`);
@@ -117,7 +123,11 @@ class PostWritePage extends Component {
           postCode={this.props.match.params.postCode}
           save={this.save}
         ></WriteTopBar>
-        <WriteEditor setBody={this.setBody}></WriteEditor>
+        <WriteEditor
+          setBody={this.setBody}
+          body={body}
+          postCode={this.props.match.params.postCode}
+        ></WriteEditor>
         <WriteAreaLayout>
           <div></div>
           <div>
@@ -125,6 +135,7 @@ class PostWritePage extends Component {
               changeTags={this.changeTags}
               tagList={this.props.editorStore.tagList}
               inProgress={this.inProgress}
+              postCode={this.props.match.params.postCode}
             >
               {" "}
             </WriteTags>

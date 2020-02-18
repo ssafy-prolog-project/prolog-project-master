@@ -1,6 +1,6 @@
 import agent from "../agent";
 import { observable, action, computed } from "mobx";
-import {RouteComponentProps} from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import { getUnixTime } from "date-fns";
 
 // imageUrl, Title, category, text, likes, comments, created_at, updated_at , author
@@ -22,9 +22,9 @@ export default class PostStore {
   @observable postItems = []; // axios로 호출해서 받아오면 된다.
   @observable detailPost = undefined;
 
-  @action setPostItems(postItems){
+  @action setPostItems(postItems) {
     this.postItems = postItems;
-    this.getItems(0,1);
+    this.getItems(0, 1);
     //console.log("오긴왔니?")
     //console.log(this.postItems);
   }
@@ -34,11 +34,10 @@ export default class PostStore {
 
   getPost(id) {
     //TODO
-    return this.postRegistry.get(id)
-    
-    
+    return this.postRegistry.get(id);
+
     // return agent.Posts.get(id)
-    // .then(res => 
+    // .then(res =>
     //   this.detailPost = (res.data.data)
     //   )
     //   .catch(err => console.log(err))
@@ -48,7 +47,7 @@ export default class PostStore {
   @action setPredicate(predicate) {
     if (JSON.stringfy(predicate) === JSON.stringfy(this.predicate)) return;
     this.clear();
-    this.predicate = predicate
+    this.predicate = predicate;
   }
 
   // 전체 Post 가져오기
@@ -57,12 +56,16 @@ export default class PostStore {
     //TODO
     //console.log("요청보내기!");
     return agent.Posts.all()
-    .then(res => 
-      //console.log(res.data.list),
-      this.setPostItems(res.data.list)
+      .then(res =>
+        //console.log(res.data.list),
+        this.setPostItems(res.data.list)
       )
       .catch(err => console.log(err))
-    .finally(action(() => { this.loading = false}))
+      .finally(
+        action(() => {
+          this.loading = false;
+        })
+      );
   }
 
   // 한 개짜리 가져오기 - 이미 가져온 것은 map 에서 바로 꺼내고, 아닌 경우는 백엔드서버에서 호출한다.
@@ -77,7 +80,7 @@ export default class PostStore {
   //   }
   //   this.isLoading = true;
   //   return agent.Posts.get(id)
-  //   .then(action((res) => 
+  //   .then(action((res) =>
   //   {
   //     this.detailPost = (res.data.data)
   //     console.log(res)
@@ -88,33 +91,30 @@ export default class PostStore {
   //   .finally(action(() => { this.loading = false}))
   // }
 
-
   @action loadPost(id) {
     //TODO
-    console.log("번호확인" + id)
-    return agent.Posts.get(id)
-    .then(action((res) => 
-    {
-      this.detailPost = (res.data.data)
-     
-      console.log(res)
-      this.postRegistry.set(this.detailPost.postCode, this.detailPost)
-      //return post;
-    }
-    ) )
-    .finally(action(() => { this.loading = false}))
-  }
+    console.log("번호확인" + id);
+    return agent.Posts.get(id).then(
+      action(res => {
+        this.detailPost = res.data.data;
 
+        console.log(res);
+        this.postRegistry.set(this.detailPost.postCode, this.detailPost);
+        return this.detailPost;
+      })
+    );
+    //.finally(action(() => { this.loading = false}))
+  }
 
   @action createPost(post) {
     console.log("여기가 두번쩨!!!!!");
     //console.log(post);
-    return agent.Posts.create(post)
-    // .then(res => 
+    return agent.Posts.create(post);
+    // .then(res =>
     //   console.log("성공했니?")
     //   )
     // .catch(err => console.log( err))
-    // .then(action(({ post }) => 
+    // .then(action(({ post }) =>
     // {
     //   this.postRegistry.set(post.postCode, post);
     //   return post;
@@ -122,10 +122,8 @@ export default class PostStore {
     // ));
   }
 
-  
-
   @action updatePost(post) {
-    return agent.Posts.create(post).then(({ post }) => {
+    return agent.Posts.update(post).then(({ post }) => {
       this.postRegistry.set(post.id, post);
       return post;
     });
@@ -133,10 +131,9 @@ export default class PostStore {
 
   @action deletePost(id) {
     //console.log("삭제" + id)
-    return agent.Posts.del(id)
-    .then((res) => {
-      console.log("삭제!")
-      console.log(res)
+    return agent.Posts.del(id).then(res => {
+      console.log("삭제!");
+      console.log(res);
     });
   }
 
@@ -207,6 +204,5 @@ export default class PostStore {
   @action
   getItems = (startIndex, count) => {
     this.returnItems = this.postItems;
-   
   };
 }
