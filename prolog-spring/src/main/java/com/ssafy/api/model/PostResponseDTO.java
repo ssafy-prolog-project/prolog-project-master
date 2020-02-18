@@ -3,6 +3,8 @@ package com.ssafy.api.model;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,6 +23,12 @@ public class PostResponseDTO {
 
     @ApiModelProperty(value = "작성자")
     private String userName; // User Name
+
+    @ApiModelProperty(value = "작성날짜")
+    private LocalDateTime createDate;
+
+    @ApiModelProperty(value = "업데이트날짜")
+    private LocalDateTime updateDate;
 
     @ApiModelProperty(value = "태그 리스트")
     private String[] tagList; // tag table에 넣을것.
