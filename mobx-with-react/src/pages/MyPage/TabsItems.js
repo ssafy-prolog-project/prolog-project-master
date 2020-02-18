@@ -18,12 +18,7 @@ const TabsItems = ({posts}) => {
             </Link>
             <Link to={""} style={{textDecoration:"none"}}>
                 <TabsItem onClick={""}>
-                <ItemContent>내 프로필</ItemContent>
-                </TabsItem>
-            </Link>
-            <Link to={""} style={{textDecoration:"none"}}>
-                <TabsItem onClick={""}>
-                <ItemContent>4?</ItemContent>
+                <ItemContent>시리즈</ItemContent>
                 </TabsItem>
             </Link>
         </TabsItemsLayout>

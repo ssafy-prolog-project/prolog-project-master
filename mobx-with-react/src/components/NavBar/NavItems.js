@@ -51,7 +51,7 @@ const NavItem = styled.li`
   }
 `;
 
-const ItemContent = styled.a`
+const ItemContent = styled.div`
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   font-size: 1.125rem;

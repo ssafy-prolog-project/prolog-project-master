@@ -73,7 +73,7 @@ const SelectMenus = styled.div`
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 3;*/
 `;
-const SelectMenu = styled.a`
+const SelectMenu = styled.div`
   color: black;
   padding: 10px 12px;
   text-decoration: none;
