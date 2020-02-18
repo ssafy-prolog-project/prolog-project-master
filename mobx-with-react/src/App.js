@@ -14,8 +14,6 @@ import PrivateRoute from "./PrivateRoute";
 import PortfolioPage from "./pages/PortfolioPage";
 
 const App = () => {
-  
-
   const [user, setUser] = useState(null);
   const authenticated = user != null;
   const login = ({ email, password }) => setUser(signIn({ email, password }));

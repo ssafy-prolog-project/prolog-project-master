@@ -94,6 +94,7 @@ console.log(this.props.postStore.detailPost);
             dangerouslySetInnerHTML={this.createMarkup()}
           />
         </EditorLayout>
+
         <div></div>
         </TestContainer>
             {/* <PostMeta
