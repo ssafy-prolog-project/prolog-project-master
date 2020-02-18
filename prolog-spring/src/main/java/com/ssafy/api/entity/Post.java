@@ -9,7 +9,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,14 +35,8 @@ public class Post extends CommonDateEntity {
     private String title;
     @Column
     private String coverColor;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Builder.Default
-    private List<String> tagList = new ArrayList<>();
-
     @Column(name = "contents")
     private String body;
-
     @Column(nullable = false, columnDefinition = "int default 0") // default 0
     private int postLike;
     @Column(nullable = false, columnDefinition = "int default 0") // default 0
@@ -60,32 +53,20 @@ public class Post extends CommonDateEntity {
     private boolean pinProject;
 
     // 생성자
-    public Post(User user, String title, String body, String coverImage, String coverColor, String[] tagList) {
-        this.user = user;
-        this.title = title;
-        this.body = body;
-        this.coverImage = coverImage;
-        this.coverColor = coverColor;
-        this.tagList = Arrays.asList(tagList);
-    }
-
-    // test용
     public Post(User user, String title, String body, String coverImage, String coverColor) {
         this.user = user;
         this.title = title;
         this.body = body;
         this.coverImage = coverImage;
         this.coverColor = coverColor;
-
     }
 
     // 수정시 데이터 처리
-    public Post setUpdate(String title, String body, String coverImage, String coverColor, List<String> tagList) {
+    public Post setUpdate(String title, String body, String coverImage, String coverColor) {
         this.title = title;
         this.body = body;
         this.coverImage = coverImage;
         this.coverColor = coverColor;
-        this.tagList = tagList;
         return this;
     }
 }

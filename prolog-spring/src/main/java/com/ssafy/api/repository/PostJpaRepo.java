@@ -15,9 +15,4 @@ public interface PostJpaRepo extends JpaRepository<Post, Integer> {
     //Optional<Post> findByPostCode(int postCode); // select one
     //Optional<Void> deleteByPostCode(int postCode);
     Optional<List<Post>> findAllByUserMsrl(Long msrl); // user에 해당하는 모든 게시물
-
-//    @Query("SELECT p FROM posts p WHERE p.title LIKE CONCAT('%',:keyword,'%') AND")
-//    Optional<List<Post>> findAllByKeywords(@Param("keyword") String keyword);//검색어로 제목 탐색 모든 게시물
-
-
 }
