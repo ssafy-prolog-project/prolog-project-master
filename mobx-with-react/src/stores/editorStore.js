@@ -91,7 +91,7 @@ export default class EditorStore {
       coverImage: this.coverImage,
       body: this.body,
       //postCode: undefined,
-      //tagList: this.tagList,
+      tagList: this.tagList,
       //postCode: this.postCode
     };
     return (this.postCode ? this.root.postStore.updatePost(post) : this.root.postStore.createPost(post))
