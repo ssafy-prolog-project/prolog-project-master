@@ -17,7 +17,11 @@ class AuthForm extends React.Component {
 
       handleSubmitForm = e => {
         e.preventDefault();
-        this.props.authStore.login().then(() => this.props.history.replace("/"));
+        this.props.authStore.login()
+        .then(() => 
+        this.props.history.push('/'),
+        window.location.reload()
+        );
       };
 
   render() {

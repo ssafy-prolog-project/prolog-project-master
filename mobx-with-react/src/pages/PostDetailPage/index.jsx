@@ -23,7 +23,7 @@ class PostDetailPage extends Component {
     this.props.postStore.loadPost(id, { acceptcached: true });
     // store에 커멘트 id를 저장한 다음에 커멘트를 불러온다.
     this.props.commentStore.setPostId(id);
-    this.props.commentStore.loadComments();
+    //this.props.commentStore.loadComments();
   }
 
   handleDeletePost = id => {
@@ -50,7 +50,7 @@ class PostDetailPage extends Component {
     //const post = this.props.postStore.detailPost;
     if (!this.props.postStore.detailPost) return <h1>Post가 없습니다. 에러처리</h1>;
 console.log(this.props.postStore.detailPost);
-    const canModify = currentUser && currentUser.name === this.props.postStore.detailPost.user.username;
+    const canModify = currentUser && currentUser.name === this.props.postStore.detailPost.userName;
 
     //author는 유저정보가 들어오고 클래스여야한다.
     const { values } = this.props.authStore;
@@ -94,6 +94,7 @@ console.log(this.props.postStore.detailPost);
             dangerouslySetInnerHTML={this.createMarkup()}
           />
         </EditorLayout>
+
         <div></div>
         </TestContainer>
             {/* <PostMeta
