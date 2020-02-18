@@ -17,24 +17,7 @@ class PostList extends Component {
     items: [],
     hasMoreItems: true
   };
-//    componentDidMount() {
-    
-// const { postStore } = this.props;
-  
-// postStore.loadPosts();
-//   //postStore.getItems(0, 5);
-//   //console.log(postStore.postItems);
-//   console.log(postStore.returnItems);
-//     this.setState({
-//       items: postStore.returnItems
-      
-//     });
-// console.log(this.items);
-    
-//   }
 
-
-  //추가로 데이터를 호출한다. axios로. 이걸 여기서 할지 store에서 할 지는 고민을 좀 해보자.
   fetchMoreData = () => {
     if (this.state.items.length >= this.props.postStore.length) {
       this.setState({ hasMoreItems: false });

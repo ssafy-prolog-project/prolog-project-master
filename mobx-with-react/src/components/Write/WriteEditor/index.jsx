@@ -35,25 +35,14 @@ export default class WriteEditor extends Component {
               data=""
               onInit={editor => {
                 //console.log(Balloon Editor.builtinPlugins.map(plugin => plugin.pluginName))
-                //console.log(Array.from(editor.ui.componentFactory.nameS()))
-                // You can store the "editor" and use when it is needed.
-                //console.log(Array.<String|module:font/fontfamily~FontFamilyOption>)
                 this.setState({ ckeditor: editor });
               }}
               onChange={(event, editor) => {
-                // const data = editor.getData();
-                // console.log( { event, editor, data } );
                 this.setState({ data1: editor.getData() });
                 this.props.setBody(editor.getData());
               }}
-              onBlur={(event, editor) => {
-                //console.log( 'Blur.', editor );
-                //const data = editor.getData();
-                //console.log( { event, editor, data } );
-              }}
-              onFocus={(event, editor) => {
-                //console.log( 'Focus.', editor );
-              }}
+              onBlur={(event, editor) => {}}
+              onFocus={(event, editor) => {}}
             />
           </EditorLayout>
           <div>

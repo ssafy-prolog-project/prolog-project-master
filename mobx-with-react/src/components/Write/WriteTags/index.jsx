@@ -10,7 +10,6 @@ class WriteTags extends Component {
     this.state = {
       tags: this.props.tagList
     };
-    console.log(props);
     this.handleTagsChange = this.handleTagsChange.bind(this);
   }
 

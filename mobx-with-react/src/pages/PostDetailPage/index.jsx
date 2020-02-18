@@ -49,7 +49,7 @@ class PostDetailPage extends Component {
     this.props.postStore.getPost(id);
     //const post = this.props.postStore.detailPost;
     if (!this.props.postStore.detailPost) return <h1>Post가 없습니다. 에러처리</h1>;
-console.log(this.props.postStore.detailPost);
+    console.log(this.props.postStore.detailPost);
     const canModify = currentUser && currentUser.name === this.props.postStore.detailPost.user.username;
 
     //author는 유저정보가 들어오고 클래스여야한다.
