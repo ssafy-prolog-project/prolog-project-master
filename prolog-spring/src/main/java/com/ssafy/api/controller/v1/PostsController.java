@@ -2,14 +2,18 @@ package com.ssafy.api.controller.v1;
 
 import com.ssafy.api.advice.exception.CUserNotFoundException;
 import com.ssafy.api.entity.Post;
+import com.ssafy.api.entity.TagManage;
 import com.ssafy.api.entity.User;
 import com.ssafy.api.model.PostDTO;
+import com.ssafy.api.model.PostResponseDTO;
 import com.ssafy.api.model.response.CommonResult;
 import com.ssafy.api.model.response.ListResult;
 import com.ssafy.api.model.response.SingleResult;
 import com.ssafy.api.repository.UserJpaRepo;
 import com.ssafy.api.service.PostsService;
 import com.ssafy.api.service.ResponseService;
+import com.ssafy.api.service.TagManageService;
+import com.ssafy.api.service.TagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -20,6 +24,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Api(tags={"3.Post"})
@@ -30,6 +35,8 @@ import javax.validation.Valid;
 public class PostsController {
 
     private final PostsService postsService;
+    private final TagManageService tagManageService;
+    private final TagService tagService;
     private final ResponseService responseService;
 
     @ApiOperation(value="게시판 글 목록" , notes= "게시글 리스트 입니다.")
@@ -51,8 +58,9 @@ public class PostsController {
 
     @ApiOperation(value = "게시판 글 상세", notes = "게시판 글 상세정보를 조회한다.")
     @GetMapping(value = "/post/{postCode}") //id
-    public SingleResult<Post> post(@PathVariable int postCode){
-        return responseService.getSingleResult(postsService.getPost(postCode));
+    public SingleResult<PostResponseDTO> post(@PathVariable int postCode){
+        //PostDTO 반환
+        return responseService.getSingleResult(postsService.getPostDetail(postCode));
     }
 
     @ApiImplicitParams({
@@ -60,10 +68,11 @@ public class PostsController {
     })
     @ApiOperation(value = "Post 작성", notes = "글을 새로 작성합니다.")
     @PostMapping(value = "/post") //data : post()
-    public SingleResult<Post> post(@RequestBody @Valid PostDTO post){
+    public CommonResult post(@RequestBody @Valid PostDTO post){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String id = authentication.getName();
-        return responseService.getSingleResult(postsService.writePost(Long.parseLong(id), post));
+        postsService.writePost(Long.parseLong(id), post);
+        return responseService.getSuccessResult();
     }
 
     @ApiImplicitParams({
@@ -88,6 +97,9 @@ public class PostsController {
         postsService.deletePost(Long.parseLong(id),postCode);
         return responseService.getSuccessResult();
     }
+
+
+
 
 //    @ApiOperation(value="Post Search" , notes = "글을 검색합니다.")
 //    @GetMapping(value="/post/search/{searchKeyWord}")

@@ -3,16 +3,13 @@ package com.ssafy.api.model;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostDTO {
+public class PostResponseDTO {
 
-    //@Size(min=2, max=100)
     @ApiModelProperty(value = "제목", required = true)
     private String title;
     @ApiModelProperty(value = "내용")
@@ -24,14 +21,15 @@ public class PostDTO {
     @ApiModelProperty(value = "표지이미지")
     private String coverImage;
 
+    @ApiModelProperty(value = "작성자")
+    private String userName; // User Name
+
+    @ApiModelProperty(value = "작성날짜")
+    private LocalDateTime createDate;
+
+    @ApiModelProperty(value = "업데이트날짜")
+    private LocalDateTime updateDate;
+
     @ApiModelProperty(value = "태그 리스트")
     private String[] tagList; // tag table에 넣을것.
-
-//    @ApiModelProperty(value="공개여부")
-//    private boolean privateStatus;
-
-//    @ApiModelProperty(value = "포스트핀")
-//    private boolean pinPost;
-//    @ApiModelProperty(value = "프로젝트핀")
-//    private boolean pinProject;
 }
