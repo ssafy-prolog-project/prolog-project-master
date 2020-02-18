@@ -17,7 +17,6 @@ const PostCard = ({ post }) => {
     <CardMainLayOut>
       <OutL>
         <Link to={"/post/" + postCode} style={{ textDecoration: "none" }}>
-         
           {coverImage ? (
             <CardImage src={coverImage}></CardImage>
           ) : (
@@ -27,12 +26,13 @@ const PostCard = ({ post }) => {
       </OutL>
       <OutT>
       <CardTitle>{title}</CardTitle>
-    
+            <Link to={"/mypage/" + user.msrl} style={{ textDecoration: "none" }}>
       {user.picture ? (
             <ProfileImage src={user.picture}></ProfileImage>
           ) : (
             <DefaultProfile color={coverColor}></DefaultProfile>
           )}
+          </Link>
         {/* <Date>{dateInfo}</Date> */}
         {/* <CardDescription>{text}</CardDescription> */}
         {/* <p style={{ color: "black" }}>작성자 : {author}</p>

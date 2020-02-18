@@ -49,12 +49,7 @@ class UserProfile extends Component {
   render() {
     
     const { picture, name, email, greeting } = this.props.authStore.user_info;
-    // const { userInfo } = this.props.userStore;
-    // const { profileImg, userId, userName } = userInfo;
-    //const { values } = this.props.authStore;
-    //const { accessToken, provider, email, id, name, profileimg } = values;
-    //console.log(this.props.authStore);
-
+    
     const NameClick = () => {
       if (!this.state.isNameEdit) {
         this.props.authStore.setName(this.state.name);
