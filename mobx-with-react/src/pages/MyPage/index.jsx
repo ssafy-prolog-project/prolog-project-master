@@ -7,8 +7,8 @@ import UserProfile from "../../components/UserProfile"
 
 class MyPage extends Component{
     render(){
-        const userid = this.props.match.params.id;
-
+        const userid = this.props.match.params.msrl;
+        
         return(
             <MyPageLayout>
                 <Link to={"/"} style={{ textDecoration: "none" }}>

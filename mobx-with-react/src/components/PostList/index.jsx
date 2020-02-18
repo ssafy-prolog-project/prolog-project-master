@@ -10,7 +10,7 @@ import Loader from "react-loader-spinner";
 class PostList extends Component {
  
   componentDidMount(){
-    this.props.postStore.loadPosts();
+    this.props.postStore.loadPosts(-1);
   }
 
   state = {

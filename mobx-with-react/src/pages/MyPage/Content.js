@@ -7,7 +7,7 @@ class Content extends Component{
     render(){
         return(
             <ContentLayout>
-                <SideWrapper useid={this.props.userid}></SideWrapper>
+                <SideWrapper userid={this.props.userid}></SideWrapper>
                 <TabWrapper userid={this.props.userid}></TabWrapper>
             </ContentLayout>
         )

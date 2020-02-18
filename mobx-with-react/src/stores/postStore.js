@@ -24,7 +24,7 @@ export default class PostStore {
 
   @action setPostItems(postItems){
     this.postItems = postItems;
-    this.getItems(0,1);
+    console.log(this.postItems)
     //console.log("오긴왔니?")
     //console.log(this.postItems);
   }
@@ -58,8 +58,7 @@ export default class PostStore {
     //TODO
     //console.log("요청보내기!");
     if (userid === -1){
-      return agent.Posts.all()
-    .then(res => 
+      return agent.Posts.all().then(res => 
       //console.log(res.data.list),
       this.setPostItems(res.data.list)
       )
@@ -67,11 +66,9 @@ export default class PostStore {
     .finally(action(() => { this.loading = false}))
     }
     else {
-      return agent.Posts.all()
-    .then(res => 
-      //console.log(res.data.list),
-      this.setPostItems(res.data.list)
-      )
+      return agent.Posts.byAuthorPublic(userid).then((res) => {
+        this.setPostItems(res.data.list)}
+        )
       .catch(err => console.log(err))
     .finally(action(() => { this.loading = false}))
     }
@@ -129,7 +126,7 @@ export default class PostStore {
   @action deletePost(id) {
     return agent.Posts.del(id).then(
       action(err => {
-        this.loadPosts();
+        this.loadPosts(-1);
         throw err;
       })
     );

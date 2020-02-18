@@ -14,13 +14,18 @@ class TabWrapper extends Component{
     };
 
     componentDidMount() {
-        this.props.postStore.loadPosts();
         const userid=this.props.userid
         const { postStore } = this.props;
-        postStore.getItems(0, 6);
-        this.setState({
-          items: postStore.returnItems
-        });
+        postStore.loadPosts(userid).then((res) => {
+          this.setState({
+          items: postStore.postItems
+        })
+
+        }
+          
+        );
+        //postStore.getItems(0, 2);
+        
     }
 
     fetchMoreData = () => {

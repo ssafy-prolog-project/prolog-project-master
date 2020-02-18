@@ -77,6 +77,9 @@ const Posts = {
   all : () => 
   requests.get('/postsAll'),
 
+  byAuthorPublic: (id) =>
+  requests.get(`/post/user/${id}`),
+
   byAuthor : () => 
   requests.get(`/post`),
   
@@ -121,5 +124,6 @@ const Tags = {
 export default{
     Auth,
     Posts,
-    Comments
+    Comments,
+    Tags,
 }
