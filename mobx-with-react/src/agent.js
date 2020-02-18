@@ -82,12 +82,12 @@ const Posts = {
   
   create: post =>{
     // if(window.sessionStorage.getItem("jwt")==null || window.sessionStorage.getItem("jwt")=="") new Error("로그인 하러 가자!")
-    console.log("왜안될까...?")
-    console.log(post);
+
     requests.post('/post', {"title":post.title, "coverColor":post.coverColor, "coverImage":post.coverImage, "body": post.body, "tagList": post.tagList}, {"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")})
+  
+
+    
   },
-
-
   update: post => 
   requests.put(`/post/${post.id}`, {post}),
   
@@ -96,6 +96,8 @@ const Posts = {
   
   del: id => 
   requests.del(`/post/${id}`)
+
+  
 
 }
 

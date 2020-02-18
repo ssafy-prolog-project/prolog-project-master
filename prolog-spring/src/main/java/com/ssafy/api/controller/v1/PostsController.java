@@ -24,7 +24,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Api(tags={"3.Post"})
@@ -60,6 +63,7 @@ public class PostsController {
     @GetMapping(value = "/post/{postCode}") //id
     public SingleResult<PostResponseDTO> post(@PathVariable int postCode){
         //PostDTO 반환
+        System.out.println("!!" + postCode);
         return responseService.getSingleResult(postsService.getPostDetail(postCode));
     }
 
@@ -98,12 +102,32 @@ public class PostsController {
         return responseService.getSuccessResult();
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
+    })
+    @ApiOperation( value="작성된 태그들 Msrl로 검색", notes = "해쉬태그 전체 검색.")
+    @GetMapping(value="/tags/{msrl}") // id
+    public List<String> getUserTags(@PathVariable Long msrl) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String id = authentication.getName();
+        //msrl의 postCode로 - tag 검색
+        List<Post> posts = postsService.getAllPostsByUser(msrl);
+        Set<String> tagSet = new HashSet<>();
+        for (Post p: posts) {
+            List<String> tagList = tagManageService.getTagsByPostCode(p);
+            for (String tag: tagList  ) {
+                tagSet.add(tag);
+            }
+        }
+        return new ArrayList<>(tagSet);
+    }
+
+    @ApiOperation(value="Post Search" , notes = "글을 검색합니다.")
+    @GetMapping(value="/post/search/{searchKeyWord}")
+    public ListResult<Post> getSearchPosts(@PathVariable String searchKeyWord){
 
 
+        return responseService.getListResult(postsService.searchByKeyWords(searchKeyWord));
+    }
 
-//    @ApiOperation(value="Post Search" , notes = "글을 검색합니다.")
-//    @GetMapping(value="/post/search/{searchKeyWord}")
-//    public ListResult<Post> getSearchPosts(@PathVariable String searchKeyWord){
-//        return responseService.getListResult(postsService.searchByKeyWords(searchKeyWord));
-//    }
 }
