@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import { withRouter } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
 // component
 import Logo from "../../components/NavBar/Logo";
@@ -43,19 +44,16 @@ class PostDetailPage extends Component {
   };
 
   render() {
-    console.log("???");
     const id = this.props.match.params.id;
-    //const { currentUser } = this.props.userStore;
-    const currentUser = true;
-    const { comments } = this.props.commentStore;
     this.props.postStore.getPost(id);
-    //const post = this.props.postStore.detailPost;
+    const post = this.props.postStore.detailPost;
+    const check = false;
+
+    const { comments } = this.props.commentStore;
+
     if (!this.props.postStore.detailPost)
       return <h1>Post가 없습니다. 에러처리</h1>;
-    console.log(this.props.postStore.detailPost);
-    const canModify =
-      currentUser &&
-      currentUser.name === this.props.postStore.detailPost.userName;
+    //console.log(this.props.postStore.detailPost);
 
     //author는 유저정보가 들어오고 클래스여야한다.
     const { values } = this.props.authStore;
@@ -69,9 +67,13 @@ class PostDetailPage extends Component {
         .deletePost(id)
         .then(this.props.history.push("/"), window.location.reload());
     };
-
-    const post = this.props.postStore.detailPost;
-    console.log(post);
+    if (
+      window.sessionStorage.getItem("jwt") !== null &&
+      window.sessionStorage.getItem("jwt") !== "" &&
+      jwtDecode(window.sessionStorage.getItem("jwt")).sub * 1 === post.msrl
+    ) {
+      this.check = true;
+    }
     return (
       <PostDetailPageLayout>
         <PostViewHeader color={post.coverColor}>
@@ -121,10 +123,17 @@ class PostDetailPage extends Component {
               )}
               <div></div>
             </TagContainer>
-            <DeleteBtn onClick={Delete}>삭제</DeleteBtn>
-            <Link to={"/write/" + id} style={{ textDecoration: "none" }}>
-              <UpdateBtn>수정</UpdateBtn>
-            </Link>
+            {this.check ? (
+              <>
+                <DeleteBtn onClick={Delete}>삭제</DeleteBtn>
+                <Link to={"/write/" + id} style={{ textDecoration: "none" }}>
+                  <UpdateBtn>수정</UpdateBtn>
+                </Link>{" "}
+              </>
+            ) : (
+              <></>
+            )}
+
             {/* <PostMeta
               post={this.props.postStore.detailPost}
               canModify={canModify}

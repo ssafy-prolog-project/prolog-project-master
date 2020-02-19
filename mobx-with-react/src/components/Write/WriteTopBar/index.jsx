@@ -27,7 +27,6 @@ const WriteTopBar = ({
     setColor(color);
     changeCoverColor(color);
   };
-  console.log(title);
   //왜 직접 <PrimitiveDotIcon style={{color: "#a6a6a6"}} onClick={onCircleClick(blackColor)}></PrimitiveDotIcon>
   //같은 식으로 짜면 무한대 리렌더가 발생하는걸까?
   const BlackClick = () => onCircleClick(blackColor);
