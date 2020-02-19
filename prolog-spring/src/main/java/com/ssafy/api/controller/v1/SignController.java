@@ -3,11 +3,9 @@ package com.ssafy.api.controller.v1;
 import com.ssafy.api.advice.exception.CEmailSigninFailedException;
 import com.ssafy.api.advice.exception.CUserCommunityIdMatchException;
 import com.ssafy.api.model.response.SingleResult;
-import com.ssafy.api.model.social.GoogleProfile;
 import com.ssafy.api.model.social.SocialProfile;
 import com.ssafy.api.model.user.UserParamDTO;
 import com.ssafy.api.service.ResponseService;
-import com.ssafy.api.advice.exception.CUserExistException;
 import com.ssafy.api.advice.exception.CUserNotFoundException;
 import com.ssafy.api.config.JwtTokenProvider;
 import com.ssafy.api.model.social.KakaoProfile;
@@ -157,7 +155,6 @@ public class SignController {
         }
 
         Optional<User> user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider);
-
         if (user.isPresent())
             return signinByProvider(provider, accessToken);
 //            throw new CUserExistException();
@@ -172,11 +169,16 @@ public class SignController {
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build();
 
-        userJpaRepo.save(inUser);
+        try{
+            userJpaRepo.save(inUser);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseService.getFailResult(2000, "유저 저장중 문제가 발생했습니다.");
+        }
+
 
         UserParamDTO userParamDTO = new UserParamDTO(inUser);
 
         return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(inUser.getMsrl()), inUser.getRoles(), userParamDTO));
-//        return responseService.getSuccessResult();
     }
 }
