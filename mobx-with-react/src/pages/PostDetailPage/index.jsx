@@ -99,7 +99,7 @@ class PostDetailPage extends Component {
               {post.tagList ? (
                 <TagBox>
                   {post.tagList.map((item, index) => (
-                    <Tag>#{item}</Tag>
+                    <Tag key={index}>#{item}</Tag>
                   ))}
                 </TagBox>
               ) : (
