@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 
 // component
 import Logo from "../../components/NavBar/Logo";
- import UserButton from "../../components/Common/UserButton";
+import UserButton from "../../components/Common/UserButton";
 
 import PostMeta from "../../components/Post/PostMeta";
 import PostDetail from "../../components/Post/PostDetail";
@@ -28,8 +28,9 @@ class PostDetailPage extends Component {
 
   handleDeletePost = id => {
     // 글을 지운다. 나만 가능
-    this.props.postStore.deletePost(id).
-    then(() => this.props.history.replace('/'))
+    this.props.postStore
+      .deletePost(id)
+      .then(() => this.props.history.replace("/"));
   };
 
   //댓글 삭제 해당 글 쓴 사람만 가능
@@ -40,7 +41,7 @@ class PostDetailPage extends Component {
   createMarkup = () => {
     return { __html: this.props.postStore.detailPost.body };
   };
-  
+
   render() {
     console.log("???")
     const id = this.props.match.params.id;
@@ -49,9 +50,12 @@ class PostDetailPage extends Component {
     const { comments } = this.props.commentStore;
     this.props.postStore.getPost(id);
     //const post = this.props.postStore.detailPost;
-    if (!this.props.postStore.detailPost) return <h1>Post가 없습니다. 에러처리</h1>;
-console.log(this.props.postStore.detailPost);
-    const canModify = currentUser && currentUser.name === this.props.postStore.detailPost.userName;
+    if (!this.props.postStore.detailPost)
+      return <h1>Post가 없습니다. 에러처리</h1>;
+    console.log(this.props.postStore.detailPost);
+    const canModify =
+      currentUser &&
+      currentUser.name === this.props.postStore.detailPost.userName;
 
     //author는 유저정보가 들어오고 클래스여야한다.
     const { values } = this.props.authStore;
@@ -60,8 +64,14 @@ console.log(this.props.postStore.detailPost);
       console.log("logout 발생");
       this.props.authStore.logout();
     };
+    const Delete = () => {
+      this.props.postStore
+        .deletePost(id)
+        .then(this.props.history.push("/"), window.location.reload());
+    };
+
     const post = this.props.postStore.detailPost;
-    console.log("ㅠㅠㅠㅠㅠ" + post.coverImage);
+    console.log(post);
     return (
       <PostDetailPageLayout>
         <PostViewHeader color={post.coverColor}>
@@ -71,37 +81,46 @@ console.log(this.props.postStore.detailPost);
           <DetailUserButton></DetailUserButton>
         </PostViewHeader>
         <PostContentWrapper>
-          
           <PostContent>
-          
-          {post.coverImage ? (
-            <>
-            <Coverimg src={post.coverImage}>
-              
-            </Coverimg>
-            <Title>{post.title}</Title>
-            </>
-          ) : (
-            <Cover color={post.coverColor}>
-              <Title>{post.title}</Title>
-              
-            </Cover>
-          )}
-            
-            
-            {/* <p>게시날짜: </p> */}
-            
-            <TestContainer>
-          <div></div>
-        <EditorLayout>
-          <div
-            className="ck-content"
-            dangerouslySetInnerHTML={this.createMarkup()}
-          />
-        </EditorLayout>
+            {post.coverImage ? (
+              <>
+                <Coverimg src={post.coverImage}></Coverimg>
+                <Title>{post.title}</Title>
+                <Author>작성자 : {post.userName}</Author>
+                <Date>작성날짜 : {post.createDate}</Date>
+              </>
+            ) : (
+              <Cover color={post.coverColor}>
+                <Title>{post.title}</Title>
+                <Author>작성자 : {post.userName}</Author>
+                <Date>작성날짜 : {post.createDate}</Date>
+              </Cover>
+            )}
 
-        <div></div>
-        </TestContainer>
+            <TestContainer>
+              <div></div>
+              <EditorLayout>
+                <div
+                  className="ck-content"
+                  dangerouslySetInnerHTML={this.createMarkup()}
+                />
+              </EditorLayout>
+
+              <div></div>
+            </TestContainer>
+            <TagContainer>
+              <div></div>
+              <TagBox>
+                {post.tagList.map((item, index) => (
+                  <Tag>#{item}</Tag>
+                ))}
+              </TagBox>
+              <div></div>
+            </TagContainer>
+            <DeleteBtn onClick={Delete}>삭제</DeleteBtn>
+            <Link to={"/write/" + id} style={{ textDecoration: "none" }}>
+              <UpdateBtn>수정</UpdateBtn>
+            </Link>
             {/* <PostMeta
               post={this.props.postStore.detailPost}
               canModify={canModify}
@@ -127,6 +146,56 @@ console.log(this.props.postStore.detailPost);
     );
   }
 }
+const TagContainer = styled.div`
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+`;
+const Tag = styled.div`
+  font-size: 1rem;
+  float: left;
+  background-color: #e6e6e6;
+  margin-right: 0.5rem;
+  padding: 5px 7px 5px 7px;
+  margin-bottom: 0.5rem;
+  /* text-decoration: underline; */
+`;
+const TagBox = styled.div`
+  float: left;
+`;
+const Author = styled.div`
+  z-index: 2;
+  padding-top: 2rem;
+  padding-left: 15rem;
+  width: 80%;
+  font-size: 1rem;
+  white-space: pre-line;
+  font-family: Inconsolas;
+  color: white;
+`;
+const DeleteBtn = styled.div`
+  width: 3rem;
+  height: 1.5rem;
+  cursor: pointer;
+  border-color: black;
+  float: right;
+  border-width: 1px;
+  border-style: solid;
+  text-align: center;
+  margin: 1rem 15rem 1rem 1rem;
+`;
+
+const UpdateBtn = styled.div`
+  width: 3rem;
+  height: 1.5rem;
+  cursor: pointer;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  color: black;
+  float: right;
+  text-align: center;
+  margin: 1rem 0rem 1rem 1rem;
+`;
 
 const Title = styled.div`
   z-index: 2;
@@ -136,30 +205,26 @@ const Title = styled.div`
   font-size: 3.5rem;
   white-space: pre-line;
   font-family: Inconsolas;
+  color: white;
 `;
 const Date = styled.div`
   z-index: 2;
-  padding-top: 14rem;
-  padding-left: 7rem;
-  /* font-size: 60px; */
+  padding-left: 15rem;
+  width: 80%;
+  font-size: 1rem;
+  white-space: pre-line;
   font-family: Inconsolas;
+  color: white;
 `;
 const Coverimg = styled.img`
-z-index: 2;
+  z-index: 2;
   height: 28rem;
   width: 100%;
-  /* border-bottom-style: solid;
-  border-color: gray;
-  border-width: 1px; */
   position: relative;
-  /* -moz-transition: all 0.2s ease-in;
-  -o-transition: all 0.2s ease-in;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in; */
 `;
 
 const Cover = styled.div`
-z-index: 2;
+  z-index: 2;
   height: 28rem;
   /* border-bottom-style: solid;
   border-color: gray;
@@ -173,13 +238,9 @@ z-index: 2;
 `;
 
 export default PostDetailPage;
-export const LINKS = styled(Link)`
-  
-`;
+export const LINKS = styled(Link)``;
 
-export const DetailUserButton = styled(UserButton)`
-  
-`;
+export const DetailUserButton = styled(UserButton)``;
 const EditorLayout = styled.div`
   box-sizing: border-box;
   /* border: 1px solid #ddd; */

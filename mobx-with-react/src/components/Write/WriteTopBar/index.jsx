@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { SketchPicker } from "react-color";
-
 import { ArrowBackIcon, PrimitiveDotIcon } from "../../../styles/iconStyle.js";
-
+import { inject, observer } from "mobx-react";
 
 const blackColor = "#a6a6a6";
 const redColor = "#ff9999";
@@ -15,15 +14,20 @@ const color10 = "#555555";
 const color9 = "#A97857";
 const color8 = "#536B82";
 
-const WriteTopBar = ({ title, coverColor, changeTitle, changeCoverColor }) => {
-
+const WriteTopBar = ({
+  title,
+  coverColor,
+  changeTitle,
+  changeCoverColor,
+  postCode
+}) => {
   const [color, setColor] = useState(coverColor);
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const onCircleClick = color => {
     setColor(color);
     changeCoverColor(color);
   };
-
+  console.log(title);
   //왜 직접 <PrimitiveDotIcon style={{color: "#a6a6a6"}} onClick={onCircleClick(blackColor)}></PrimitiveDotIcon>
   //같은 식으로 짜면 무한대 리렌더가 발생하는걸까?
   const BlackClick = () => onCircleClick(blackColor);
@@ -35,47 +39,60 @@ const WriteTopBar = ({ title, coverColor, changeTitle, changeCoverColor }) => {
   const color9Click = () => onCircleClick(color9);
   const color10Click = () => onCircleClick(color10);
 
-
   const handleClick = () => {
-    setDisplayColorPicker(!displayColorPicker)
+    setDisplayColorPicker(!displayColorPicker);
   };
 
   const handleClose = () => {
-    setDisplayColorPicker(false)
+    setDisplayColorPicker(false);
   };
 
-  const handleChange = (color) => {
-    setColor(color.hex)
+  const handleChange = color => {
+    setColor(color.hex);
   };
 
   const popover = {
-    position: 'relative',
+    position: "relative",
     marginRight: "200px"
     //zIndex: '10',
     // :hover {
     //   opacity: 0%;
     // }
-  }
+  };
   const cover = {
-    position: 'fixed',
-    top: '0px',
-    right: '0px',
-    bottom: '0px',
-    left: '0px',
-  }
+    position: "fixed",
+    top: "0px",
+    right: "0px",
+    bottom: "0px",
+    left: "0px"
+  };
 
   return (
-    <WriteTopBarLayout color={color}>
+    <WriteTopBarLayout color={coverColor}>
       {/* TODO 뒤로가기가 되어야함. 메인으로 가는게 아니라 */}
       <Link to={"/"} style={{ textDecoration: "none" }}>
         <ArrowBackIcon></ArrowBackIcon>
       </Link>
-      
+
       <HeaderDiv>
-        <HeaderInput placeholder="제목을 입력하세요" color={color} value={title} onChange={changeTitle} />
+        {postCode === undefined ? (
+          <HeaderInput
+            placeholder="제목을 입력하세요"
+            color={color}
+            value={title}
+            onChange={changeTitle}
+          />
+        ) : (
+          <HeaderInput
+            placeholder={title}
+            color={coverColor}
+            value={title}
+            onChange={changeTitle}
+          />
+        )}
       </HeaderDiv>
       <ColorDots>
-      <ColorDiv>
+        <ColorDiv>
           <PrimitiveDotIcon color={"white"} onClick={handleClick} />
           {displayColorPicker ? (
             <div style={popover}>
@@ -125,7 +142,7 @@ const ColorDots = styled.div`
   margin-top: 12rem;
   position: absolute;
   margin-left: 33%;
-  `
+`;
 
 const HeaderDiv = styled.div`
   text-align: center;
@@ -137,6 +154,7 @@ const HeaderDiv = styled.div`
   height: 100px;
   right: 50%;
   margin-top: 8rem;
+  background-color: ${props => props.color};
 `;
 
 const HeaderInput = styled.input`
@@ -164,4 +182,6 @@ const WriteTopBarLayout = styled.div`
   transition: all 0.2s ease-in;
 `;
 
-export default WriteTopBar;
+export default inject(({ postStore, authStore }) => ({
+  values: authStore.values
+}))(observer(WriteTopBar));

@@ -6,7 +6,6 @@ import com.ssafy.api.model.PostResponseDTO;
 import com.ssafy.api.model.response.CommonResult;
 import com.ssafy.api.model.response.ListResult;
 import com.ssafy.api.model.response.SingleResult;
-import com.ssafy.api.repository.UserJpaRepo;
 import com.ssafy.api.service.PostsService;
 import com.ssafy.api.service.ResponseService;
 import com.ssafy.api.service.TagManageService;
