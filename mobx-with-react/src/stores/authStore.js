@@ -239,4 +239,11 @@ export default class AuthStore {
   @action getName(){
     return this.name;
   }
+
+  @action authenticatedUserId(){
+    if (this.token){
+      const currentId = jwtDecode(this.token).sub
+      return currentId
+    }
+  }
 }

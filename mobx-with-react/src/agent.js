@@ -44,6 +44,16 @@ const Auth = {
     name_update: (name) =>
     requests.put('/user/name',{name: name},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
     
+    // id로 회원정보 조회
+    get: id =>
+    requests.get(`/user/${id}`),
+    // 기술스택 조회
+    getStack: id => 
+    requests.get(`/techs/${id}`),
+    // 기술스택 저장
+    setStack:  skills =>
+    requests.post(`/techs`,{techs: skills},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")})
+    ,
     getUserInfo: (jwt) =>{
       return requests.get('/user', {"X-AUTH-TOKEN": jwt})
     },

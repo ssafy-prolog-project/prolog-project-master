@@ -28,9 +28,8 @@ class Skills extends Component {
   handleClick = () => {
     if (this.state.isEdit) {
       this.props.portfolioStore.setSkills(this.state.skills);
-    }
-    else{
-      this.state.skills = this.props.portfolioStore.skills
+      console.log('saveskill')
+      this.props.portfolioStore.saveSkills();
     }
     const { isEdit } = this.state;
     this.setState({
@@ -45,13 +44,18 @@ class Skills extends Component {
   };
 
   render() {
-    const { skills } = this.state;
-
+    const { skills } = this.props.portfolioStore.values;
+    const isCurrentUser = this.props.isCurrentUser;
+    
     const commonView = (
       <SkillsLayout>
         <SkTitle>
           Skills
-          <EditP onClick={this.handleClick} />
+          {isCurrentUser ? (
+              <EditP onClick={this.handleClick} />
+            ) : (
+              <></>
+            )}
         </SkTitle>
         <SkContent>
           <SkillItemList skills={this.state.skills} />
