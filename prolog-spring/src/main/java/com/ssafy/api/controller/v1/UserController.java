@@ -117,14 +117,14 @@ public class UserController {
     @ApiOperation(value = "회원 개발스택 Json 조회", notes = "msrl로 유저 개발 스택 Json을 조회한다")
     @ResponseBody
     @GetMapping(value = "/techs/{msrl}")
-    public SingleResult<String> getUserTechs(
+    public SingleResult<User> getUserTechs(
             @ApiParam(value = "회원번호", required = true) @PathVariable long msrl) {
         User user = userJpaRepo.findTechsByMsrl(msrl).orElseThrow(CUserNotFoundException::new);
         String prevValue = user.getTechs();
         String value = prevValue.substring(1, prevValue.length()-1);
         value = "'"+value+"'";
-
-        return responseService.getSingleResult(value);
+        user.setTechs(value);
+        return responseService.getSingleResult(user);
     }
 
     @ApiImplicitParams({
