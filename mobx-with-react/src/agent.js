@@ -35,37 +35,41 @@ const requests = {
 
 // 토큰은 다 헤더로 넘기고, 나머지 정보만 body로 넘긴다.
 const Auth = {
-  //회원 가입, 로그인
+    intro_update: (intro) =>
+    requests.put('/user/greeting',{greeting: intro},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
+    
+    email_update: (email) =>
+    requests.put('/user/email',{email: email},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
+    
+    name_update: (name) =>
+    requests.put('/user/name',{name: name},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
+    
+    getUserInfo: (jwt) =>{
+      return requests.get('/user', {"X-AUTH-TOKEN": jwt})
+    },
+    //회원 가입, 로그인
   register: (snsAccessToken, snsRefreshToken, provider, name) =>
-    requests.post(
-      `/signup/${provider}`,
-      { name: name },
-      { accessToken: snsAccessToken, refreshToken: snsRefreshToken }
-    ),
+  requests.post(
+    `/signup/${provider}`,
+    { name: name },
+    { accessToken: snsAccessToken, refreshToken: snsRefreshToken }
+  ),
   login: (snsAccessToken, snsRefreshToken, provider) => {
-    return requests.post(
-      `/signup/${provider}`,
-      {},
-      { accessToken: snsAccessToken, refreshToken: snsRefreshToken }
-    );
+  return requests.post(
+    `/signup/${provider}`,
+    {},
+    { accessToken: snsAccessToken, refreshToken: snsRefreshToken }
+  );
   },
-  //requests.get(`/helloworld/string`),
-  //회원정보 조회
 
-  current: jwt => {
-    if (jwt == null || jwt == "") new Error("로그인 하러 가자!");
-    requests
-      .get("/user", { "X-AUTH-TOKEN": jwt })
-      .then(res => console.log("?일단 넘어오는 건 성공"))
-      .catch(err => console.log("??????>????" + err));
-  },
   update: (snsAccessToken, snsRefreshToken, user) =>
-    requests.put("/user", {
-      accessToken: snsAccessToken,
-      refreshToken: snsRefreshToken,
-      user: user
-    })
-};
+  requests.put("/user", {
+    accessToken: snsAccessToken,
+    refreshToken: snsRefreshToken,
+    user: user
+  })
+}
+
 
 // page 로드를 어떻게 처리할거냐?
 const omitId = post => Object.assign({}, post, { id: undefined });

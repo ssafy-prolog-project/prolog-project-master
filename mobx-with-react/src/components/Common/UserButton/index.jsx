@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { toJS } from "mobx";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
@@ -10,14 +11,10 @@ import LoginButton from "../LoginButton";
 class UserButton extends Component {
   render() {
     const check = this.props.authStore.token;
+
     const Logout = () => {
-      this.props.authStore.setAccessToken(undefined);
-      this.props.authStore.setProfileimg(undefined);
-      this.props.authStore.setId(undefined);
-      this.props.authStore.setName(undefined);
-      this.props.authStore.setEmail("이메일을 입력해주세요.");
-      this.props.authStore.setIntro("소개를 입력해주세요.");
-      this.props.authStore.setProvider(undefined);
+      console.log("logout 발생");
+      this.props.authStore.logout();
     };
     
     return (

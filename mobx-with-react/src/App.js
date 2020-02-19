@@ -1,6 +1,7 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Switch, Route, withRouter, Link } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+import { inject } from "mobx-react";
 
 // Pages
 import MainPage from "./pages/MainPage";
@@ -12,6 +13,8 @@ import SearchPage from "./pages/SearchPage";
 import { signIn } from "./components/Auth/auth";
 import PrivateRoute from "./PrivateRoute";
 import PortfolioPage from "./pages/PortfolioPage";
+import agent from "./agent";
+import authStore from "./stores/authStore"
 
 const App = () => {
   const [user, setUser] = useState(null);

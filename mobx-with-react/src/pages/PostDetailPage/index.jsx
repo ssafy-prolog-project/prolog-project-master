@@ -43,6 +43,7 @@ class PostDetailPage extends Component {
   };
 
   render() {
+    console.log("???")
     const id = this.props.match.params.id;
     //const { currentUser } = this.props.userStore;
     const currentUser = true;
@@ -58,6 +59,11 @@ class PostDetailPage extends Component {
 
     //author는 유저정보가 들어오고 클래스여야한다.
     const { values } = this.props.authStore;
+    const { accessToken, provider, vid, name, profileimg } = values;
+    const Logout = () => {
+      console.log("logout 발생");
+      this.props.authStore.logout();
+    };
     const Delete = () => {
       this.props.postStore
         .deletePost(id)
