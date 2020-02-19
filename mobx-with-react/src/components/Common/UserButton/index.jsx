@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import LoginButton from "../LoginButton";
+import jwtDecode from 'jwt-decode';
 
 @inject("userStore", "authStore")
 @observer
@@ -27,7 +28,7 @@ class UserButton extends Component {
               <Link to={"/portfolio"} style={{ textDecoration: "none" }}>
                 <SelectMenu>Portfolio</SelectMenu>
               </Link>
-              <Link to={"/mypage"} style={{ textDecoration: "none" }}>
+              <Link to={"/mypage/"+jwtDecode(window.sessionStorage.getItem("jwt")).sub} style={{ textDecoration: "none" }}>
                 <SelectMenu>MyPage</SelectMenu>
               </Link>
               <SelectMenu onClick={Logout}>Logout</SelectMenu>

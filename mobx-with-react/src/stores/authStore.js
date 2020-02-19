@@ -9,6 +9,12 @@ export default class AuthStore {
   @observable appName = "Prolog";
   @observable token = window.sessionStorage.getItem("jwt");
   @observable user_info = undefined;
+  @observable nuser_detail = {
+    email: "이메일을 입력해주세요.",
+    name: "",
+    intro: "소개를 입력해주세요.",
+    picture:""
+  };
   @observable user_detail = {
     provider: undefined,
     email: "이메일을 입력해주세요.",
@@ -23,13 +29,11 @@ export default class AuthStore {
   @observable name = "";
   @observable email = "";
   @observable intro = "";
-  
+  @observable msrl = "";
   constructor(root) {
     this.root = root;
     if(this.token){
       this.user_info=jwtDecode(this.token).userInfo;
-      //this.getUserDetail(this.token);
-      
     }
 
     reaction(
@@ -98,40 +102,35 @@ export default class AuthStore {
 
   @action updateName(name){
     agent.Auth.name_update(name).then((res)=>{
-      console.log("update complate");
-      console.log(res);
+      // console.log(res);
     })
     .catch(err=> {
-      console.log(err);
+      // console.log(err);
       // will be redirect code
     })
   }
 
   @action updateEmail(email){
     agent.Auth.email_update(email).then((res)=>{
-      console.log(res);
+      // console.log(res);
     })
     .catch(err=> {
-      console.log(err);
-      // will be redirect code
+      // console.log(err);
     })
   }
 
   @action updateIntro(intro){
     agent.Auth.intro_update(intro).then((res)=>{
-      console.log("update complate");
-      console.log(res);
+      // console.log(res);
     })
     .catch(err=> {
-      console.log(err);
-      // will be redirect code
+      // console.log(err);
     })
   }
 
   @action setAccessToken(token) {
     this.values.accessToken = token;
-    //this.values.accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTU4MTU3ODQxMywiZXhwIjoxNTgxNTgyMDEzfQ.0wQwjm7G-FhM_WvZQ_to7uaaqckrKc7dK7dbCO_qWpo";
-  }
+   }
   @action setRefreshToken(token) {
     this.values.refreshToken = token;
   }
@@ -152,8 +151,6 @@ export default class AuthStore {
 
   @action setProvider(provider) {
     this.values.provider = provider;
-    console.log("Store에서 넘어가기전!!!!");
-    console.log(this.values);
   }
 
   @action reset() {
@@ -162,36 +159,29 @@ export default class AuthStore {
   }
 
   @action setToken(token){
-    console.log("얘는 decode");
     this.token=token;
-    console.log("1")
     this.user_info=jwtDecode(token).userInfo;
     agent.Auth.getUserInfo(token).then(
       res=>{this.user_detail=res;
-      console.log(res)}
+      }
     )
-    console.log("안녕")
-    //console.log(JSON.parse(JSON.stringify(this.user_info)));
-    console.log(toJS(this.user_info));
   }
 
 @action login() {
     this.inProgress = true;
     this.errors = undefined;
-    console.log("login중.....");
     return agent.Auth.login(
       this.values.accessToken,
       this.values.refreshToken,
       this.values.provider
     )
       .then(res => {
-        console.log("로그인 중 확인확인"+res.data.data);
         this.setToken(res.data.data)
       })
       // .then(() => this.root.userStore.pullUser()) //login 성공한 유저정보를 불러온다.
       .catch(
         action(err => {
-          console.log("err   " + err);
+          // console.log("err   " + err);
           this.errors =
             err.response && err.response.body && err.response.body.errors;
           throw err;
@@ -206,7 +196,6 @@ export default class AuthStore {
   @action register() {
     this.inProgress = true;
     this.errors = undefined;
-    console.log("register중");
     return agent.Auth.register(
       this.values.accessToken,
       this.values.refreshToken
@@ -229,6 +218,13 @@ export default class AuthStore {
   @action 
   getUserDetail(jwt){
     agent.Auth.getUserInfo(jwt);
+  }
+
+  @action 
+   async getOtherDetail(msrl){
+     this.nuser_detail=await agent.Auth.getOtherInfo(msrl);
+
+      return 
   }
 
   @action logout() {
