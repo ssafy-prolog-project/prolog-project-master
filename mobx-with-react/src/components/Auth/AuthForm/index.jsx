@@ -11,24 +11,20 @@ import KLogin from "./KLogin";
 @withRouter
 @observer
 class AuthForm extends React.Component {
-    componentWillUnmount() {
-        this.props.authStore.reset();
-      }
+  componentWillUnmount() {
+    this.props.authStore.reset();
+  }
 
-      handleSubmitForm = e => {
-        e.preventDefault();
-        this.props.authStore.login()
-        .then(() => 
-        this.props.history.push('/'),
-        window.location.reload()
-        );
-      };
+  handleSubmitForm = e => {
+    e.preventDefault();
+    this.props.authStore
+      .login()
+      .then(() => this.props.history.push("/"), window.location.reload());
+  };
 
   render() {
     const { values, inProgress } = this.props.authStore;
-    const { accessToken, refreshToken, provider} = values;
-    console.log(accessToken, refreshToken, provider)
-    console.log('inprogress', inProgress)
+    const { accessToken, refreshToken, provider } = values;
     return (
       <LineBox>
         <GHLogin>Github 로그인</GHLogin>

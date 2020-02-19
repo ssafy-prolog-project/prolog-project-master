@@ -16,34 +16,32 @@ class GLogin extends Component {
       provider: ""
     };
   }
-  
+
   responseGoogle = res => {
     this.setState({
       id: res.googleId,
       name: res.profileObj.name,
       provider: "google"
     });
-    console.log("구글 login success");
-    console.log(res);
     this.props.authStore.setAccessToken(res.accessToken);
     this.props.authStore.setProvider("google");
-    this.props.authStore.login().then(() => {
-        console.log("우리 서비스 로그인 성공")
-        console.log(this.props.authStore.token);
+    this.props.authStore
+      .login()
+      .then(() => {
         const jwt = this.props.authStore.token;
         this.props.authStore.setProfileimg(jwt.picture);
         this.props.authStore.setName(jwt.name);
         this.props.authStore.setEmail(jwt.email);
         window.location.replace("http://localhost:3000/");
-    }).catch((err)=>{
-        console.log("실패", err)
-    })
+      })
+      .catch(err => {
+        console.log("실패", err);
+      });
   };
 
   // Login Fail
   responseFail = err => {
     console.error(err);
-    console.log("FAILED");
   };
 
   render() {

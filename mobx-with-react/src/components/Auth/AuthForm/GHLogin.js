@@ -23,33 +23,11 @@ class GHLogin extends Component {
 
   render() {
     const onSuccess = res => {
-        // console.log("깃허브 login success");
-        // console.log(res.code);
-        // const url="https://github.com/login/oauth/access_token?client_id="+process.env.REACT_APP_GITHUB
-        // +"&client_secret="+process.env.REACT_APP_GITHUB_S+"&code="+res.code+"&redirect_uri=http://localhost:8080/social/login/github&state=poka";
-        // console.log(url);
-        // axios.post("https://github.com/login/oauth/access_token?client_id="+process.env.REACT_APP_GITHUB
-        // +"&client_secret="+process.env.REACT_APP_GITHUB_S+"&code="+res.code+"&redirect_uri=http://localhost:8080/social/login/github&state=poka"
-        // )
-        // .then(function(response){
-        //     console.log("되는거야..?"+response)
-        // }).
-        // catch(function(error){
-        //     console.log("안되나봐..ㅠ"+error)
-        // });
-        // this.props.authStore.setAccessToken(res.code);
-        // this.props.authStore.setProvider("github");
-        // this.props.authStore.login().then(() => {
-        //     console.log("우리 서비스 로그인 성공")
-        //     // 현재는 cors 에러 나서 실패했는데도 로그인 성공으로 찍어버림.
-        // }).catch((err)=>{
-        //     console.log("실패", err)
-        // })
-        console.log(res);
-      };
-      const onFailure = res => {
-        console.log("err " + res);
-      };
+      console.log(res);
+    };
+    const onFailure = res => {
+      console.log("err " + res);
+    };
     return (
       <Container>
         <GitHubLogin
