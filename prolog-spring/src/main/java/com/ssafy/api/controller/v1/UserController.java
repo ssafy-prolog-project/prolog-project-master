@@ -121,7 +121,8 @@ public class UserController {
             @ApiParam(value = "회원번호", required = true) @PathVariable long msrl) {
         User user = userJpaRepo.findTechsByMsrl(msrl).orElseThrow(CUserNotFoundException::new);
         String prevValue = user.getTechs();
-        String value = "'"+prevValue+"'";
+        String value = prevValue.substring(1, prevValue.length()-1);
+        value = "'"+value+"'";
 
         return responseService.getSingleResult(value);
     }
