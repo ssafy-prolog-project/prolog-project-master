@@ -1,6 +1,6 @@
 import agent from "../agent";
 import { observable, action, computed } from "mobx";
-import {RouteComponentProps} from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import { getUnixTime } from "date-fns";
 
 // imageUrl, Title, category, text, likes, comments, created_at, updated_at , author
@@ -22,12 +22,9 @@ export default class PostStore {
   @observable postItems = []; // axios로 호출해서 받아오면 된다.
   @observable detailPost = undefined;
 
-  @action setPostItems(postItems){
+  @action setPostItems(postItems) {
     this.postItems = postItems;
-    console.log(this.postItems)
-    this.getItems(0,2)
-    //console.log("오긴왔니?")
-    //console.log(this.postItems);
+    this.getItems(0, 1);
   }
 
   clear() {
@@ -36,21 +33,14 @@ export default class PostStore {
 
   getPost(id) {
     //TODO
-    return this.postRegistry.get(id)
-    
-    
-    // return agent.Posts.get(id)
-    // .then(res => 
-    //   this.detailPost = (res.data.data)
-    //   )
-    //   .catch(err => console.log(err))
+    return this.postRegistry.get(id);
   }
 
   //이전 정보를 정리해둔다.
   @action setPredicate(predicate) {
     if (JSON.stringfy(predicate) === JSON.stringfy(this.predicate)) return;
     this.clear();
-    this.predicate = predicate
+    this.predicate = predicate;
   }
 
   // 전체 Post 가져오기
@@ -58,70 +48,67 @@ export default class PostStore {
     this.isLoading = true;
     //TODO
     //console.log("요청보내기!");
-    if (userid === -1){
-      return agent.Posts.all().then(res => 
-      //console.log(res.data.list),
-      this.setPostItems(res.data.list)
-      )
-      .catch(err => console.log(err))
-    .finally(action(() => { this.loading = false}))
-    }
-    else {
-      return agent.Posts.byAuthorPublic(userid).then((res) => {
-        this.setPostItems(res.data.list)}
+    if (userid === -1) {
+      return agent.Posts.all()
+        .then(res =>
+          //console.log(res.data.list),
+          this.setPostItems(res.data.list)
         )
-      .catch(err => console.log(err))
-    .finally(action(() => { this.loading = false}))
+        .catch(err => console.log(err))
+        .finally(
+          action(() => {
+            this.loading = false;
+          })
+        );
+    } else {
+      return agent.Posts.byAuthorPublic(userid)
+        .then(res => {
+          this.setPostItems(res.data.list);
+        })
+        .catch(err => console.log(err))
+        .finally(
+          action(() => {
+            this.loading = false;
+          })
+        );
     }
-    
   }
 
-  // 한 개짜리 가져오기 - 이미 가져온 것은 map 에서 바로 꺼내고, 아닌 경우는 백엔드서버에서 호출한다.
-  @action loadPost(id, { acceptCached = false } = {}) {
+  @action loadPost(id) {
     //TODO
-    acceptCached = true;
-    if (acceptCached) {
-      const post = this.getPost(id);
-      if (post) {
-        return Promise.resolve(post);
-      }
-    }
-    this.isLoading = true;
-    return agent.Posts.get(id)
-    .then(action((res) => 
-    {
-      this.detailPost = (res.data.data)
-      console.log(res)
-      this.postRegistry.set(this.detailPost.postCode, this.detailPost)
-      //return post;
-    }
-    ) )
-    .finally(action(() => { this.loading = false}))
+    console.log("번호확인" + id);
+    return agent.Posts.get(id).then(
+      action(res => {
+        this.detailPost = res.data.data;
+
+        console.log(res);
+        this.postRegistry.set(this.detailPost.postCode, this.detailPost);
+        return this.detailPost;
+      })
+    );
   }
 
   @action createPost(post) {
-    console.log("여기가 두번쩨!!!!!");
-    //console.log(post);
-    return agent.Posts.create(post)
-    // .then(res => 
-    //   console.log("성공했니?")
-    //   )
-    // .catch(err => console.log( err))
-    // .then(action(({ post }) => 
-    // {
-    //   this.postRegistry.set(post.postCode, post);
-    //   return post;
-    // }
-    // ));
+    return agent.Posts.create(post);
   }
 
-  
-
   @action updatePost(post) {
-    return agent.Posts.create(post).then(({ post }) => {
-      this.postRegistry.set(post.id, post);
+    return agent.Posts.update(post).then(({ post }) => {
+      console.log(postMessage);
       return post;
     });
+  }
+
+  @action searchTitle(searchText) {
+    return agent.Posts.search(searchText)
+      .then(res => this.setPostItems(res.data.list))
+
+      .catch(err => alert("검색 결과가 없습니다."))
+      .finally(
+        action(() => {
+          this.loading = false;
+        })
+      );
   }
 
   @action deletePost(id) {
@@ -200,6 +187,5 @@ export default class PostStore {
   @action
   getItems = (startIndex, count) => {
     this.returnItems = this.postItems;
-   
   };
 }
