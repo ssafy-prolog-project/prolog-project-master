@@ -90,7 +90,6 @@ class PostDetailPage extends Component {
                 <Date>작성날짜 : {post.createDate}</Date>
               </Cover>
             )}
-            {/* <p>게시날짜: </p> */}
 
             <TestContainer>
               <div></div>
@@ -103,6 +102,15 @@ class PostDetailPage extends Component {
 
               <div></div>
             </TestContainer>
+            <TagContainer>
+              <div></div>
+              <TagBox>
+                {post.tagList.map((item, index) => (
+                  <Tag>{item}</Tag>
+                ))}
+              </TagBox>
+              <div></div>
+            </TagContainer>
             <DeleteBtn onClick={Delete}>삭제</DeleteBtn>
             <Link to={"/write/" + id} style={{ textDecoration: "none" }}>
               <UpdateBtn>수정</UpdateBtn>
@@ -132,6 +140,18 @@ class PostDetailPage extends Component {
     );
   }
 }
+const TagContainer = styled.div`
+  display: grid;
+  grid-template-columns: 15% 70% 15%;
+`;
+const Tag = styled.div`
+  font-size: 1.2rem;
+`;
+const TagBox = styled.div`
+  float: left;
+  background-color: gray;
+  border-radius: 10%;
+`;
 const Author = styled.div`
   z-index: 2;
   padding-top: 2rem;
@@ -151,7 +171,7 @@ const DeleteBtn = styled.div`
   border-width: 1px;
   border-style: solid;
   text-align: center;
-  margin: 1rem 1rem 1rem 1rem;
+  margin: 1rem 15rem 1rem 1rem;
 `;
 
 const UpdateBtn = styled.div`
