@@ -5,7 +5,6 @@ import { inject, observer } from "mobx-react";
 
 @inject("userStore", "authStore")
 @observer
-// 누르면 버튼으로 할 수 있는 동작 구현
 class DetailUserButton extends Component {
   render() {
     const check = this.props.authStore.token;
@@ -41,9 +40,7 @@ class DetailUserButton extends Component {
   }
 }
 
-export const LINKS = styled(Link)`
-  
-`;
+export const LINKS = styled(Link)``;
 
 const LoginButton = styled.div`
   border-style: solid;
@@ -80,15 +77,6 @@ const SelectMenus = styled.div`
     left: -150px;
     top: 0%;
   }
-  /*display: none;
-  margin-top: -1rem;
-  float: right;
-  margin-right: 3rem;
-   position: absolute; */
-  /*background-color: #f9f9f9;
-  min-width: 100px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 3;*/
 `;
 const SelectMenu = styled.a`
   color: black;
@@ -97,12 +85,6 @@ const SelectMenu = styled.a`
   display: block;
   text-align: left;
 
-  /* position: absolute; */
-  /* color: black;
-  padding: 10px 12px;
-  display: block;
-  text-align: left;
-  position: absolute; */
   cursor: pointer;
   :hover {
     background-color: #b0b0b0;
@@ -147,6 +129,5 @@ const ProfileImg = styled.img`
     margin-right: 1rem;
   }
 `;
-
 
 export default DetailUserButton;
