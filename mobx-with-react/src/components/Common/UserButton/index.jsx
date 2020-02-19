@@ -37,7 +37,7 @@ class UserButton extends Component {
               <Link to={portfolioLink} style={{ textDecoration: "none" }}>
                 <SelectMenu>Portfolio</SelectMenu>
               </Link>
-              <Link to={mypageLink} style={{ textDecoration: "none" }}>
+              <Link to={"/mypage/"+jwtDecode(window.sessionStorage.getItem("jwt")).sub} style={{ textDecoration: "none" }}>
                 <SelectMenu>MyPage</SelectMenu>
               </Link>
               <SelectMenu onClick={Logout}>Logout</SelectMenu>
