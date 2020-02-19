@@ -48,7 +48,7 @@ public class PostsService {
         return postJpaRepo.save(post); // view update
     }
 
-    //상세페이지
+    //상세페이지 가져오기
     public PostResponseDTO getPostDetail(int postCode){
         Post post = getPost(postCode);
         post = viewCount(post);
