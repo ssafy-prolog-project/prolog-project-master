@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import { withRouter } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
 // component
 import Logo from "../../components/NavBar/Logo";
@@ -24,6 +25,8 @@ class PostDetailPage extends Component {
     // store에 커멘트 id를 저장한 다음에 커멘트를 불러온다.
     this.props.commentStore.setPostId(id);
     //this.props.commentStore.loadComments();
+    const currentUser = this.props.authStore.user_detail;
+    const currentid = jwtDecode(check).sub;
   }
 
   handleDeletePost = id => {
@@ -43,19 +46,13 @@ class PostDetailPage extends Component {
   };
 
   render() {
-    console.log("???");
     const id = this.props.match.params.id;
-    //const { currentUser } = this.props.userStore;
-    const currentUser = true;
+
     const { comments } = this.props.commentStore;
     this.props.postStore.getPost(id);
-    //const post = this.props.postStore.detailPost;
     if (!this.props.postStore.detailPost)
       return <h1>Post가 없습니다. 에러처리</h1>;
     console.log(this.props.postStore.detailPost);
-    const canModify =
-      currentUser &&
-      currentUser.name === this.props.postStore.detailPost.userName;
 
     //author는 유저정보가 들어오고 클래스여야한다.
     const { values } = this.props.authStore;
@@ -121,10 +118,17 @@ class PostDetailPage extends Component {
               )}
               <div></div>
             </TagContainer>
-            <DeleteBtn onClick={Delete}>삭제</DeleteBtn>
-            <Link to={"/write/" + id} style={{ textDecoration: "none" }}>
-              <UpdateBtn>수정</UpdateBtn>
-            </Link>
+            {/* {currentid === post.msrl ?  */}
+            <>
+              <DeleteBtn onClick={Delete}>삭제</DeleteBtn>
+              <Link to={"/write/" + id} style={{ textDecoration: "none" }}>
+                <UpdateBtn>수정</UpdateBtn>
+              </Link>{" "}
+            </>
+            {/* :
+              <></>
+            } */}
+
             {/* <PostMeta
               post={this.props.postStore.detailPost}
               canModify={canModify}

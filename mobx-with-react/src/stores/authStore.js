@@ -1,7 +1,6 @@
 import { observable, action, computed, reaction, toJS } from "mobx";
-import jwtDecode from 'jwt-decode';
+import jwtDecode from "jwt-decode";
 import agent from "../agent";
-
 
 export default class AuthStore {
   @observable inProgress = false;
@@ -12,52 +11,50 @@ export default class AuthStore {
   @observable user_detail = {
     provider: undefined,
     email: "이메일을 입력해주세요.",
-    id: undefined,
     name: "",
     profileimg: undefined,
     intro: "소개를 입력해주세요.",
     role: "",
-    picture:""
+    picture: ""
   };
 
   @observable name = "";
   @observable email = "";
   @observable intro = "";
-  
+
   constructor(root) {
     this.root = root;
-    if(this.token){
-      this.user_info=jwtDecode(this.token).userInfo;
+    if (this.token) {
+      this.user_info = jwtDecode(this.token).userInfo;
       //this.getUserDetail(this.token);
-      
     }
 
     reaction(
-      ()=> this.name,
+      () => this.name,
       name => {
-        if(name) {
+        if (name) {
           this.name = name;
         }
       }
-    )
+    );
 
     reaction(
-      ()=> this.email,
+      () => this.email,
       email => {
-        if(email) {
+        if (email) {
           this.email = email;
         }
       }
-    )
+    );
 
     reaction(
-      ()=> this.intro,
+      () => this.intro,
       intro => {
-        if(intro) {
+        if (intro) {
           this.intro = intro;
         }
       }
-    )
+    );
 
     reaction(
       () => this.token,
@@ -70,7 +67,7 @@ export default class AuthStore {
       }
     );
   }
-  
+
   //sns accessToken 타입들이 어떻게 들어올까?
   @observable values = {
     accessToken: undefined,
@@ -83,7 +80,7 @@ export default class AuthStore {
     intro: "소개를 입력해주세요.",
     sub: "",
     role: "",
-    picture:""
+    picture: ""
   };
   @action setProfileimg(profileimg) {
     this.values.profileimg = profileimg;
@@ -93,39 +90,42 @@ export default class AuthStore {
   }
   @action setName(name) {
     this.values.name = name;
-    this.name= name;
+    this.name = name;
   }
 
-  @action updateName(name){
-    agent.Auth.name_update(name).then((res)=>{
-      console.log("update complate");
-      console.log(res);
-    })
-    .catch(err=> {
-      console.log(err);
-      // will be redirect code
-    })
+  @action updateName(name) {
+    agent.Auth.name_update(name)
+      .then(res => {
+        console.log("update complate");
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+        // will be redirect code
+      });
   }
 
-  @action updateEmail(email){
-    agent.Auth.email_update(email).then((res)=>{
-      console.log(res);
-    })
-    .catch(err=> {
-      console.log(err);
-      // will be redirect code
-    })
+  @action updateEmail(email) {
+    agent.Auth.email_update(email)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+        // will be redirect code
+      });
   }
 
-  @action updateIntro(intro){
-    agent.Auth.intro_update(intro).then((res)=>{
-      console.log("update complate");
-      console.log(res);
-    })
-    .catch(err=> {
-      console.log(err);
-      // will be redirect code
-    })
+  @action updateIntro(intro) {
+    agent.Auth.intro_update(intro)
+      .then(res => {
+        console.log("update complate");
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+        // will be redirect code
+      });
   }
 
   @action setAccessToken(token) {
@@ -137,17 +137,17 @@ export default class AuthStore {
   }
   @action setEmail(email) {
     this.values.email = email;
-    this.email=email;
+    this.email = email;
   }
   @action setIntro(intro) {
     this.values.intro = intro;
-    this.intro=intro;
+    this.intro = intro;
   }
-  @action setSub(sub){
-    this.values.sub=sub;
+  @action setSub(sub) {
+    this.values.sub = sub;
   }
-  @action setRole(role){
-    this.values.role=role;
+  @action setRole(role) {
+    this.values.role = role;
   }
 
   @action setProvider(provider) {
@@ -161,47 +161,50 @@ export default class AuthStore {
     this.values.refreshToken = undefined;
   }
 
-  @action setToken(token){
+  @action setToken(token) {
     console.log("얘는 decode");
-    this.token=token;
-    console.log("1")
-    this.user_info=jwtDecode(token).userInfo;
-    agent.Auth.getUserInfo(token).then(
-      res=>{this.user_detail=res;
-      console.log(res)}
-    )
-    console.log("안녕")
+    this.token = token;
+    console.log("1");
+    this.user_info = jwtDecode(token).userInfo;
+    agent.Auth.getUserInfo(token).then(res => {
+      this.user_detail = res.data.data;
+      console.log("user_detail정보");
+      console.log(this.user_detail);
+    });
+    console.log("안녕");
     //console.log(JSON.parse(JSON.stringify(this.user_info)));
     console.log(toJS(this.user_info));
   }
 
-@action login() {
+  @action login() {
     this.inProgress = true;
     this.errors = undefined;
     console.log("login중.....");
-    return agent.Auth.login(
-      this.values.accessToken,
-      this.values.refreshToken,
-      this.values.provider
-    )
-      .then(res => {
-        console.log("로그인 중 확인확인"+res.data.data);
-        this.setToken(res.data.data)
-      })
-      // .then(() => this.root.userStore.pullUser()) //login 성공한 유저정보를 불러온다.
-      .catch(
-        action(err => {
-          console.log("err   " + err);
-          this.errors =
-            err.response && err.response.body && err.response.body.errors;
-          throw err;
-        })
+    return (
+      agent.Auth.login(
+        this.values.accessToken,
+        this.values.refreshToken,
+        this.values.provider
       )
-      .then(
-        action(() => {
-          this.inProgress = false;
+        .then(res => {
+          console.log("로그인 중 확인확인" + res.data.data);
+          this.setToken(res.data.data);
         })
-      );
+        // .then(() => this.root.userStore.pullUser()) //login 성공한 유저정보를 불러온다.
+        .catch(
+          action(err => {
+            console.log("err   " + err);
+            this.errors =
+              err.response && err.response.body && err.response.body.errors;
+            throw err;
+          })
+        )
+        .then(
+          action(() => {
+            this.inProgress = false;
+          })
+        )
+    );
   }
   @action register() {
     this.inProgress = true;
@@ -226,8 +229,8 @@ export default class AuthStore {
         })
       );
   }
-  @action 
-  getUserDetail(jwt){
+  @action
+  getUserDetail(jwt) {
     agent.Auth.getUserInfo(jwt);
   }
 
@@ -236,7 +239,7 @@ export default class AuthStore {
     window.location.reload();
   }
 
-  @action getName(){
+  @action getName() {
     return this.name;
   }
 }

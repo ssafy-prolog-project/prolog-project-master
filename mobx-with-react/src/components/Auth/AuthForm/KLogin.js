@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 require("dotenv").config();
 
-@inject('authStore')
+@inject("authStore")
 @observer
 class KLogin extends Component {
   constructor(props) {
@@ -36,10 +36,12 @@ class KLogin extends Component {
         console.log("우리 서비스 로그인 성공");
         console.log(this.props.authStore.token);
         const jwt = this.props.authStore.token;
-        this.props.authStore.setProfileimg(this.props.authStore.user_detail.picture);
+        this.props.authStore.setProfileimg(
+          this.props.authStore.user_detail.picture
+        );
         this.props.authStore.setName(this.props.authStore.user_detail.name);
         this.props.authStore.setEmail(this.props.authStore.user_detail.email);
-        window.location.replace("http://localhost:3000/");
+        //window.location.replace("http://localhost:3000/");
         // 현재는 cors 에러 나서 실패했는데도 로그인 성공으로 찍어버림.
       })
       .catch(err => {
@@ -62,7 +64,6 @@ class KLogin extends Component {
           onSuccess={this.responseKakao}
           onFailure={this.responseFail}
           getProfile="true"
-
         />
       </Container>
     );
