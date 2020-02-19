@@ -118,6 +118,7 @@ export default class PostStore {
 
   @action
   sortByViews = () => {
+    this.loadPosts(-1);
     const itemsSortByViews = this.postItems
       .slice()
       .sort((a, b) => b.postView - a.postView);
@@ -126,12 +127,14 @@ export default class PostStore {
 
   @action
   sortByIds = () => {
+    this.loadPosts(-1);
     const itemsSortByIds = this.postItems.slice().sort((a, b) => a.id - b.id);
     this.returnItems = itemsSortByIds;
   };
 
   @action
   sortByAuthors = () => {
+    this.loadPosts(-1);
     const itemsSortByAuthors = this.postItems
       .slice()
       .sort((a, b) => (a.userName > b.userName ? 1 : -1));
@@ -140,6 +143,7 @@ export default class PostStore {
 
   @action
   sortByDates = () => {
+    this.loadPosts(-1);
     const itemsSortByDates = this.postItems
       .slice()
       .sort((a, b) => (a.createDate > b.createDate ? -1 : 1));
