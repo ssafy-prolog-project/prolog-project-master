@@ -179,7 +179,7 @@ const Author = styled.div`
   z-index: 2;
   padding-top: 2rem;
   padding-left: 15rem;
-  width: 80%;
+  width: 70%;
   font-size: 1rem;
   white-space: pre-line;
   font-family: Inconsolas;
@@ -214,7 +214,7 @@ const Title = styled.div`
   z-index: 2;
   padding-top: 15rem;
   padding-left: 15rem;
-  width: 80%;
+  width: 70%;
   font-size: 3.5rem;
   white-space: pre-line;
   font-family: Inconsolas;
@@ -223,7 +223,7 @@ const Title = styled.div`
 const Date = styled.div`
   z-index: 2;
   padding-left: 15rem;
-  width: 80%;
+  width: 70%;
   font-size: 1rem;
   white-space: pre-line;
   font-family: Inconsolas;
@@ -253,7 +253,11 @@ const Cover = styled.div`
 export default PostDetailPage;
 export const LINKS = styled(Link)``;
 
-export const DetailUserButton = styled(UserButton)``;
+export const DetailUserButton = styled(UserButton)`
+
+`;
+
+
 const EditorLayout = styled.div`
   box-sizing: border-box;
   /* border: 1px solid #ddd; */
@@ -287,7 +291,7 @@ const PostDetailPageLayout = styled.div`
 const PostViewHeader = styled.div`
   display: grid;
   /* grid-template-columns: repeat(5, 1fr); */
-  grid-template-areas: "logo . . . test";
+  grid-template-areas: "logo . . . . . . . . . . . test .";
   height: 100%;
   width: 100%;
   background-color: ${props => props.color};
