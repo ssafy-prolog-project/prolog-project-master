@@ -25,8 +25,6 @@ class PostDetailPage extends Component {
     // store에 커멘트 id를 저장한 다음에 커멘트를 불러온다.
     this.props.commentStore.setPostId(id);
     //this.props.commentStore.loadComments();
-    const currentUser = this.props.authStore.user_detail;
-    //const currentid = jwtDecode(check).sub;
   }
 
   handleDeletePost = id => {
@@ -47,12 +45,15 @@ class PostDetailPage extends Component {
 
   render() {
     const id = this.props.match.params.id;
+    this.props.postStore.getPost(id);
+    const post = this.props.postStore.detailPost;
+    const check = false;
 
     const { comments } = this.props.commentStore;
-    this.props.postStore.getPost(id);
+
     if (!this.props.postStore.detailPost)
       return <h1>Post가 없습니다. 에러처리</h1>;
-    console.log(this.props.postStore.detailPost);
+    //console.log(this.props.postStore.detailPost);
 
     //author는 유저정보가 들어오고 클래스여야한다.
     const { values } = this.props.authStore;
@@ -66,9 +67,13 @@ class PostDetailPage extends Component {
         .deletePost(id)
         .then(this.props.history.push("/"), window.location.reload());
     };
-
-    const post = this.props.postStore.detailPost;
-    console.log(post);
+    if (
+      window.sessionStorage.getItem("jwt") !== null &&
+      window.sessionStorage.getItem("jwt") !== "" &&
+      jwtDecode(window.sessionStorage.getItem("jwt")).sub * 1 === post.msrl
+    ) {
+      this.check = true;
+    }
     return (
       <PostDetailPageLayout>
         <PostViewHeader color={post.coverColor}>
@@ -118,16 +123,16 @@ class PostDetailPage extends Component {
               )}
               <div></div>
             </TagContainer>
-            {/* {currentid === post.msrl ?  */}
-            <>
-              <DeleteBtn onClick={Delete}>삭제</DeleteBtn>
-              <Link to={"/write/" + id} style={{ textDecoration: "none" }}>
-                <UpdateBtn>수정</UpdateBtn>
-              </Link>{" "}
-            </>
-            {/* :
+            {this.check ? (
+              <>
+                <DeleteBtn onClick={Delete}>삭제</DeleteBtn>
+                <Link to={"/write/" + id} style={{ textDecoration: "none" }}>
+                  <UpdateBtn>수정</UpdateBtn>
+                </Link>{" "}
+              </>
+            ) : (
               <></>
-            } */}
+            )}
 
             {/* <PostMeta
               post={this.props.postStore.detailPost}

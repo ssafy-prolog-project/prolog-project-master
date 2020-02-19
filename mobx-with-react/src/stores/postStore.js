@@ -31,7 +31,7 @@ export default class PostStore {
     this.postRegistry.clear();
   }
 
-  getPost(id) {
+  @action getPost(id) {
     //TODO
     return this.postRegistry.get(id);
   }
@@ -80,8 +80,8 @@ export default class PostStore {
     return agent.Posts.get(id).then(
       action(res => {
         this.detailPost = res.data.data;
-
-        console.log(res);
+        console.log(this.detailPost);
+        //console.log(res);
         this.postRegistry.set(this.detailPost.postCode, this.detailPost);
         return this.detailPost;
       })
