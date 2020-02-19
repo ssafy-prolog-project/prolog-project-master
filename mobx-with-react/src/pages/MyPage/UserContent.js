@@ -7,8 +7,8 @@ class UserContent extends Component{
     render(){
         return(
             <UserContentLayout>
-                <Tabs></Tabs>
-                <Content></Content>
+                {/* <Tabs></Tabs> */}
+                <Content userid={this.props.userid}></Content>
             </UserContentLayout>
         )
     }

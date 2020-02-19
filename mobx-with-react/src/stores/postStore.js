@@ -26,6 +26,7 @@ export default class PostStore {
     this.postItems = postItems;
     this.getItems(0, 1);
   }
+
   clear() {
     this.postRegistry.clear();
   }
@@ -43,17 +44,34 @@ export default class PostStore {
   }
 
   // 전체 Post 가져오기
-  @action loadPosts() {
+  @action loadPosts(userid) {
     this.isLoading = true;
     //TODO
-    return agent.Posts.all()
-      .then(res => this.setPostItems(res.data.list))
-      .catch(err => console.log(err))
-      .finally(
-        action(() => {
-          this.loading = false;
+    //console.log("요청보내기!");
+    if (userid === -1) {
+      return agent.Posts.all()
+        .then(res =>
+          //console.log(res.data.list),
+          this.setPostItems(res.data.list)
+        )
+        .catch(err => console.log(err))
+        .finally(
+          action(() => {
+            this.loading = false;
+          })
+        );
+    } else {
+      return agent.Posts.byAuthorPublic(userid)
+        .then(res => {
+          this.setPostItems(res.data.list);
         })
-      );
+        .catch(err => console.log(err))
+        .finally(
+          action(() => {
+            this.loading = false;
+          })
+        );
+    }
   }
 
   @action loadPost(id) {
@@ -94,9 +112,12 @@ export default class PostStore {
   }
 
   @action deletePost(id) {
-    return agent.Posts.del(id).then(res => {
-      console.log(res);
-    });
+    return agent.Posts.del(id).then(
+      action(err => {
+        this.loadPosts(-1);
+        throw err;
+      })
+    );
   }
 
   constructor(root) {

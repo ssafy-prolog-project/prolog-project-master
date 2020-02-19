@@ -48,17 +48,22 @@ public class PostsService {
         return postJpaRepo.save(post); // view update
     }
 
-    //
+    //상세페이지
     public PostResponseDTO getPostDetail(int postCode){
         Post post = getPost(postCode);
         post = viewCount(post);
-        List<TagManage> mngs = tagManageJpaRepo.findByPost(post).get();
+        List<TagManage> mngs = tagManageJpaRepo.findByPost(post).orElse(null);
         PostResponseDTO postDTO = modelMapper.map(post, PostResponseDTO.class);
-        String[] tags = new String[mngs.size()];
-        for (int i = 0; i < mngs.size(); i++) {
-            tags[i] = mngs.get(i).getTag().getTag();
+        //tag 있을때만
+        if(mngs!=null){
+            String[] tags = new String[mngs.size()];
+            for (int i = 0; i < mngs.size(); i++) {
+                tags[i] = mngs.get(i).getTag().getTag();
+            }
+            postDTO.setTagList(tags);
+        }else{
+            postDTO.setTagList(null);
         }
-        postDTO.setTagList(tags);
         return postDTO;
     }
 
@@ -69,13 +74,16 @@ public class PostsService {
                 post.getCoverImage(),post.getCoverColor());
         Post savedPost = postJpaRepo.save(newPost); // post 저장
         //Tag 처리
-        String[] tags = post.getTagList(); // DTO 에서 String[] 으로 태그 받아옴
-        for (String tag :tags) {
-            Tag savedTag = tagJpaRepo.findByTag(tag).orElse(null);
-            if(savedTag == null) {
-                savedTag = tagJpaRepo.save(new Tag(tag));
+        //Tag가 Null일때 -> tag 처리안함
+        if(!post.getTagList().equals(null)){
+            String[] tags = post.getTagList(); // DTO 에서 String[] 으로 태그 받아옴
+            for (String tag :tags) {
+                Tag savedTag = tagJpaRepo.findByTag(tag).orElse(null);
+                if(savedTag == null) {
+                    savedTag = tagJpaRepo.save(new Tag(tag));
+                }
+                tagManageJpaRepo.save(new TagManage(savedPost,savedTag));
             }
-            tagManageJpaRepo.save(new TagManage(savedPost,savedTag));
         }
         return true;
     }
@@ -89,15 +97,18 @@ public class PostsService {
         postOrigin.setUpdate(post.getTitle(),post.getBody(),post.getCoverImage(),post.getCoverColor());
 
         //Tag 처리
-        //기존 태그 Delete
-        tagManageJpaRepo.deleteAllByPost(postOrigin);
-        String[] tags = post.getTagList();
-        for (String tag :tags) {
-            Tag savedTag = tagJpaRepo.findByTag(tag).orElse(null);
-            if(savedTag == null) {
-                savedTag = tagJpaRepo.save(new Tag(tag));
+        //Tag가 Null일때 -> tag 처리안함
+        if(!post.getTagList().equals(null)){
+            //기존 태그 Delete
+            tagManageJpaRepo.deleteAllByPost(postOrigin);
+            String[] tags = post.getTagList();
+            for (String tag :tags) {
+                Tag savedTag = tagJpaRepo.findByTag(tag).orElse(null);
+                if(savedTag == null) {
+                    savedTag = tagJpaRepo.save(new Tag(tag));
+                }
+                tagManageJpaRepo.save(new TagManage(postOrigin,savedTag));
             }
-            tagManageJpaRepo.save(new TagManage(postOrigin,savedTag));
         }
         return postOrigin;
     }

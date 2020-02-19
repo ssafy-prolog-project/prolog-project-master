@@ -18,7 +18,6 @@ export default class PortfolioStore{
 
     @action setAbout(about){
         this.values.about = about;
-        console.log("about이 바꼈어!!@")
     }
     @action setSkills(skills){
         this.values.skills = skills;
