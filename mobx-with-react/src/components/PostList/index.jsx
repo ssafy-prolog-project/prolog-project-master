@@ -4,12 +4,12 @@ import PostCard from "./PostCard";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 import Loader from "react-loader-spinner";
+import { decorate, observable, action } from "mobx";
 
 @inject("postStore")
 @observer
 class PostList extends Component {
- 
-  componentDidMount(){
+  componentDidMount() {
     this.props.postStore.loadPosts(-1);
   }
 
@@ -34,7 +34,7 @@ class PostList extends Component {
 
   render() {
     const { items, hasMoreItems } = this.state;
-    
+
     return (
       <InfiniteScroll
         dataLength={this.props.postStore.returnItems.length}
@@ -53,19 +53,21 @@ class PostList extends Component {
         }
         endMessage={<h4>End</h4>}
       >
-        
         <GridDiv>
-        
           {this.props.postStore.returnItems.map((item, index) => (
-            
-             <PostCard key={index} post={item} />
+            <PostCard key={index} post={item} />
           ))}
         </GridDiv>
-     </InfiniteScroll>
+      </InfiniteScroll>
     );
   }
 }
-
+// decorate(PostList, {
+//   postItems: observable,
+//   sortByViews: action,
+//   sortByIds: action,
+//   sortByAuthors: action
+// });
 export default PostList;
 
 const GridDiv = styled.div`
