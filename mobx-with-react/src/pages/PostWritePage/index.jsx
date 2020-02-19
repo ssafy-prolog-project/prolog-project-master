@@ -25,15 +25,8 @@ class PostWritePage extends Component {
   componentWillMount() {
     if (this.props.match.params.postCode) {
       this.props.editorStore.setPostId(this.props.match.params.postCode);
-      this.props.editorStore.loadInitialData().then(
-        res => console.log(res)
-        // this.setState({
-
-        // })
-      );
+      this.props.editorStore.loadInitialData().then(res => console.log(res));
     }
-    console.log("여기;ㅠㅠㅠㅠㅠㅠ");
-    console.log(this.modify);
   }
 
   componentDidMount() {
@@ -89,10 +82,6 @@ class PostWritePage extends Component {
     editorStore.save(this.props.match.params.postCode);
     this.props.history.push("/");
     window.location.reload();
-    // .then(post => {
-    //   editorStore.reset();
-    //   this.props.history.replace(`/post/${post.id}`);
-    // });
   };
 
   setBody = b => {

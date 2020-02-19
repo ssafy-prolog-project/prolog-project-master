@@ -108,7 +108,9 @@ const Posts = {
   del: id =>
     requests.del(`/post/${id}`, {
       "X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")
-    })
+    }),
+
+  search: searchText => requests.get(`/post/search/${searchText}`)
 };
 
 const Comments = {
