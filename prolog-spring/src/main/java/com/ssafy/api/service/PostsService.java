@@ -56,7 +56,8 @@ public class PostsService {
         post = viewCount(post);
         List<TagManage> mngs = tagManageJpaRepo.findByPost(post).orElse(null);
         PostResponseDTO postDTO = modelMapper.map(post, PostResponseDTO.class);
-        postDTO = modelMapper.map(user, PostResponseDTO.class);
+        postDTO.setMsrl(user.getMsrl());
+        postDTO.setPicture(user.getPicture());
         //tag 있을때만
         if(mngs!=null){
             String[] tags = new String[mngs.size()];
