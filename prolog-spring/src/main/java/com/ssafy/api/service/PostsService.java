@@ -48,17 +48,22 @@ public class PostsService {
         return postJpaRepo.save(post); // view update
     }
 
-    //
+    //상세페이지
     public PostResponseDTO getPostDetail(int postCode){
         Post post = getPost(postCode);
         post = viewCount(post);
-        List<TagManage> mngs = tagManageJpaRepo.findByPost(post).get();
+        List<TagManage> mngs = tagManageJpaRepo.findByPost(post).orElse(null);
         PostResponseDTO postDTO = modelMapper.map(post, PostResponseDTO.class);
-        String[] tags = new String[mngs.size()];
-        for (int i = 0; i < mngs.size(); i++) {
-            tags[i] = mngs.get(i).getTag().getTag();
+        //tag 있을때만
+        if(mngs!=null){
+            String[] tags = new String[mngs.size()];
+            for (int i = 0; i < mngs.size(); i++) {
+                tags[i] = mngs.get(i).getTag().getTag();
+            }
+            postDTO.setTagList(tags);
+        }else{
+            postDTO.setTagList(null);
         }
-        postDTO.setTagList(tags);
         return postDTO;
     }
 
