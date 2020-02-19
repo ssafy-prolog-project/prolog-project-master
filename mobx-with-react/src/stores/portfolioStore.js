@@ -41,12 +41,11 @@ export default class PortfolioStore {
       this.setEmail(email);
       this.setRepository(repository);
       if (techs) {
-        let skills = JSON.parse(techs);
+        let skills = techs.split(",");
         const options = [];
-        for (let item in skills) {
-          options.push(launguageDict[item]);
+        for (let i=0; i< skills.length ; i++) {
+            options.push(launguageDict[skills[i]]);
         }
-        console.log(options);
         this.setSkills(options);
       }
     });
@@ -56,13 +55,8 @@ export default class PortfolioStore {
     let tech = "";
     if (this.values.skills) {
       const skillsString = this.values.skills.map(item => item.value);
-      var json = new Object();
-      for (let i = 0; i < this.values.skills.length; i++) {
-        const name = this.values.skills[i].value;
-        json[name] = 1;
-      }
-      tech = JSON.stringify(json);
+      tech = skillsString.join()
     }
-    agent.Auth.setStack(tech).then(res => console.log(res.data.data));
+    agent.Auth.setStack(tech).then().catch(e=> console.log(e));
   }
 }
