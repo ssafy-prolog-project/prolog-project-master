@@ -111,8 +111,6 @@ public class PostsController {
         Set<String> tagSet = new HashSet<>();
         for (Post p: posts) {
             List<String> tagList = tagManageService.getTagsByPostCode(p);
-            System.out.println("여기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!4");
-            System.out.println(tagList);
             if(tagList==null) continue;
             for (String tag: tagList  ) {
                 tagSet.add(tag);
