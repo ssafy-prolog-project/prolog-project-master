@@ -27,17 +27,22 @@ export default class WriteEditor extends Component {
   };
 
   render() {
+    let config = {
+      simpleUpload: {
+      uploadUrl: 'http://localhost:3000/v1/file'
+    }
+  }
+
     return (
-      <WriteEditorLayout>
+      <>
         <TestContainer>
           <div></div>
           <EditorLayout id="editor">
             <CKEditor
               editor={BalloonEditor}
               data={this.props.body}
-              //config={}
+              config={config}
               onInit={editor => {
-                //console.log(Balloon Editor.builtinPlugins.map(plugin => plugin.pluginName))
                 this.setState({ ckeditor: editor });
               }}
               onChange={(event, editor) => {
@@ -52,18 +57,7 @@ export default class WriteEditor extends Component {
             <EditorHelper editor={this.state.ckeditor} />
           </div>
         </TestContainer>
-
-        <TestContainer>
-          <div></div>
-          <EditorLayout>
-            <div
-              className="ck-content"
-              dangerouslySetInnerHTML={this.createMarkup()}
-            />
-          </EditorLayout>
-          <div></div>
-        </TestContainer>
-      </WriteEditorLayout>
+      </>
     );
   }
 }
@@ -84,5 +78,3 @@ const TestContainer = styled.div`
   display: grid;
   grid-template-columns: 15% 70% 15%;
 `;
-
-const WriteEditorLayout = styled.div``;

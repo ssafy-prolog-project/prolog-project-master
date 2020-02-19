@@ -117,12 +117,6 @@ export default class PostStore {
   }
 
   @action
-  delete = id => {
-    this.postItems = this.postItems.filter(item => item.id !== this.nextId - 1);
-    this.nextId -= 1;
-  };
-
-  @action
   sortByViews = () => {
     const itemsSortByViews = this.postItems
       .slice()
