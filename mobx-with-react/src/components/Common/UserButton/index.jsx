@@ -11,13 +11,20 @@ import jwtDecode from 'jwt-decode';
 // 누르면 버튼으로 할 수 있는 동작 구현
 class UserButton extends Component {
   render() {
-    const check = this.props.authStore.token;
     const Logout = () => {
       this.props.authStore.logout();
     };
-    const userid = jwtDecode(check).sub
-    const portfolioLink = `/portfolio/${userid}`
-    const mypageLink = `/mypage/${userid}`
+
+    let userid = 0
+    let portfolioLink = `/portfolio/${userid}`
+    let mypageLink = `/mypage/${userid}`
+    const check = this.props.authStore.token;
+    
+    if (check){
+      userid = jwtDecode(check).sub
+      portfolioLink = `/portfolio/${userid}`
+      mypageLink = `/mypage/${userid}`
+    }
     return (
       <Img>
         {check ? (

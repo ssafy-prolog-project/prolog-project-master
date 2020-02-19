@@ -42,28 +42,14 @@ export default class PortfolioStore{
               this.setGreeting(greeting)
               this.setEmail(email)
               this.setRepository(repository)
-              console.log(this.values)
               if (techs){
-                // const skills = JSON.parse(techs)
-                // const skills2 = JSON.parse(skills)
-                // console.log(skills)
-                // console.log(skills2)
-                //  console.log(typeof skills2)
-                //  console.log(typeof techs)
-                // // console.log(skills)
-                // // console.log(typeof skills)                
-                // // console.log(typeof techs)                
-                // // console.log(skills.react)
-                
-                // // const skills2 = { 'react' : '1', 'javascript' : '1' }
-                // // console.log(skills2)
-                // const options = [] 
-                // for(let item in skills2){
-                //     options.push(launguageDict[item])
-                // }
-                // //console.log(options)                
-                // //this.setSkills(this.convertStringArrayToOption(skills))
-                // this.setSkills(options)
+                let skills = JSON.parse(techs)
+                const options = [] 
+                for(let item in skills){
+                    options.push(launguageDict[item])
+                }
+                console.log(options)                
+                this.setSkills(options)
               }
             }        
           )
@@ -78,29 +64,10 @@ export default class PortfolioStore{
                 const name = this.values.skills[i].value
                 json[name] = 1
             }
-            console.log(json)
-            console.log(JSON.stringify(json))
-            //tech = JSON.stringify(json)
-            tech = json
-            //tech = skillsString.join()
+            tech = JSON.stringify(json)
         }
-        
-        console.log("save")
-        console.log(tech)
-        console.log(window.sessionStorage.getItem("jwt"))
-        // 예시
-        // {
-        //     "techs": "{ react : 1, javascript : 1 }"
-        //   }
         agent.Auth.setStack(tech).then(res => console.log(res.data.data))
     }
-
-    @action convertStringArrayToOption = arr => {
-        const options = arr.map((item)=> launguageDict.get(item))
-        console.log("options")
-        console.log(options)
-        return options
-      }
 }
 
 
