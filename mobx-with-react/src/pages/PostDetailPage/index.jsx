@@ -106,7 +106,7 @@ class PostDetailPage extends Component {
               <div></div>
               <TagBox>
                 {post.tagList.map((item, index) => (
-                  <Tag>{item}</Tag>
+                  <Tag>#{item}</Tag>
                 ))}
               </TagBox>
               <div></div>
@@ -145,12 +145,16 @@ const TagContainer = styled.div`
   grid-template-columns: 15% 70% 15%;
 `;
 const Tag = styled.div`
-  font-size: 1.2rem;
+  font-size: 1rem;
+  float: left;
+  background-color: #e6e6e6;
+  margin-right: 0.5rem;
+  padding: 5px 7px 5px 7px;
+  margin-bottom: 0.5rem;
+  /* text-decoration: underline; */
 `;
 const TagBox = styled.div`
   float: left;
-  background-color: gray;
-  border-radius: 10%;
 `;
 const Author = styled.div`
   z-index: 2;
