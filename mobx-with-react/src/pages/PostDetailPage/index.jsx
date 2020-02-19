@@ -43,7 +43,7 @@ class PostDetailPage extends Component {
   };
 
   render() {
-    console.log("???")
+    console.log("???");
     const id = this.props.match.params.id;
     //const { currentUser } = this.props.userStore;
     const currentUser = true;
@@ -110,11 +110,15 @@ class PostDetailPage extends Component {
             </TestContainer>
             <TagContainer>
               <div></div>
-              <TagBox>
-                {post.tagList.map((item, index) => (
-                  <Tag>#{item}</Tag>
-                ))}
-              </TagBox>
+              {post.tagList ? (
+                <TagBox>
+                  {post.tagList.map((item, index) => (
+                    <Tag>#{item}</Tag>
+                  ))}
+                </TagBox>
+              ) : (
+                <></>
+              )}
               <div></div>
             </TagContainer>
             <DeleteBtn onClick={Delete}>삭제</DeleteBtn>
