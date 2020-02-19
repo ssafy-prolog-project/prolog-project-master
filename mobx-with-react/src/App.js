@@ -16,40 +16,6 @@ import PortfolioPage from "./pages/PortfolioPage";
 import agent from "./agent";
 import authStore from "./stores/authStore"
 
-<<<<<<< HEAD
-const App = () => {
-  const [user, setUser] = useState(null);
-  const authenticated = user != null;
-  const login = ({ email, password }) => setUser(signIn({ email, password }));
-  const logout = () => setUser(null);
-
-  return (
-    <div>
-      <GlobalStyle></GlobalStyle>
-      <Switch>
-        {/* 
-            <Route path="/register" component={Register} />
-            <Route path="/editor/:slug?" component={Editor} />
-            <Route path="/article/:id" component={Article} />
-            <PrivateRoute path="/settings" component={Settings} />
-            <Route path="/@:username" component={Profile} />
-            <Route path="/@:username/favorites" component={Profile} />
-            <Route path="/" component={Home} /> */}
-        {/* <Route path="/post/:id" component={Post} */}
-        <Route path="/login" component={LoginPage} />
-        <Route path="/post/:id" component={PostDetailPage} />
-        <Route path="/mypage/:msrl" component={MyPage} />
-        <Route path="/mypage" component={MyPage} />
-        {/* <PrivateRoute path="/mypage" component={MyPage} /> */}
-        <Route path="/write" component={PostWritePage} />
-        <Route path="/searchpage" component={SearchPage} />
-        <Route path="/portfolio" component={PortfolioPage} />
-        <Route path="/" component={MainPage} />
-      </Switch>
-    </div>
-  );
-};
-=======
 @inject('authStore')
 class App extends Component{
   initializeUserInfo = async () => {
@@ -93,7 +59,6 @@ class App extends Component{
     );
   }
 }
->>>>>>> Feature-39-IK
 
 const GlobalStyle = createGlobalStyle`
   #root{

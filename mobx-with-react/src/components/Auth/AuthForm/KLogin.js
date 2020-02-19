@@ -43,6 +43,7 @@ class KLogin extends Component {
         // 현재는 cors 에러 나서 실패했는데도 로그인 성공으로 찍어버림.
       })
       .catch(err => {
+        console.log(this.props.authStore.token);
         console.log("실패", err);
       });
   };

@@ -55,15 +55,11 @@ console.log(this.props.postStore.detailPost);
 
     //author는 유저정보가 들어오고 클래스여야한다.
     const { values } = this.props.authStore;
-<<<<<<< HEAD
-  
-=======
     const { accessToken, provider, vid, name, profileimg } = values;
     const Logout = () => {
       console.log("logout 발생");
       this.props.authStore.logout();
     };
->>>>>>> Feature-39-IK
     const post = this.props.postStore.detailPost;
     console.log("ㅠㅠㅠㅠㅠ" + post.coverImage);
     return (

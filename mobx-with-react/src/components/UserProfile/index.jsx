@@ -65,41 +65,11 @@ class UserProfile extends Component {
       this.props.authStore.updateName(this.state.name);
     }
     
-<<<<<<< HEAD
-    const { picture, name, email, greeting } = this.props.authStore.user_info;
-    
-    const NameClick = () => {
-      if (!this.state.isNameEdit) {
-        this.props.authStore.setName(this.state.name);
-        this.setState({
-          name: this.props.authStore.values.name
-        });
-      }
-      // else{
-      //   this.setState({
-      //     name: this.props.authStore.values.name
-      //   });
-      // }
-
-      const { isEditName } = this.state;
-      this.setState({
-        isEditName: !isEditName
-      });
-    };
-    const EmailClick = () => {
-      if (!this.state.isEmailEdit) {
-        this.props.authStore.setEmail(this.state.email);
-        this.setState({
-          email: this.props.authStore.values.email
-        });
-      }
-=======
     const { isEditName } = this.state;
     this.setState({
       isEditName: !isEditName
     });
   };
->>>>>>> Feature-39-IK
 
   EmailClick = () => {
     if (!this.state.isEmailEdit) {
@@ -126,7 +96,7 @@ class UserProfile extends Component {
   };
 
   render() {
-    const { picture } = this.props.authStore.user_info;
+    const picture = this.props.authStore.user_info;
     const { name, email, greeting } = this.props.authStore.user_detail;
 
     const showname = (

@@ -11,12 +11,6 @@ import LoginButton from "../LoginButton";
 class UserButton extends Component {
   render() {
     const check = this.props.authStore.token;
-<<<<<<< HEAD
-    console.log("??")
-    console.log(this.props.authStore.user_info.picture);
-=======
-
->>>>>>> Feature-39-IK
     const Logout = () => {
       console.log("logout 발생");
       this.props.authStore.logout();
@@ -25,7 +19,7 @@ class UserButton extends Component {
       <Img>
         {check ? (
           <>
-            <ProfileImg src={this.props.authStore.user_info.picture}></ProfileImg>
+            <ProfileImg src={this.props.authStore.user_info}></ProfileImg>
             <SelectMenus className="menubar">
               <Link to={"/write"} style={{ textDecoration: "none" }}>
                 <SelectMenu>Post</SelectMenu>
