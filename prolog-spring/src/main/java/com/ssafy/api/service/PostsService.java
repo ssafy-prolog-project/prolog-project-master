@@ -6,6 +6,7 @@ import com.ssafy.api.advice.exception.CUserNotFoundException;
 import com.ssafy.api.entity.Post;
 import com.ssafy.api.entity.Tag;
 import com.ssafy.api.entity.TagManage;
+import com.ssafy.api.entity.User;
 import com.ssafy.api.model.PostDTO;
 import com.ssafy.api.model.PostResponseDTO;
 import com.ssafy.api.repository.PostJpaRepo;
@@ -51,9 +52,11 @@ public class PostsService {
     //상세페이지 가져오기
     public PostResponseDTO getPostDetail(int postCode){
         Post post = getPost(postCode);
+        User user = post.getUser();
         post = viewCount(post);
         List<TagManage> mngs = tagManageJpaRepo.findByPost(post).orElse(null);
         PostResponseDTO postDTO = modelMapper.map(post, PostResponseDTO.class);
+        postDTO = modelMapper.map(user, PostResponseDTO.class);
         //tag 있을때만
         if(mngs!=null){
             String[] tags = new String[mngs.size()];

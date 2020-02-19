@@ -24,9 +24,9 @@ public class PostResponseDTO {
     @ApiModelProperty(value = "작성자")
     private String userName; // User Name
     @ApiModelProperty(value = "msrl")
-    private Long msrl; // User Name
+    private Long msrl; // User msrl
     @ApiModelProperty(value = "프로필 사진")
-    private String picture; // User Name
+    private String picture; // User picture
 
     @ApiModelProperty(value = "작성날짜")
     private LocalDateTime createDate;
