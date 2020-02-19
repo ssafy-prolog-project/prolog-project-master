@@ -1,5 +1,6 @@
 package com.ssafy.api.controller.v1;
 
+import com.google.gson.Gson;
 import com.ssafy.api.advice.exception.CUserNotFoundException;
 import com.ssafy.api.model.response.CommonResult;
 import com.ssafy.api.model.response.ListResult;
@@ -106,7 +107,11 @@ public class UserController {
     @DeleteMapping(value = "/user/{msrl}")
     public CommonResult delete(
             @ApiParam(value = "회원번호", required = true) @PathVariable long msrl) {
-        userJpaRepo.deleteById(msrl);
+        try {
+            userJpaRepo.deleteById(msrl);
+        }catch (RuntimeException e){
+            return responseService.getFailResult(2000, "유저 삭제중 문제 발생");
+        }
         // 성공 결과 정보만 필요한경우 getSuccessResult()를 이용하여 결과를 출력한다.
         return responseService.getSuccessResult();
     }
@@ -128,7 +133,8 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         long msrl = Long.parseLong(authentication.getName());
         User user = userJpaRepo.findByMsrl(msrl).orElseThrow(CUserNotFoundException::new);
-        user.setTechs(tech.getTechs());
+        Gson gson = new Gson();
+        user.setTechs(gson.toJson(tech.getTechs()));
         return responseService.getSingleResult(userJpaRepo.save(user));
     }
 
