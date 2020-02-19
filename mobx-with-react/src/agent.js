@@ -40,9 +40,9 @@ const requests = {
       .post(`${API_ROOT}${VERSION}${url}`, body, {headers: header}),
       //.then(res => console.log(res))
       //.catch(err =>  console.log(err)),
-  put: (url, body) =>
+  put: (url, body, header) =>
     axios
-      .put(`${API_ROOT}${VERSION}${url}`, body)
+      .put(`${API_ROOT}${VERSION}${url}`, body,{headers: header})
       // .then(res => console.log(res))
       // .catch(err => console.log(err))
 };
@@ -62,11 +62,29 @@ const Auth = {
     current: (jwt) =>{
       if(jwt==null || jwt=="") new Error("로그인 하러 가자!")
       requests.get('/user', {"X-AUTH-TOKEN": jwt})
-      .then(res=>console.log("?일단 넘어오는 건 성공"))
+      .then(res=>{return res.data.data})
       .catch(err=>console.log("??????>????"+err))},
       update : (snsAccessToken, snsRefreshToken, user) =>
-      requests.put('/user', {accessToken : snsAccessToken, refreshToken: snsRefreshToken, user : user}),
+      requests.put('/user', {accessToken : snsAccessToken, refreshToken: snsRefreshToken, user : user},{}),
     
+    intro_update: (intro) =>
+    requests.put('/user/greeting',{greeting: intro},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
+    
+    email_update: (email) =>
+    requests.put('/user/email',{email: email},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
+    
+    name_update: (name) =>
+    requests.put('/user/name',{name: name},{"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")}),
+    
+    getUserInfo: (jwt) =>{
+      // if(jwt==null || jwt=="") {
+      //   //return Promise.resolve("")
+      // }
+      // else{
+      return requests.get('/user', {"X-AUTH-TOKEN": jwt})
+    // }
+      
+    },
 }
 
 // page 로드를 어떻게 처리할거냐?
@@ -77,17 +95,17 @@ const Posts = {
   all : () => 
   requests.get('/postsAll'),
 
-  byAuthorPublic: (id) =>
-  requests.get(`/post/user/${id}`),
-
   byAuthor : () => 
   requests.get(`/post`),
   
   create: post =>{
     // if(window.sessionStorage.getItem("jwt")==null || window.sessionStorage.getItem("jwt")=="") new Error("로그인 하러 가자!")
-    requests.post('/post', {"title":post.title, "coverColor":post.coverColor, "coverImage":post.coverImage, "body": post.body, "tagList": post.tagList}, {"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")})
-  
+    console.log("왜안될까...?")
+    console.log(post);
+    requests.post('/post', {post}, {"X-AUTH-TOKEN": window.sessionStorage.getItem("jwt")})
   },
+
+
   update: post => 
   requests.put(`/post/${post.id}`, {post}),
   
@@ -96,8 +114,6 @@ const Posts = {
   
   del: id => 
   requests.del(`/post/${id}`)
-
-  
 
 }
 
@@ -116,14 +132,8 @@ const Comments = {
   //requests.del(`/v1/posts/${postId}/comments/${commentId}`)
 }
 
-const Tags = {
-  getTags : (userId) => 
-    requests.get(`/tags/${userId}`)
-}
-
 export default{
     Auth,
     Posts,
-    Comments,
-    Tags,
+    Comments
 }
