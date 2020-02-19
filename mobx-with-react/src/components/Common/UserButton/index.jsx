@@ -4,17 +4,27 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import LoginButton from "../LoginButton";
+import jwtDecode from 'jwt-decode';
 
 @inject("userStore", "authStore")
 @observer
 // 누르면 버튼으로 할 수 있는 동작 구현
 class UserButton extends Component {
   render() {
-    const check = this.props.authStore.token;
     const Logout = () => {
-      console.log("logout 발생");
       this.props.authStore.logout();
     };
+
+    let userid = 0
+    let portfolioLink = `/portfolio/${userid}`
+    let mypageLink = `/mypage/${userid}`
+    const check = this.props.authStore.token;
+    
+    if (check){
+      userid = jwtDecode(check).sub
+      portfolioLink = `/portfolio/${userid}`
+      mypageLink = `/mypage/${userid}`
+    }
     return (
       <Img>
         {check ? (
@@ -24,10 +34,10 @@ class UserButton extends Component {
               <Link to={"/write"} style={{ textDecoration: "none" }}>
                 <SelectMenu>Post</SelectMenu>
               </Link>
-              <Link to={"/portfolio"} style={{ textDecoration: "none" }}>
+              <Link to={portfolioLink} style={{ textDecoration: "none" }}>
                 <SelectMenu>Portfolio</SelectMenu>
               </Link>
-              <Link to={"/mypage"} style={{ textDecoration: "none" }}>
+              <Link to={mypageLink} style={{ textDecoration: "none" }}>
                 <SelectMenu>MyPage</SelectMenu>
               </Link>
               <SelectMenu onClick={Logout}>Logout</SelectMenu>
@@ -61,17 +71,8 @@ const SelectMenus = styled.div`
   @media (min-width: 768px) and (max-width: 1024px) {
     left: -3rem;
   }
-  /*display: none;
-  margin-top: -1rem;
-  float: right;
-  margin-right: 3rem;
-   position: absolute; */
-  /*background-color: #f9f9f9;
-  min-width: 100px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 3;*/
 `;
-const SelectMenu = styled.a`
+const SelectMenu = styled.div`
   color: black;
   padding: 10px 12px;
   text-decoration: none;

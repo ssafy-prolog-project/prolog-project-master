@@ -3,7 +3,6 @@ package com.ssafy.api.service;
 import com.ssafy.api.entity.Post;
 import com.ssafy.api.entity.Tag;
 import com.ssafy.api.entity.TagManage;
-import com.ssafy.api.model.PostResponseDTO;
 import com.ssafy.api.repository.TagJpaRepo;
 import com.ssafy.api.repository.TagManageJpaRepo;
 import lombok.RequiredArgsConstructor;
@@ -24,14 +23,16 @@ public class TagManageService {
     public List<Tag> getAllTags(){
         return tagJpaRepo.findAll();
     }
-
     // 게시물 번호로 tId들 찾기
     public List<String> getTagsByPostCode(Post post){
-
+        // post_code가 tag_manage에 없다면 종료
+        if(!tagManageJpaRepo.findByPost(post).isPresent()) {
+            return null;
+        }
         List<TagManage> mngs = tagManageJpaRepo.findByPost(post).get();
         List<String> tags = new ArrayList<>();
-        for (int i = 0; i < mngs.size(); i++) {
-            tags.add(mngs.get(i).getTag().getTag());
+            for (int i = 0; i < mngs.size(); i++) {
+                tags.add(mngs.get(i).getTag().getTag());
         }
         return tags;
     }

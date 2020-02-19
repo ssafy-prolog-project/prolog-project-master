@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
+import { withRouter } from "react-router-dom";
 
 const NavItems = ({
   onSortByViews,
@@ -11,6 +12,7 @@ const NavItems = ({
 }) => {
   const jwt = window.sessionStorage.getItem("jwt");
   const { accessToken, provider, id, name, profileimg } = values;
+
   return (
     <NavItemsLayout>
       <Link to={"/"} style={{ textDecoration: "none" }}>
@@ -23,13 +25,6 @@ const NavItems = ({
           <ItemContent>조회수순</ItemContent>
         </NavItem>
       </Link>
-      {jwt ? (
-        <NavItem onClick={onSortByAuthors}>
-          <ItemContent>내가 쓴 글</ItemContent>
-        </NavItem>
-      ) : (
-        <></>
-      )}
     </NavItemsLayout>
   );
 };

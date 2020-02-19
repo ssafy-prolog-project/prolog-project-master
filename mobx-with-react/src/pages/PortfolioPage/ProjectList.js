@@ -7,10 +7,7 @@ import { ko } from 'date-fns/locale'
 
 const ProjectList = ({post}) => {
     const { postCode, coverImage, coverColor, title, body,  updateDate } = post;
-    //console.log(updateDate)
-    //const dateFormat = fromUnixTime(updateDate)
-    //console.log("여기야!!!!!" + dateFormat + " " + updateDate);
-    //const dateInfo = formatDistanceToNow(dateFormat, {addSuffix:true, locale:ko})
+    
    
     return(
         <ProjectListLayout>
@@ -25,7 +22,6 @@ const ProjectList = ({post}) => {
             </OutL>
             <OutT>
                 <CardTitle>{title}</CardTitle>
-                {/* <CardDescription>{text}</CardDescription> */}
                 <p style={{ color: "black" }}>{updateDate}</p>
                 
             </OutT>

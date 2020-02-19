@@ -57,7 +57,6 @@ export default class EditorStore {
 
   @action setTitle(title) {
     this.title = title;
-    console.log(this.title);
   }
 
   @action setCoverColor(coverColor) {
@@ -70,7 +69,6 @@ export default class EditorStore {
 
   @action setBody(body) {
     this.body = body;
-    console.log(this.body);
   }
 
   @action setTags(tags) {
@@ -89,7 +87,6 @@ export default class EditorStore {
 
   @action save(id) {
     //저장하고 글 읽는 페이지로 옮겨가도록
-    console.log("저장저장" + id);
     this.inProgress = true;
     this.errors = undefined;
     const post = {
@@ -103,13 +100,5 @@ export default class EditorStore {
     return id === undefined
       ? this.root.postStore.createPost(post)
       : this.root.postStore.updatePost(post);
-    // return (this.postCode ? this.root.postStore.updatePost(post) : this.root.postStore.createPost(post))
-    //     .then(res=>{
-    // console.log(res)
-    //     })
-    //     .catch(action((err) => {
-    //         this.errors = err.response && err.response.body && err.response.body.errors; throw err;
-    //       }))
-    //       .finally(action(() => { this.inProgress = false; }));
   }
 }
