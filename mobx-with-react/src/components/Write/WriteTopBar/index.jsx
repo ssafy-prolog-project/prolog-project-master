@@ -48,6 +48,7 @@ const WriteTopBar = ({
 
   const handleChange = color => {
     setColor(color.hex);
+    changeCoverColor(color.hex)
   };
 
   const popover = {
