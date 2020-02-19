@@ -15,8 +15,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @Api(tags = {"2. User"})
 @RequiredArgsConstructor
 @RestController
@@ -138,11 +136,4 @@ public class UserController {
         return responseService.getSingleResult(userJpaRepo.save(user));
     }
 
-//    @ApiOperation(value = "Get 테스트", notes = "테스트")
-//    @GetMapping(value = "/test/{msrl}")
-//    public ListResult<User> getTest(
-//            @ApiParam(value = "회원번호", required = true) @PathVariable long msrl) {
-//        // 성공 결과 정보만 필요한경우 getSuccessResult()를 이용하여 결과를 출력한다.
-//        return responseService.getListResult(userJpaRepo.findTechsByMsrl(msrl));
-//    }
 }

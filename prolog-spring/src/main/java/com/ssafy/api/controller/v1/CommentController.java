@@ -1,10 +1,8 @@
 package com.ssafy.api.controller.v1;
 
 import com.ssafy.api.entity.Comment;
-import com.ssafy.api.entity.User;
 import com.ssafy.api.model.response.CommonResult;
 import com.ssafy.api.model.response.ListResult;
-import com.ssafy.api.model.response.SingleResult;
 import com.ssafy.api.service.CommentService;
 import com.ssafy.api.service.ResponseService;
 import io.swagger.annotations.Api;
