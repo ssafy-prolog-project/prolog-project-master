@@ -1,6 +1,5 @@
 package com.ssafy.api.controller.common;
 
-import com.google.gson.Gson;
 import com.ssafy.api.model.social.RetGithubAuth;
 import com.ssafy.api.model.social.RetGoogleAuth;
 import com.ssafy.api.model.social.RetKakaoAuth;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 @RequiredArgsConstructor
@@ -25,8 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class SocialController {
 
     private final Environment env;
-    private final RestTemplate restTemplate;
-    private final Gson gson;
     private final KakaoService kakaoService;
     private final GoogleService googleService;
     private final GithubService githubService;

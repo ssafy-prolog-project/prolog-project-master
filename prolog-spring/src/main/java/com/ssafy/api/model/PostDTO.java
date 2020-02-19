@@ -3,9 +3,6 @@ package com.ssafy.api.model;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 @Data
 @NoArgsConstructor
