@@ -2,18 +2,10 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
-import { withRouter } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
 // component
-import Logo from "../../components/NavBar/Logo";
 import UserButton from "../../components/Common/UserButton";
-
-import PostMeta from "../../components/Post/PostMeta";
-import PostDetail from "../../components/Post/PostDetail";
-import PostTags from "../../components/Post/PostTags";
-import PostComments from "../../components/Post/PostComments";
-import PostActions from "../../components/Post/PostActions";
 
 @inject("postStore", "userStore", "commentStore", "authStore")
 // @withRouter
@@ -22,9 +14,7 @@ class PostDetailPage extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     this.props.postStore.loadPost(id, { acceptcached: true });
-    // store에 커멘트 id를 저장한 다음에 커멘트를 불러온다.
     this.props.commentStore.setPostId(id);
-    //this.props.commentStore.loadComments();
   }
 
   handleDeletePost = id => {
@@ -47,21 +37,12 @@ class PostDetailPage extends Component {
     const id = this.props.match.params.id;
     this.props.postStore.getPost(id);
     const post = this.props.postStore.detailPost;
-    const check = false;
-
-    const { comments } = this.props.commentStore;
 
     if (!this.props.postStore.detailPost)
       return <h1>Post가 없습니다. 에러처리</h1>;
-    //console.log(this.props.postStore.detailPost);
 
     //author는 유저정보가 들어오고 클래스여야한다.
     const { values } = this.props.authStore;
-    const { accessToken, provider, vid, name, profileimg } = values;
-    const Logout = () => {
-      console.log("logout 발생");
-      this.props.authStore.logout();
-    };
     const Delete = () => {
       this.props.postStore
         .deletePost(id)
@@ -74,6 +55,9 @@ class PostDetailPage extends Component {
     ) {
       this.check = true;
     }
+    const d = new Date();
+    let date =
+      1900 + d.getYear() + " " + (d.getMonth() + 1) + " " + d.getDate();
     return (
       <PostDetailPageLayout>
         <PostViewHeader color={post.coverColor}>
@@ -89,13 +73,13 @@ class PostDetailPage extends Component {
                 <Coverimg src={post.coverImage}></Coverimg>
                 <Title>{post.title}</Title>
                 <Author>작성자 : {post.userName}</Author>
-                <Date>작성날짜 : {post.createDate}</Date>
+                <WriteDate>작성날짜 : {date}</WriteDate>
               </>
             ) : (
               <Cover color={post.coverColor}>
                 <Title>{post.title}</Title>
                 <Author>작성자 : {post.userName}</Author>
-                <Date>작성날짜 : {post.createDate}</Date>
+                <WriteDate>작성날짜 : {date}</WriteDate>
               </Cover>
             )}
 
@@ -133,26 +117,6 @@ class PostDetailPage extends Component {
             ) : (
               <></>
             )}
-
-            {/* <PostMeta
-              post={this.props.postStore.detailPost}
-              canModify={canModify}
-              onDelete={this.handleDeletePost}
-            ></PostMeta>
-            <PostDetail postid={this.props.postStore.detailPost.postCode}></PostDetail>
-            <PostTags></PostTags>
-            <hr></hr>
-            <PostActions
-              canModify={canModify}
-              post={this.props.postStore.detailPost}
-              onDelete={this.handleDeletePost}
-            />
-            <PostComments
-              comments={comments}
-              postId={this.props.postStore.detailPost.postCode}
-              currentUser={currentUser}
-              onDelete={this.handleDeleteComment}
-            ></PostComments> */}
           </PostContent>
         </PostContentWrapper>
       </PostDetailPageLayout>
@@ -170,7 +134,6 @@ const Tag = styled.div`
   margin-right: 0.5rem;
   padding: 5px 7px 5px 7px;
   margin-bottom: 0.5rem;
-  /* text-decoration: underline; */
 `;
 const TagBox = styled.div`
   float: left;
@@ -220,7 +183,7 @@ const Title = styled.div`
   font-family: Inconsolas;
   color: white;
 `;
-const Date = styled.div`
+const WriteDate = styled.div`
   z-index: 2;
   padding-left: 15rem;
   width: 70%;
@@ -239,33 +202,21 @@ const Coverimg = styled.img`
 const Cover = styled.div`
   z-index: 2;
   height: 28rem;
-  /* border-bottom-style: solid;
-  border-color: gray;
-  border-width: 1px; */
   position: relative;
   background-color: ${props => props.color};
-  /* -moz-transition: all 0.2s ease-in;
-  -o-transition: all 0.2s ease-in;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in; */
 `;
 
 export default PostDetailPage;
 export const LINKS = styled(Link)``;
 
-export const DetailUserButton = styled(UserButton)`
-
-`;
-
+export const DetailUserButton = styled(UserButton)``;
 
 const EditorLayout = styled.div`
   box-sizing: border-box;
-  /* border: 1px solid #ddd; */
   cursor: text;
   padding: 16px;
   border-radius: 2px;
   margin-bottom: 2em;
-  /* box-shadow: inset 0px 1px 8px -3px #ababab; */
   background: #fefefe;
 `;
 const TestContainer = styled.div`
@@ -283,14 +234,10 @@ const PostDetailPageLayout = styled.div`
   width: 100%;
   display: grid;
   grid-template-rows: 5rem;
-  /* grid-template-columns: 15% 70% 15%;
-  grid-template-areas: "nav content"; */
 `;
 
-//TODO 얘는 그리드말고 나중에 flex로 양방향 쪼개기 하면 될듯
 const PostViewHeader = styled.div`
   display: grid;
-  /* grid-template-columns: repeat(5, 1fr); */
   grid-template-areas: "logo . . . . . . . . . . . test .";
   height: 100%;
   width: 100%;
@@ -309,10 +256,6 @@ const MLogo = styled.div`
   padding-top: 1rem;
 `;
 
-const DIV = styled.div`
-  grid-area: test;
-`;
-
 const PostContentWrapper = styled.div`
   /* padding-top: 5rem; */
   padding-bottom: 5rem;
@@ -326,33 +269,9 @@ const PostContentWrapper = styled.div`
   }
 `;
 
-const Left = styled.div`
-  grid-area: left;
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-const Right = styled.div`
-  grid-area: right;
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
 const PostContent = styled.div`
   grid-area: contents;
-  /* padding-left: 3rem;
-  padding-right: 3rem; */
 
   @media (max-width: 768px) {
-    /* padding-left: 1rem;
-    padding-right: 1rem; */
   }
-`;
-
-const CenterAreaLayout = styled.div`
-  grid-template-columns: auto;
-  height: 70vh;
-  display: grid;
 `;

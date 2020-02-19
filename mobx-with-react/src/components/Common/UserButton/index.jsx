@@ -4,26 +4,25 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 import LoginButton from "../LoginButton";
-import jwtDecode from 'jwt-decode';
+import jwtDecode from "jwt-decode";
 
 @inject("userStore", "authStore")
 @observer
-// 누르면 버튼으로 할 수 있는 동작 구현
 class UserButton extends Component {
   render() {
     const Logout = () => {
       this.props.authStore.logout();
     };
 
-    let userid = 0
-    let portfolioLink = `/portfolio/${userid}`
-    let mypageLink = `/mypage/${userid}`
+    let userid = 0;
+    let portfolioLink = `/portfolio/${userid}`;
+    let mypageLink = `/mypage/${userid}`;
     const check = this.props.authStore.token;
-    
-    if (check){
-      userid = jwtDecode(check).sub
-      portfolioLink = `/portfolio/${userid}`
-      mypageLink = `/mypage/${userid}`
+
+    if (check) {
+      userid = jwtDecode(check).sub;
+      portfolioLink = `/portfolio/${userid}`;
+      mypageLink = `/mypage/${userid}`;
     }
     return (
       <Img>
@@ -37,7 +36,13 @@ class UserButton extends Component {
               <Link to={portfolioLink} style={{ textDecoration: "none" }}>
                 <SelectMenu>Portfolio</SelectMenu>
               </Link>
-              <Link to={"/mypage/"+jwtDecode(window.sessionStorage.getItem("jwt")).sub} style={{ textDecoration: "none" }}>
+              <Link
+                to={
+                  "/mypage/" +
+                  jwtDecode(window.sessionStorage.getItem("jwt")).sub
+                }
+                style={{ textDecoration: "none" }}
+              >
                 <SelectMenu>MyPage</SelectMenu>
               </Link>
               <SelectMenu onClick={Logout}>Logout</SelectMenu>
@@ -79,12 +84,6 @@ const SelectMenu = styled.div`
   display: block;
   text-align: left;
 
-  /* position: absolute; */
-  /* color: black;
-  padding: 10px 12px;
-  display: block;
-  text-align: left;
-  position: absolute; */
   cursor: pointer;
   :hover {
     background-color: #b0b0b0;
