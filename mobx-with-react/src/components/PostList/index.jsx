@@ -4,7 +4,6 @@ import PostCard from "./PostCard";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 import Loader from "react-loader-spinner";
-import { decorate, observable, action } from "mobx";
 
 @inject("postStore")
 @observer

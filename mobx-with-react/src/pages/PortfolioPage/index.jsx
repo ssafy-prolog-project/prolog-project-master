@@ -6,7 +6,6 @@ import About from "./About";
 import Skills from "../../components/Portfolio/Skills";
 import Project from "./Project";
 import Contact from "./Contact";
-import jwtDecode from "jwt-decode";
 
 @inject("portfolioStore", "authStore")
 @observer

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 // import { ko } from 'date-fns/locale'
 
 const PostCard = ({ post }) => {
-    const { postCode, coverImage, title, body, author, updateDate, postView, coverColor } = post;
+    const { postCode, coverImage, title, updateDate, postView, coverColor } = post;
     //const dateFormat = fromUnixTime(date)
     //const dateInfo = formatDistanceToNow(dateFormat, {addSuffix:true, locale:ko})
   

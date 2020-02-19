@@ -5,8 +5,6 @@ import styled from "styled-components";
 import TopBar from "../../components/TopBar";
 import MobileNavBar from "../../components/MobileNavBar";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import authStore from '../../stores/authStore'
-import agent from "../../agent"
 
 class NowLoading extends Component{
   render(){

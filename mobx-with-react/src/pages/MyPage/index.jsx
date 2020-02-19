@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import UserHead from "./UserHead";
 import UserContent from "./UserContent"
 import UserProfile from "../../components/UserProfile"
-import jwtDecode from 'jwt-decode';
 
 class MyPage extends Component{
     render(){

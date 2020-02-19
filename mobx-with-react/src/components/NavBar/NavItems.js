@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
-import { withRouter } from "react-router-dom";
 
 const NavItems = ({
   onSortByViews,
@@ -10,9 +9,6 @@ const NavItems = ({
   onSortByDates,
   values
 }) => {
-  const jwt = window.sessionStorage.getItem("jwt");
-  const { accessToken, provider, id, name, profileimg } = values;
-
   return (
     <NavItemsLayout>
       <Link to={"/"} style={{ textDecoration: "none" }}>
