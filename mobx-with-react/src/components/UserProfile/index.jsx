@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 import { Link } from "react-router-dom";
 import { Pencil } from "styled-icons/boxicons-regular/Pencil";
-import {Github} from "styled-icons/boxicons-logos/Github";
-import agent from "../../agent"
-import jwtDecode from 'jwt-decode';
+import { Github } from "styled-icons/boxicons-logos/Github";
+import agent from "../../agent";
+import jwtDecode from "jwt-decode";
 
 require("dotenv").config();
 
@@ -17,7 +17,7 @@ export const PencilIncon = styled(Pencil)`
 `;
 
 export const GithubIcon = styled(Github)`
-width: 2rem;
+  width: 2rem;
   cursor: pointer;
   float: left;
   padding-top: 0.5rem;
@@ -40,23 +40,20 @@ class UserProfile extends Component {
       Apicture: "",
       Aname: "",
       Aemail: "",
-      Aintro: "",
+      Aintro: ""
     };
-    this.uid=this.props.userid;
-    this.Apicture=this.props.userimg;
+    this.uid = this.props.userid;
+    this.Apicture = this.props.userimg;
     this.handleChange = this.handleChange.bind(this);
     this.NameClick = this.NameClick.bind(this);
     this.EmailClick = this.EmailClick.bind(this);
-
   }
   componentDidMount() {
-    agent.Auth.getUserInfo(this.props.authStore.token).then(
-      res => {
-        this.props.authStore.setName(res.data.data.name);
-        this.props.authStore.setEmail(res.data.data.email);
-        this.props.authStore.setIntro(res.data.data.greeting);
-      }
-    )
+    agent.Auth.getUserInfo(this.props.authStore.token).then(res => {
+      this.props.authStore.setName(res.data.data.name);
+      this.props.authStore.setEmail(res.data.data.email);
+      this.props.authStore.setIntro(res.data.data.greeting);
+    });
   }
 
   handleChange = e => {
@@ -70,7 +67,7 @@ class UserProfile extends Component {
       this.props.authStore.setName(this.state.name);
       this.props.authStore.updateName(this.state.name);
     }
-    
+
     const { isEditName } = this.state;
     this.setState({
       isEditName: !isEditName
@@ -88,7 +85,7 @@ class UserProfile extends Component {
       isEditEmail: !isEditEmail
     });
   };
-  
+
   IntroClick = () => {
     if (!this.state.isIntroEdit) {
       this.props.authStore.setIntro(this.state.intro);
@@ -102,36 +99,56 @@ class UserProfile extends Component {
   };
 
   render() {
-    const check = window.sessionStorage.getItem("jwt");
-    const myuid = jwtDecode(window.sessionStorage.getItem("jwt")).sub;
+    const myuid = "";
+    if (
+      window.sessionStorage.getItem("jwt") !== null &&
+      window.sessionStorage.getItem("jwt") !== ""
+    ) {
+      this.myuid = jwtDecode(window.sessionStorage.getItem("jwt")).sub;
+    }
+
     const picture = this.props.authStore.user_info;
     const { name, email, greeting } = this.props.authStore.user_detail;
 
     const showname = (
       <UpdateName>
-        <UserName>Name: 
-        {this.uid==myuid?this.props.authStore.name:this.Aname}
+        <UserName>
+          Name:
+          {this.uid == myuid ? this.props.authStore.name : this.Aname}
         </UserName>
-        {this.uid==myuid?<PencilIncon onClick={this.NameClick}></PencilIncon>: ""}
+        {this.uid == myuid ? (
+          <PencilIncon onClick={this.NameClick}></PencilIncon>
+        ) : (
+          ""
+        )}
       </UpdateName>
     );
 
     const showemail = (
       <UpdateEmail>
-        <UserEmail>Email: 
-        {this.uid==myuid?this.props.authStore.email:this.Aemail}
+        <UserEmail>
+          Email:
+          {this.uid == myuid ? this.props.authStore.email : this.Aemail}
         </UserEmail>
-        {this.uid==myuid?<PencilIncon onClick={this.EmailClick}></PencilIncon>: ""}
+        {this.uid == myuid ? (
+          <PencilIncon onClick={this.EmailClick}></PencilIncon>
+        ) : (
+          ""
+        )}
       </UpdateEmail>
     );
 
     const showintro = (
       <UpdateIntro>
-      <UserIntro>Intro: 
-      {this.props.authStore.intro}
-      
-      </UserIntro>
-      {this.uid==myuid?<PencilIncon onClick={this.IntroClick}></PencilIncon> : ""}
+        <UserIntro>
+          Intro:
+          {this.props.authStore.intro}
+        </UserIntro>
+        {this.uid == myuid ? (
+          <PencilIncon onClick={this.IntroClick}></PencilIncon>
+        ) : (
+          ""
+        )}
       </UpdateIntro>
     );
 
@@ -181,19 +198,23 @@ class UserProfile extends Component {
     const viewemail = this.state.isEditEmail ? editemail : showemail;
     const viewintro = this.state.isEditIntro ? editintro : showintro;
 
-    agent.Auth.getOtherInfo(this.uid).then(
-      res=>{
-        this.Apicture=res.data.data.picture;
-        this.Aname=res.data.data.name;
-        this.Aemail=res.data.data.email;
-        this.Aintro=res.data.data.greeting;
-      }
-    )
+    agent.Auth.getOtherInfo(this.uid).then(res => {
+      this.Apicture = res.data.data.picture;
+      this.Aname = res.data.data.name;
+      this.Aemail = res.data.data.email;
+      this.Aintro = res.data.data.greeting;
+    });
     return (
       <UserProfileLayout>
         <Link to={"/mypage"} style={{ textDecoration: "none" }}>
           <Img>
-            {picture ? (this.uid==myuid) ? ( <ProfileImg  src={picture} ></ProfileImg>  ) : (<ProfileImg  src={this.Apicture} ></ProfileImg>) : (
+            {picture ? (
+              this.uid == myuid ? (
+                <ProfileImg src={picture}></ProfileImg>
+              ) : (
+                <ProfileImg src={this.Apicture}></ProfileImg>
+              )
+            ) : (
               <DefaultImage src="https://image.flaticon.com/icons/svg/747/747376.svg"></DefaultImage>
             )}
           </Img>
@@ -235,15 +256,13 @@ const ProfileImg = styled.img`
 `;
 
 const DefaultImage = styled.img`
-
-display: flex;
+  display: flex;
   justify-content: center;
   text-align: center;
   width: 10rem;
   height: 10rem;
   object-fit: cover;
   border-radius: 50%;
-
 
   /* display: flex;
   background-color: ivory;
@@ -265,7 +284,6 @@ const UserInfo = styled.div`
 const UserName = styled.div`
   padding-top: 0.5rem;
   float: left;
-  
 `;
 
 const UserEmail = styled.div`
@@ -278,37 +296,37 @@ const UserIntro = styled.div`
   float: left;
 `;
 const UpdateName = styled.div`
-padding-top: 0.5rem;
- display: flex;
- align-items: center;
+  padding-top: 0.5rem;
+  display: flex;
+  align-items: center;
 `;
 const UpdateEmail = styled.div`
   padding-top: 0.5rem;
   display: flex;
- align-items: center;
+  align-items: center;
 `;
 const UpdateIntro = styled.div`
   padding-top: 0.5rem;
   display: flex;
- align-items: center;
+  align-items: center;
 `;
 
 const InputName = styled.textarea`
-resize: none;
-height: 1rem;
-margin-top:
+  resize: none;
+  height: 1rem;
+  margin-top: ;
 `;
 
 const InputEmail = styled.textarea`
-padding-top: 0.5rem;
-resize: none;
-height: 1rem;
+  padding-top: 0.5rem;
+  resize: none;
+  height: 1rem;
 `;
 
 const InputIntro = styled.textarea`
-padding-top: 0.5rem;
-resize: none;
-height: 1rem;
+  padding-top: 0.5rem;
+  resize: none;
+  height: 1rem;
 `;
 
 export default UserProfile;
