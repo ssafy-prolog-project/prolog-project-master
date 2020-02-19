@@ -26,7 +26,7 @@ class PostDetailPage extends Component {
     this.props.commentStore.setPostId(id);
     //this.props.commentStore.loadComments();
     const currentUser = this.props.authStore.user_detail;
-    const currentid = jwtDecode(check).sub;
+    //const currentid = jwtDecode(check).sub;
   }
 
   handleDeletePost = id => {
