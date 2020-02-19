@@ -8,6 +8,12 @@ export default class AuthStore {
   @observable appName = "Prolog";
   @observable token = window.sessionStorage.getItem("jwt");
   @observable user_info = undefined;
+  @observable nuser_detail = {
+    email: "이메일을 입력해주세요.",
+    name: "",
+    intro: "소개를 입력해주세요.",
+    picture:""
+  };
   @observable user_detail = {
     provider: undefined,
     email: "이메일을 입력해주세요.",
@@ -113,8 +119,7 @@ export default class AuthStore {
 
   @action setAccessToken(token) {
     this.values.accessToken = token;
-    //this.values.accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTU4MTU3ODQxMywiZXhwIjoxNTgxNTgyMDEzfQ.0wQwjm7G-FhM_WvZQ_to7uaaqckrKc7dK7dbCO_qWpo";
-  }
+   }
   @action setRefreshToken(token) {
     this.values.refreshToken = token;
   }
@@ -202,6 +207,13 @@ export default class AuthStore {
   @action
   getUserDetail(jwt) {
     agent.Auth.getUserInfo(jwt);
+  }
+
+  @action 
+   async getOtherDetail(msrl){
+     this.nuser_detail=await agent.Auth.getOtherInfo(msrl);
+
+      return 
   }
 
   @action logout() {

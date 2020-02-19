@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Pencil } from "styled-icons/boxicons-regular/Pencil";
 import {Github} from "styled-icons/boxicons-logos/Github";
 import agent from "../../agent"
+import jwtDecode from 'jwt-decode';
 
 require("dotenv").config();
 
@@ -25,7 +26,6 @@ width: 2rem;
 @inject("userStore", "authStore")
 @observer
 class UserProfile extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -36,13 +36,19 @@ class UserProfile extends Component {
       name: "",
       email: "",
       intro: "",
+      uid: "",
+      Apicture: "",
+      Aname: "",
+      Aemail: "",
+      Aintro: "",
     };
+    this.uid=this.props.userid;
+    this.Apicture=this.props.userimg;
     this.handleChange = this.handleChange.bind(this);
     this.NameClick = this.NameClick.bind(this);
     this.EmailClick = this.EmailClick.bind(this);
-    // this.getStateOrStroeName = this.getStateOrStroeName(this);
-  }
 
+  }
   componentDidMount() {
     agent.Auth.getUserInfo(this.props.authStore.token).then(
       res => {
@@ -96,27 +102,36 @@ class UserProfile extends Component {
   };
 
   render() {
+    const check = window.sessionStorage.getItem("jwt");
+    const myuid = jwtDecode(window.sessionStorage.getItem("jwt")).sub;
     const picture = this.props.authStore.user_info;
     const { name, email, greeting } = this.props.authStore.user_detail;
 
     const showname = (
       <UpdateName>
-        <UserName>Name: {this.props.authStore.name}</UserName>
-        <PencilIncon onClick={this.NameClick}></PencilIncon>
+        <UserName>Name: 
+        {this.uid==myuid?this.props.authStore.name:this.Aname}
+        </UserName>
+        {this.uid==myuid?<PencilIncon onClick={this.NameClick}></PencilIncon>: ""}
       </UpdateName>
     );
 
     const showemail = (
       <UpdateEmail>
-        <UserEmail>Email: {this.props.authStore.email}</UserEmail>
-        <PencilIncon onClick={this.EmailClick}></PencilIncon>
+        <UserEmail>Email: 
+        {this.uid==myuid?this.props.authStore.email:this.Aemail}
+        </UserEmail>
+        {this.uid==myuid?<PencilIncon onClick={this.EmailClick}></PencilIncon>: ""}
       </UpdateEmail>
     );
 
     const showintro = (
       <UpdateIntro>
-      <UserIntro>Intro: {this.props.authStore.intro}</UserIntro>
-      <PencilIncon onClick={this.IntroClick}></PencilIncon>
+      <UserIntro>Intro: 
+      {this.props.authStore.intro}
+      
+      </UserIntro>
+      {this.uid==myuid?<PencilIncon onClick={this.IntroClick}></PencilIncon> : ""}
       </UpdateIntro>
     );
 
@@ -165,15 +180,20 @@ class UserProfile extends Component {
     const viewname = this.state.isEditName ? editname : showname;
     const viewemail = this.state.isEditEmail ? editemail : showemail;
     const viewintro = this.state.isEditIntro ? editintro : showintro;
+
+    agent.Auth.getOtherInfo(this.uid).then(
+      res=>{
+        this.Apicture=res.data.data.picture;
+        this.Aname=res.data.data.name;
+        this.Aemail=res.data.data.email;
+        this.Aintro=res.data.data.greeting;
+      }
+    )
     return (
       <UserProfileLayout>
         <Link to={"/mypage"} style={{ textDecoration: "none" }}>
           <Img>
-            {picture ? (
-              <ProfileImg
-                src={picture}
-              ></ProfileImg>
-            ) : (
+            {picture ? (this.uid==myuid) ? ( <ProfileImg  src={picture} ></ProfileImg>  ) : (<ProfileImg  src={this.Apicture} ></ProfileImg>) : (
               <DefaultImage src="https://image.flaticon.com/icons/svg/747/747376.svg"></DefaultImage>
             )}
           </Img>
@@ -182,8 +202,6 @@ class UserProfile extends Component {
           {viewname}
           {viewemail}
           {viewintro}
-          {/* <GithubIcon></GithubIcon> */}
-          {/*github, instgram...*/}
         </UserInfo>
       </UserProfileLayout>
     );

@@ -21,7 +21,6 @@ const App = () => {
   const authenticated = user != null;
   const login = ({ email, password }) => setUser(signIn({ email, password }));
   const logout = () => setUser(null);
-
   return (
     <div>
       <GlobalStyle></GlobalStyle>

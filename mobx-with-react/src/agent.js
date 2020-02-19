@@ -77,7 +77,11 @@ const Auth = {
     accessToken: snsAccessToken,
     refreshToken: snsRefreshToken,
     user: user
-  })
+  }),
+
+  getOtherInfo: (msrl) =>{
+    return requests.get(`/user/${msrl}`, {})
+  },
 }
 
 
