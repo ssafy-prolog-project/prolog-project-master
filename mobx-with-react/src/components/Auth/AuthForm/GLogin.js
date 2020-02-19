@@ -27,8 +27,20 @@ class GLogin extends Component {
     console.log(res);
     this.props.authStore.setAccessToken(res.accessToken);
     this.props.authStore.setProvider("google");
+<<<<<<< HEAD
     this.props.authStore.login().then(() => {})
     .catch((err)=>{
+=======
+    this.props.authStore.login().then(() => {
+        console.log("우리 서비스 로그인 성공")
+        console.log(this.props.authStore.token);
+        const jwt = this.props.authStore.token;
+        this.props.authStore.setProfileimg(jwt.picture);
+        this.props.authStore.setName(jwt.name);
+        this.props.authStore.setEmail(jwt.email);
+        //window.location.replace("http://localhost:3000/");
+    }).catch((err)=>{
+>>>>>>> Feature-39-IK
         console.log("실패", err)
     })
   };

@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 import { Link } from "react-router-dom";
-import KakaoLogin from "react-kakao-login";
 import { Pencil } from "styled-icons/boxicons-regular/Pencil";
 import {Github} from "styled-icons/boxicons-logos/Github";
+import agent from "../../agent"
 
 require("dotenv").config();
 
@@ -28,7 +28,6 @@ class UserProfile extends Component {
 
   constructor(props) {
     super(props);
-    const check = this.props.authStore.token;
     this.state = {
       isEditName: false,
       isEditEmail: false,
@@ -36,18 +35,37 @@ class UserProfile extends Component {
       profileimg: "",
       name: "",
       email: "",
-      intro: ""
+      intro: "",
     };
     this.handleChange = this.handleChange.bind(this);
+    this.NameClick = this.NameClick.bind(this);
+    this.EmailClick = this.EmailClick.bind(this);
+    // this.getStateOrStroeName = this.getStateOrStroeName(this);
   }
+
+  componentDidMount() {
+    agent.Auth.getUserInfo(this.props.authStore.token).then(
+      res => {
+        this.props.authStore.setName(res.data.data.name);
+        this.props.authStore.setEmail(res.data.data.email);
+        this.props.authStore.setIntro(res.data.data.greeting);
+      }
+    )
+  }
+
   handleChange = e => {
     const nextState = {};
     nextState[e.target.name] = e.target.value;
     this.setState(nextState);
   };
 
-  render() {
+  NameClick = () => {
+    if (!this.state.isNameEdit) {
+      this.props.authStore.setName(this.state.name);
+      this.props.authStore.updateName(this.state.name);
+    }
     
+<<<<<<< HEAD
     const { picture, name, email, greeting } = this.props.authStore.user_info;
     
     const NameClick = () => {
@@ -75,44 +93,60 @@ class UserProfile extends Component {
           email: this.props.authStore.values.email
         });
       }
+=======
+    const { isEditName } = this.state;
+    this.setState({
+      isEditName: !isEditName
+    });
+  };
+>>>>>>> Feature-39-IK
 
-      const { isEditEmail } = this.state;
-      this.setState({
-        isEditEmail: !isEditEmail
-      });
-    };
-    const IntroClick = () => {
-      if (!this.state.isIntroEdit) {
-        this.props.authStore.setIntro(this.state.intro);
-        this.setState({
-          intro: this.props.authStore.values.intro
-        });
-      }
+  EmailClick = () => {
+    if (!this.state.isEmailEdit) {
+      this.props.authStore.setEmail(this.state.email);
+      this.props.authStore.updateEmail(this.state.email);
+    }
 
-      const { isEditIntro } = this.state;
-      this.setState({
-        isEditIntro: !isEditIntro
-      });
-    };
+    const { isEditEmail } = this.state;
+    this.setState({
+      isEditEmail: !isEditEmail
+    });
+  };
+  
+  IntroClick = () => {
+    if (!this.state.isIntroEdit) {
+      this.props.authStore.setIntro(this.state.intro);
+      this.props.authStore.updateIntro(this.state.intro);
+    }
+
+    const { isEditIntro } = this.state;
+    this.setState({
+      isEditIntro: !isEditIntro
+    });
+  };
+
+  render() {
+    const { picture } = this.props.authStore.user_info;
+    const { name, email, greeting } = this.props.authStore.user_detail;
 
     const showname = (
       <UpdateName>
-        <UserName>Name: {name}</UserName>
-        <PencilIncon onClick={NameClick}></PencilIncon>
+        <UserName>Name: {this.props.authStore.name}</UserName>
+        <PencilIncon onClick={this.NameClick}></PencilIncon>
       </UpdateName>
     );
 
     const showemail = (
       <UpdateEmail>
-        <UserEmail>Email: {email}</UserEmail>
-        <PencilIncon onClick={EmailClick}></PencilIncon>
+        <UserEmail>Email: {this.props.authStore.email}</UserEmail>
+        <PencilIncon onClick={this.EmailClick}></PencilIncon>
       </UpdateEmail>
     );
 
     const showintro = (
       <UpdateIntro>
-      <UserIntro>Intro: {greeting}</UserIntro>
-      <PencilIncon onClick={IntroClick}></PencilIncon>
+      <UserIntro>Intro: {this.props.authStore.intro}</UserIntro>
+      <PencilIncon onClick={this.IntroClick}></PencilIncon>
       </UpdateIntro>
     );
 
@@ -126,7 +160,7 @@ class UserProfile extends Component {
           value={this.state.name}
           onChange={this.handleChange}
         ></InputName>
-        <PencilIncon onClick={NameClick}></PencilIncon>
+        <PencilIncon onClick={this.NameClick}></PencilIncon>
       </UpdateName>
     );
 
@@ -140,7 +174,7 @@ class UserProfile extends Component {
           value={this.state.email}
           onChange={this.handleChange}
         />
-        <PencilIncon onClick={EmailClick}></PencilIncon>
+        <PencilIncon onClick={this.EmailClick}></PencilIncon>
       </UpdateEmail>
     );
 
@@ -154,7 +188,7 @@ class UserProfile extends Component {
           value={this.state.intro}
           onChange={this.handleChange}
         />
-        <PencilIncon onClick={IntroClick}></PencilIncon>
+        <PencilIncon onClick={this.IntroClick}></PencilIncon>
       </UpdateIntro>
     );
 
