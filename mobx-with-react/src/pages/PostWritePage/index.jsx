@@ -87,8 +87,8 @@ class PostWritePage extends Component {
     ev.preventDefault();
     const { editorStore } = this.props;
     editorStore.save(this.props.match.params.postCode);
-    //this.props.history.push("/");
-    //window.location.reload();
+    this.props.history.push("/");
+    window.location.reload();
     // .then(post => {
     //   editorStore.reset();
     //   this.props.history.replace(`/post/${post.id}`);

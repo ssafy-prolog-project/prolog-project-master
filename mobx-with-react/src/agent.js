@@ -29,7 +29,8 @@ const requests = {
 
   post: (url, body, header) =>
     axios.post(`${API_ROOT}${VERSION}${url}`, body, { headers: header }),
-  put: (url, body) => axios.put(`${API_ROOT}${VERSION}${url}`, body)
+  put: (url, body, header) =>
+    axios.put(`${API_ROOT}${VERSION}${url}`, body, { headers: header })
 };
 
 // 토큰은 다 헤더로 넘기고, 나머지 정보만 body로 넘긴다.
@@ -88,14 +89,19 @@ const Posts = {
       { "X-AUTH-TOKEN": window.sessionStorage.getItem("jwt") }
     );
   },
-  update: post =>
-    requests.put(`/post/${post.id}`, {
-      title: post.title,
-      coverColor: post.coverColor,
-      coverImage: post.coverImage,
-      body: post.body,
-      tagList: post.tagList
-    }),
+  update: post => {
+    return requests.put(
+      `/post/${post.postCode}`,
+      {
+        title: post.title,
+        coverColor: post.coverColor,
+        coverImage: post.coverImage,
+        body: post.body,
+        tagList: post.tagList
+      },
+      { "X-AUTH-TOKEN": window.sessionStorage.getItem("jwt") }
+    );
+  },
 
   get: id => requests.get(`/post/${id}`),
 

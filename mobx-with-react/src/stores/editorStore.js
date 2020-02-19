@@ -87,19 +87,20 @@ export default class EditorStore {
     this.tagList = this.tagList.filter(t => t !== tag);
   }
 
-  @action save(postCode) {
+  @action save(id) {
     //저장하고 글 읽는 페이지로 옮겨가도록
-    console.log("저장저장" + postCode);
+    console.log("저장저장" + id);
     this.inProgress = true;
     this.errors = undefined;
     const post = {
+      postCode: id,
       title: this.title,
       coverColor: this.coverColor,
       coverImage: this.coverImage,
       body: this.body,
       tagList: this.tagList
     };
-    return postCode === undefined
+    return id === undefined
       ? this.root.postStore.createPost(post)
       : this.root.postStore.updatePost(post);
     // return (this.postCode ? this.root.postStore.updatePost(post) : this.root.postStore.createPost(post))

@@ -124,7 +124,8 @@ export default class PostStore {
 
   @action updatePost(post) {
     return agent.Posts.update(post).then(({ post }) => {
-      this.postRegistry.set(post.id, post);
+      console.log(postMessage);
+      //this.postRegistry.set(post.postCode, post);
       return post;
     });
   }
