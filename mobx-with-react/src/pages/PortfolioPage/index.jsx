@@ -26,8 +26,7 @@ class PortfolioPage extends Component {
         isCurrentUser = true;
       }
     }
-    console.log(window.sessionStorage.getItem("jwt"))
-    
+
     return (
       <PortfolioLayout>
         <Link to={"/"} style={{ textDecoration: "none" }}>

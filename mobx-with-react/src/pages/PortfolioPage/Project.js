@@ -6,21 +6,22 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "react-loader-spinner";
 import ProjectList from "./ProjectList";
 import { EditP } from "../../styles/iconStyle.js";
+import jwtDecode from "jwt-decode";
 
 @inject("postStore")
 @observer
 class Project extends Component {
   state = {
-    items: [],
     hasMoreItems: true
   };
 
   componentDidMount() {
     const { postStore } = this.props;
-    postStore.getItems(0, 6);
-    this.setState({
-      items: postStore.returnItems
-    });
+
+    postStore.loadPosts(
+      jwtDecode(window.sessionStorage.getItem("jwt")).sub * 1
+    );
+    console.log(postStore.returnItems);
   }
 
   render() {
@@ -28,7 +29,7 @@ class Project extends Component {
     const isCurrentUser = this.props.isCurrentUser;
     return (
       <InfiniteLayout
-        dataLength={items.length}
+        dataLength={this.props.postStore.returnItems.length}
         next={this.fetchMoreData}
         hasMore={hasMoreItems}
         loader={
@@ -48,7 +49,7 @@ class Project extends Component {
           Project{isCurrentUser ? <EditP onClick={this.handleClick} /> : <></>}
         </ProTitle>
         <ProjectLayout>
-          {items.map((item, index) => (
+          {this.props.postStore.returnItems.map((item, index) => (
             <ProjectList key={index} post={item} />
           ))}
         </ProjectLayout>
