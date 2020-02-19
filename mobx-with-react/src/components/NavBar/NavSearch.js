@@ -32,11 +32,17 @@ class NavSearch extends Component {
       });
       //window.location.reload();
     };
+    const Enterkey = () => {
+      if (window.event.keyCode == 13) {
+        SearchBtn();
+      }
+    };
     return (
       <NavSearchLayout>
         <NavSearchInput>
           <SearchIcon onClick={SearchBtn}></SearchIcon>
           <InputBox
+            onKeyPress={Enterkey}
             value={this.state.searchText}
             onChange={this.handleChange}
           ></InputBox>

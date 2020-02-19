@@ -96,7 +96,7 @@ class UserProfile extends Component {
   };
 
   render() {
-    const { picture } = this.props.authStore.user_info;
+    const picture = this.props.authStore.user_info;
     const { name, email, greeting } = this.props.authStore.user_detail;
 
     const showname = (

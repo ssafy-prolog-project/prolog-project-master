@@ -203,7 +203,6 @@ export default class AuthStore {
         })
       );
   }
-
   @action register() {
     this.inProgress = true;
     this.errors = undefined;

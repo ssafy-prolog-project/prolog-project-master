@@ -34,7 +34,7 @@ class GLogin extends Component {
         this.props.authStore.setProfileimg(jwt.picture);
         this.props.authStore.setName(jwt.name);
         this.props.authStore.setEmail(jwt.email);
-        //window.location.replace("http://localhost:3000/");
+        window.location.replace("http://localhost:3000/");
     }).catch((err)=>{
         console.log("실패", err)
     })

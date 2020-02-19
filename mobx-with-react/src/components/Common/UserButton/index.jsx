@@ -11,17 +11,15 @@ import LoginButton from "../LoginButton";
 class UserButton extends Component {
   render() {
     const check = this.props.authStore.token;
-
     const Logout = () => {
       console.log("logout 발생");
       this.props.authStore.logout();
     };
-    
     return (
       <Img>
         {check ? (
           <>
-            <ProfileImg src={this.props.authStore.user_info.picture}></ProfileImg>
+            <ProfileImg src={this.props.authStore.user_info}></ProfileImg>
             <SelectMenus className="menubar">
               <Link to={"/write"} style={{ textDecoration: "none" }}>
                 <SelectMenu>Post</SelectMenu>
@@ -50,7 +48,7 @@ const SelectMenus = styled.div`
   background-color: #f1f1f1;
   min-width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  z-index: 10;
+  z-index: 3;
   &:hover .menubar {
     display: block;
   }
@@ -73,7 +71,7 @@ const SelectMenus = styled.div`
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 3;*/
 `;
-const SelectMenu = styled.div`
+const SelectMenu = styled.a`
   color: black;
   padding: 10px 12px;
   text-decoration: none;
@@ -132,7 +130,5 @@ const ProfileImg = styled.img`
 `;
 
 export const LINKS = styled(Link)``;
-
-
 
 export default UserButton;
