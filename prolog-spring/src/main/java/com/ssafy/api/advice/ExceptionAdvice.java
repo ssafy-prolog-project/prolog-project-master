@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.nio.file.AccessDeniedException;
 
 @RequiredArgsConstructor
-//@RestControllerAdvice(basePackages = "com.ssafy.last.last.controller")
 @RestControllerAdvice
 public class ExceptionAdvice {
 

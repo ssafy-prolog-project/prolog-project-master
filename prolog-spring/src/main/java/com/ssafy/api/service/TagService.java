@@ -1,12 +1,10 @@
 package com.ssafy.api.service;
 
-import com.ssafy.api.entity.TagManage;
 import com.ssafy.api.repository.TagJpaRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
-import java.util.List;
+
 
 @Service
 @Transactional
