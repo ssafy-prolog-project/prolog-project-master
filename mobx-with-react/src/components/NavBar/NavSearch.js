@@ -27,6 +27,9 @@ class NavSearch extends Component {
       //alert(this.state.searchText);
       this.props.postStore.searchTitle(this.state.searchText);
       this.props.history.push("/");
+      this.setState({
+        searchText: ""
+      });
       //window.location.reload();
     };
     return (

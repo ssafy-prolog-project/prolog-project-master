@@ -84,7 +84,8 @@ export default class PostStore {
   @action searchTitle(searchText) {
     return agent.Posts.search(searchText)
       .then(res => this.setPostItems(res.data.list))
-      .catch(err => console.log(err))
+
+      .catch(err => alert("검색 결과가 없습니다."))
       .finally(
         action(() => {
           this.loading = false;
