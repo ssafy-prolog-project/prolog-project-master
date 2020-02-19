@@ -119,12 +119,7 @@ public class UserController {
     @GetMapping(value = "/techs/{msrl}")
     public SingleResult<User> getUserTechs(
             @ApiParam(value = "회원번호", required = true) @PathVariable long msrl) {
-        User user = userJpaRepo.findTechsByMsrl(msrl).orElseThrow(CUserNotFoundException::new);
-        String prevValue = user.getTechs();
-        String value = prevValue.substring(1, prevValue.length()-1);
-        value = "'"+value+"'";
-        user.setTechs(value);
-        return responseService.getSingleResult(user);
+        return responseService.getSingleResult(userJpaRepo.findByMsrl(msrl).orElseThrow(CUserNotFoundException::new));
     }
 
     @ApiImplicitParams({
@@ -137,8 +132,7 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         long msrl = Long.parseLong(authentication.getName());
         User user = userJpaRepo.findByMsrl(msrl).orElseThrow(CUserNotFoundException::new);
-        Gson gson = new Gson();
-        user.setTechs(gson.toJson(tech.getTechs()));
+        user.setTechs(tech.getTechs());
         return responseService.getSingleResult(userJpaRepo.save(user));
     }
 

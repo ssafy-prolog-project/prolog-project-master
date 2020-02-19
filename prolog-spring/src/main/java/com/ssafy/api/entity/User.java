@@ -46,9 +46,10 @@ public class User extends CommonDateEntity implements UserDetails {
     private String greeting;
     @Column
     private String refresh_token;
-
-    @Column(columnDefinition="json")
+//    @Column(columnDefinition="json")
+    @Column(length = 1000)
     private String techs;
+
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
