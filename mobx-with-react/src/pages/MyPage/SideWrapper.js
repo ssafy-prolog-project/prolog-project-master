@@ -24,7 +24,7 @@ class SideWrapper extends Component {
     return (
       <SideWrapperLayout>
         {this.state.tags.map((item, index) => (
-          <SideTags>{item}</SideTags>
+          <SideTags key={index}>{item}</SideTags>
         ))}
       </SideWrapperLayout>
     );

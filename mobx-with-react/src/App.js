@@ -43,7 +43,7 @@ const App = () => {
         <Route path="/write/:postCode" component={PostWritePage} />
         <Route path="/write" component={PostWritePage} />
         <Route path="/searchpage" component={SearchPage} />
-        <Route path="/portfolio" component={PortfolioPage} />
+        <Route path="/portfolio/:msrl" component={PortfolioPage} />
         <Route path="/" component={MainPage} />
       </Switch>
     </div>
