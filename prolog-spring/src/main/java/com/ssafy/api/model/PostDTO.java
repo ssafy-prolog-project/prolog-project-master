@@ -3,13 +3,10 @@ package com.ssafy.api.model;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class PostDTO {
 
     //@Size(min=2, max=100)
@@ -25,7 +22,10 @@ public class PostDTO {
     private String coverImage;
 
     @ApiModelProperty(value = "태그 리스트")
-    private String[] tagList;
+    private String[] tagList; // tag table에 넣을것.
+
+//    @ApiModelProperty(value="공개여부")
+//    private boolean privateStatus;
 
 //    @ApiModelProperty(value = "포스트핀")
 //    private boolean pinPost;

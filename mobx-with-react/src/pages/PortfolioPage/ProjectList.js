@@ -6,27 +6,23 @@ import { formatDistanceToNow, fromUnixTime } from 'date-fns'
 import { ko } from 'date-fns/locale'
 
 const ProjectList = ({post}) => {
-    const { id, imgUrl, title, text, author, updateDate, views } = post;
-    //console.log(updateDate)
-    //const dateFormat = fromUnixTime(updateDate)
-    //console.log("여기야!!!!!" + dateFormat + " " + updateDate);
-    //const dateInfo = formatDistanceToNow(dateFormat, {addSuffix:true, locale:ko})
+    const { postCode, coverImage, coverColor, title, body,  updateDate } = post;
+    
    
     return(
         <ProjectListLayout>
             <OutL>
-                <Link to={"/post/" + id}>
-                {imgUrl ? (
-                    <CardImage src={imgUrl}></CardImage>
+                <Link to={"/post/" + postCode}>
+                {coverImage ? (
+                    <CardImage src={coverImage}></CardImage>
                 ) : (
-                    <DefaultImage></DefaultImage>
+                    <DefaultImage color={coverColor}></DefaultImage>
                 )}
                 </Link>
             </OutL>
             <OutT>
                 <CardTitle>{title}</CardTitle>
-                {/* <CardDescription>{text}</CardDescription> */}
-                <p style={{ color: "black" }}>{text}</p>
+                <p style={{ color: "black" }}>{updateDate}</p>
                 
             </OutT>
         </ProjectListLayout>
@@ -74,7 +70,7 @@ const CardImage = styled.img`
     height: 100%;
 `;
 
-const DefaultImage = styled.img`
+const DefaultImage = styled.div`
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     position: absolute;
@@ -82,7 +78,7 @@ const DefaultImage = styled.img`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: black;
+    background-color: ${props => props.color};
 `;
 
 const CardTitle = styled.h2`

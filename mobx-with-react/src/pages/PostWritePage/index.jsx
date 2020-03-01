@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import WriteTopBar from "../../components/Write/WriteTopBar";
 import WriteEditor from "../../components/Write/WriteEditor";
 import WriteTags from "../../components/Write/WriteTags";
@@ -6,6 +6,7 @@ import EditorHelper from "../../components/Write/EditorHelper";
 import styled from "styled-components";
 import { inject, observer } from "mobx-react";
 import { withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 @inject("editorStore", "userStore")
 @withRouter
@@ -13,16 +14,20 @@ import { withRouter } from "react-router-dom";
 class PostWritePage extends Component {
   state = {
     tagInput: "",
-    title:"",
-    coverColor:"",
-      coverImage:"",
-      body:"",
-      tagList:"",
-      postCode:""
+    title: "",
+    coverColor: "",
+    coverImage: "",
+    body: "",
+    tagList: "",
+    postCode: "",
+    modify: false
   };
 
   componentWillMount() {
-    this.props.editorStore.setPostId(this.props.match.params.id);
+    if (this.props.match.params.postCode) {
+      this.props.editorStore.setPostId(this.props.match.params.postCode);
+      this.props.editorStore.loadInitialData().then(res => console.log(res));
+    }
   }
 
   componentDidMount() {
@@ -75,17 +80,14 @@ class PostWritePage extends Component {
   save = ev => {
     ev.preventDefault();
     const { editorStore } = this.props;
-    editorStore.save();
-    
-    // .then(post => {
-    //   editorStore.reset();
-    //   this.props.history.replace(`/post/${post.id}`);
-    // });
+    editorStore.save(this.props.match.params.postCode);
+    this.props.history.push("/");
+    window.location.reload();
   };
 
   setBody = b => {
-    this.props.editorStore.setBody(b)
-  }
+    this.props.editorStore.setBody(b);
+  };
 
   render() {
     const {
@@ -108,10 +110,14 @@ class PostWritePage extends Component {
           changeTitle={this.changeTitle}
           changeCoverColor={this.changeCoverColor}
           changeCoverImage={this.changeCoverImage}
-          postCode={this.postCode}
+          postCode={this.props.match.params.postCode}
           save={this.save}
         ></WriteTopBar>
-        <WriteEditor setBody={this.setBody}></WriteEditor>
+        <WriteEditor
+          setBody={this.setBody}
+          body={body}
+          postCode={this.props.match.params.postCode}
+        ></WriteEditor>
         <WriteAreaLayout>
           <div></div>
           <div>
@@ -119,19 +125,25 @@ class PostWritePage extends Component {
               changeTags={this.changeTags}
               tagList={this.props.editorStore.tagList}
               inProgress={this.inProgress}
+              postCode={this.props.match.params.postCode}
             >
               {" "}
             </WriteTags>
-            <SaveBtn 
-            title={title}
-            coverColor={coverColor}
-            coverImage={coverImage}
-            changeTitle={this.changeTitle}
-            changeCoverColor={this.changeCoverColor}
-            changeCoverImage={this.changeCoverImage}
-            postCode={this.postCode}
-            save={this.save}
-            onClick={this.save}>저장</SaveBtn>
+            <Link to={"/"} style={{ textDecoration: "none" }}>
+              <SaveBtn
+                title={title}
+                coverColor={coverColor}
+                coverImage={coverImage}
+                changeTitle={this.changeTitle}
+                changeCoverColor={this.changeCoverColor}
+                changeCoverImage={this.changeCoverImage}
+                postCode={this.postCode}
+                save={this.save}
+                onClick={this.save}
+              >
+                저장
+              </SaveBtn>
+            </Link>
           </div>
           <div></div>
         </WriteAreaLayout>
@@ -145,16 +157,10 @@ const PostWritePageLayout = styled.div`
   margin-bottom: 5rem;
 `;
 
-const WriteTagLayout = styled.div`
-  background-color: #1a3365;
-  /* align-items: "center"; */
-`;
-
 const WriteAreaLayout = styled.div`
   display: grid;
   grid-template-columns: 15% 70% 15%;
-`
-
+`;
 
 const SaveBtn = styled.div`
   border-radius: 5px;

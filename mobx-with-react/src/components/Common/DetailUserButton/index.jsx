@@ -5,25 +5,18 @@ import { inject, observer } from "mobx-react";
 
 @inject("userStore", "authStore")
 @observer
-// 누르면 버튼으로 할 수 있는 동작 구현
 class DetailUserButton extends Component {
   render() {
-    const { picture, name, email } = this.props.authStore.user_info;
     const check = this.props.authStore.token;
     const Logout = () => {
-      this.props.authStore.setAccessToken(undefined);
-      this.props.authStore.setProfileimg(undefined);
-      this.props.authStore.setId(undefined);
-      this.props.authStore.setName(undefined);
-      this.props.authStore.setEmail("이메일을 입력해주세요.");
-      this.props.authStore.setIntro("소개를 입력해주세요.");
-      this.props.authStore.setProvider(undefined);
+      console.log("logout 발생");
+      this.props.authStore.logout();
     };
     return (
       <Img>
         {check ? (
           <>
-            <ProfileImg src={picture}></ProfileImg>
+            <ProfileImg src={this.props.authStore.user_info}></ProfileImg>
             <SelectMenus className="menubar">
               <Link to={"/write"} style={{ textDecoration: "none" }}>
                 <SelectMenu>Post</SelectMenu>
@@ -47,9 +40,7 @@ class DetailUserButton extends Component {
   }
 }
 
-export const LINKS = styled(Link)`
-  
-`;
+export const LINKS = styled(Link)``;
 
 const LoginButton = styled.div`
   border-style: solid;
@@ -86,15 +77,6 @@ const SelectMenus = styled.div`
     left: -150px;
     top: 0%;
   }
-  /*display: none;
-  margin-top: -1rem;
-  float: right;
-  margin-right: 3rem;
-   position: absolute; */
-  /*background-color: #f9f9f9;
-  min-width: 100px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 3;*/
 `;
 const SelectMenu = styled.a`
   color: black;
@@ -103,12 +85,6 @@ const SelectMenu = styled.a`
   display: block;
   text-align: left;
 
-  /* position: absolute; */
-  /* color: black;
-  padding: 10px 12px;
-  display: block;
-  text-align: left;
-  position: absolute; */
   cursor: pointer;
   :hover {
     background-color: #b0b0b0;
@@ -153,6 +129,5 @@ const ProfileImg = styled.img`
     margin-right: 1rem;
   }
 `;
-
 
 export default DetailUserButton;

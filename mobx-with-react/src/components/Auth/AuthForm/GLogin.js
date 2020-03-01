@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import { GoogleLogin } from "react-google-login";
 import styled from "styled-components";
-import axios from "axios";
-
 import { inject, observer } from "mobx-react";
 
 require("dotenv").config();
@@ -18,29 +16,32 @@ class GLogin extends Component {
       provider: ""
     };
   }
-  // Google Login
+
   responseGoogle = res => {
     this.setState({
       id: res.googleId,
       name: res.profileObj.name,
       provider: "google"
     });
-    console.log("구글 login success");
-    console.log(res);
     this.props.authStore.setAccessToken(res.accessToken);
     this.props.authStore.setProvider("google");
-    this.props.authStore.login().then(() => {
-        console.log("우리 서비스 로그인 성공")
-        // 현재는 cors 에러 나서 실패했는데도 로그인 성공으로 찍어버림.
-    }).catch((err)=>{
-        console.log("실패", err)
-    })
+    this.props.authStore
+      .login()
+      .then(() => {
+        const jwt = this.props.authStore.token;
+        this.props.authStore.setProfileimg(jwt.picture);
+        this.props.authStore.setName(jwt.name);
+        this.props.authStore.setEmail(jwt.email);
+        window.location.replace("http://localhost:3000/");
+      })
+      .catch(err => {
+        console.log("실패", err);
+      });
   };
 
   // Login Fail
   responseFail = err => {
     console.error(err);
-    console.log("FAILED");
   };
 
   render() {

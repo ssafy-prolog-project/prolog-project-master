@@ -1,5 +1,6 @@
 package com.ssafy.api.controller.v1;
 
+import com.google.gson.Gson;
 import com.ssafy.api.advice.exception.CUserNotFoundException;
 import com.ssafy.api.model.response.CommonResult;
 import com.ssafy.api.model.response.ListResult;
@@ -13,8 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @Api(tags = {"2. User"})
 @RequiredArgsConstructor
@@ -38,7 +37,7 @@ public class UserController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "회원 단건 조회", notes = "회원번호(msrl)로 회원을 조회한다")
+    @ApiOperation(value = "내 정보 조회", notes = "jwt으로 내 정보를 조회한다")
     @GetMapping(value = "/user")
     public SingleResult<UserParamDTO> findUserById() {
         // SecurityContext에서 인증받은 회원의 정보를 얻어온다.
@@ -47,6 +46,15 @@ public class UserController {
         String id = authentication.getName();
         // 결과데이터가 단일건인경우 getSingleResult를 이용해서 결과를 출력한다.
         UserParamDTO userParamDTO = new UserParamDTO(userJpaRepo.findByMsrl(Long.parseLong(id)).orElseThrow(CUserNotFoundException::new));
+        return responseService.getSingleResult(userParamDTO);
+    }
+
+    @ApiOperation(value = "회원 단건 조회", notes = "회원번호(msrl)로 회원을 조회한다")
+    @GetMapping(value = "/user/{msrl}")
+    public SingleResult<UserParamDTO> findUserByParhVariableId(@ApiParam(value = "회원 번호", required = true) @PathVariable Long msrl) {
+        // SecurityContext에서 인증받은 회원의 정보를 얻어온다.
+        // 결과데이터가 단일건인경우 getSingleResult를 이용해서 결과를 출력한다.
+        UserParamDTO userParamDTO = new UserParamDTO(userJpaRepo.findByMsrl(msrl).orElseThrow(CUserNotFoundException::new));
         return responseService.getSingleResult(userParamDTO);
     }
 
@@ -97,36 +105,35 @@ public class UserController {
     @DeleteMapping(value = "/user/{msrl}")
     public CommonResult delete(
             @ApiParam(value = "회원번호", required = true) @PathVariable long msrl) {
-        userJpaRepo.deleteById(msrl);
+        try {
+            userJpaRepo.deleteById(msrl);
+        }catch (RuntimeException e){
+            return responseService.getFailResult(2000, "유저 삭제중 문제 발생");
+        }
         // 성공 결과 정보만 필요한경우 getSuccessResult()를 이용하여 결과를 출력한다.
         return responseService.getSuccessResult();
     }
 
-    @ApiOperation(value = "회원 개발스택 리스트 조회", notes = "msrl로 유저 개발 스택 리스트를 조회한다")
+    @ApiOperation(value = "회원 개발스택 Json 조회", notes = "msrl로 유저 개발 스택 Json을 조회한다")
+    @ResponseBody
     @GetMapping(value = "/techs/{msrl}")
-    public ListResult<String> getUserTechs(
+    public SingleResult<User> getUserTechs(
             @ApiParam(value = "회원번호", required = true) @PathVariable long msrl) {
-        return responseService.getListResult(userJpaRepo.getUserTechsByMsrl(msrl));
+        return responseService.getSingleResult(userJpaRepo.findByMsrl(msrl).orElseThrow(CUserNotFoundException::new));
     }
 
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "회원 개발스택 삭제", notes = "msrl로 유저 개발 스택 리스트를 삭제한다")
-    @DeleteMapping(value = "/techs/{tech}")
-    public CommonResult delteUserTechs(
-            @ApiParam(value = "회원번호", required = true) @PathVariable String tech) {
+    @ApiOperation(value = "회원 개발스택 추가, 수정", notes = "msrl로 유저 개발 스택 리스트를 추가, 수정한다")
+    @PostMapping(value = "/techs")
+    public SingleResult<User> createUserTechs(
+            @ApiParam(value = "회원번호", required = true) @RequestBody User tech) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         long msrl = Long.parseLong(authentication.getName());
-//        userJpaRepo.getUserTechsByMsrl(tech, msrl);
-        return responseService.getSuccessResult();
+        User user = userJpaRepo.findByMsrl(msrl).orElseThrow(CUserNotFoundException::new);
+        user.setTechs(tech.getTechs());
+        return responseService.getSingleResult(userJpaRepo.save(user));
     }
 
-    @ApiOperation(value = "Get 테스트", notes = "테스트")
-    @GetMapping(value = "/test/{msrl}")
-    public ListResult<User> getTest(
-            @ApiParam(value = "회원번호", required = true) @PathVariable long msrl) {
-        // 성공 결과 정보만 필요한경우 getSuccessResult()를 이용하여 결과를 출력한다.
-        return responseService.getListResult(userJpaRepo.findTechsByMsrl(msrl));
-    }
 }

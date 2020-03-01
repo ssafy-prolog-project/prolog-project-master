@@ -3,11 +3,9 @@ package com.ssafy.api.controller.v1;
 import com.ssafy.api.advice.exception.CEmailSigninFailedException;
 import com.ssafy.api.advice.exception.CUserCommunityIdMatchException;
 import com.ssafy.api.model.response.SingleResult;
-import com.ssafy.api.model.social.GoogleProfile;
 import com.ssafy.api.model.social.SocialProfile;
 import com.ssafy.api.model.user.UserParamDTO;
 import com.ssafy.api.service.ResponseService;
-import com.ssafy.api.advice.exception.CUserExistException;
 import com.ssafy.api.advice.exception.CUserNotFoundException;
 import com.ssafy.api.config.JwtTokenProvider;
 import com.ssafy.api.model.social.KakaoProfile;
@@ -20,6 +18,7 @@ import com.ssafy.api.service.user.KakaoService;
 import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -97,18 +96,25 @@ public class SignController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "X-AUTH-TOKEN", value = "로그인 성공 후 access_token", required = true, dataType = "String", paramType = "header")
     })
-    @ApiOperation(value = "소셜 언링크", notes = "소셜 회원 언링크을 한다.")
+    @ApiOperation(value = "소셜 언링크", notes = "소셜 회원 언링크을 한다. / 현재 카카오만 가능 ")
     @PostMapping(value = "/unlink/{provider}")
     public CommonResult unlinkByProvider(
             @ApiParam(value = "서비스 제공자 provider", required = true, defaultValue = "kakao") @PathVariable String provider,
             @ApiParam(value = "소셜 access_token", required = true) @RequestHeader String accessToken
     ) {
-        KakaoProfile profile = kakaoService.postKakaoUnlink(accessToken);
-        User user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
-
-        if(!user.getUid().equals(profile.getId())){
-            throw new CUserCommunityIdMatchException();
+        KakaoProfile profile = null;
+        User user = null;
+        if(provider.equals("kakao")){
+            profile = kakaoService.postKakaoUnlink(accessToken);
+            user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider).orElseThrow(CUserNotFoundException::new);
+            if(!user.getUid().equals(profile.getId())){
+                throw new CUserCommunityIdMatchException();
+            }
+        }else {
+            user = userJpaRepo.findByMsrl(Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getName())).orElseThrow(CUserNotFoundException::new);
         }
+
+        userJpaRepo.delete(user);
         return responseService.getSuccessResult();
     }
 
@@ -117,9 +123,6 @@ public class SignController {
     public CommonResult signup(@ApiParam(value = "회원ID : 이메일", required = true) @RequestBody String id,
                                @ApiParam(value = "비밀번호", required = true) @RequestBody String password,
                                @ApiParam(value = "이름", required = true) @RequestBody String name) {
-
-
-
         userJpaRepo.save(User.builder()
                 .uid(id)
                 .password(passwordEncoder.encode(password))
@@ -152,7 +155,6 @@ public class SignController {
         }
 
         Optional<User> user = userJpaRepo.findByUidAndProvider(String.valueOf(profile.getId()), provider);
-
         if (user.isPresent())
             return signinByProvider(provider, accessToken);
 //            throw new CUserExistException();
@@ -167,11 +169,16 @@ public class SignController {
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build();
 
-        userJpaRepo.save(inUser);
+        try{
+            userJpaRepo.save(inUser);
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            return responseService.getFailResult(2000, "유저 저장중 문제가 발생했습니다.");
+        }
+
 
         UserParamDTO userParamDTO = new UserParamDTO(inUser);
 
         return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(inUser.getMsrl()), inUser.getRoles(), userParamDTO));
-//        return responseService.getSuccessResult();
     }
 }

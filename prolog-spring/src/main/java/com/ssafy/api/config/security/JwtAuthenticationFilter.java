@@ -1,10 +1,6 @@
 package com.ssafy.api.config.security;
 
 import com.ssafy.api.config.JwtTokenProvider;
-import com.ssafy.api.model.user.UserParamDTO;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -32,6 +28,8 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         if (token != null && jwtTokenProvider.validateToken(token)) {
             Authentication auth = jwtTokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(auth);
+        }else if(token != null && !jwtTokenProvider.validateToken(token)){
+            // will be custom exception code
         }
         filterChain.doFilter(request, response);
     }

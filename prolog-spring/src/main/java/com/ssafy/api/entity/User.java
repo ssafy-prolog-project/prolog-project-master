@@ -3,15 +3,11 @@ package com.ssafy.api.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -50,14 +46,18 @@ public class User extends CommonDateEntity implements UserDetails {
     private String greeting;
     @Column
     private String refresh_token;
+//    @Column(columnDefinition="json")
+    @Column(length = 1000)
+    private String techs;
+
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
 
-    @ElementCollection(fetch = FetchType.LAZY)
+//    @ElementCollection(fetch = FetchType.LAZY)
 //    @CollectionTable
-    private List<String> techs = new ArrayList<>();
+//    private List<String> techs = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

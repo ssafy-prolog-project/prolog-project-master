@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import styled from "styled-components";
 import Content from "./Content";
-import Tabs from "./Tabs";
 
 class UserContent extends Component{
     render(){
         return(
             <UserContentLayout>
-                <Tabs></Tabs>
-                <Content></Content>
+                <Content userid={this.props.userid}></Content>
             </UserContentLayout>
         )
     }

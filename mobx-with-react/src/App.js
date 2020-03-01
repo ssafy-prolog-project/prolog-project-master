@@ -1,6 +1,7 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { Switch, Route, withRouter, Link } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+import { inject } from "mobx-react";
 
 // Pages
 import MainPage from "./pages/MainPage";
@@ -12,15 +13,14 @@ import SearchPage from "./pages/SearchPage";
 import { signIn } from "./components/Auth/auth";
 import PrivateRoute from "./PrivateRoute";
 import PortfolioPage from "./pages/PortfolioPage";
+import agent from "./agent";
+import authStore from "./stores/authStore"
 
 const App = () => {
-  
-
   const [user, setUser] = useState(null);
   const authenticated = user != null;
   const login = ({ email, password }) => setUser(signIn({ email, password }));
   const logout = () => setUser(null);
-
   return (
     <div>
       <GlobalStyle></GlobalStyle>
@@ -36,11 +36,13 @@ const App = () => {
         {/* <Route path="/post/:id" component={Post} */}
         <Route path="/login" component={LoginPage} />
         <Route path="/post/:id" component={PostDetailPage} />
+        <Route path="/mypage/:msrl" component={MyPage} />
         <Route path="/mypage" component={MyPage} />
         {/* <PrivateRoute path="/mypage" component={MyPage} /> */}
+        <Route path="/write/:postCode" component={PostWritePage} />
         <Route path="/write" component={PostWritePage} />
         <Route path="/searchpage" component={SearchPage} />
-        <Route path="/portfolio" component={PortfolioPage} />
+        <Route path="/portfolio/:msrl" component={PortfolioPage} />
         <Route path="/" component={MainPage} />
       </Switch>
     </div>
